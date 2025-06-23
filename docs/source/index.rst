@@ -2,12 +2,12 @@ Welcome to the '|SDK_project|' documentation
 ============================================
 
 The '|SDK_project|' is a collection of libraries and tools to assist with the
-integration and deployment of ML use cases via the Vulkan® API. The SDK makes use
+integration and deployment of ML use cases via the Vulkan® API. The ML SDK for Vulkan® makes use
 of new Arm® Vulkan® ML extensions which provide a hardware abstraction to enable
 deployment of ML workloads that are both portable and acceleratable.
 
 The tight integration of ML workloads into the rendering pipeline enables graphics
-use-cases at improved levels of performance and efficiency and by leveraging the
+use cases at improved levels of performance and efficiency and by leveraging the
 TOSA 1.x specification, you can expect consistent behavior accross multiple vendor
 implementations.
 
@@ -33,7 +33,7 @@ implementations.
 
 .. toctree::
    :maxdepth: 2
-   :caption: ML SDK VGF Lib
+   :caption: ML SDK VGF Library
 
    vgf-lib/docs/in/index.rst
 

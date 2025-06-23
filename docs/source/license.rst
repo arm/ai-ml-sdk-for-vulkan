@@ -1,7 +1,7 @@
 License
 =======
 
-Each component of the SDK is licensed under the Apache 2.0 license.
+Each component of the ML SDK for Vulkan® is licensed under the Apache 2.0 license.
 
 The Model Converter component extends this license with LLVM exceptions.
 For more information, see the license section for each component:

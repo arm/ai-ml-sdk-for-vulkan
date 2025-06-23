@@ -3,7 +3,7 @@ Building the ML SDK for Vulkan®
 
 .. include:: ../generated/README.md
   :parser: myst_parser.sphinx_
-  :start-after: ## Build all ML SDK components
+  :start-after: ## Build all the ML SDK for Vulkan® components
   :end-before: ## License
 
 For more information about building the ML SDK for Vulkan®, see the following build instructions:

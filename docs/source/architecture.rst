@@ -28,11 +28,11 @@ to produce a :code:`.vgf` file. The VGF file contents can then be:
     production.
 
 The application or game component that runs on the device, must integrate the
-:code:`ML SDK VGF Lib decoder` library to parse the VGF file contents so that the application or
+:code:`ML SDK VGF Library decoder` library to parse the VGF file contents so that the application or
 game code can set up the required Vulkan® state.
 
 .. note::
-    The ML SDK VGF library does not make any calls into the Vulkan® API. The integration must translate the parsed
+    The ML SDK VGF Library does not make any calls into the Vulkan® API. The integration must translate the parsed
     information directly into Vulkan® API calls, for example, allocating memory and creating resources,
     pipelines, synchronisation, and session objects.
 

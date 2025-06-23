@@ -36,7 +36,7 @@ step to the VGF Dump Tool:
     $vgf_dump --input maxpool.vgf --output scenario.json --scenario-template
 
 .. note::
-   For more information about VGF Lib and the VGF Dump Tool, see: :ref:`ML SDK VGF Lib`.
+   For more information about VGF Library and the VGF Dump Tool, see: :ref:`ML SDK VGF Library`.
 
 
 4. The generated :code:`scenario.json` file contains placeholder names for input and output bindings for the scenario.

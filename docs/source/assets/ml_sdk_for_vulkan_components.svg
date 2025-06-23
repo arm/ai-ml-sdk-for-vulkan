@@ -64,7 +64,7 @@
       <g id="shape34" transform="translate(143.512,481.283)">
          <path fill="#95d600" stroke-width="1" fill-rule="nonzero" stroke="#333e48" d="M 0,0 H 100 V 46 H 0 Z" id="path342" />
          <text xml:space="preserve" style="font-size:24px;font-family:Lato, 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#000000" id="text348">
-            <tspan style="font-size:16px" x="22" y="20" id="tspan344">VGF Lib</tspan>
+            <tspan style="font-size:16px" x="22" y="20" id="tspan344">VGF Library</tspan>
             <tspan style="font-size:16px" x="21.5" y="39" id="tspan346">Encoder</tspan>
          </text>
       </g>
@@ -108,13 +108,13 @@
       </g>
       <g id="shape46" transform="translate(83.9057,682.3854)">
          <text xml:space="preserve" style="font-size:24px;font-family:Lato, 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#000000" id="text396">
-            <tspan style="font-size:16px" x="21.6" y="20" id="tspan392">VGF Lib</tspan>
+            <tspan style="font-size:16px" x="21.6" y="20" id="tspan392">VGF Library</tspan>
             <tspan style="font-size:16px" x="10.6" y="39" id="tspan394">Dump_Tool</tspan>
          </text>
       </g>
       <g id="shape47" transform="translate(464.6472,675.283)">
          <text xml:space="preserve" style="font-size:24px;font-family:Lato, 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#000000" id="text403">
-            <tspan style="font-size:16px" x="13.9" y="20" id="tspan399">VGF Lib</tspan>
+            <tspan style="font-size:16px" x="13.9" y="20" id="tspan399">VGF Library</tspan>
             <tspan style="font-size:16px" x="12.4" y="39" id="tspan401">Decoder</tspan>
          </text>
       </g>
@@ -133,13 +133,13 @@
       <path fill="#95d600" id="shape50" transform="translate(624.681,675.283)" stroke-width="1" fill-rule="nonzero" stroke="#333e48" d="M 0,0 H 100 V 46 H 0 Z" />
       <g id="shape51" transform="translate(632.8162,675.283)">
          <text xml:space="preserve" style="font-size:24px;font-family:Lato, 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#000000" id="text425">
-            <tspan style="font-size:16px" x="13.9" y="20" id="tspan421">VGF Lib</tspan>
+            <tspan style="font-size:16px" x="13.9" y="20" id="tspan421">VGF Library</tspan>
             <tspan style="font-size:16px" x="12.4" y="39" id="tspan423">Decoder</tspan>
          </text>
       </g>
       <g id="shape52" transform="translate(614.9566,730.6098)">
          <text xml:space="preserve" style="font-size:24px;font-family:Lato, 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#000000" id="text430">
-            <tspan style="font-size:16px" x="5.1999998" y="20" id="tspan428">Scenario runner</tspan>
+            <tspan style="font-size:16px" x="5.1999998" y="20" id="tspan428">Scenario Runner</tspan>
          </text>
       </g>
       <g id="shape53" transform="translate(613.9192,766.9444)">

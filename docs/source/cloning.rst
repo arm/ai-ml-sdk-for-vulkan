@@ -33,7 +33,7 @@ You can also find all the required dependencies in :code:`<repo_root>/dependenci
 .. tip::
     You can initialize the repo with only the components you need. This also fetches only the dependencies
     required by the selected components. The :code:`-g all` in the preceding initialization command is equivalent
-    to :code:`-g model-converter vgf-lib scenario-runner`. Some components may also force other components
+    to :code:`-g model-converter vgf-lib scenario-runner emulation-layer`. Some components may also force other components
     to be included. For example, :code:`scenario-runner` automatically includes :code:`vgf-lib` because :code:`vgf-lib`
     is required.
 

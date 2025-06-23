@@ -196,7 +196,7 @@ def parse_arguments():
     )
     parser.add_argument(
         "--vgf-lib",
-        help="Path to ML SDK VGF Lib repo",
+        help="Path to ML SDK VGF Library repo",
         default=f"{ML_SDK_FOR_VULKAN_COMPONENTS_DIR / 'vgf-lib'}",
     )
     parser.add_argument(
