@@ -1,6 +1,5 @@
 .. include:: ../../generated/CONTRIBUTING.md
    :parser: myst_parser.sphinx_
-   :start-after: -->
 
 Secure coding practices
 -----------------------
