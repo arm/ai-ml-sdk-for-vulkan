@@ -22,7 +22,6 @@ implementations.
    tutorial.rst
    tensor_aliasing_tutorial.rst
    license.rst
-   puml.rst
 
 
 .. toctree::
