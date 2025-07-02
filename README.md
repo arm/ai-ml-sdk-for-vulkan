@@ -27,6 +27,7 @@ The build system must have:
 - Python 3.10 or later. Required python libraries for building are listed in
   `tooling-requirements.txt`.
 - Flatbuffers flatc compiler.
+- Doxygen 1.9.1 or later. (When building documentation)
 
 The following dependencies are also needed:
 

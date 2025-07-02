@@ -36,17 +36,20 @@ step to the VGF Dump Tool:
     $vgf_dump --input maxpool.vgf --output scenario.json --scenario-template
 
 .. note::
-   For more information about VGF Library and the VGF Dump Tool, see: :ref:`ML SDK VGF Library`.
+   For more information about VGF Library and the VGF Dump Tool, see: :ref:`ML SDK VGF Library`
 
 
-4. The generated :code:`scenario.json` file contains placeholder names for input and output bindings for the scenario.
-You must replace these names with the actual input and output filenames that will be used when executing the
-scenario. In the example :code:`scenario.json` file generated in the preceding step:
-    a.  Replace the name TEMPLATE_PATH_TENSOR_INPUT_0 with the actual input file :code:`input-0.npy`.
-    b.  Replace the name TEMPLATE_PATH_TENSOR_OUTPUT_0 with the actual output filename :code:`output-0.npy`.
+4. The generated :code:`scenario.json` file contains placeholder names for input and output bindings
+   for the scenario. You must replace these names with the actual input and output filenames that will
+   be used when executing the scenario. In the example :code:`scenario.json` file generated in the preceding step:
+
+   a. Replace the name TEMPLATE_PATH_TENSOR_INPUT_0 with the actual input file :code:`input-0.npy`.
+
+   b. Replace the name TEMPLATE_PATH_TENSOR_OUTPUT_0 with the actual output filename :code:`output-0.npy`.
 
 .. note::
-    For more information about the test description format, see: :ref:`JSON Test Description Specification`.
+    For more information about the test description format, see:
+    :ref:`JSON Test Description Specification`.
 
 
 5. Run the ML SDK Scenario Runner on the Emulation Layer:

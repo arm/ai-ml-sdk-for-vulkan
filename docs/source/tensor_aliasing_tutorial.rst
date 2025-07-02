@@ -115,13 +115,13 @@ This generates a TOSA Flatbuffers :code:`${NAME}.tosa`, where :code:`${NAME}` is
 
     c. Replace :code:`TEMPLATE_PATH_TENSOR_OUTPUT_0` with :code:`output.npy`.
 
-6. Use the ML SDK Scenario Runner to run the scenario:
+5. Use the ML SDK Scenario Runner to run the scenario:
 
 .. code-block:: bash
 
     scenario-runner --scenario scenario.json
 
-7. Run the following code to convert the result into a  :code:`.jpg`  image:
+6. Run the following code to convert the result into a  :code:`.jpg`  image:
 
 .. literalinclude:: assets/save_npy_to_image.py
     :language: python

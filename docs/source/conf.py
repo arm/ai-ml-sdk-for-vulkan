@@ -9,7 +9,7 @@ sys.path.insert(0, os.path.abspath("."))
 
 # Main project config
 SDK_project = "ML SDK for Vulkan®"
-BE_project = "ML SDK Model Converter"
+MC_project = "ML SDK Model Converter"
 EL_project = "ML SDK Emulation Layer for Vulkan®"
 SR_project = "ML SDK Scenario Runner"
 VGF_project = "ML SDK VGF Library"
@@ -27,7 +27,7 @@ git_repo_tool_url = "https://gerrit.googlesource.com/git-repo"
 
 rst_epilog = """
 .. |SDK_project| replace:: %s
-.. |BE_project| replace:: %s
+.. |MC_project| replace:: %s
 .. |EL_project| replace:: %s
 .. |SR_project| replace:: %s
 .. |VGF_project| replace:: %s
@@ -37,7 +37,7 @@ rst_epilog = """
 .. |git_repo_tool_url| replace:: %s
 """ % (
     SDK_project,
-    BE_project,
+    MC_project,
     EL_project,
     SR_project,
     VGF_project,
@@ -61,10 +61,7 @@ extensions = [
 ]
 
 # Disable superfluous warnings
-suppress_warnings = [
-    "autosectionlabel.*",
-    "toc.no_title",
-]
+suppress_warnings = ["autosectionlabel.*", "toc.no_title"]
 autosectionlabel_prefix_document = False
 
 # Breathe Configuration
