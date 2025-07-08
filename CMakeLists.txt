@@ -10,6 +10,11 @@ project(MLSdkForVulkan
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+if(ML_SDK_GENERATE_CPACK STREQUAL "TRUE")
+    set(ML_SDK_GENERATE_CPACK TRUE CACHE BOOL "Generate CPack artifacts")
+else()
+    set(ML_SDK_GENERATE_CPACK FALSE CACHE BOOL "Generate CPack artifacts")
+endif()
 list(APPEND CMAKE_MODULE_PATH
     ${CMAKE_CURRENT_LIST_DIR}/cmake
 )
@@ -46,6 +51,10 @@ macro(optional_add_subdirectory dir_path binary)
         if(ML_SDK_BUILD_DOCS)
             list(APPEND ML_SDK_COMPONENTS_DIRS ${binary})
         endif()
+        if(ML_SDK_GENERATE_CPACK)
+            cpack_add_component(${binary})
+            list(APPEND CPACK_COMPONENTS_ALL ${binary})
+        endif()
     elseif(${binary} STREQUAL "vgf-lib")
         message(WARNING "Component ${dir_path} not found. VGF Library is required by Model Converter and Scenario Runner.")
     else()
@@ -65,6 +74,18 @@ optional_add_subdirectory("${ML_SDK_MODEL_CONVERTER_PATH}" model-converter)
 optional_add_subdirectory("${ML_SDK_EMULATION_LAYER_PATH}" emulation-layer)
 optional_add_subdirectory("${ML_SDK_SCENARIO_RUNNER_PATH}" scenario-runner)
 
+if(ML_SDK_GENERATE_CPACK)
+    set(CPACK_PACKAGE_NAME "ml-sdk")
+    set(CPACK_GENERATOR "TGZ")
+    include(cmake/package.cmake)
+    mlsdk_package(
+        PACKAGE_NAME ${CPACK_PACKAGE_NAME}
+        NAMESPACE ${CPACK_PACKAGE_NAME}
+        LICENSES
+        "${CMAKE_SOURCE_DIR}/LICENSES/Apache-2.0.txt"
+        )
+    include(CPack)
+endif()
 
 ###############################################################################
 # Generate documentation
@@ -73,3 +94,4 @@ if(ML_SDK_BUILD_DOCS)
     include(docs/docs.cmake)
 endif()
 unset(ML_SDK_BUILD_DOCS CACHE)
+unset(ML_SDK_GENERATE_CPACK CACHE)

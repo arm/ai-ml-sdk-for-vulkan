@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 import argparse
+import os
 import pathlib
 import subprocess
 import sys
@@ -76,6 +77,7 @@ class Builder:
             f"-DML_SDK_SCENARIO_RUNNER_PATH={self.scenario_runner}",
             f"-DML_SDK_VGF_LIB_PATH={self.vgf_lib}",
             f"-DML_SDK_EMULATION_LAYER_PATH={self.emulation_layer}",
+            f"-DML_SDK_GENERATE_CPACK={str(self.package != '').upper()})",
         ]
         if self.prefix_path:
             cmake_setup_cmd.append(f"-DCMAKE_PREFIX_PATH={self.prefix_path}")
@@ -112,7 +114,12 @@ class Builder:
             if self.package:
                 package_type = self.package_type or "tgz"
                 cpack_generator = package_type.upper()
+                install_dir = os.path.join(self.build_dir, "install")
 
+                subprocess.run(
+                    ["cmake", "--install", self.build_dir, "--prefix", install_dir],
+                    check=True,
+                )
                 cmake_package_cmd = [
                     "cpack",
                     "--config",
@@ -242,6 +249,7 @@ def parse_arguments():
     parser.add_argument(
         "--package",
         help="Create a package with build artifacts and store it in a provided location",
+        default="",
     )
     parser.add_argument(
         "--package-type",
