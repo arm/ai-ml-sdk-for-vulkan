@@ -42,7 +42,8 @@ In addition to these components, you will find documentation, tutorials, samples
 Platforms
 ---------
 
-This table represents the status of platform support. We will increase support in the upcoming releases.
+This table represents the status of platform support: supported (|/|), unsupported (|x|) and not applicable (|-|).
+We will increase support in the upcoming releases.
 
 +------------------+-----------+----------+----------+-----------+
 | Platforms        | ML SDK    |  ML SDK  | ML SDK   | ML SDK    |
@@ -61,7 +62,7 @@ This table represents the status of platform support. We will increase support i
 +        +---------+-----------+----------+----------+-----------+
 |        | X86-64  | |x|       | |x|      | |-|      | |-|       |
 +--------+---------+-----------+----------+----------+-----------+
-| Android| AArch64 | |-|       | |/|      | |/|      | |/|       |
+| Android| AArch64 | |-|       | |x|      | |x|      | |x|       |
 +        +---------+-----------+----------+----------+-----------+
 |        | X86-64  | |-|       | |x|      | |x|      | |x|       |
 +--------+---------+-----------+----------+----------+-----------+
