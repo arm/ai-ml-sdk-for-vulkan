@@ -4,7 +4,7 @@ Welcome to the '|SDK_project|' documentation
 The '|SDK_project|' is a collection of libraries and tools to assist with the
 integration and deployment of ML use cases via the Vulkan® API. The ML SDK for Vulkan® makes use
 of the new ML extensions for Vulkan® which provide a hardware abstraction to enable
-deployment of ML workloads that are both portable and acceleratable.
+deployment of ML workloads that are both portable and accelerable.
 
 The tight integration of ML workloads into the rendering pipeline enables graphics
 use cases at improved levels of performance and efficiency and by leveraging the
@@ -16,7 +16,6 @@ implementations.
    :caption: Overview
 
    introduction.rst
-   architecture.rst
    cloning.rst
    building.rst
    tutorial.rst
@@ -25,7 +24,7 @@ implementations.
 
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: ML SDK Model Converter
 
    model-converter/docs/in/index.rst

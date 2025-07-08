@@ -1,8 +1,8 @@
 Tensor aliasing tutorial
 ========================
 
-This tutorial builds on the previous :ref:`Converting and deploying a PyTorch model tutorial`
-and describes tensor aliasing by showing how to implement edge detection with Sobel filtering. This
+This tutorial builds on the previous :ref:`Converting and deploying a PyTorch model tutorial`. The tutorial
+describes tensor aliasing by showing you how to implement edge detection with Sobel filtering. This
 tutorial also demonstrates how to implement image filtering using tensor operations.
 
 .. image:: assets/PoolTable.jpg
@@ -12,22 +12,22 @@ tutorial also demonstrates how to implement image filtering using tensor operati
    :width: 400
 
 
-1. The ML SDK Scenario Runner accepts an image in DDS format instead of common
-image formats such as  :code:`.jpg`  or  :code:`.png`. To convert a  :code:`.jpg`  or
-:code:`.png` image to DDS format, use the :code:`save_image_to_dds.py` script below.
+1. The ML SDK Scenario Runner accepts an image in DDS format. It does not accept images in common formats,
+for example, :code:`.jpg`  or  :code:`.png`. To convert a  :code:`.jpg`  or :code:`.png` image to DDS format,
+use the following :code:`save_image_to_dds.py` script:
 
 .. literalinclude:: assets/save_image_to_dds.py
     :language: python
 
 The script requires 3 arguments:
 
-    a. The path to the binary program called dds_utils, which is built as part of the ML SDK Scenario Runner.
+    a. The path to the binary program called :code:`dds_utils`, which is built as part of the ML SDK Scenario Runner.
 
     b. The input image, for example, :code:`PoolTable.jpg`.
 
     c. The output image name, for example, :code:`PoolTable.dds`.
 
-To use the :code:`dds_utils` tool from ML SDK Scenario Runner to generate the file, run:
+Use the :code:`dds_utils` tool from ML SDK Scenario Runner to generate the file:
 
 .. code-block:: bash
 
@@ -36,9 +36,10 @@ To use the :code:`dds_utils` tool from ML SDK Scenario Runner to generate the fi
         PoolTable.jpg \
         PoolTable.dds
 
-The script generates a :code:`PoolTable.dds` file ready for use by the ML SDK Scenario Runner.
+The script generates a :code:`PoolTable.dds` file that the ML SDK Scenario Runner can use.
 
-2. To create the model in Pytorch, and use ExecuTorch to convert it to TOSA FlatBuffers, run following :code:`SobelFiltering.py`:
+2. To create the model in Pytorch, and use ExecuTorch to convert the model to TOSA FlatBuffers, run the following
+:code:`SobelFiltering.py`:
 
 .. literalinclude:: assets/SobelFiltering.py
     :language: python
@@ -53,7 +54,7 @@ This generates a TOSA Flatbuffers :code:`${NAME}.tosa`, where :code:`${NAME}` is
     :code:`image_height` and :code:`image_width` parameters are hard-coded in this script
     based on the input image in the previous step.
 
-3. Use the TOSA FlatBuffers file to generate the VGF file and Scenario Template:
+3. To generate the VGF file and Scenario Template, use the TOSA FlatBuffers file:
 
 .. code-block:: bash
 
@@ -64,13 +65,13 @@ This generates a TOSA Flatbuffers :code:`${NAME}.tosa`, where :code:`${NAME}` is
     vgf_dump --input sobel_filtering.vgf --output scenario.json --scenario-template
 
 .. note::
-    For more information about these commands, see the
+    For more information about these commands, see
     :ref:`Converting and deploying a PyTorch model tutorial`.
 
 4. Modify the Scenario Template:
 
-    a. Add a section under resources before the section for :code:`input_0_ref` tensor resource to include
-       the image input you want to use:
+    a. To include the image input that you want to use, add a section under resources before the section for
+       :code:`input_0_ref` tensor resource:
 
     .. code-block:: json
 
@@ -91,7 +92,7 @@ This generates a TOSA Flatbuffers :code:`${NAME}.tosa`, where :code:`${NAME}` is
 
 
     b. Replace the :code:`src` entry in :code:`input_0_ref` tensor resource with tensor alias to :code:`input_image`. The resource description
-       of this tensor resource should look like this afterwards:
+       of this tensor resource should look like the following code:
 
     .. code-block:: json
 
@@ -115,13 +116,13 @@ This generates a TOSA Flatbuffers :code:`${NAME}.tosa`, where :code:`${NAME}` is
 
     c. Replace :code:`TEMPLATE_PATH_TENSOR_OUTPUT_0` with :code:`output.npy`.
 
-5. Use the ML SDK Scenario Runner to run the scenario:
+5. To run the scenario, use the ML SDK Scenario Runner:
 
 .. code-block:: bash
 
     scenario-runner --scenario scenario.json
 
-6. Run the following code to convert the result into a  :code:`.jpg`  image:
+6. To convert the result into a  :code:`.jpg`  image, run the following code:
 
 .. literalinclude:: assets/save_npy_to_image.py
     :language: python
