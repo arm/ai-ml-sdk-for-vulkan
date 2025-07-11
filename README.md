@@ -1,7 +1,7 @@
 # ML SDK for Vulkan®
 
 The ML SDK for Vulkan® is an SDK to facilitate the development of projects
-using the Arm® Vulkan® ML extensions.
+using the ML extensions for Vulkan®.
 
 ## Content
 
