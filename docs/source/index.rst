@@ -3,7 +3,7 @@ Welcome to the '|SDK_project|' documentation
 
 The '|SDK_project|' is a collection of libraries and tools to assist with the
 integration and deployment of ML use cases via the Vulkan® API. The ML SDK for Vulkan® makes use
-of new Arm® Vulkan® ML extensions which provide a hardware abstraction to enable
+of the new ML extensions for Vulkan® which provide a hardware abstraction to enable
 deployment of ML workloads that are both portable and acceleratable.
 
 The tight integration of ML workloads into the rendering pipeline enables graphics
