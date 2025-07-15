@@ -77,3 +77,5 @@ html_css_files = [
 
 # Enable RTD theme
 html_theme = "sphinx_rtd_theme"
+
+exclude_patterns = ["**/glslang/**", "**/dependencies/**"]
