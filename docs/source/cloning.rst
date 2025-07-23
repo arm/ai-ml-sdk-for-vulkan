@@ -7,7 +7,7 @@ file system. To initialize the repo structure for the entire |SDK_project|, incl
 
 .. code-block:: bash
 
-    repo init -u <manifest-url> -g all
+    repo init -u https://github.com/arm/ai-ml-sdk-manifest.git -g all
 
 After the repository is initialized, fetch the contents with:
 
