@@ -1,9 +1,0 @@
-#
-# SPDX-FileCopyrightText: Copyright 2022-2025 Arm Limited and/or its affiliates <open-source-office@arm.com>
-# SPDX-License-Identifier: Apache-2.0
-#
-
-numpy<2.0
-Pillow==11.0.0
-pytest
-pytest-xdist

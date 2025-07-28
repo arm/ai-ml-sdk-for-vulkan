@@ -1,8 +1,0 @@
-#
-# SPDX-FileCopyrightText: Copyright 2022-2025 Arm Limited and/or its affiliates <open-source-office@arm.com>
-# SPDX-License-Identifier: Apache-2.0
-#
-BasedOnStyle: LLVM
-IndentWidth: 4
-ColumnLimit: 120
-IndentPPDirectives: AfterHash
