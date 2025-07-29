@@ -48,6 +48,7 @@ class Builder:
         self.json = args.json
         self.tosa_mlir_translator = args.tosa_mlir_translator
         self.llvm = args.external_llvm
+        self.skip_llvm_patch = args.skip_llvm_patch
         self.threads = args.threads
 
         self.doc = args.doc
@@ -79,6 +80,10 @@ class Builder:
             f"-DML_SDK_EMULATION_LAYER_PATH={self.emulation_layer}",
             f"-DML_SDK_GENERATE_CPACK={str(self.package != '').upper()})",
         ]
+
+        if self.skip_llvm_patch:
+            cmake_setup_cmd.append("-DMODEL_CONVERTER_APPLY_LLVM_PATCH=OFF")
+
         if self.prefix_path:
             cmake_setup_cmd.append(f"-DCMAKE_PREFIX_PATH={self.prefix_path}")
 
@@ -235,6 +240,12 @@ def parse_arguments():
         "--external-llvm",
         help="Path to the LLVM repo and build",
         default=f"{DEPENDENCIES_DIR / 'llvm-project'}",
+    )
+    parser.add_argument(
+        "--skip-llvm-patch",
+        help="Skip applying LLVM patch. Default: %(default)s",
+        action="store_true",
+        default=False,
     )
     parser.add_argument(
         "--doc",
