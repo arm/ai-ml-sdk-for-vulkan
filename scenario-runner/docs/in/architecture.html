@@ -1,0 +1,264 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Architecture Overview &mdash; ML SDK for Vulkan®  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=b8c9390b" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Cloning the repository" href="cloning.html" />
+    <link rel="prev" title="ML SDK Scenario Runner" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            ML SDK for Vulkan®
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../building.html">Building the ML SDK for Vulkan®</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tensor_aliasing_tutorial.html">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../model-converter/docs/in/index.html">ML SDK Model Converter</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK VGF Library</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../vgf-lib/docs/in/index.html">ML SDK VGF Library</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Scenario Runner</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ML SDK Scenario Runner</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Architecture Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#execution-flow">Execution flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#logical-components">Logical Components</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#scenario">Scenario</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-manager">Data Manager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#context">Context</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#objects">Objects</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pipeline">Pipeline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#compute">Compute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#glsl-compiler">GLSL Compiler</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build.html">Building the ML SDK Scenario Runner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="json.html">JSON Test Description Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML Emulation Layer for Vulkan®</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../emulation-layer/docs/in/index.html">ML Emulation Layer for Vulkan®</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#secure-coding-practices">Secure coding practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#inclusive-language-guidelines">Inclusive language guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/security.html">Security</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ML SDK for Vulkan®</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">ML SDK Scenario Runner</a></li>
+      <li class="breadcrumb-item active">Architecture Overview</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/scenario-runner/docs/in/architecture.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="architecture-overview">
+<h1>Architecture Overview<a class="headerlink" href="#architecture-overview" title="Link to this heading"></a></h1>
+<p>This document is intended for developers who want to understand the architecture
+of the Scenario Runner and or work towards contributing to it. This page is organized as follows:</p>
+<ul class="simple">
+<li><p>The Example Execution Flow section provides an overview of the steps that you must take when executing a workload through the Scenario Runner.</p></li>
+<li><p>The Logical Architectural Components section presents the main logical components and the utility of each component.</p></li>
+</ul>
+<p>This section describes the end-to-end process of a Scenario Runner execution
+and reviews the individual logical modules and their relationship to each other.</p>
+<section id="execution-flow">
+<h2>Execution flow<a class="headerlink" href="#execution-flow" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Test description creation: You must write a test description in JSON format. The test description is also known as the scenario.
+The JSON file lists resources that you need to use and commands that you need to run for the test.</p></li>
+<li><p>Input files: You must provide all necessary input files for the test.</p></li>
+<li><p>Scenario Runner invocation: You must run the Scenario Runner by providing the
+path to the JSON description file.</p></li>
+<li><p>Scenario Runner execution: This loads the test, initializes the resources,
+creates Vulkan® objects, runs the commands and produces output artefacts.</p></li>
+</ul>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../../_images/scenario_runner_seq.svg"><img alt="../../../_images/scenario_runner_seq.svg" src="../../../_images/scenario_runner_seq.svg" style="width: 85%;" />
+</a>
+</figure>
+<p>The following image is an example of a high level Scenario Runner execution flow. The image is a data-driven execution flow:</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../../_images/scenario_runner_lifetime.svg"><img alt="../../../_images/scenario_runner_lifetime.svg" src="../../../_images/scenario_runner_lifetime.svg" style="width: 30%;" />
+</a>
+</figure>
+<p>You must write a test scenario description in JSON format. The JSON file must list resources
+that you need to use and commands that you need to run for the test. If you have specified a “src” attribute for any resources, on start-up, those resources are created and initialized using the data stored in the file pointed by “src” path. Resources with the “dst” attribute
+set will write their contents out to the file, but only after execution of the
+frame has completed. The exact file format used depends on the resource
+type.  The resource also describes some relevant metadata, for example, image
+width and height. Each resource has a unique identifier.</p>
+<p>Internally, the Scenario Runner completes the following processes:</p>
+<ul class="simple">
+<li><p>Scenario creation: The Runner constructs the scenario from the JSON
+description.</p></li>
+<li><p>Compute creation: The Runner object consumes a defined scenario and
+constructs all the underlying Vulkan® objects. For example, memory objects and
+pipelines. The Runner object executes the scenario commands to build up
+the command buffer for execution.</p></li>
+<li><p>Execution: The Runner schedules the constructed Compute commands for
+execution. Once completed, an object is returned that contains information about
+the execution, for example, performance numbers that can be queried.</p></li>
+</ul>
+</section>
+<section id="logical-components">
+<h2>Logical Components<a class="headerlink" href="#logical-components" title="Link to this heading"></a></h2>
+<p>The following figure shows the major logical components of the Scenario Runner module.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../../_images/scenario_runner_arch.svg"><img alt="../../../_images/scenario_runner_arch.svg" src="../../../_images/scenario_runner_arch.svg" style="width: 85%;" />
+</a>
+</figure>
+<section id="scenario">
+<h3>Scenario<a class="headerlink" href="#scenario" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Scenario</span></code> allows you to specify a JSON test description and a context
+to run a set of commands using the resources listed in the JSON file.</p>
+</section>
+<section id="data-manager">
+<h3>Data Manager<a class="headerlink" href="#data-manager" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Manager</span></code> object acts as utility class that helps manage the
+resources used by a test. It is responsible for loading the data from files into
+memory and provide it to the other classes when needed.</p>
+</section>
+<section id="context">
+<h3>Context<a class="headerlink" href="#context" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">Context</span></code> object acts as an aggregate service that manages the
+environment under which the different scenarios are executed. It contains
+objects and services that are needed for the creation and setup of all the
+other individual building blocks, for example, Vulkan® devices.</p>
+</section>
+<section id="objects">
+<h3>Objects<a class="headerlink" href="#objects" title="Link to this heading"></a></h3>
+<p>The Scenario Runner can use different type of Vulkan® objects. For ease, each object is wrapped by dedicated structures that manage their underlying variants. The
+different types of objects that are currently supported are <code class="docutils literal notranslate"><span class="pre">Buffer</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Image</span></code>, <code class="docutils literal notranslate"><span class="pre">RawData</span></code> and <code class="docutils literal notranslate"><span class="pre">Tensor</span></code>.</p>
+</section>
+<section id="pipeline">
+<h3>Pipeline<a class="headerlink" href="#pipeline" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Pipeline</span></code> acts as a wrapper over the creation of Vulkan® pipelines. It creates
+the shader modules, the data graphs, the pipeline layouts and the actual
+pipelines that are then registered for execution.</p>
+</section>
+<section id="compute">
+<h3>Compute<a class="headerlink" href="#compute" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Compute</span></code> is the object that manages the command pool, the command buffers,
+the descriptor sets and all the other relevant structures that are needed for
+scheduling the pipelines. Multiple commands can be registered under a command
+structure which are aggregated into a single command buffer when <code class="docutils literal notranslate"><span class="pre">Compute</span></code>
+is submitted for execution.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Scenario Runner schedules the commands in order. However, the execution
+and completion of the commands can be out-of-order. For this reason, during the <code class="docutils literal notranslate"><span class="pre">Compute</span></code> object construction, the Scenario Runner adds implicit barriers between dispatch
+commands by default.</p>
+</div>
+</section>
+<section id="glsl-compiler">
+<h3>GLSL Compiler<a class="headerlink" href="#glsl-compiler" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">GLSL</span> <span class="pre">Compiler</span></code> object is utility module that uses <code class="docutils literal notranslate"><span class="pre">glslang</span></code> to compile
+GLSL shaders into SPIR-V™.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="ML SDK Scenario Runner" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cloning.html" class="btn btn-neutral float-right" title="Cloning the repository" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, Arm Limited and/or its affiliates &lt;open-source-office@arm.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

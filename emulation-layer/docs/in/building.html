@@ -1,0 +1,219 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building the ML SDK Emulation Layer for Vulkan® &mdash; ML SDK for Vulkan®  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=b8c9390b" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Usage" href="usage.html" />
+    <link rel="prev" title="Cloning the repository" href="cloning.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            ML SDK for Vulkan®
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../building.html">Building the ML SDK for Vulkan®</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tensor_aliasing_tutorial.html">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../model-converter/docs/in/index.html">ML SDK Model Converter</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK VGF Library</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../vgf-lib/docs/in/index.html">ML SDK VGF Library</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Scenario Runner</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../scenario-runner/docs/in/index.html">ML SDK Scenario Runner</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML Emulation Layer for Vulkan®</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ML Emulation Layer for Vulkan®</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Building the ML SDK Emulation Layer for Vulkan®</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#building-for-linux">Building for Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-for-windows">Building for Windows®</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-for-android">Building for Android</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#secure-coding-practices">Secure coding practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#inclusive-language-guidelines">Inclusive language guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/security.html">Security</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ML SDK for Vulkan®</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">ML Emulation Layer for Vulkan®</a></li>
+      <li class="breadcrumb-item active">Building the ML SDK Emulation Layer for Vulkan®</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/emulation-layer/docs/in/building.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="building-the-ml-sdk-emulation-layer-for-vulkan">
+<h1>Building the ML SDK Emulation Layer for Vulkan®<a class="headerlink" href="#building-the-ml-sdk-emulation-layer-for-vulkan" title="Link to this heading"></a></h1>
+<section id="building-for-linux">
+<h2>Building for Linux<a class="headerlink" href="#building-for-linux" title="Link to this heading"></a></h2>
+<p>Building the code requires CMake. Also required are Vulkan® and SPIR-V™
+dependencies including the ML extensions for Vulkan®.</p>
+<p>To build the Emulation Layer, run:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w">                                               </span><span class="se">\</span>
+<span class="w">   </span>-DGLSLANG_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/glslang<span class="w">                 </span><span class="se">\</span>
+<span class="w">   </span>-DSPIRV_CROSS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/SPIRV-Cross<span class="w">         </span><span class="se">\</span>
+<span class="w">   </span>-DSPIRV_HEADERS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/SPIRV-Headers<span class="w">     </span><span class="se">\</span>
+<span class="w">   </span>-DSPIRV_TOOLS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/SPIRV-Tools<span class="w">         </span><span class="se">\</span>
+<span class="w">   </span>-DVULKAN_HEADERS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/Vulkan-Headers
+
+$<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span>build
+</pre></div>
+</div>
+<p>To build the documentation, add the <code class="docutils literal notranslate"><span class="pre">-DVMEL_BUILD_DOCS</span></code> build flag.</p>
+<p>To install the Emulation Layer into a <code class="docutils literal notranslate"><span class="pre">deploy</span></code> folder, run:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>--install<span class="w"> </span>build<span class="w"> </span>--prefix<span class="w"> </span>deploy
+</pre></div>
+</div>
+</section>
+<section id="building-for-windows">
+<h2>Building for Windows®<a class="headerlink" href="#building-for-windows" title="Link to this heading"></a></h2>
+<p>To build on Windows®, the machine must have a Vulkan® ICD and Vulkan® Loader
+installed. Vulkan® API 1.3 must also be supported.</p>
+<p>The reference environment that the Emulation Layer has been built and tested
+with is:</p>
+<ul class="simple">
+<li><p>OS: Win10</p></li>
+<li><p>Build Tool: Visual Studio 17 2022</p></li>
+<li><p>Compiler: MSVC 19.37.32825.0</p></li>
+<li><p>CMake: 3.27.7</p></li>
+<li><p>Terminal: PowerShell</p></li>
+</ul>
+<p>To build the Emulation Layer, run:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$env:REPO</span><span class="p">=</span><span class="s2">&quot;path\to\repo&quot;</span>
+<span class="n">cmake</span> <span class="n">-B</span> <span class="n">build</span>                                                 <span class="p">`</span>
+   <span class="n">-DGLSLANG_PATH</span><span class="p">=</span><span class="s2">&quot;$env:REPO\dependencies\glslang&quot;</span>             <span class="p">`</span>
+   <span class="n">-DSPIRV_CROSS_PATH</span><span class="p">=</span><span class="s2">&quot;$env:REPO\dependencies\SPIRV-Cross&quot;</span>     <span class="p">`</span>
+   <span class="n">-DSPIRV_HEADERS_PATH</span><span class="p">=</span><span class="s2">&quot;$env:REPO\dependencies\SPIRV-Headers&quot;</span> <span class="p">`</span>
+   <span class="n">-DSPIRV_TOOLS_PATH</span><span class="p">=</span><span class="s2">&quot;$env:REPO\dependencies\SPIRV-Tools&quot;</span>     <span class="p">`</span>
+   <span class="n">-DVULKAN_HEADERS_PATH</span><span class="p">=</span><span class="s2">&quot;$env:REPO\dependencies\Vulkan-Headers&quot;</span>
+<span class="n">cmake</span> <span class="p">-</span><span class="n">-build</span> <span class="n">build</span> <span class="p">-</span><span class="n">-config</span> <span class="n">Release</span>
+</pre></div>
+</div>
+<p>To install the Emulation Layer into a <code class="docutils literal notranslate"><span class="pre">deploy</span></code> folder, run:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> <span class="p">-</span><span class="n">-install</span> <span class="n">build</span> <span class="p">-</span><span class="n">-prefix</span> <span class="n">deploy</span>
+</pre></div>
+</div>
+</section>
+<section id="building-for-android">
+<h2>Building for Android<a class="headerlink" href="#building-for-android" title="Link to this heading"></a></h2>
+<p>(Experimental)</p>
+<p>The Android NDK toolset is required to build the Emulation layer for an Android
+device. The Android device must have Vulkan® API 1.3 support.</p>
+<p>To build the Emulation Layer, run:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cmake<span class="w"> </span>-B<span class="w"> </span>build
+<span class="w">   </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="si">${</span><span class="nv">NDK</span><span class="si">}</span>/build/cmake/android.toolchain.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>-DANDROID_ABI<span class="o">=</span>arm64-v8a<span class="w">                                           </span><span class="se">\</span>
+<span class="w">   </span>-DGLSLANG_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/glslang<span class="w">                       </span><span class="se">\</span>
+<span class="w">   </span>-DSPIRV_CROSS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/SPIRV-Cross<span class="w">               </span><span class="se">\</span>
+<span class="w">   </span>-DSPIRV_HEADERS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/SPIRV-Headers<span class="w">           </span><span class="se">\</span>
+<span class="w">   </span>-DSPIRV_TOOLS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/SPIRV-Tools<span class="w">               </span><span class="se">\</span>
+<span class="w">   </span>-DVULKAN_HEADERS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/Vulkan-Headers
+
+$<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span>build
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cloning.html" class="btn btn-neutral float-left" title="Cloning the repository" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, Arm Limited and/or its affiliates &lt;open-source-office@arm.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

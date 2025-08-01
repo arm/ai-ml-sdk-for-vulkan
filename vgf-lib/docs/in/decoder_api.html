@@ -1,0 +1,1174 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VGF Decoder C++ API &mdash; ML SDK for Vulkan®  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=b8c9390b" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="VGF Decoder C API" href="decoder_c_api.html" />
+    <link rel="prev" title="VGF Encoder C++ API" href="encoder_api.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            ML SDK for Vulkan®
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../building.html">Building the ML SDK for Vulkan®</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tensor_aliasing_tutorial.html">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../model-converter/docs/in/index.html">ML SDK Model Converter</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK VGF Library</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ML SDK VGF Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">Building the ML SDK VGF Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="encoder_api.html">VGF Encoder C++ API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">VGF Decoder C++ API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#header-section-decoding">Header section decoding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#model-sequence-table-decoding">Model Sequence Table decoding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#binding-slot-decoding">Binding Slot decoding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#push-constant-decoding">Push Constant decoding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#model-resource-table-decoding">Model Resource Table decoding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-table-decoding">Module Table decoding</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#decoder-api-reference">Decoder API reference</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="decoder_c_api.html">VGF Decoder C API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging_api.html">VGF Logging C++ API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging_c_api.html">VGF Logging C API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vgf_dump.html">VGF Dump Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Scenario Runner</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../scenario-runner/docs/in/index.html">ML SDK Scenario Runner</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML Emulation Layer for Vulkan®</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../emulation-layer/docs/in/index.html">ML Emulation Layer for Vulkan®</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#secure-coding-practices">Secure coding practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#inclusive-language-guidelines">Inclusive language guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/security.html">Security</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ML SDK for Vulkan®</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">ML SDK VGF Library</a></li>
+      <li class="breadcrumb-item active">VGF Decoder C++ API</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/vgf-lib/docs/in/decoder_api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vgf-decoder-c-api">
+<h1>VGF Decoder C++ API<a class="headerlink" href="#vgf-decoder-c-api" title="Link to this heading"></a></h1>
+<p>The VGF Library decoder enables the parsing of VGF files. The VGF Library contains different sections and the methods for each section. The important sections are the Header section, Model Sequence Table, Module Table, Model Resource Table and the Constant Section.</p>
+<section id="header-section-decoding">
+<h2>Header section decoding<a class="headerlink" href="#header-section-decoding" title="Link to this heading"></a></h2>
+<p>The header decoder allows you to verify the validity of the VGF file and the file version.
+The header decoder also uses memory size and offset pairs to provide the location of the other sections within the VGF file.</p>
+<p>To parse the VGF file header, you must load the file into memory and then create a header decoder. To create a header decoder, you must provide the VGF data-pointer:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">HeaderDecoder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">decoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateHeaderDecoder</span><span class="p">(</span><span class="n">vgf_data</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>After creating a header decoder, you can verify the validity of the VGF file and its compatibility with the library. To verify the validity of the VGF file, check if their versions match:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">decoder</span><span class="o">-&gt;</span><span class="n">IsValid</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">decoder</span><span class="o">-&gt;</span><span class="n">CheckVersion</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>To further verify a potentially unsafe vgf file, use the verify functions for each section:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">VerifyModuleTable</span><span class="p">(</span>
+<span class="w">    </span><span class="n">vgf_data</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModuleTableOffset</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModuleTableSize</span><span class="p">());</span>
+
+<span class="n">VerifyModelResourceTable</span><span class="p">(</span>
+<span class="w">    </span><span class="n">vgf_data</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelResourceTableOffset</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelResourceTableSize</span><span class="p">());</span>
+
+<span class="n">VerifyModelSequenceTable</span><span class="p">(</span>
+<span class="w">    </span><span class="n">vgf_data</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelSequenceTableOffset</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelSequenceTableSize</span><span class="p">());</span>
+
+<span class="n">VerifyConstant</span><span class="p">(</span>
+<span class="w">    </span><span class="n">vgf_data</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetConstantsOffset</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetConstantsSize</span><span class="p">());</span>
+</pre></div>
+</div>
+</section>
+<section id="model-sequence-table-decoding">
+<h2>Model Sequence Table decoding<a class="headerlink" href="#model-sequence-table-decoding" title="Link to this heading"></a></h2>
+<p>The Model Sequence table contains all of the segments in the VGF file.
+Each segment entry contains the input and output resources of the segment and their exposed bindings.
+The Model sequence table also contains information about any constants that the segment uses and optional push constants.</p>
+<p>For each resource, either input, output, or constant, a pointer into the Model Resource table is stored to access detailed information of the resource itself.
+For example, if the resource is a tensor or an image, the Model Resource table holds its shape or dimension.</p>
+<p>With the previously created header decoder, you must create a Model Sequence Table decoder.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">VerifyModelSequenceTable</span><span class="p">(</span><span class="n">vgf_data</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelSequenceTableOffset</span><span class="p">(),</span>
+<span class="w">                                         </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelSequenceTableSize</span><span class="p">()));</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">ModelSequenceTableDecoder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">seqTableDecoder</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">CreateModelSequenceTableDecoder</span><span class="p">(</span><span class="n">vgf_data</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelSequenceTableOffset</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>To extract all the relevant information of any segment, you can address each segment using the respective index. For example, you can create a binding slot decoder to extract the inputs or outputs to the segment.</p>
+</section>
+<section id="binding-slot-decoding">
+<h2>Binding Slot decoding<a class="headerlink" href="#binding-slot-decoding" title="Link to this heading"></a></h2>
+<p>Each segment in the Model Sequence Table (MST) corresponds to a single Vulkan® pipeline object. You can use binding slots
+to map how specific resources are to be bound to pipelines via one or more ‘DescriptorSet’ objects when using the Vulkan® API. Optionally, you can also use different views of
+these slots to determine more optimal scheduling strategies. For example, by analyzing the graph connectivity between segments some platforms may enabled overlapped execution
+where dependencies allow.</p>
+<p>Most of the useful information required is contained in the Model Resource Table and each binding slot contains an index to an entry in the table.
+Multiple Binding slots can reference a single Model Resource Table.</p>
+<p>The segment contains 1 or more DescriptorSetInfos. Each DescriptorSetInfos correspond to a separate Vulkan® descriptor set object required by the associated Vulkan® pipeline.</p>
+<p>Therefore, when you translate the VGF contents to Vulkan® API calls, there are 2 distinct stages where you need the binding slot information:</p>
+<ol class="arabic simple">
+<li><p>During creation of the descriptor set layout</p></li>
+<li><p>During writing of the descriptor set</p></li>
+</ol>
+<p>There are several routes to getting binding slot information depending on the required view.</p>
+<ol class="arabic simple">
+<li><p>The most common route is via DescriptorSetInfos on the ‘Segment’. Each segment has a list of descriptor sets which themselves contain a view of the binding slots. There is a 1-1
+mapping between the DescriptorSetInfos in the Model Sequence Table and the Vulkan® API DescriptorSets.</p></li>
+<li><p>The ModelSequenceTable has a list of binding slots that form the inputs and outputs to the entire model. This is useful when connecting game or app resources to the model.</p></li>
+<li><p>Each segment has a list of input and output binding slots. You can use the binding slots for for graph connectivity analysis.</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">segmentIndex</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">seqTableDecoder</span><span class="o">-&gt;</span><span class="n">modelSequenceTableSize</span><span class="p">());</span>
+<span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">discriptorSetInfoIndex</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">seqTableDecoder</span><span class="o">-&gt;</span><span class="n">getSegmentDescriptorSetInfosSize</span><span class="p">(</span><span class="n">segmentIndex</span><span class="p">));</span>
+
+<span class="w">    </span><span class="n">BindingSlotArrayHandle</span><span class="w"> </span><span class="n">bindingSlotsHandle</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">seqTableDecoder</span><span class="o">-&gt;</span><span class="n">getDescriptorBindingSlotsHandle</span><span class="p">(</span><span class="n">segmentIndex</span><span class="p">,</span><span class="w"> </span><span class="n">discriptorSetInfoIndex</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">numSlots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seqTableDecoder</span><span class="o">-&gt;</span><span class="n">getBindingsSize</span><span class="p">(</span><span class="n">bindingSlotsHandle</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>To setup the corresponding resources for a segment, you can use the binding slot decoder together with the Model Resource table.</p>
+</section>
+<section id="push-constant-decoding">
+<h2>Push Constant decoding<a class="headerlink" href="#push-constant-decoding" title="Link to this heading"></a></h2>
+<p>Vulkan® push constants are also supported in the VGF encoding. The push constants are available in the segment info.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">mlsdk_decoder_push_constant_ranges_handle</span><span class="w"> </span><span class="n">pcrHandle</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">mlsdk_decoder_model_sequence_get_segment_push_constant_range</span><span class="p">(</span><span class="n">modelSequenceDecoder</span><span class="p">,</span><span class="w"> </span><span class="n">segmentIndex</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">numRanges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mlsdk_decoder_get_push_constant_ranges_size</span><span class="p">(</span><span class="n">modelSequenceDecoder</span><span class="p">,</span><span class="w"> </span><span class="n">pcrHandle</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">numRanges</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">rangeIdx</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">rangeOffset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mlsdk_decoder_get_push_constant_range_offset</span><span class="p">(</span><span class="n">modelSequenceDecoder</span><span class="p">,</span><span class="w"> </span><span class="n">pcrHandle</span><span class="p">,</span><span class="w"> </span><span class="n">rangeIdx</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">rangeSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mlsdk_decoder_get_push_constant_range_size</span><span class="p">(</span><span class="n">modelSequenceDecoder</span><span class="p">,</span><span class="w"> </span><span class="n">pcrHandle</span><span class="p">,</span><span class="w"> </span><span class="n">rangeIdx</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">rangeStageFlags</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">mlsdk_decoder_get_push_constant_range_stage_flags</span><span class="p">(</span><span class="n">modelSequenceDecoder</span><span class="p">,</span><span class="w"> </span><span class="n">pcrHandle</span><span class="p">,</span><span class="w"> </span><span class="n">rangeIdx</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="model-resource-table-decoding">
+<h2>Model Resource Table decoding<a class="headerlink" href="#model-resource-table-decoding" title="Link to this heading"></a></h2>
+<p>The Module Resource table stores information used to build up the resources which are needed by the model encoded in the VGF.
+An entry in the table holds the type of the resource, which can be tensor, image, buffer, along with resource specific information.
+For example, a tensor entry contains its element type, shape and stride. However, an image entry contains its image encoding and its dimension.</p>
+<p>To find the correct MRT entry, for example, binding slot ‘0’, you can use the previously acquired BindingSlotArrayHandle:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">slotIndex</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numSlots</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">bindingId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seqTableDecoder</span><span class="o">-&gt;</span><span class="n">getBindingSlotBinding</span><span class="p">(</span><span class="n">bindingSlotsHandle</span><span class="p">,</span><span class="w"> </span><span class="n">slotIndex</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">mrtIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seqTableDecoder</span><span class="o">-&gt;</span><span class="n">getBindingSlotMrtIndex</span><span class="p">(</span><span class="n">bindingSlotsHandle</span><span class="p">,</span><span class="w"> </span><span class="n">slotIndex</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>After you create a Model Resource Table decoder, you can use the obtained mrtIndex to extract information for that binding:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">VerifyModelResourceTable</span><span class="p">(</span><span class="n">vgf_data</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelResourceTableOffset</span><span class="p">(),</span>
+<span class="w">                                         </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelResourceTableSize</span><span class="p">()));</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">ModelResourceTableDecoder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mrtDecoder</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">CreateModelResourceTableDecoder</span><span class="p">(</span><span class="n">vgf_data</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelResourceTableOffset</span><span class="p">());</span>
+
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">numEntries</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mrtDecoder</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">numEntries</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">mrtIndex</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">ResourceCategory</span><span class="w"> </span><span class="n">category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mrtDecoder</span><span class="o">-&gt;</span><span class="n">getCategory</span><span class="p">(</span><span class="n">mrtIndex</span><span class="p">);</span>
+<span class="w">    </span><span class="n">DataView</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mrtDecoder</span><span class="o">-&gt;</span><span class="n">getTensorShape</span><span class="p">(</span><span class="n">mrtIndex</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">DescriptorType</span><span class="o">&gt;</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mrtDecoder</span><span class="o">-&gt;</span><span class="n">getDescriptorType</span><span class="p">(</span><span class="n">mrtIndex</span><span class="p">);</span>
+<span class="w">    </span><span class="n">FormatType</span><span class="w"> </span><span class="n">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mrtDecoder</span><span class="o">-&gt;</span><span class="n">getVkFormat</span><span class="p">(</span><span class="n">mrtIndex</span><span class="p">);</span>
+<span class="w">    </span><span class="n">DataView</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">stride</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mrtDecoder</span><span class="o">-&gt;</span><span class="n">getTensorStride</span><span class="p">(</span><span class="n">mrtIndex</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// ...</span>
+</pre></div>
+</div>
+</section>
+<section id="module-table-decoding">
+<h2>Module Table decoding<a class="headerlink" href="#module-table-decoding" title="Link to this heading"></a></h2>
+<p>The API facilitates the extraction of each module which contains the module type, SPIR-V™ code existence and, if applicable, its corresponding code.</p>
+<p>After you create a Module table decoder, you can extract the respective module of the segment. To extract the module, you can use the moduleIndex:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">VerifyModuleTable</span><span class="p">(</span><span class="n">vgf_data</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModuleTableOffset</span><span class="p">(),</span>
+<span class="w">                                  </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModuleTableSize</span><span class="p">()));</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">ModuleTableDecoder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">moduleDecoder</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">CreateModuleTableDecoder</span><span class="p">(</span><span class="n">vgf_data</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModuleTableOffset</span><span class="p">());</span>
+
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">numModules</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">moduleDecoder</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">moduleIndex</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numModules</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">DataView</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">moduleCode</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">moduleDecoder</span><span class="o">-&gt;</span><span class="n">hasSPIRV</span><span class="p">(</span><span class="n">moduleIndex</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">moduleCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">moduleDecoder</span><span class="o">-&gt;</span><span class="n">getModuleCode</span><span class="p">(</span><span class="n">moduleIndex</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">//...</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+<section id="decoder-api-reference">
+<h3>Decoder API reference<a class="headerlink" href="#decoder-api-reference" title="Link to this heading"></a></h3>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv422BindingSlotArrayHandle">
+<span id="_CPPv322BindingSlotArrayHandle"></span><span id="_CPPv222BindingSlotArrayHandle"></span><span class="target" id="group__VGFDecoderAPI_1ga76235818831bcb5b643000bcdd962a19"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BindingSlotArrayHandle</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">BindingSlotArrayHandle_s</span></span><span class="p"><span class="pre">*</span></span><a class="headerlink" href="#_CPPv422BindingSlotArrayHandle" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv415NameArrayHandle">
+<span id="_CPPv315NameArrayHandle"></span><span id="_CPPv215NameArrayHandle"></span><span class="target" id="group__VGFDecoderAPI_1ga39756d7e63791ebe5b5479c8b4b3b00a"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NameArrayHandle</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">NameArrayHandle_s</span></span><span class="p"><span class="pre">*</span></span><a class="headerlink" href="#_CPPv415NameArrayHandle" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv423PushConstantRangeHandle">
+<span id="_CPPv323PushConstantRangeHandle"></span><span id="_CPPv223PushConstantRangeHandle"></span><span class="target" id="group__VGFDecoderAPI_1gab0d176b09ec88237f53c61be3db21130"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PushConstantRangeHandle</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">PushConstantRangeHandle_s</span></span><span class="p"><span class="pre">*</span></span><a class="headerlink" href="#_CPPv423PushConstantRangeHandle" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv410HeaderSizev">
+<span id="_CPPv310HeaderSizev"></span><span id="_CPPv210HeaderSizev"></span><span id="HeaderSize"></span><span class="target" id="group__VGFDecoderAPI_1gad6b7d8e99ee394beb7c066110a8ccb75"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HeaderSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv410HeaderSizev" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the size of Header section in memory’. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv417HeaderDecoderSizev">
+<span id="_CPPv317HeaderDecoderSizev"></span><span id="_CPPv217HeaderDecoderSizev"></span><span id="HeaderDecoderSize"></span><span class="target" id="group__VGFDecoderAPI_1ga897b837f74d74322ea9415f67f19e28c"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HeaderDecoderSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417HeaderDecoderSizev" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the size of Header decoder in memory’. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv419CreateHeaderDecoderPKv">
+<span id="_CPPv319CreateHeaderDecoderPKv"></span><span id="_CPPv219CreateHeaderDecoderPKv"></span><span id="CreateHeaderDecoder__voidCP"></span><span class="target" id="group__VGFDecoderAPI_1gacf64bcbcc4384c768cd27ec800d66fc2"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">HeaderDecoder</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CreateHeaderDecoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419CreateHeaderDecoderPKv" title="Link to this definition"></a><br /></dt>
+<dd><p>Constructs a Header decoder. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv426CreateHeaderDecoderInPlacePKvPv">
+<span id="_CPPv326CreateHeaderDecoderInPlacePKvPv"></span><span id="_CPPv226CreateHeaderDecoderInPlacePKvPv"></span><span id="CreateHeaderDecoderInPlace__voidCP.voidP"></span><span class="target" id="group__VGFDecoderAPI_1ga9def20537d5771c459d85285954855ef"></span><span class="n"><span class="pre">HeaderDecoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">CreateHeaderDecoderInPlace</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">decoderMem</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv426CreateHeaderDecoderInPlacePKvPv" title="Link to this definition"></a><br /></dt>
+<dd><p>Constructs a Header decoder in-place using pre-allocated memory. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> -- </p></li>
+<li><p><strong>decoderMem</strong> -- </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv422ModuleTableDecoderSizev">
+<span id="_CPPv322ModuleTableDecoderSizev"></span><span id="_CPPv222ModuleTableDecoderSizev"></span><span id="ModuleTableDecoderSize"></span><span class="target" id="group__VGFDecoderAPI_1gaf7325f3d93bb24e2ed9c4b6f8ca17cd4"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ModuleTableDecoderSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422ModuleTableDecoderSizev" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the size of Module Table decoder in memory’. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv417VerifyModuleTablePKv8uint64_t">
+<span id="_CPPv317VerifyModuleTablePKv8uint64_t"></span><span id="_CPPv217VerifyModuleTablePKv8uint64_t"></span><span id="VerifyModuleTable__voidCP.uint64_t"></span><span class="target" id="group__VGFDecoderAPI_1ga061482677c201d7a68e083ea01745c08"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VerifyModuleTable</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417VerifyModuleTablePKv8uint64_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if input points to a valid Module Table. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> -- </p></li>
+<li><p><strong>size</strong> -- Max count of read bytes </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv424CreateModuleTableDecoderPKv">
+<span id="_CPPv324CreateModuleTableDecoderPKv"></span><span id="_CPPv224CreateModuleTableDecoderPKv"></span><span id="CreateModuleTableDecoder__voidCP"></span><span class="target" id="group__VGFDecoderAPI_1gabae1f8f95306acee8e92c731fa386725"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ModuleTableDecoder</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CreateModuleTableDecoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424CreateModuleTableDecoderPKv" title="Link to this definition"></a><br /></dt>
+<dd><p>Constructs a Module Table decoder. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv431CreateModuleTableDecoderInPlacePKvPv">
+<span id="_CPPv331CreateModuleTableDecoderInPlacePKvPv"></span><span id="_CPPv231CreateModuleTableDecoderInPlacePKvPv"></span><span id="CreateModuleTableDecoderInPlace__voidCP.voidP"></span><span class="target" id="group__VGFDecoderAPI_1ga62107027dab952f288d9c0fd28503450"></span><span class="n"><span class="pre">ModuleTableDecoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">CreateModuleTableDecoderInPlace</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">decoderMem</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv431CreateModuleTableDecoderInPlacePKvPv" title="Link to this definition"></a><br /></dt>
+<dd><p>Constructs a Module Table decoder in-place using pre-allocated memory. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> -- </p></li>
+<li><p><strong>decoderMem</strong> -- </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv429ModelResourceTableDecoderSizev">
+<span id="_CPPv329ModelResourceTableDecoderSizev"></span><span id="_CPPv229ModelResourceTableDecoderSizev"></span><span id="ModelResourceTableDecoderSize"></span><span class="target" id="group__VGFDecoderAPI_1gab9221259a4ac222368500faaf507b059"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ModelResourceTableDecoderSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv429ModelResourceTableDecoderSizev" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the size of Module Resource Table decoder in memory’. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv424VerifyModelResourceTablePKv8uint64_t">
+<span id="_CPPv324VerifyModelResourceTablePKv8uint64_t"></span><span id="_CPPv224VerifyModelResourceTablePKv8uint64_t"></span><span id="VerifyModelResourceTable__voidCP.uint64_t"></span><span class="target" id="group__VGFDecoderAPI_1gab674d14d4bfdff5e0dc49bc6c5eca8ac"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VerifyModelResourceTable</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424VerifyModelResourceTablePKv8uint64_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if input points to a valid Model Resource Table. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> -- </p></li>
+<li><p><strong>size</strong> -- Max count of read bytes </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv431CreateModelResourceTableDecoderPKv">
+<span id="_CPPv331CreateModelResourceTableDecoderPKv"></span><span id="_CPPv231CreateModelResourceTableDecoderPKv"></span><span id="CreateModelResourceTableDecoder__voidCP"></span><span class="target" id="group__VGFDecoderAPI_1gafdf5efd7ef5899a8eb92104575130f54"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ModelResourceTableDecoder</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CreateModelResourceTableDecoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv431CreateModelResourceTableDecoderPKv" title="Link to this definition"></a><br /></dt>
+<dd><p>Constructs a Model Resource Table decoder. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv438CreateModelResourceTableDecoderInPlacePKvPv">
+<span id="_CPPv338CreateModelResourceTableDecoderInPlacePKvPv"></span><span id="_CPPv238CreateModelResourceTableDecoderInPlacePKvPv"></span><span id="CreateModelResourceTableDecoderInPlace__voidCP.voidP"></span><span class="target" id="group__VGFDecoderAPI_1gadaae5f25ee5fb73cf334d6d0a596c6bd"></span><span class="n"><span class="pre">ModelResourceTableDecoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">CreateModelResourceTableDecoderInPlace</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">decoderMem</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv438CreateModelResourceTableDecoderInPlacePKvPv" title="Link to this definition"></a><br /></dt>
+<dd><p>Constructs a Model Resource Table decoder in-place using pre-allocated memory. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> -- </p></li>
+<li><p><strong>decoderMem</strong> -- </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv419ConstantDecoderSizev">
+<span id="_CPPv319ConstantDecoderSizev"></span><span id="_CPPv219ConstantDecoderSizev"></span><span id="ConstantDecoderSize"></span><span class="target" id="group__VGFDecoderAPI_1ga091adbe0fac92b339460ecc61384f6b4"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ConstantDecoderSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419ConstantDecoderSizev" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the size of Constant decoder in memory’. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv414VerifyConstantPKv8uint64_t">
+<span id="_CPPv314VerifyConstantPKv8uint64_t"></span><span id="_CPPv214VerifyConstantPKv8uint64_t"></span><span id="VerifyConstant__voidCP.uint64_t"></span><span class="target" id="group__VGFDecoderAPI_1ga0f23387a220d1a9b110d006d331843a0"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VerifyConstant</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414VerifyConstantPKv8uint64_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if input points to a valid Constant section. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> -- </p></li>
+<li><p><strong>size</strong> -- Max count of read bytes </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421CreateConstantDecoderPKv">
+<span id="_CPPv321CreateConstantDecoderPKv"></span><span id="_CPPv221CreateConstantDecoderPKv"></span><span id="CreateConstantDecoder__voidCP"></span><span class="target" id="group__VGFDecoderAPI_1ga9ef0bceef7b28b64a1b1124682b8b382"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ConstantDecoder</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CreateConstantDecoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421CreateConstantDecoderPKv" title="Link to this definition"></a><br /></dt>
+<dd><p>Constructs a Constant section decoder. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> -- Pointer to the Constants section data </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv428CreateConstantDecoderInPlacePKvPv">
+<span id="_CPPv328CreateConstantDecoderInPlacePKvPv"></span><span id="_CPPv228CreateConstantDecoderInPlacePKvPv"></span><span id="CreateConstantDecoderInPlace__voidCP.voidP"></span><span class="target" id="group__VGFDecoderAPI_1ga221c88233e9c2d9124df3099a65f851f"></span><span class="n"><span class="pre">ConstantDecoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">CreateConstantDecoderInPlace</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">decoderMem</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv428CreateConstantDecoderInPlacePKvPv" title="Link to this definition"></a><br /></dt>
+<dd><p>Constructs a Constant section decoder in-place using preallocated memory. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> -- Pointer to the Constants section data </p></li>
+<li><p><strong>decoderMem</strong> -- memory in which to create the decoder </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv424VerifyModelSequenceTablePKv8uint64_t">
+<span id="_CPPv324VerifyModelSequenceTablePKv8uint64_t"></span><span id="_CPPv224VerifyModelSequenceTablePKv8uint64_t"></span><span id="VerifyModelSequenceTable__voidCP.uint64_t"></span><span class="target" id="group__VGFDecoderAPI_1gae31132ffc59e9b2c651474fbfb10199a"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VerifyModelSequenceTable</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424VerifyModelSequenceTablePKv8uint64_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if input points to a valid Model Sequence Table. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> -- </p></li>
+<li><p><strong>size</strong> -- Max count of read bytes </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv431CreateModelSequenceTableDecoderPKv">
+<span id="_CPPv331CreateModelSequenceTableDecoderPKv"></span><span id="_CPPv231CreateModelSequenceTableDecoderPKv"></span><span id="CreateModelSequenceTableDecoder__voidCP"></span><span class="target" id="group__VGFDecoderAPI_1gaf40646006bbcab0f94b3ad2877635d1e"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ModelSequenceTableDecoder</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CreateModelSequenceTableDecoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv431CreateModelSequenceTableDecoderPKv" title="Link to this definition"></a><br /></dt>
+<dd><p>Constructs a Model Sequence Table decoder. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv438CreateModelSequenceTableDecoderInPlacePKvPv">
+<span id="_CPPv338CreateModelSequenceTableDecoderInPlacePKvPv"></span><span id="_CPPv238CreateModelSequenceTableDecoderInPlacePKvPv"></span><span id="CreateModelSequenceTableDecoderInPlace__voidCP.voidP"></span><span class="target" id="group__VGFDecoderAPI_1gaeb8eccd7dca06d71764b93141c818abd"></span><span class="n"><span class="pre">ModelSequenceTableDecoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">CreateModelSequenceTableDecoderInPlace</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">decoderMem</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv438CreateModelSequenceTableDecoderInPlacePKvPv" title="Link to this definition"></a><br /></dt>
+<dd><p>Constructs a Model Sequence Table decoder in-place using pre-allocated memory. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> -- </p></li>
+<li><p><strong>decoderMem</strong> -- </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib13HeaderDecoderE">
+<span id="_CPPv3N5mlsdk6vgflib13HeaderDecoderE"></span><span id="_CPPv2N5mlsdk6vgflib13HeaderDecoderE"></span><span id="mlsdk::vgflib::HeaderDecoder"></span><span class="target" id="classmlsdk_1_1vgflib_1_1HeaderDecoder"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HeaderDecoder</span></span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib13HeaderDecoderE" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;decoder.hpp&gt;</em></div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib13HeaderDecoder7IsValidEv">
+<span id="_CPPv3NK5mlsdk6vgflib13HeaderDecoder7IsValidEv"></span><span id="_CPPv2NK5mlsdk6vgflib13HeaderDecoder7IsValidEv"></span><span id="mlsdk::vgflib::HeaderDecoder::IsValidC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1HeaderDecoder_1aa0938e836b25f5316d9ccda83ecb0908"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsValid</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib13HeaderDecoder7IsValidEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Checks the header magic value of the VGF file. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib13HeaderDecoder30GetEncoderVulkanHeadersVersionEv">
+<span id="_CPPv3NK5mlsdk6vgflib13HeaderDecoder30GetEncoderVulkanHeadersVersionEv"></span><span id="_CPPv2NK5mlsdk6vgflib13HeaderDecoder30GetEncoderVulkanHeadersVersionEv"></span><span id="mlsdk::vgflib::HeaderDecoder::GetEncoderVulkanHeadersVersionC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1HeaderDecoder_1af5c926c61256fe34c52bbec26eb44eb3"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint16_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetEncoderVulkanHeadersVersion</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib13HeaderDecoder30GetEncoderVulkanHeadersVersionEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the value of VK_HEADER_VERSION used by Encoding tool. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib13HeaderDecoder12CheckVersionEv">
+<span id="_CPPv3NK5mlsdk6vgflib13HeaderDecoder12CheckVersionEv"></span><span id="_CPPv2NK5mlsdk6vgflib13HeaderDecoder12CheckVersionEv"></span><span id="mlsdk::vgflib::HeaderDecoder::CheckVersionC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1HeaderDecoder_1a2e327e3e717270ff2abef6c56b17a208"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CheckVersion</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib13HeaderDecoder12CheckVersionEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Checks the VGF version. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib13HeaderDecoder8GetMajorEv">
+<span id="_CPPv3NK5mlsdk6vgflib13HeaderDecoder8GetMajorEv"></span><span id="_CPPv2NK5mlsdk6vgflib13HeaderDecoder8GetMajorEv"></span><span id="mlsdk::vgflib::HeaderDecoder::GetMajorC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1HeaderDecoder_1a96c74ae953c31a1f9679075d0fe8ff8b"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetMajor</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib13HeaderDecoder8GetMajorEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the Major version value. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib13HeaderDecoder8GetMinorEv">
+<span id="_CPPv3NK5mlsdk6vgflib13HeaderDecoder8GetMinorEv"></span><span id="_CPPv2NK5mlsdk6vgflib13HeaderDecoder8GetMinorEv"></span><span id="mlsdk::vgflib::HeaderDecoder::GetMinorC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1HeaderDecoder_1ab5da05238e956917ac8b2d6321dbf77f"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetMinor</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib13HeaderDecoder8GetMinorEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the Minor version value. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib13HeaderDecoder8GetPatchEv">
+<span id="_CPPv3NK5mlsdk6vgflib13HeaderDecoder8GetPatchEv"></span><span id="_CPPv2NK5mlsdk6vgflib13HeaderDecoder8GetPatchEv"></span><span id="mlsdk::vgflib::HeaderDecoder::GetPatchC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1HeaderDecoder_1afdb40277bdb579d05dd40cce47bae458"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetPatch</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib13HeaderDecoder8GetPatchEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the Patch version value. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib13HeaderDecoder18GetModuleTableSizeEv">
+<span id="_CPPv3NK5mlsdk6vgflib13HeaderDecoder18GetModuleTableSizeEv"></span><span id="_CPPv2NK5mlsdk6vgflib13HeaderDecoder18GetModuleTableSizeEv"></span><span id="mlsdk::vgflib::HeaderDecoder::GetModuleTableSizeC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1HeaderDecoder_1a8d0f9cbe8fa1d488662d80dfee40d333"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetModuleTableSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib13HeaderDecoder18GetModuleTableSizeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the size of the Module Table in memory. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib13HeaderDecoder20GetModuleTableOffsetEv">
+<span id="_CPPv3NK5mlsdk6vgflib13HeaderDecoder20GetModuleTableOffsetEv"></span><span id="_CPPv2NK5mlsdk6vgflib13HeaderDecoder20GetModuleTableOffsetEv"></span><span id="mlsdk::vgflib::HeaderDecoder::GetModuleTableOffsetC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1HeaderDecoder_1af2e992ca4a8a5beccad0f521fc4dc170"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetModuleTableOffset</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib13HeaderDecoder20GetModuleTableOffsetEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the relative location of the Module Table in memory. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib13HeaderDecoder27GetModelSequenceTableOffsetEv">
+<span id="_CPPv3NK5mlsdk6vgflib13HeaderDecoder27GetModelSequenceTableOffsetEv"></span><span id="_CPPv2NK5mlsdk6vgflib13HeaderDecoder27GetModelSequenceTableOffsetEv"></span><span id="mlsdk::vgflib::HeaderDecoder::GetModelSequenceTableOffsetC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1HeaderDecoder_1a7097796b600d9a9f3e33e6384b545001"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetModelSequenceTableOffset</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib13HeaderDecoder27GetModelSequenceTableOffsetEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the relative location of the Model Sequence Table in memory. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib13HeaderDecoder25GetModelSequenceTableSizeEv">
+<span id="_CPPv3NK5mlsdk6vgflib13HeaderDecoder25GetModelSequenceTableSizeEv"></span><span id="_CPPv2NK5mlsdk6vgflib13HeaderDecoder25GetModelSequenceTableSizeEv"></span><span id="mlsdk::vgflib::HeaderDecoder::GetModelSequenceTableSizeC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1HeaderDecoder_1a2740f57036f1ea8b84342bd834171d1a"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetModelSequenceTableSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib13HeaderDecoder25GetModelSequenceTableSizeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the size of the Model Sequence Table in memory. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib13HeaderDecoder27GetModelResourceTableOffsetEv">
+<span id="_CPPv3NK5mlsdk6vgflib13HeaderDecoder27GetModelResourceTableOffsetEv"></span><span id="_CPPv2NK5mlsdk6vgflib13HeaderDecoder27GetModelResourceTableOffsetEv"></span><span id="mlsdk::vgflib::HeaderDecoder::GetModelResourceTableOffsetC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1HeaderDecoder_1a854a2db157002c524072ff3dea093a90"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetModelResourceTableOffset</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib13HeaderDecoder27GetModelResourceTableOffsetEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the relative location of the Model Resource Table in memory. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib13HeaderDecoder25GetModelResourceTableSizeEv">
+<span id="_CPPv3NK5mlsdk6vgflib13HeaderDecoder25GetModelResourceTableSizeEv"></span><span id="_CPPv2NK5mlsdk6vgflib13HeaderDecoder25GetModelResourceTableSizeEv"></span><span id="mlsdk::vgflib::HeaderDecoder::GetModelResourceTableSizeC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1HeaderDecoder_1a201677770bfdedb75f1f79991d8bf9c4"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetModelResourceTableSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib13HeaderDecoder25GetModelResourceTableSizeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the size of the Model Resource Table in memory. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib13HeaderDecoder16GetConstantsSizeEv">
+<span id="_CPPv3NK5mlsdk6vgflib13HeaderDecoder16GetConstantsSizeEv"></span><span id="_CPPv2NK5mlsdk6vgflib13HeaderDecoder16GetConstantsSizeEv"></span><span id="mlsdk::vgflib::HeaderDecoder::GetConstantsSizeC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1HeaderDecoder_1affc2594156972dc1dd0ebc0866238917"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetConstantsSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib13HeaderDecoder16GetConstantsSizeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the size of the Constant section in memory. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib13HeaderDecoder18GetConstantsOffsetEv">
+<span id="_CPPv3NK5mlsdk6vgflib13HeaderDecoder18GetConstantsOffsetEv"></span><span id="_CPPv2NK5mlsdk6vgflib13HeaderDecoder18GetConstantsOffsetEv"></span><span id="mlsdk::vgflib::HeaderDecoder::GetConstantsOffsetC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1HeaderDecoder_1ac87cecead9fa5a4a4ae82233c03dca0f"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetConstantsOffset</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib13HeaderDecoder18GetConstantsOffsetEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the relative location of the Constant section in memory. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib18ModuleTableDecoderE">
+<span id="_CPPv3N5mlsdk6vgflib18ModuleTableDecoderE"></span><span id="_CPPv2N5mlsdk6vgflib18ModuleTableDecoderE"></span><span id="mlsdk::vgflib::ModuleTableDecoder"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleTableDecoder"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ModuleTableDecoder</span></span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib18ModuleTableDecoderE" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;decoder.hpp&gt;</em></div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder4sizeEv">
+<span id="_CPPv3NK5mlsdk6vgflib18ModuleTableDecoder4sizeEv"></span><span id="_CPPv2NK5mlsdk6vgflib18ModuleTableDecoder4sizeEv"></span><span id="mlsdk::vgflib::ModuleTableDecoder::sizeC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleTableDecoder_1a420b63dbeba5c43595a85d57402dc88f"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder4sizeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Retrieves the number of entries in the Module Table. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder13getModuleTypeE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib18ModuleTableDecoder13getModuleTypeE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib18ModuleTableDecoder13getModuleTypeE8uint32_t"></span><span id="mlsdk::vgflib::ModuleTableDecoder::getModuleType__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleTableDecoder_1a07f02078386c968fbc629771989e2b4f"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">ModuleType</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getModuleType</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder13getModuleTypeE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Retrieves the moduleType of module ‘idx’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder8hasSPIRVE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib18ModuleTableDecoder8hasSPIRVE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib18ModuleTableDecoder8hasSPIRVE8uint32_t"></span><span id="mlsdk::vgflib::ModuleTableDecoder::hasSPIRV__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleTableDecoder_1a2424b3f473a5ac9936b836b3520cc190"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hasSPIRV</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder8hasSPIRVE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Checks if the table entry ‘idx’ has SPIR-V code. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder13getModuleNameE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib18ModuleTableDecoder13getModuleNameE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib18ModuleTableDecoder13getModuleNameE8uint32_t"></span><span id="mlsdk::vgflib::ModuleTableDecoder::getModuleName__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleTableDecoder_1a6a4f14637986ab5ed7e40f16dedf2658"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getModuleName</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder13getModuleNameE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Retrieves the module name of module ‘idx’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder19getModuleEntryPointE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib18ModuleTableDecoder19getModuleEntryPointE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib18ModuleTableDecoder19getModuleEntryPointE8uint32_t"></span><span id="mlsdk::vgflib::ModuleTableDecoder::getModuleEntryPoint__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleTableDecoder_1a991dc34ed5a657bd808596659c5245f6"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getModuleEntryPoint</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder19getModuleEntryPointE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the entry point of module ‘idx’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder13getModuleCodeE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib18ModuleTableDecoder13getModuleCodeE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib18ModuleTableDecoder13getModuleCodeE8uint32_t"></span><span id="mlsdk::vgflib::ModuleTableDecoder::getModuleCode__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleTableDecoder_1a67c22959afea9519677d9894a65085b3"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">DataView</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">uint32_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getModuleCode</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder13getModuleCodeE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Retrieves the SPIR-V code of the module ‘idx’ in the Module Table. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib25ModelResourceTableDecoderE">
+<span id="_CPPv3N5mlsdk6vgflib25ModelResourceTableDecoderE"></span><span id="_CPPv2N5mlsdk6vgflib25ModelResourceTableDecoderE"></span><span id="mlsdk::vgflib::ModelResourceTableDecoder"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelResourceTableDecoder"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ModelResourceTableDecoder</span></span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib25ModelResourceTableDecoderE" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;decoder.hpp&gt;</em></div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder4sizeEv">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelResourceTableDecoder4sizeEv"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelResourceTableDecoder4sizeEv"></span><span id="mlsdk::vgflib::ModelResourceTableDecoder::sizeC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelResourceTableDecoder_1aded574a9dcf885310b209b3020a3e2d7"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder4sizeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the number of entries in the Model Resource Table. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder17getDescriptorTypeE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelResourceTableDecoder17getDescriptorTypeE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelResourceTableDecoder17getDescriptorTypeE8uint32_t"></span><span id="mlsdk::vgflib::ModelResourceTableDecoder::getDescriptorType__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelResourceTableDecoder_1a214c03a8db681514a0ffa3a8d0967006"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">DescriptorType</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getDescriptorType</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder17getDescriptorTypeE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the DescriptorType of the MRT entry ‘id’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder11getVkFormatE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelResourceTableDecoder11getVkFormatE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelResourceTableDecoder11getVkFormatE8uint32_t"></span><span id="mlsdk::vgflib::ModelResourceTableDecoder::getVkFormat__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelResourceTableDecoder_1ab886273d31fd42bf7032a544d097be26"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">FormatType</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getVkFormat</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder11getVkFormatE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the VkFormat of the MRT entry ‘id’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder11getCategoryE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelResourceTableDecoder11getCategoryE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelResourceTableDecoder11getCategoryE8uint32_t"></span><span id="mlsdk::vgflib::ModelResourceTableDecoder::getCategory__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelResourceTableDecoder_1aadbfd1bc9ef65ff64ebe426a45ca9fc6"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">ResourceCategory</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getCategory</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder11getCategoryE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the ResourceCategory of the MRT entry ‘id’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder14getTensorShapeE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelResourceTableDecoder14getTensorShapeE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelResourceTableDecoder14getTensorShapeE8uint32_t"></span><span id="mlsdk::vgflib::ModelResourceTableDecoder::getTensorShape__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelResourceTableDecoder_1a4943ca51c73d088dbb71c9b9b331e4ed"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">DataView</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">int64_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getTensorShape</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder14getTensorShapeE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the tensor shape of the MRT entry ‘id’. A “-1” value represents an unshaped dimension. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder15getTensorStrideE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelResourceTableDecoder15getTensorStrideE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelResourceTableDecoder15getTensorStrideE8uint32_t"></span><span id="mlsdk::vgflib::ModelResourceTableDecoder::getTensorStride__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelResourceTableDecoder_1a2e851ac7c502b68bbeb6baae9d0009d5"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">DataView</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">int64_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getTensorStride</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder15getTensorStrideE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the tensor stride of the MRT entry ‘id’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib15ConstantDecoderE">
+<span id="_CPPv3N5mlsdk6vgflib15ConstantDecoderE"></span><span id="_CPPv2N5mlsdk6vgflib15ConstantDecoderE"></span><span id="mlsdk::vgflib::ConstantDecoder"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ConstantDecoder"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ConstantDecoder</span></span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib15ConstantDecoderE" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;decoder.hpp&gt;</em></div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib15ConstantDecoder4sizeEv">
+<span id="_CPPv3NK5mlsdk6vgflib15ConstantDecoder4sizeEv"></span><span id="_CPPv2NK5mlsdk6vgflib15ConstantDecoder4sizeEv"></span><span id="mlsdk::vgflib::ConstantDecoder::sizeC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ConstantDecoder_1a46cfeebdaef0b23f109cd4f9acba4a97"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib15ConstantDecoder4sizeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the number of constants in the Constant section. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib15ConstantDecoder19getConstantMrtIndexE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib15ConstantDecoder19getConstantMrtIndexE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib15ConstantDecoder19getConstantMrtIndexE8uint32_t"></span><span id="mlsdk::vgflib::ConstantDecoder::getConstantMrtIndex__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ConstantDecoder_1a4fa9f4bb0f2c76074f687f01eeb986fa"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getConstantMrtIndex</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib15ConstantDecoder19getConstantMrtIndexE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the Model Resource Table index of constant ‘idx’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> -- Index of the constant </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib15ConstantDecoder16isSparseConstantE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib15ConstantDecoder16isSparseConstantE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib15ConstantDecoder16isSparseConstantE8uint32_t"></span><span id="mlsdk::vgflib::ConstantDecoder::isSparseConstant__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ConstantDecoder_1a07b911b9d114d1c3289e86acc93b8a1c"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isSparseConstant</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib15ConstantDecoder16isSparseConstantE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if constant is 2:4 sparse on one dimension. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> -- Index of the constant </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib15ConstantDecoder28getConstantSparsityDimensionE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib15ConstantDecoder28getConstantSparsityDimensionE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib15ConstantDecoder28getConstantSparsityDimensionE8uint32_t"></span><span id="mlsdk::vgflib::ConstantDecoder::getConstantSparsityDimension__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ConstantDecoder_1a9fafdb0c9406fdcca10316240e185e03"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getConstantSparsityDimension</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib15ConstantDecoder28getConstantSparsityDimensionE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the dimension on which the constant is sparse. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> -- Index of the constant </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib15ConstantDecoder11getConstantE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib15ConstantDecoder11getConstantE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib15ConstantDecoder11getConstantE8uint32_t"></span><span id="mlsdk::vgflib::ConstantDecoder::getConstant__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ConstantDecoder_1acf62cb1814a28f472e5a818c9e4679cc"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">DataView</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">uint8_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getConstant</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib15ConstantDecoder11getConstantE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the constant at location ‘idx’ in the Constant section. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> -- Index of the constant </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib24BindingSlotArrayHandle_sE">
+<span id="_CPPv3N5mlsdk6vgflib24BindingSlotArrayHandle_sE"></span><span id="_CPPv2N5mlsdk6vgflib24BindingSlotArrayHandle_sE"></span><span id="mlsdk::vgflib::BindingSlotArrayHandle_s"></span><span class="target" id="structmlsdk_1_1vgflib_1_1BindingSlotArrayHandle__s"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BindingSlotArrayHandle_s</span></span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib24BindingSlotArrayHandle_sE" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;decoder.hpp&gt;</em></div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib17NameArrayHandle_sE">
+<span id="_CPPv3N5mlsdk6vgflib17NameArrayHandle_sE"></span><span id="_CPPv2N5mlsdk6vgflib17NameArrayHandle_sE"></span><span id="mlsdk::vgflib::NameArrayHandle_s"></span><span class="target" id="structmlsdk_1_1vgflib_1_1NameArrayHandle__s"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NameArrayHandle_s</span></span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib17NameArrayHandle_sE" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;decoder.hpp&gt;</em></div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib25PushConstantRangeHandle_sE">
+<span id="_CPPv3N5mlsdk6vgflib25PushConstantRangeHandle_sE"></span><span id="_CPPv2N5mlsdk6vgflib25PushConstantRangeHandle_sE"></span><span id="mlsdk::vgflib::PushConstantRangeHandle_s"></span><span class="target" id="structmlsdk_1_1vgflib_1_1PushConstantRangeHandle__s"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PushConstantRangeHandle_s</span></span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib25PushConstantRangeHandle_sE" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;decoder.hpp&gt;</em></div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib25ModelSequenceTableDecoderE">
+<span id="_CPPv3N5mlsdk6vgflib25ModelSequenceTableDecoderE"></span><span id="_CPPv2N5mlsdk6vgflib25ModelSequenceTableDecoderE"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ModelSequenceTableDecoder</span></span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib25ModelSequenceTableDecoderE" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;decoder.hpp&gt;</em></div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder22modelSequenceTableSizeEv">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder22modelSequenceTableSizeEv"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder22modelSequenceTableSizeEv"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::modelSequenceTableSizeC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1abaae32c20ec0b0f048cdf7cd7eee92c9"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">modelSequenceTableSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder22modelSequenceTableSizeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the number of segments. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder32getSegmentDescriptorSetInfosSizeE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder32getSegmentDescriptorSetInfosSizeE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder32getSegmentDescriptorSetInfosSizeE8uint32_t"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getSegmentDescriptorSetInfosSize__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1a2ce177e96fc3f6f47e1cfb68348b357f"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getSegmentDescriptorSetInfosSize</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">segmentIdx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder32getSegmentDescriptorSetInfosSizeE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the number of descriptor set infos for segment ‘segmentIdx’ in the Model Sequence Table. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>segmentIdx</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder25getSegmentConstantIndexesE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder25getSegmentConstantIndexesE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder25getSegmentConstantIndexesE8uint32_t"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getSegmentConstantIndexes__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1a8c918e3691a15342acf89b00a430ae67"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">DataView</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">uint32_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getSegmentConstantIndexes</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">segmentIdx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder25getSegmentConstantIndexesE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the constants that are linked to segment ‘segmentIdx’ in the Model Sequence Table. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>segmentIdx</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder14getSegmentTypeE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder14getSegmentTypeE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder14getSegmentTypeE8uint32_t"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getSegmentType__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1acabda3cc8bfda38ebb5390c2536c5fcd"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">ModuleType</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getSegmentType</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">segmentIdx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder14getSegmentTypeE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the ModuleType of segment ‘segmentIdx’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>segmentIdx</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder14getSegmentNameE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder14getSegmentNameE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder14getSegmentNameE8uint32_t"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getSegmentName__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1a7b1b0478f6c8586af0d52857b6c495cb"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getSegmentName</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">segmentIdx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder14getSegmentNameE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the name of segment ‘segmentIdx’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>segmentIdx</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder21getSegmentModuleIndexE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder21getSegmentModuleIndexE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder21getSegmentModuleIndexE8uint32_t"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getSegmentModuleIndex__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1a211d8732c6399997dc8429387da780e0"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getSegmentModuleIndex</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">segmentIdx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder21getSegmentModuleIndexE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the name of segment ‘segmentIdx’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>segmentIdx</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder23getSegmentDispatchShapeE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder23getSegmentDispatchShapeE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder23getSegmentDispatchShapeE8uint32_t"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getSegmentDispatchShape__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1ab2d0af06c88c4416e901696e0ce58a4a"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">DataView</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">uint32_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getSegmentDispatchShape</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">segmentIdx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder23getSegmentDispatchShapeE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the dispatch shape for segment ‘segIdx’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>segmentIdx</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder31getDescriptorBindingSlotsHandleE8uint32_t8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder31getDescriptorBindingSlotsHandleE8uint32_t8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder31getDescriptorBindingSlotsHandleE8uint32_t8uint32_t"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getDescriptorBindingSlotsHandle__uint32_t.uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1a0a5b8c631d7959f354cd2d505a295f1d"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv422BindingSlotArrayHandle" title="BindingSlotArrayHandle"><span class="n"><span class="pre">BindingSlotArrayHandle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getDescriptorBindingSlotsHandle</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">segmentIdx</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">descIdx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder31getDescriptorBindingSlotsHandleE8uint32_t8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Retrieves the ‘BindingSlotArrayHandle’ corresponding to segment ‘segmentIdx’ descriptor ‘descIdx’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>segmentIdx</strong> -- </p></li>
+<li><p><strong>descIdx</strong> -- </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Handle to the binding slot array </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder33getSegmentInputBindingSlotsHandleE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder33getSegmentInputBindingSlotsHandleE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder33getSegmentInputBindingSlotsHandleE8uint32_t"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getSegmentInputBindingSlotsHandle__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1a469923c0f42fb275397d3b61db9c10cd"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv422BindingSlotArrayHandle" title="BindingSlotArrayHandle"><span class="n"><span class="pre">BindingSlotArrayHandle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getSegmentInputBindingSlotsHandle</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">segmentIdx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder33getSegmentInputBindingSlotsHandleE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Retrieves the inputs ‘BindingSlotArrayHandle’ corresponding to segment ‘segmentIdx’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>segmentIdx</strong> -- </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Handle to the binding slot array </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder34getSegmentOutputBindingSlotsHandleE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder34getSegmentOutputBindingSlotsHandleE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder34getSegmentOutputBindingSlotsHandleE8uint32_t"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getSegmentOutputBindingSlotsHandle__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1acdf0cd19ac21a48ecf775e5148a7fdf0"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv422BindingSlotArrayHandle" title="BindingSlotArrayHandle"><span class="n"><span class="pre">BindingSlotArrayHandle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getSegmentOutputBindingSlotsHandle</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">segmentIdx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder34getSegmentOutputBindingSlotsHandleE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Retrieves the outputs ‘BindingSlotArrayHandle’ corresponding to segment ‘segmentIdx’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>segmentIdx</strong> -- </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Handle to the binding slot array </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder39getModelSequenceInputBindingSlotsHandleEv">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder39getModelSequenceInputBindingSlotsHandleEv"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder39getModelSequenceInputBindingSlotsHandleEv"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getModelSequenceInputBindingSlotsHandleC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1ac95ca9c88355817aae7d1aed3a57ce73"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv422BindingSlotArrayHandle" title="BindingSlotArrayHandle"><span class="n"><span class="pre">BindingSlotArrayHandle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getModelSequenceInputBindingSlotsHandle</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder39getModelSequenceInputBindingSlotsHandleEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Retrieves the inputs ‘BindingSlotArrayHandle’ for the model sequence. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Handle to the binding slot array </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder40getModelSequenceOutputBindingSlotsHandleEv">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder40getModelSequenceOutputBindingSlotsHandleEv"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder40getModelSequenceOutputBindingSlotsHandleEv"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getModelSequenceOutputBindingSlotsHandleC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1afa2c66b2708ec8acccaeab0bbf3ca17a"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv422BindingSlotArrayHandle" title="BindingSlotArrayHandle"><span class="n"><span class="pre">BindingSlotArrayHandle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getModelSequenceOutputBindingSlotsHandle</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder40getModelSequenceOutputBindingSlotsHandleEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Retrieves the outputs ‘BindingSlotArrayHandle’ for the model sequence. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Handle to the binding slot array </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder32getModelSequenceInputNamesHandleEv">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder32getModelSequenceInputNamesHandleEv"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder32getModelSequenceInputNamesHandleEv"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getModelSequenceInputNamesHandleC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1af6925b2576aea748b3e616fb960bc97e"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv415NameArrayHandle" title="NameArrayHandle"><span class="n"><span class="pre">NameArrayHandle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getModelSequenceInputNamesHandle</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder32getModelSequenceInputNamesHandleEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Retrieves the ‘NameArrayHandle’ for the inputs of the model. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Handle to the name array </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder33getModelSequenceOutputNamesHandleEv">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder33getModelSequenceOutputNamesHandleEv"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder33getModelSequenceOutputNamesHandleEv"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getModelSequenceOutputNamesHandleC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1a60db33a0cd3fd1e689e478c3184aeff8"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv415NameArrayHandle" title="NameArrayHandle"><span class="n"><span class="pre">NameArrayHandle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getModelSequenceOutputNamesHandle</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder33getModelSequenceOutputNamesHandleEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Retrieves the ‘NameArrayHandle’ for the outputs of the model. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Handle to the name array </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder12getNamesSizeE15NameArrayHandle">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder12getNamesSizeE15NameArrayHandle"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder12getNamesSizeE15NameArrayHandle"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getNamesSize__NameArrayHandleC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1ad05c016619ce7827544412799e423502"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNamesSize</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv415NameArrayHandle" title="NameArrayHandle"><span class="n"><span class="pre">NameArrayHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder12getNamesSizeE15NameArrayHandle" title="Link to this definition"></a><br /></dt>
+<dd><p>Retrieves the number of names. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>handle</strong> -- Opaque handle to an array of names </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The number of names in the array referenced by handle </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder7getNameE15NameArrayHandle8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder7getNameE15NameArrayHandle8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder7getNameE15NameArrayHandle8uint32_t"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getName__NameArrayHandle.uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1a721e12b7f941b5c9fb748b63d4872ad0"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getName</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv415NameArrayHandle" title="NameArrayHandle"><span class="n"><span class="pre">NameArrayHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nameIdx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder7getNameE15NameArrayHandle8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Retrieves the name at a given index in the array. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>handle</strong> -- Opaque handle to an array of names </p></li>
+<li><p><strong>nameIdx</strong> -- Index of the name in the array to fetch </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>name </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder15getBindingsSizeE22BindingSlotArrayHandle">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder15getBindingsSizeE22BindingSlotArrayHandle"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder15getBindingsSizeE22BindingSlotArrayHandle"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getBindingsSize__BindingSlotArrayHandleC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1a19ea6ede88008ced09ccbd6fcc452b55"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getBindingsSize</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv422BindingSlotArrayHandle" title="BindingSlotArrayHandle"><span class="n"><span class="pre">BindingSlotArrayHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder15getBindingsSizeE22BindingSlotArrayHandle" title="Link to this definition"></a><br /></dt>
+<dd><p>Retrieves the number of bindings. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>handle</strong> -- Opaque handle to an array of BindSlots </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The number of BindingSlots in the array referenced by handle </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder21getBindingSlotBindingE22BindingSlotArrayHandle8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder21getBindingSlotBindingE22BindingSlotArrayHandle8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder21getBindingSlotBindingE22BindingSlotArrayHandle8uint32_t"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getBindingSlotBinding__BindingSlotArrayHandle.uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1a6b4827b94e77a6913ceccbeabaab5513"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getBindingSlotBinding</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv422BindingSlotArrayHandle" title="BindingSlotArrayHandle"><span class="n"><span class="pre">BindingSlotArrayHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">slotIdx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder21getBindingSlotBindingE22BindingSlotArrayHandle8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Retrieves the bindings at slot ‘slotIdx’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>handle</strong> -- Opaque handle to an array of BindSlots </p></li>
+<li><p><strong>slotIdx</strong> -- index of the slot in the the array of bindingslots referenced by the handle </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The binding id of the selected BindingSlot </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder22getBindingSlotMrtIndexE22BindingSlotArrayHandle8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder22getBindingSlotMrtIndexE22BindingSlotArrayHandle8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder22getBindingSlotMrtIndexE22BindingSlotArrayHandle8uint32_t"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getBindingSlotMrtIndex__BindingSlotArrayHandle.uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1ae8a06eef1631f4a8e02cecae0aafd42f"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getBindingSlotMrtIndex</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv422BindingSlotArrayHandle" title="BindingSlotArrayHandle"><span class="n"><span class="pre">BindingSlotArrayHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">slotIdx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder22getBindingSlotMrtIndexE22BindingSlotArrayHandle8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Retrieves the MRT index which is associated to the binding slot ‘slotIdx’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>handle</strong> -- Opaque handle to an array of BindSlots </p></li>
+<li><p><strong>slotIdx</strong> -- index of the slot in the the array of bindingslots referenced by the handle </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The index of the entry in Model Resource Table referenced by this binding slot </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder24getSegmentPushConstRangeE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder24getSegmentPushConstRangeE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder24getSegmentPushConstRangeE8uint32_t"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getSegmentPushConstRange__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1a426a273df4304dd5ae103b475e13da85"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv423PushConstantRangeHandle" title="PushConstantRangeHandle"><span class="n"><span class="pre">PushConstantRangeHandle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getSegmentPushConstRange</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">segmentIdx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder24getSegmentPushConstRangeE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Retrieves the push constant ranges corresponding to segment ‘segmentIdx’ and stores them in target. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>segmentIdx</strong> -- Index of the segment to query </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The handle to the push constants range for the segment </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder22getPushConstRangesSizeE23PushConstantRangeHandle">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder22getPushConstRangesSizeE23PushConstantRangeHandle"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder22getPushConstRangesSizeE23PushConstantRangeHandle"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getPushConstRangesSize__PushConstantRangeHandleC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1ad92131711d907ab861802439c650f4f7"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPushConstRangesSize</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv423PushConstantRangeHandle" title="PushConstantRangeHandle"><span class="n"><span class="pre">PushConstantRangeHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder22getPushConstRangesSizeE23PushConstantRangeHandle" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the number of push constant ranges. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>handle</strong> -- The handle to the push constants range </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder27getPushConstRangeStageFlagsE23PushConstantRangeHandle8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder27getPushConstRangeStageFlagsE23PushConstantRangeHandle8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder27getPushConstRangeStageFlagsE23PushConstantRangeHandle8uint32_t"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getPushConstRangeStageFlags__PushConstantRangeHandle.uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1a5690f76a4482619ecf7a962fd7d00ebb"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPushConstRangeStageFlags</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv423PushConstantRangeHandle" title="PushConstantRangeHandle"><span class="n"><span class="pre">PushConstantRangeHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rangeIdx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder27getPushConstRangeStageFlagsE23PushConstantRangeHandle8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the stage flags of push constant range ‘rangeIdx’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>handle</strong> -- The handle to the push constants range </p></li>
+<li><p><strong>rangeIdx</strong> -- Index of the specific range to query </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder23getPushConstRangeOffsetE23PushConstantRangeHandle8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder23getPushConstRangeOffsetE23PushConstantRangeHandle8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder23getPushConstRangeOffsetE23PushConstantRangeHandle8uint32_t"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getPushConstRangeOffset__PushConstantRangeHandle.uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1a246c1852c1c5767911e91149c66a2dcf"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPushConstRangeOffset</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv423PushConstantRangeHandle" title="PushConstantRangeHandle"><span class="n"><span class="pre">PushConstantRangeHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rangeIdx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder23getPushConstRangeOffsetE23PushConstantRangeHandle8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the offset of push constant range ‘rangeIdx’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>handle</strong> -- The handle to the push constants range </p></li>
+<li><p><strong>rangeIdx</strong> -- Index of the specific range to query </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder21getPushConstRangeSizeE23PushConstantRangeHandle8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder21getPushConstRangeSizeE23PushConstantRangeHandle8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder21getPushConstRangeSizeE23PushConstantRangeHandle8uint32_t"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getPushConstRangeSize__PushConstantRangeHandle.uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1aa56eb2f6359f2788dfe91091a2a69462"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPushConstRangeSize</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv423PushConstantRangeHandle" title="PushConstantRangeHandle"><span class="n"><span class="pre">PushConstantRangeHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rangeIdx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder21getPushConstRangeSizeE23PushConstantRangeHandle8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the size of push constant range ‘rangeIdx’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>handle</strong> -- The handle to the push constants range </p></li>
+<li><p><strong>rangeIdx</strong> -- Index of the specific range to query </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="encoder_api.html" class="btn btn-neutral float-left" title="VGF Encoder C++ API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="decoder_c_api.html" class="btn btn-neutral float-right" title="VGF Decoder C API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, Arm Limited and/or its affiliates &lt;open-source-office@arm.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,220 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building the ML SDK Model Converter &mdash; ML SDK for Vulkan®  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=b8c9390b" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Usage" href="usage.html" />
+    <link rel="prev" title="Cloning the repository" href="cloning.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            ML SDK for Vulkan®
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../building.html">Building the ML SDK for Vulkan®</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tensor_aliasing_tutorial.html">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ML SDK Model Converter</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Building the ML SDK Model Converter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#providing-flatc">Providing Flatc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-with-the-script">Building with the script</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK VGF Library</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../vgf-lib/docs/in/index.html">ML SDK VGF Library</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Scenario Runner</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../scenario-runner/docs/in/index.html">ML SDK Scenario Runner</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML Emulation Layer for Vulkan®</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../emulation-layer/docs/in/index.html">ML Emulation Layer for Vulkan®</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#secure-coding-practices">Secure coding practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#inclusive-language-guidelines">Inclusive language guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/security.html">Security</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ML SDK for Vulkan®</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">ML SDK Model Converter</a></li>
+      <li class="breadcrumb-item active">Building the ML SDK Model Converter</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/model-converter/docs/in/building.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="building-the-ml-sdk-model-converter">
+<h1>Building the ML SDK Model Converter<a class="headerlink" href="#building-the-ml-sdk-model-converter" title="Link to this heading"></a></h1>
+<p>The build system must have:</p>
+<ul class="simple">
+<li><p>CMake 3.25 or later.</p></li>
+<li><p>C/C++ 17 compiler: GCC, or optionally Clang on Linux and MSVC on Windows®.</p></li>
+<li><p>Python 3.10 or later. Required python libraries for building are listed in
+<code class="docutils literal notranslate"><span class="pre">tooling-requirements.txt</span></code>.</p></li>
+<li><p>Flatbuffers flatc compiler 25.2.10 or later.</p></li>
+</ul>
+<p>The following dependencies are also needed:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/p-ranav/argparse">Argument Parser for Modern C++</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/llvm/llvm-project">LLVM</a>.</p></li>
+<li><p><a class="reference external" href="https://review.mlplatform.org/plugins/gitiles/tosa/serialization_lib">TOSA Serialization Library</a>.</p></li>
+<li><p><a class="reference external" href="https://review.mlplatform.org/plugins/gitiles/tosa/tosa_mlir_translator">TOSA MLIR Translator</a>.</p></li>
+</ul>
+<p>For the preferred dependency versions see the manifest file.</p>
+<section id="providing-flatc">
+<h2>Providing Flatc<a class="headerlink" href="#providing-flatc" title="Link to this heading"></a></h2>
+<p>There are 3 options for providing the flatc binary and headers.</p>
+<ol class="arabic simple">
+<li><p>Using the default path. When the repository is initialized using the repo
+manifest, the flatbuffers source is checked out in
+<code class="docutils literal notranslate"><span class="pre">&lt;repo-root&gt;/dependencies/flatbuffers/</span></code>. The VGF Library cmake scripts
+automatically find and build flatc in this location.</p></li>
+<li><p>Providing a custom flatc path. If flatc cannot be found in the default
+<code class="docutils literal notranslate"><span class="pre">&lt;repo-root&gt;/dependencies/flatbuffers</span></code> path, you can provide a custom binary
+file path to the build script using the <code class="docutils literal notranslate"><span class="pre">--flatc-path</span> <span class="pre">&lt;path_to_flatc&gt;</span></code>
+option, see <a class="reference internal" href="#building-with-the-script"><span class="xref myst">Building with the script</span></a>.</p></li>
+<li><p>Installing flatc to the system. If flatc cannot be found in the default path
+and no custom path is provided, it will be searched using <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. To install
+flatc to the system and make it available on the searchable <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, see the
+<a class="reference external" href="https://flatbuffers.dev/">flatbuffers documentation</a>. For example, on Linux
+navigate to the flatbuffers checkout location and run the following
+commands:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>/usr/local
+cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--target<span class="w"> </span>install
+</pre></div>
+</div>
+<p><a name="building-with-the-script"></a></p>
+</section>
+<section id="building-with-the-script">
+<h2>Building with the script<a class="headerlink" href="#building-with-the-script" title="Link to this heading"></a></h2>
+<p>Arm® provides a python build script to make build configuration options easily
+discoverable. When the script is run from a git-repo manifest checkout, the
+script uses default paths and does not require any additional arguments.
+Otherwise the paths to the dependencies must be specified.</p>
+<p>To build on the current platform, for example on Linux or Windows®, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span><span class="nv">$SDK_PATH</span>/sw/model-converter/scripts/build.py<span class="w"> </span>-j<span class="w"> </span><span class="k">$(</span>nproc<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--vgf-lib-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_VGF_LIB_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--flatbuffers-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_FLATBUFFERS_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--argparse-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_ARGPARSE_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--tosa-mlir-translator-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_TOSA_MLIR_TRANSLATOR_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--external-llvm<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_LLVM_CHECKOUT</span><span class="si">}</span>
+</pre></div>
+</div>
+<p>If the components are in their default locations, it is not necessary to specify
+the <code class="docutils literal notranslate"><span class="pre">--vgf-lib-path</span></code>, <code class="docutils literal notranslate"><span class="pre">--flatbuffers-path</span></code>, <code class="docutils literal notranslate"><span class="pre">--argparse-path</span></code>,
+<code class="docutils literal notranslate"><span class="pre">--tosa-mlir-translator-path</span></code>, and <code class="docutils literal notranslate"><span class="pre">--external-llvm</span></code> options.</p>
+<p>Tests can be enabled and run with <code class="docutils literal notranslate"><span class="pre">--test</span></code> and linting by <code class="docutils literal notranslate"><span class="pre">--lint</span></code>. The
+documentation can be built with <code class="docutils literal notranslate"><span class="pre">--doc</span></code>. To build the documentation, sphinx and
+doxygen must be installed on the machine.</p>
+<p>You can install the project build artifacts into a specified location by passing
+the option <code class="docutils literal notranslate"><span class="pre">--install</span></code> with the required path.</p>
+<p>To create an archive with the build artifacts option, add <code class="docutils literal notranslate"><span class="pre">--package</span></code>. The
+archive will be stored in the provided location.”</p>
+<p>For more information, see the help output:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>scripts/build.py<span class="w"> </span>--help
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cloning.html" class="btn btn-neutral float-left" title="Cloning the repository" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, Arm Limited and/or its affiliates &lt;open-source-office@arm.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,1362 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VGF Decoder C API &mdash; ML SDK for Vulkan®  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=b8c9390b" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="VGF Logging C++ API" href="logging_api.html" />
+    <link rel="prev" title="VGF Decoder C++ API" href="decoder_api.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            ML SDK for Vulkan®
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../building.html">Building the ML SDK for Vulkan®</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tensor_aliasing_tutorial.html">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../model-converter/docs/in/index.html">ML SDK Model Converter</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK VGF Library</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ML SDK VGF Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">Building the ML SDK VGF Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="encoder_api.html">VGF Encoder C++ API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decoder_api.html">VGF Decoder C++ API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">VGF Decoder C API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modules-section">Modules Section</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#model-sequence-section">Model Sequence Section</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#model-resource-section">Model Resource Section</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#model-constants-section">Model Constants Section</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#c-decoder-api-reference">C Decoder API Reference</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logging_api.html">VGF Logging C++ API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging_c_api.html">VGF Logging C API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vgf_dump.html">VGF Dump Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Scenario Runner</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../scenario-runner/docs/in/index.html">ML SDK Scenario Runner</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML Emulation Layer for Vulkan®</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../emulation-layer/docs/in/index.html">ML Emulation Layer for Vulkan®</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#secure-coding-practices">Secure coding practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#inclusive-language-guidelines">Inclusive language guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/security.html">Security</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ML SDK for Vulkan®</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">ML SDK VGF Library</a></li>
+      <li class="breadcrumb-item active">VGF Decoder C API</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/vgf-lib/docs/in/decoder_c_api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vgf-decoder-c-api">
+<h1>VGF Decoder C API<a class="headerlink" href="#vgf-decoder-c-api" title="Link to this heading"></a></h1>
+<p>The Decoder C API is an optional C API that reads the contents of VGF files. To decode the VGF file, the decoder C API takes the VGF file as input and drives the VGF Decoder API directly.
+This API is a low-overhead thin C wrapper on C++ VGF Decoder API. The C linkage allows for higher ABI stability, and enables more options for additional language bindings and easier deployment or distribution of API updates.
+Similar to the VGF C++ Decoder API, the VGF C Decoder API has some restrictions. For example, the VGF C Decoder API makes no memory allocations. You must perform the memory allocations. The API also does not make any system calls. You must perform any required system calls, for example, loading a VGF file into memory.</p>
+<p>Similar to the VGF C++ Decoder API, the C API uses the following execution flow in order to parse a VGF file.
+The VGF file has the following sections in the order specified (see enum <code class="docutils literal notranslate"><span class="pre">mlsdk_section_name</span></code>)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="#modules-section"><span class="std std-ref">Modules Section</span></a></p></li>
+<li><p><a class="reference internal" href="#model-sequence-section"><span class="std std-ref">Model Sequence Section</span></a></p></li>
+<li><p><a class="reference internal" href="#model-resource-section"><span class="std std-ref">Model Resource Section</span></a></p></li>
+<li><p><a class="reference internal" href="#model-constants-section"><span class="std std-ref">Model Constants Section</span></a></p></li>
+</ul>
+</div></blockquote>
+<p>Each section of the VGF has its own decoder type. The memory requirement for each section decoder is retrieved by the corresponding calls, for example, function <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_module_table_decoder_mem_reqs</span></code> for Module section.
+Each section of the VGF has its corresponding call for creating its decoder, for example, <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_create_module_table_decoder</span></code> function for Module section. Then, the created decoder reads data pertaining to that VGF section.
+If the VGF file is obtained from an external source and potentially unsafe, each section has its own verifier, for example  <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_is_valid_module_table</span></code>.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../../_images/c_decoder_main.svg"><img alt="../../../_images/c_decoder_main.svg" src="../../../_images/c_decoder_main.svg" style="width: 60%;" />
+</a>
+</figure>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<section id="modules-section">
+<h2>Modules Section<a class="headerlink" href="#modules-section" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_get_module_table_num_entries</span></code> can use a module table decoder to retrieve the number of modules in a VGF file.
+Currently, the modules are SPIR-V™ modules only.
+You can use the following functions to retrieve module information through a module table decoder:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Name</strong>: <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_get_module_name</span></code></p></li>
+<li><p><strong>Type</strong>: <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_get_module_type</span></code></p></li>
+<li><p><strong>SPIR-V™ entry point</strong>: <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_get_module_entry_point</span></code></p></li>
+<li><p><strong>SPIR-V™ code</strong>: <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_get_module_code</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>There can be more than one module entry in the module section of a VGF. To retrieve the number of modules, you can call <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_get_module_table_num_entries</span></code>.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../../_images/c_decoder_module_section.svg"><img alt="../../../_images/c_decoder_module_section.svg" src="../../../_images/c_decoder_module_section.svg" style="width: 85%;" />
+</a>
+</figure>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="model-sequence-section">
+<h2>Model Sequence Section<a class="headerlink" href="#model-sequence-section" title="Link to this heading"></a></h2>
+<p>Each module can have one or more segments. The segments of the module have the same type as that of the module. All segments are stored in the model sequence table. To see the number of segments, you can use <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_get_model_sequence_table_size</span></code>.
+To retrieve the information for each segment, you can use their corresponding calls:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Name</strong>: <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_model_sequence_get_segment_name</span></code></p></li>
+<li><p><strong>Type</strong>: <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_model_sequence_get_segment_type</span></code></p></li>
+<li><p><strong>Input binding slot</strong>: <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_model_sequence_get_segment_input_binding_slot</span></code></p></li>
+<li><p><strong>Output binding slot</strong>: <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_model_sequence_get_segment_output_binding_slot</span></code></p></li>
+<li><p><strong>Descriptor binding slot</strong>: <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_model_sequence_get_segment_descriptor_binding_slot</span></code></p></li>
+<li><p><strong>DescriptorSet info size</strong>: <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_model_sequence_get_segment_descriptorset_info_size</span></code></p></li>
+<li><p><strong>Constant indexes</strong>: <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_model_sequence_get_segment_constant_indexes</span></code></p></li>
+<li><p><strong>Dispatch shape</strong>: <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_model_sequence_get_segment_dispatch_shape</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>The binding slot acts as a bridge between information on the resources used by a segment, and the resources. The resources are stored in the Model Resource Table (MRT). You can identify each resource using its MRT index.
+The following components of a segment have information (including MRT index) of their corresponding resource in the MRT. You can read the resources to a binding slot memory location allocated with the corresponding calls:</p>
+<blockquote>
+<div><blockquote>
+<div><ul class="simple">
+<li><p><strong>Segment inputs</strong>: <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_model_sequence_get_segment_input_binding_slot</span></code></p></li>
+<li><p><strong>Segment outputs</strong>: <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_model_sequence_get_segment_output_binding_slot</span></code></p></li>
+<li><p><strong>Segment descriptors</strong>: <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_model_sequence_get_segment_descriptor_binding_slot</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>You can use the binding slot to read:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Number of bindings of a binding slot of a segment component (inputs, outputs, descriptors): <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_binding_slot_size</span></code></p></li>
+<li><p>Binding ids of entries in the binding slot: <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_binding_slot_binding_id</span></code></p></li>
+<li><p>MRT indexes of entries in the binding slot: <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_binding_slot_mrt_index</span></code></p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../../_images/c_decoder_model_sequence_section.svg"><img alt="../../../_images/c_decoder_model_sequence_section.svg" src="../../../_images/c_decoder_model_sequence_section.svg" style="width: 85%;" />
+</a>
+</figure>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="model-resource-section">
+<h2>Model Resource Section<a class="headerlink" href="#model-resource-section" title="Link to this heading"></a></h2>
+<p>This section describes the Model Resource Table (MRT). The MRT contains all the Model Resource entries of the VGF file. To find resources through their unique MRT index, you can use the MRT as a lookup table from the other sections of the VGF.</p>
+</section>
+<section id="model-constants-section">
+<h2>Model Constants Section<a class="headerlink" href="#model-constants-section" title="Link to this heading"></a></h2>
+<p>The model constants section is the largest section of a VGF file, which contains VGF constants information.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The data in the constant section is stored in raw bytes, there are no endianness checks. The target host and the host where you create the VGF must use the same endianness.</p>
+</div>
+<p>To retrieve the number of constants in a VGF file, using a constants table decoder, you can use <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_get_constant_table_num_entries</span></code>.
+To retrieve constant information through a module table decoder, you can use the following functions:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>MRT index</strong>: <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_get_constant_table_mrt_index</span></code></p></li>
+<li><p><strong>Data</strong>: <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_get_constant_table_data</span></code></p></li>
+</ul>
+</div></blockquote>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../../_images/c_decoder_constants_section.svg"><img alt="../../../_images/c_decoder_constants_section.svg" src="../../../_images/c_decoder_constants_section.svg" style="width: 85%;" />
+</a>
+</figure>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+<section id="c-decoder-api-reference">
+<h3>C Decoder API Reference<a class="headerlink" href="#c-decoder-api-reference" title="Link to this heading"></a></h3>
+<dl class="c enum">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_section">
+<span class="target" id="group__VGFCAPI_1ga37b34536ce8285cd80b32fe3aa7051a0"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_section</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_section" title="Link to this definition"></a><br /></dt>
+<dd><p>Enum for index of sections in the VGF. </p>
+<p><em>Values:</em></p>
+<dl class="c enumerator">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_section.mlsdk_decoder_section_modules">
+<span class="target" id="group__VGFCAPI_1gga37b34536ce8285cd80b32fe3aa7051a0ae9576d936dc68cef03a5060f620cab4b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_section_modules</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_section.mlsdk_decoder_section_modules" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c enumerator">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_section.mlsdk_decoder_section_model_sequence">
+<span class="target" id="group__VGFCAPI_1gga37b34536ce8285cd80b32fe3aa7051a0a325100988ff0983f8d56942a8d228718"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_section_model_sequence</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_section.mlsdk_decoder_section_model_sequence" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c enumerator">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_section.mlsdk_decoder_section_resources">
+<span class="target" id="group__VGFCAPI_1gga37b34536ce8285cd80b32fe3aa7051a0a04d9b84a5cb96d529cf597b688b10b20"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_section_resources</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_section.mlsdk_decoder_section_resources" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c enumerator">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_section.mlsdk_decoder_section_constants">
+<span class="target" id="group__VGFCAPI_1gga37b34536ce8285cd80b32fe3aa7051a0a566dce6fafe3e52147b7d421623eb132"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_section_constants</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_section.mlsdk_decoder_section_constants" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="c enum">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_module_type">
+<span class="target" id="group__VGFCAPI_1ga54fedf54c9183c59fb6a7eac365af37a"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_module_type</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_module_type" title="Link to this definition"></a><br /></dt>
+<dd><p>Enum for module types. </p>
+<p><em>Values:</em></p>
+<dl class="c enumerator">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_module_type.mlsdk_decoder_module_type_compute">
+<span class="target" id="group__VGFCAPI_1gga54fedf54c9183c59fb6a7eac365af37aa4174344af8d0d3ecff1ca7d3018e961e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_module_type_compute</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_module_type.mlsdk_decoder_module_type_compute" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c enumerator">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_module_type.mlsdk_decoder_module_type_graph">
+<span class="target" id="group__VGFCAPI_1gga54fedf54c9183c59fb6a7eac365af37aaff5b015bb4c30ea7d61bda1b6c12fe9e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_module_type_graph</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_module_type.mlsdk_decoder_module_type_graph" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="c enum">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_mrt_category">
+<span class="target" id="group__VGFCAPI_1gadcdd7605a50d3aea2b03252595a02262"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_mrt_category</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_mrt_category" title="Link to this definition"></a><br /></dt>
+<dd><p>Enum for model resource table category. </p>
+<p><em>Values:</em></p>
+<dl class="c enumerator">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_mrt_category.mlsdk_decoder_mrt_category_input">
+<span class="target" id="group__VGFCAPI_1ggadcdd7605a50d3aea2b03252595a02262a3c48a84a953474b852ad54c2e21628a4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_mrt_category_input</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_mrt_category.mlsdk_decoder_mrt_category_input" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c enumerator">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_mrt_category.mlsdk_decoder_mrt_category_output">
+<span class="target" id="group__VGFCAPI_1ggadcdd7605a50d3aea2b03252595a02262ad13bf9fc6eb3e46fcceb272b96da5bd8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_mrt_category_output</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_mrt_category.mlsdk_decoder_mrt_category_output" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c enumerator">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_mrt_category.mlsdk_decoder_mrt_category_intermediate">
+<span class="target" id="group__VGFCAPI_1ggadcdd7605a50d3aea2b03252595a02262a538a798a009686f37c4cec1f2ec86033"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_mrt_category_intermediate</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_mrt_category.mlsdk_decoder_mrt_category_intermediate" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c enumerator">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_mrt_category.mlsdk_decoder_mrt_category_constant">
+<span class="target" id="group__VGFCAPI_1ggadcdd7605a50d3aea2b03252595a02262a927773ffbf5aeb837604987a6bbb3ea6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_mrt_category_constant</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_mrt_category.mlsdk_decoder_mrt_category_constant" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="c type">
+<dt class="sig sig-object c" id="c.mlsdk_vk_header_version">
+<span class="target" id="group__VGFCAPI_1ga63932a5e9bff65c06b6d4668aaf89aad"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint16_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_vk_header_version</span></span></span><a class="headerlink" href="#c.mlsdk_vk_header_version" title="Link to this definition"></a><br /></dt>
+<dd><p>Type for VK_HEADER_VERSION. </p>
+</dd></dl>
+
+<dl class="c type">
+<dt class="sig sig-object c" id="c.mlsdk_vk_descriptor_type">
+<span class="target" id="group__VGFCAPI_1ga729d7ca6fab54e7131018932cb5af584"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">int32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_vk_descriptor_type</span></span></span><a class="headerlink" href="#c.mlsdk_vk_descriptor_type" title="Link to this definition"></a><br /></dt>
+<dd><p>Type for VkDescriptorType enum. </p>
+</dd></dl>
+
+<dl class="c type">
+<dt class="sig sig-object c" id="c.mlsdk_vk_format">
+<span class="target" id="group__VGFCAPI_1gaf6ef32c2b6245aa426ab03c658ac4b69"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">int32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_vk_format</span></span></span><a class="headerlink" href="#c.mlsdk_vk_format" title="Link to this definition"></a><br /></dt>
+<dd><p>Carrier type for VkFormat. </p>
+</dd></dl>
+
+<dl class="c type">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_binding_slots_handle">
+<span class="target" id="group__VGFCAPI_1gade7342400dff6a85022386fbe513a13d"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_binding_slots_handle_s</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_binding_slots_handle</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_binding_slots_handle" title="Link to this definition"></a><br /></dt>
+<dd><p>Handle to refer to a specific view of a bundle of binding slots. </p>
+</dd></dl>
+
+<dl class="c type">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_push_constant_ranges_handle">
+<span class="target" id="group__VGFCAPI_1gaad0ae6c0f1af263f337f22988c70ff1f"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_push_constant_ranges_handle_s</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_push_constant_ranges_handle</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_push_constant_ranges_handle" title="Link to this definition"></a><br /></dt>
+<dd><p>Handle to refer to an array of push constant ranges. </p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_vk_format_undefined">
+<span class="target" id="group__VGFCAPI_1gaed63c9e4e871ca968908b4715e9cd2ce"></span><a class="reference internal" href="#c.mlsdk_vk_format" title="mlsdk_vk_format"><span class="n"><span class="pre">mlsdk_vk_format</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_vk_format_undefined</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_vk_format_undefined" title="Link to this definition"></a><br /></dt>
+<dd><p>return the value for an mlsdk_vk_format corresponding to VK_FORMAT_UNDEFINED. </p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_get_version">
+<span class="target" id="group__VGFCAPI_1ga129527eed1c00f0ba938cada005e094b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_version</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#c.mlsdk_decoder_vgf_version" title="mlsdk_decoder_vgf_version"><span class="n"><span class="pre">mlsdk_decoder_vgf_version</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">version</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_version" title="Link to this definition"></a><br /></dt>
+<dd><p>Gets the library version. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>version</strong> -- The pointer to the struct to write the version information </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_header_size">
+<span class="target" id="group__VGFCAPI_1gac6c2405ba3b61cd7e89211655b84dd9b"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_header_size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_header_size" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the size in bytes of the VGF header on disk. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The size in bytes of the VGF header data </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_header_decoder_mem_reqs">
+<span class="target" id="group__VGFCAPI_1ga2645df53b6ad46454a17149520d87c6a"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_header_decoder_mem_reqs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_header_decoder_mem_reqs" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the memory requirements in bytes to allocate memory for creating the header decoder. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The size in bytes of the memory needed to create the header decoder </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_create_header_decoder">
+<span class="target" id="group__VGFCAPI_1ga97249fcd207bf70b5dd5b7ca6a4520fe"></span><span class="n"><span class="pre">mlsdk_decoder_header_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_create_header_decoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">headerData</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">decoderMemory</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_create_header_decoder" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates the header decoder. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>headerData</strong> -- The pointer to the header data </p></li>
+<li><p><strong>decoderMemory</strong> -- Memory allocated to be used to create the decoder </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The pointer to the newly created decoder </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_is_header_valid">
+<span class="target" id="group__VGFCAPI_1gabd011697822ce753f9bf35c5b74231e5"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_is_header_valid</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_header_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">decoder</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_is_header_valid" title="Link to this definition"></a><br /></dt>
+<dd><p>Checks if the header is valid. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decoder</strong> -- The header decoder associated to the header data </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the parsed data is a valid VGF header, false otherwise </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_is_header_compatible">
+<span class="target" id="group__VGFCAPI_1gabecf7b4a5195d5a8f3d264a11628c234"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_is_header_compatible</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_header_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">decoder</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_is_header_compatible" title="Link to this definition"></a><br /></dt>
+<dd><p>Checks if the VGF file is compatible with this library version. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decoder</strong> -- The header decoder associated to the header data </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the VGF file is compatible with the library, false otherwise </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_get_encoder_vk_header_version">
+<span class="target" id="group__VGFCAPI_1ga9c1efd86fe8fac1b4e020ddfbb7bd050"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_encoder_vk_header_version</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_header_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">decoder</span></span>, <a class="reference internal" href="#c.mlsdk_vk_header_version" title="mlsdk_vk_header_version"><span class="n"><span class="pre">mlsdk_vk_header_version</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">vkHeaderVersion</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_encoder_vk_header_version" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the value of VK_HEADERS_VERSION found in the VGF file. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decoder</strong> -- The header decoder associated to the header data </p></li>
+<li><p><strong>vkHeaderVersion</strong> -- Return value of the VK_HEADERS_VERSION used while encoding the VGF </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_get_header_version">
+<span class="target" id="group__VGFCAPI_1ga4c48b41dadb413be17d32955180fe832"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_header_version</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_header_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">decoder</span></span>, <a class="reference internal" href="#c.mlsdk_decoder_vgf_version" title="mlsdk_decoder_vgf_version"><span class="n"><span class="pre">mlsdk_decoder_vgf_version</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">version</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_header_version" title="Link to this definition"></a><br /></dt>
+<dd><p>Gets the VGF file version. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decoder</strong> -- The header decoder associated to the header data </p></li>
+<li><p><strong>version</strong> -- The pointer to the struct to write the result to </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_get_header_section_info">
+<span class="target" id="group__VGFCAPI_1ga205c85e53354b565834577bcffba62c0"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_header_section_info</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_header_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">decoder</span></span>, <a class="reference internal" href="#c.mlsdk_decoder_section" title="mlsdk_decoder_section"><span class="n"><span class="pre">mlsdk_decoder_section</span></span></a><span class="w"> </span><span class="n"><span class="pre">sectionName</span></span>, <a class="reference internal" href="#c.mlsdk_decoder_vgf_section_info" title="mlsdk_decoder_vgf_section_info"><span class="n"><span class="pre">mlsdk_decoder_vgf_section_info</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">section</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_header_section_info" title="Link to this definition"></a><br /></dt>
+<dd><p>Gets the VGF file section info for the given section name. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decoder</strong> -- The header decoder associated to the header data </p></li>
+<li><p><strong>sectionName</strong> -- Section name </p></li>
+<li><p><strong>section</strong> -- The pointer to the VGF section info </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_module_table_decoder_mem_reqs">
+<span class="target" id="group__VGFCAPI_1ga537b6e8d205b74d2ac719cb65e247aab"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_module_table_decoder_mem_reqs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_module_table_decoder_mem_reqs" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the memory requirements in bytes to allocate memory for creating the module table decoder. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The size in bytes of the memory needed to create the module table decoder </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_is_valid_module_table">
+<span class="target" id="group__VGFCAPI_1gaaf2a879db13cbb46a98c9a57a7cbb246"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_is_valid_module_table</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">moduleTableData</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_is_valid_module_table" title="Link to this definition"></a><br /></dt>
+<dd><p>Checks if pointer points to valid module table data. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>moduleTableData</strong> -- The pointer to the data </p></li>
+<li><p><strong>size</strong> -- The size in bytes of the data </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the data is a valid section, false otherwise </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_create_module_table_decoder">
+<span class="target" id="group__VGFCAPI_1ga77be7774234140c0720a80ca798426f6"></span><span class="n"><span class="pre">mlsdk_decoder_module_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_create_module_table_decoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">moduleTableData</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">decoderMemory</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_create_module_table_decoder" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates the module table decoder. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>moduleTableData</strong> -- The pointer to the module table data </p></li>
+<li><p><strong>decoderMemory</strong> -- Memory allocated to be used to create the decoder </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The pointer to the newly created decoder </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_get_module_table_num_entries">
+<span class="target" id="group__VGFCAPI_1ga0223db44a2bc50fd0fbd0cc1a3500a04"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_module_table_num_entries</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_module_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">decoder</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_module_table_num_entries" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the number of entries in the module table. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decoder</strong> -- The pointer to the module table decoder </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The number of entries in the table </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_get_module_type">
+<span class="target" id="group__VGFCAPI_1ga53bdcb8dbcdcfa7fa08c9b52c74989eb"></span><a class="reference internal" href="#c.mlsdk_decoder_module_type" title="mlsdk_decoder_module_type"><span class="n"><span class="pre">mlsdk_decoder_module_type</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_module_type</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_module_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">decoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">idx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_module_type" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the module type of the idx-entry. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decoder</strong> -- The pointer to the module table decoder </p></li>
+<li><p><strong>idx</strong> -- The index for the entry in the module table </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The module type of the entry </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_get_module_name">
+<span class="target" id="group__VGFCAPI_1gadcf985350788548b08cd33dd080f1dfb"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_module_name</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_module_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">decoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">idx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_module_name" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the module name of the idx-entry. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decoder</strong> -- The pointer to the module table decoder </p></li>
+<li><p><strong>idx</strong> -- The index for the entry in the module table </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Char pointer to the module name </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_get_module_entry_point">
+<span class="target" id="group__VGFCAPI_1gaf1322230a1914ae1ecd5b017d9077418"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_module_entry_point</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_module_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">decoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">idx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_module_entry_point" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the SPIR-V entry_point name stored in the module. </p>
+<p>
+If no entry_point is stored in the module a null pointer is returned. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decoder</strong> -- The pointer to the module table decoder </p></li>
+<li><p><strong>idx</strong> -- The index for the entry in the module table </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Char pointer to the entry_point name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_get_module_code">
+<span class="target" id="group__VGFCAPI_1ga8ad262fd337125c4ec4cb450225a33d9"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_module_code</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_module_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">decoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">idx</span></span>, <a class="reference internal" href="#c.mlsdk_decoder_spirv_code" title="mlsdk_decoder_spirv_code"><span class="n"><span class="pre">mlsdk_decoder_spirv_code</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">spirvCode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_module_code" title="Link to this definition"></a><br /></dt>
+<dd><p>Gets the SPIR-V code stored in the module. </p>
+<p>
+If no code is stored in the module the SPIR-V code pointer will be set to null and the words to zero. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decoder</strong> -- The pointer to the module table decoder </p></li>
+<li><p><strong>idx</strong> -- The index for the entry in the module table </p></li>
+<li><p><strong>spirvCode</strong> -- The place where to store the SPIR-V code</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_binding_slot_size">
+<span class="target" id="group__VGFCAPI_1ga98ce2de81328f7fc07e68a261df8a617"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_binding_slot_size</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span>, <a class="reference internal" href="#c.mlsdk_decoder_binding_slots_handle" title="mlsdk_decoder_binding_slots_handle"><span class="n"><span class="pre">mlsdk_decoder_binding_slots_handle</span></span></a><span class="w"> </span><span class="n"><span class="pre">handle</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_binding_slot_size" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the number of binding slots. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceDecoder</strong> -- The pointer to the model sequence decoder </p></li>
+<li><p><strong>handle</strong> -- The handle to the binding slots array </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number of binding slots in model sequence </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_binding_slot_binding_id">
+<span class="target" id="group__VGFCAPI_1gacae128123563f9efea88b9da0544192a"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_binding_slot_binding_id</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span>, <a class="reference internal" href="#c.mlsdk_decoder_binding_slots_handle" title="mlsdk_decoder_binding_slots_handle"><span class="n"><span class="pre">mlsdk_decoder_binding_slots_handle</span></span></a><span class="w"> </span><span class="n"><span class="pre">handle</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">slotIdx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_binding_slot_binding_id" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the binding id of a given binding slot. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceDecoder</strong> -- The pointer to the model sequence decoder </p></li>
+<li><p><strong>handle</strong> -- The handle to the binding slots array </p></li>
+<li><p><strong>slotIdx</strong> -- The index of the binding slot in the binding slots array </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Binding id of binding slot with index slotIdx </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_binding_slot_mrt_index">
+<span class="target" id="group__VGFCAPI_1ga250f43c6403987b4e8a638a20094ae63"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_binding_slot_mrt_index</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span>, <a class="reference internal" href="#c.mlsdk_decoder_binding_slots_handle" title="mlsdk_decoder_binding_slots_handle"><span class="n"><span class="pre">mlsdk_decoder_binding_slots_handle</span></span></a><span class="w"> </span><span class="n"><span class="pre">handle</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">slotIdx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_binding_slot_mrt_index" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the mrt index of a given binding slot. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceDecoder</strong> -- The pointer to the model sequence decoder </p></li>
+<li><p><strong>handle</strong> -- The handle to the binding slots array </p></li>
+<li><p><strong>slotIdx</strong> -- The index of the binding slot in the model sequence binding </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Mrt index of binding slot with index slotIdx </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_get_push_constant_ranges_size">
+<span class="target" id="group__VGFCAPI_1ga91333d6beebb1ecd138d84d96ad4d4db"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_push_constant_ranges_size</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span>, <a class="reference internal" href="#c.mlsdk_decoder_push_constant_ranges_handle" title="mlsdk_decoder_push_constant_ranges_handle"><span class="n"><span class="pre">mlsdk_decoder_push_constant_ranges_handle</span></span></a><span class="w"> </span><span class="n"><span class="pre">handle</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_push_constant_ranges_size" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the number of push constant ranges. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceDecoder</strong> -- The pointer to the model sequence decoder </p></li>
+<li><p><strong>handle</strong> -- The handle to the push constant ranges </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number of push constant ranges </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_get_push_constant_range_stage_flags">
+<span class="target" id="group__VGFCAPI_1gafa0a9201ef2bf289a59039651bee3438"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_push_constant_range_stage_flags</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span>, <a class="reference internal" href="#c.mlsdk_decoder_push_constant_ranges_handle" title="mlsdk_decoder_push_constant_ranges_handle"><span class="n"><span class="pre">mlsdk_decoder_push_constant_ranges_handle</span></span></a><span class="w"> </span><span class="n"><span class="pre">handle</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">rangeIdx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_push_constant_range_stage_flags" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the stage flags of a given push constant range. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceDecoder</strong> -- The pointer to the model sequence decoder </p></li>
+<li><p><strong>handle</strong> -- The handle to the push constant ranges </p></li>
+<li><p><strong>rangeIdx</strong> -- The index of the push constant range in the model sequence push constant ranges </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Stage flags of push constant range with index rangeIdx </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_get_push_constant_range_offset">
+<span class="target" id="group__VGFCAPI_1gadb2b30648de9ad0e0be1783412059267"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_push_constant_range_offset</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span>, <a class="reference internal" href="#c.mlsdk_decoder_push_constant_ranges_handle" title="mlsdk_decoder_push_constant_ranges_handle"><span class="n"><span class="pre">mlsdk_decoder_push_constant_ranges_handle</span></span></a><span class="w"> </span><span class="n"><span class="pre">handle</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">rangeIdx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_push_constant_range_offset" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the offset of a given push constant range. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceDecoder</strong> -- The pointer to the model sequence decoder </p></li>
+<li><p><strong>handle</strong> -- The handle to the push constant ranges </p></li>
+<li><p><strong>rangeIdx</strong> -- The index of the push constant range in the model sequence push constant ranges </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Offset of push constant range with index rangeIdx </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_get_push_constant_range_size">
+<span class="target" id="group__VGFCAPI_1ga46cc4dc76ffdd98cac6161b26c76a893"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_push_constant_range_size</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span>, <a class="reference internal" href="#c.mlsdk_decoder_push_constant_ranges_handle" title="mlsdk_decoder_push_constant_ranges_handle"><span class="n"><span class="pre">mlsdk_decoder_push_constant_ranges_handle</span></span></a><span class="w"> </span><span class="n"><span class="pre">handle</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">rangeIdx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_push_constant_range_size" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the number of push constants in a given push constant range. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceDecoder</strong> -- The pointer to the model sequence decoder </p></li>
+<li><p><strong>handle</strong> -- The handle to the push constant ranges </p></li>
+<li><p><strong>rangeIdx</strong> -- The index of the push constant range in the model sequence push constant ranges </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number of push constants in push constant range with index rangeIdx </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_is_valid_model_sequence">
+<span class="target" id="group__VGFCAPI_1gafb658b1d3b0e248513c92152e5f2e798"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_is_valid_model_sequence</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">modelSequenceData</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_is_valid_model_sequence" title="Link to this definition"></a><br /></dt>
+<dd><p>Checks if pointer points to valid model sequence data. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceData</strong> -- The pointer to the data </p></li>
+<li><p><strong>size</strong> -- The size in bytes of the data </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the data is a valid section, false otherwise </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_create_model_sequence_decoder">
+<span class="target" id="group__VGFCAPI_1gaea31bcbb81b89a4831ad5e368cf244c7"></span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_create_model_sequence_decoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceData</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">modelSequenceDecoderMemory</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_create_model_sequence_decoder" title="Link to this definition"></a><br /></dt>
+<dd><p>Create the model sequence decoder. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceData</strong> -- The pointer to the model sequence data </p></li>
+<li><p><strong>modelSequenceDecoderMemory</strong> -- Memory allocated to be used to create the decoder </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The pointer to the newly created model sequence decoder </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_sequence_decoder_mem_reqs">
+<span class="target" id="group__VGFCAPI_1ga2899befeb6e935afd1576472129b9b29"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder_mem_reqs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_sequence_decoder_mem_reqs" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the memory requirements in bytes to allocate memory for creating the model sequence decoder. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The size in bytes of the memory needed to create the model sequence decoder </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_get_model_sequence_table_size">
+<span class="target" id="group__VGFCAPI_1ga878e7de841d9099fac2b19e706c7da16"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_model_sequence_table_size</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_model_sequence_table_size" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the number of segments in a model sequence table. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceDecoder</strong> -- The pointer to the model sequence decoder </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number of segments in a model sequence table </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_sequence_get_segment_descriptorset_info_size">
+<span class="target" id="group__VGFCAPI_1gae0b7545a431ad67cf5faa688a83575c7"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_sequence_get_segment_descriptorset_info_size</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">segIdx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_sequence_get_segment_descriptorset_info_size" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the number of descriptorset infos in a given segment of model sequence. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceDecoder</strong> -- The pointer to the model sequence decoder </p></li>
+<li><p><strong>segIdx</strong> -- The index for the segment in the model sequence </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number of descriptorset infos in segment with index segIdx </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_sequence_get_segment_constant_indexes">
+<span class="target" id="group__VGFCAPI_1gab1ba23ca13cc83cf148153ac7ad2e97e"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_sequence_get_segment_constant_indexes</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">segIdx</span></span>, <a class="reference internal" href="#c.mlsdk_decoder_constant_indexes" title="mlsdk_decoder_constant_indexes"><span class="n"><span class="pre">mlsdk_decoder_constant_indexes</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">constant</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_sequence_get_segment_constant_indexes" title="Link to this definition"></a><br /></dt>
+<dd><p>Gets the constant indexes for the given segment into the constant section. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceDecoder</strong> -- The pointer to the model sequence decoder </p></li>
+<li><p><strong>segIdx</strong> -- The index of segment in the model sequence </p></li>
+<li><p><strong>constant</strong> -- Constant struct pointer where to store the data </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_sequence_get_segment_type">
+<span class="target" id="group__VGFCAPI_1gadf8c438d71888c75d166c21857981713"></span><a class="reference internal" href="#c.mlsdk_decoder_module_type" title="mlsdk_decoder_module_type"><span class="n"><span class="pre">mlsdk_decoder_module_type</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_sequence_get_segment_type</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">segIdx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_sequence_get_segment_type" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the type of a given segment of model sequence. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceDecoder</strong> -- The pointer to the model sequence decoder </p></li>
+<li><p><strong>segIdx</strong> -- The index for the segment in the model sequence </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Type of segment with index segIdx </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_sequence_get_segment_name">
+<span class="target" id="group__VGFCAPI_1ga7d5d80912a3b62cfe944c05b9e78d13a"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_sequence_get_segment_name</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">segIdx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_sequence_get_segment_name" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the name of given segment of model sequence. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceDecoder</strong> -- The pointer to the model sequence decoder </p></li>
+<li><p><strong>segIdx</strong> -- The index for the segment in the model sequence </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Name of segment with index segIdx </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_sequence_get_segment_module_index">
+<span class="target" id="group__VGFCAPI_1gac14ed24bed306ef6dcf446ccc20b0b9d"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_sequence_get_segment_module_index</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">segIdx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_sequence_get_segment_module_index" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the module index into the ModuleTable to access the associated Segment’s Module. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceDecoder</strong> -- The pointer to the model sequence decoder </p></li>
+<li><p><strong>segIdx</strong> -- The index for the segment in the model sequence </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The module index into the ModuleTable of the assocated Segment’s Module </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_sequence_get_segment_dispatch_shape">
+<span class="target" id="group__VGFCAPI_1ga91cc553bffb931fe1bd403c4ccd48c95"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_sequence_get_segment_dispatch_shape</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">segIdx</span></span>, <a class="reference internal" href="#c.mlsdk_decoder_dispatch_shape" title="mlsdk_decoder_dispatch_shape"><span class="n"><span class="pre">mlsdk_decoder_dispatch_shape</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dispatchShape</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_sequence_get_segment_dispatch_shape" title="Link to this definition"></a><br /></dt>
+<dd><p>Gets the dispatch shape of given segment of model sequence. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceDecoder</strong> -- The pointer to the model sequence decoder </p></li>
+<li><p><strong>segIdx</strong> -- The index for the segment in the model sequence </p></li>
+<li><p><strong>dispatchShape</strong> -- Pointer to a dispatch shape struct where to save the data </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_sequence_get_segment_push_constant_range">
+<span class="target" id="group__VGFCAPI_1ga10bc8c790d5aa411e3fb5bc6f07ac537"></span><a class="reference internal" href="#c.mlsdk_decoder_push_constant_ranges_handle" title="mlsdk_decoder_push_constant_ranges_handle"><span class="n"><span class="pre">mlsdk_decoder_push_constant_ranges_handle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_sequence_get_segment_push_constant_range</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">segIdx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_sequence_get_segment_push_constant_range" title="Link to this definition"></a><br /></dt>
+<dd><p>Gets the push constant range of a given segment of model sequence. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceDecoder</strong> -- The pointer to the model sequence decoder </p></li>
+<li><p><strong>segIdx</strong> -- The index for the segment in the model sequence </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Handle to the push constant ranges </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_sequence_get_segment_descriptor_binding_slot">
+<span class="target" id="group__VGFCAPI_1gab17005d9f2518f43ad22455b1bebc874"></span><a class="reference internal" href="#c.mlsdk_decoder_binding_slots_handle" title="mlsdk_decoder_binding_slots_handle"><span class="n"><span class="pre">mlsdk_decoder_binding_slots_handle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_sequence_get_segment_descriptor_binding_slot</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">segIdx</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">descIdx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_sequence_get_segment_descriptor_binding_slot" title="Link to this definition"></a><br /></dt>
+<dd><p>Gets the binding slot of a given descriptor of a given segment of model sequence. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceDecoder</strong> -- The pointer to the model sequence decoder </p></li>
+<li><p><strong>segIdx</strong> -- The index for the segment in the model sequence </p></li>
+<li><p><strong>descIdx</strong> -- The index for the descriptor in the segment </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Handle to the binding slots array descInd in the segment with index segIdx </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_sequence_get_segment_input_binding_slot">
+<span class="target" id="group__VGFCAPI_1ga7b56c9eb0131118d88bcd133bddbf300"></span><a class="reference internal" href="#c.mlsdk_decoder_binding_slots_handle" title="mlsdk_decoder_binding_slots_handle"><span class="n"><span class="pre">mlsdk_decoder_binding_slots_handle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_sequence_get_segment_input_binding_slot</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">segIdx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_sequence_get_segment_input_binding_slot" title="Link to this definition"></a><br /></dt>
+<dd><p>Gets the input binding slot of a given segment of model sequence. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceDecoder</strong> -- The pointer to the model sequence decoder </p></li>
+<li><p><strong>segIdx</strong> -- The index for the segment in the model sequence </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Handle to the binding slots array </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_sequence_get_segment_output_binding_slot">
+<span class="target" id="group__VGFCAPI_1ga68df2f8ea38c3730ad73cf9d82fce4a2"></span><a class="reference internal" href="#c.mlsdk_decoder_binding_slots_handle" title="mlsdk_decoder_binding_slots_handle"><span class="n"><span class="pre">mlsdk_decoder_binding_slots_handle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_sequence_get_segment_output_binding_slot</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">segIdx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_sequence_get_segment_output_binding_slot" title="Link to this definition"></a><br /></dt>
+<dd><p>Gets the output binding slot of a given segment of model sequence. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceDecoder</strong> -- The pointer to the model sequence decoder </p></li>
+<li><p><strong>segIdx</strong> -- The index for the segment in the model sequence </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Handle to the binding slots array </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_sequence_get_input_binding_slot">
+<span class="target" id="group__VGFCAPI_1ga64b87a6841a72c097328be37ace705e6"></span><a class="reference internal" href="#c.mlsdk_decoder_binding_slots_handle" title="mlsdk_decoder_binding_slots_handle"><span class="n"><span class="pre">mlsdk_decoder_binding_slots_handle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_sequence_get_input_binding_slot</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_sequence_get_input_binding_slot" title="Link to this definition"></a><br /></dt>
+<dd><p>Gets the input binding slot of model sequence. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceDecoder</strong> -- The pointer to the model sequence decoder </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Handle to the binding slots array </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_sequence_get_output_binding_slot">
+<span class="target" id="group__VGFCAPI_1gae98b5bd43218119b81f69b838aad3151"></span><a class="reference internal" href="#c.mlsdk_decoder_binding_slots_handle" title="mlsdk_decoder_binding_slots_handle"><span class="n"><span class="pre">mlsdk_decoder_binding_slots_handle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_sequence_get_output_binding_slot</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_sequence_get_output_binding_slot" title="Link to this definition"></a><br /></dt>
+<dd><p>Gets the output binding slot of model sequence. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceDecoder</strong> -- The pointer to the model sequence decoder </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Handle to the binding slots array </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_resource_table_decoder_mem_reqs">
+<span class="target" id="group__VGFCAPI_1ga35d83ed682f2bb30393d770786b6543d"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_decoder_mem_reqs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_resource_table_decoder_mem_reqs" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the memory requirements in bytes to allocate memory for creating the model resource table decoder. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The size in bytes of the memory needed to create the model resource table decoder </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_is_valid_model_resource_table">
+<span class="target" id="group__VGFCAPI_1ga3550f436ad8c8d4e7d3a6fbe0b68ebe8"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_is_valid_model_resource_table</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">modelResourceTableData</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_is_valid_model_resource_table" title="Link to this definition"></a><br /></dt>
+<dd><p>Checks if pointer points to valid model resource table data. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelResourceTableData</strong> -- The pointer to the data </p></li>
+<li><p><strong>size</strong> -- The size in bytes of the data </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the data is a valid section, false otherwise </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_create_model_resource_table_decoder">
+<span class="target" id="group__VGFCAPI_1ga350b6c9b6291ab8b001e1187561d64e0"></span><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_create_model_resource_table_decoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelResourceTableData</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">decoderMemory</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_create_model_resource_table_decoder" title="Link to this definition"></a><br /></dt>
+<dd><p>Create the model resource table decoder. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelResourceTableData</strong> -- The pointer to the module resource table data </p></li>
+<li><p><strong>decoderMemory</strong> -- Memory allocated to be used to create the decoder </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The pointer to the newly created decoder </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_get_model_resource_table_num_entries">
+<span class="target" id="group__VGFCAPI_1gac9fb51c4d90a4ef0d44aca902fba6176"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_model_resource_table_num_entries</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelResourceTableDecoder</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_model_resource_table_num_entries" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the number of entries in the model resource table. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelResourceTableDecoder</strong> -- The pointer to the model resource table decoder </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The number of entries in the table </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_get_vk_descriptor_type">
+<span class="target" id="group__VGFCAPI_1gaa09351a533f15f92e2290ea825b58877"></span><a class="reference internal" href="#c.mlsdk_vk_descriptor_type_optional" title="mlsdk_vk_descriptor_type_optional"><span class="n"><span class="pre">mlsdk_vk_descriptor_type_optional</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_vk_descriptor_type</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelResourceTableDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">idx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_vk_descriptor_type" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the vk_descriptor_type of the idx-entry in the model resource table or mlsdk_vk_descriptor_type_none for types with no corresponding descriptor type. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelResourceTableDecoder</strong> -- The pointer to the model resource table decoder </p></li>
+<li><p><strong>idx</strong> -- The index for the entry in the model resource table </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The model resource vk_descriptor_type of the entry </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_get_vk_format">
+<span class="target" id="group__VGFCAPI_1ga8977f306c42579d392cd67fdc77b1e75"></span><a class="reference internal" href="#c.mlsdk_vk_format" title="mlsdk_vk_format"><span class="n"><span class="pre">mlsdk_vk_format</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_vk_format</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelResourceTableDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">idx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_vk_format" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the vk_format of the idx-entry in the model resource table. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelResourceTableDecoder</strong> -- The pointer to the model resource table decoder </p></li>
+<li><p><strong>idx</strong> -- The index for the entry in the model resource table </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The model resource vk_format of the entry </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_resource_table_get_category">
+<span class="target" id="group__VGFCAPI_1ga49caf4fd7a54239714cc8af6b3d9daed"></span><a class="reference internal" href="#c.mlsdk_decoder_mrt_category" title="mlsdk_decoder_mrt_category"><span class="n"><span class="pre">mlsdk_decoder_mrt_category</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_get_category</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelResourceTableDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">mrtIdx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_resource_table_get_category" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the category of the idx-entry in the model resource table. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelResourceTableDecoder</strong> -- The pointer to the model resource table decoder </p></li>
+<li><p><strong>mrtIdx</strong> -- The index for the entry in the model resource table </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The category of the entry </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_resource_table_get_tensor_shape">
+<span class="target" id="group__VGFCAPI_1ga268569a4a1401a03150868c7e380b446"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_get_tensor_shape</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelResourceTableDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">mrtIdx</span></span>, <a class="reference internal" href="#c.mlsdk_decoder_tensor_dimensions" title="mlsdk_decoder_tensor_dimensions"><span class="n"><span class="pre">mlsdk_decoder_tensor_dimensions</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_resource_table_get_tensor_shape" title="Link to this definition"></a><br /></dt>
+<dd><p>Gets the shape of the idx-entry in the model resource table. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelResourceTableDecoder</strong> -- The pointer to the model resource table decoder </p></li>
+<li><p><strong>mrtIdx</strong> -- The index for the entry in the model resource table </p></li>
+<li><p><strong>dimensions</strong> -- The pointer to the shape of the model resource table entry </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_resource_table_get_tensor_strides">
+<span class="target" id="group__VGFCAPI_1ga7764ea119b00d1e3835d5debf23e836c"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_get_tensor_strides</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelResourceTableDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">mrtIdx</span></span>, <a class="reference internal" href="#c.mlsdk_decoder_tensor_dimensions" title="mlsdk_decoder_tensor_dimensions"><span class="n"><span class="pre">mlsdk_decoder_tensor_dimensions</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_resource_table_get_tensor_strides" title="Link to this definition"></a><br /></dt>
+<dd><p>Gets the strides of the idx-entry in the model resource table. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelResourceTableDecoder</strong> -- The pointer to the model resource table decoder </p></li>
+<li><p><strong>mrtIdx</strong> -- The index for the entry in the model resource table </p></li>
+<li><p><strong>dimensions</strong> -- The pointer to the strides of the model resource table entry </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_is_valid_constant_table">
+<span class="target" id="group__VGFCAPI_1gae42184f308c18f0bc1ce3dcf5597db29"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_is_valid_constant_table</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">constantTableData</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_is_valid_constant_table" title="Link to this definition"></a><br /></dt>
+<dd><p>Checks if pointer points to valid constant table data. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>constantTableData</strong> -- The pointer to the data </p></li>
+<li><p><strong>size</strong> -- The size in bytes of the data </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the data is a valid section, false otherwise </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_create_constant_table_decoder">
+<span class="target" id="group__VGFCAPI_1gacc4423334943e8876f657beee64061b3"></span><span class="n"><span class="pre">mlsdk_decoder_constant_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_create_constant_table_decoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">constantTableData</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">constantDecoderMemory</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_create_constant_table_decoder" title="Link to this definition"></a><br /></dt>
+<dd><p>Create the constant table decoder. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>constantTableData</strong> -- The pointer to the constant table data </p></li>
+<li><p><strong>constantDecoderMemory</strong> -- Memory allocated to be used to create the decoder </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The pointer to the newly created decoder </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_constant_table_decoder_mem_reqs">
+<span class="target" id="group__VGFCAPI_1ga3b6c92c125730398e59ecf1c68049625"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_constant_table_decoder_mem_reqs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_constant_table_decoder_mem_reqs" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the memory requirements in bytes to allocate memory for creating the constant tabledecoder. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The size in bytes of the memory needed to create the constant table decoder </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_constant_table_get_data">
+<span class="target" id="group__VGFCAPI_1gac61f9160beaf3b71cad599a241cb7607"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_constant_table_get_data</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_constant_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">constantDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">idx</span></span>, <a class="reference internal" href="#c.mlsdk_decoder_constant_data" title="mlsdk_decoder_constant_data"><span class="n"><span class="pre">mlsdk_decoder_constant_data</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">constantData</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_constant_table_get_data" title="Link to this definition"></a><br /></dt>
+<dd><p>Gets the data for the constant stored in the idx-entry in the constant table. </p>
+<p>
+If no code is stored in the module the constantData pointer will be set to null </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>constantDecoder</strong> -- The pointer to the constant table decoder </p></li>
+<li><p><strong>idx</strong> -- The index for the entry in the constant table </p></li>
+<li><p><strong>constantData</strong> -- The place where to store the constant data</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_constant_table_get_mrt_index">
+<span class="target" id="group__VGFCAPI_1ga8b1ea392a081b9d0d4b9f24e70218f86"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_constant_table_get_mrt_index</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_constant_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">constantDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">constidx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_constant_table_get_mrt_index" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the index into the module resource table associated to the constant. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>constantDecoder</strong> -- The pointer to the constant table decoder </p></li>
+<li><p><strong>constidx</strong> -- The index for the entry in the constant table </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The index into the model resource table </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_constant_table_is_sparse">
+<span class="target" id="group__VGFCAPI_1ga7374107209c5b90d246f27ba5d6a7b16"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_constant_table_is_sparse</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_constant_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">constantDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">constidx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_constant_table_is_sparse" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if the constant is sparse on one dimension. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>constantDecoder</strong> -- The pointer to the constant table decoder </p></li>
+<li><p><strong>constidx</strong> -- The index for the entry in the constant table </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true if constant is sparse or false oherwise </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_constant_table_get_sparsity_dimension">
+<span class="target" id="group__VGFCAPI_1ga733459628eae1d1b3c9bb8602ddb0986"></span><span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_constant_table_get_sparsity_dimension</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_constant_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">constantDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">constidx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_constant_table_get_sparsity_dimension" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the dimension on which the constant is sparse. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>constantDecoder</strong> -- The pointer to the constant table decoder </p></li>
+<li><p><strong>constidx</strong> -- The index for the entry in the constant table </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The dimension on which the constant is sparse </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_get_constant_table_num_entries">
+<span class="target" id="group__VGFCAPI_1gaad0fd67b9e488d841ffdb7fb65f9cc52"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_constant_table_num_entries</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_constant_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">constantDecoder</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_constant_table_num_entries" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the number of entries in the constant table. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>constantDecoder</strong> -- The pointer to the constant table decoder </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The number of entries in the table </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c struct">
+<dt class="sig sig-object c" id="c.mlsdk_vk_descriptor_type_optional">
+<span class="target" id="structmlsdk__vk__descriptor__type__optional"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_vk_descriptor_type_optional</span></span></span><a class="headerlink" href="#c.mlsdk_vk_descriptor_type_optional" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;/home/svc_ngp/workspace/VulkanGithubPagesNightly/build/vgf-lib/docs/sources/include-c/vgf/decoder.h&gt;</em></div>
+<p>Optional mlsdk_vk_descriptor_type. </p>
+</dd></dl>
+
+<dl class="c struct">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_vgf_version">
+<span class="target" id="structmlsdk__decoder__vgf__version"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_vgf_version</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_vgf_version" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;/home/svc_ngp/workspace/VulkanGithubPagesNightly/build/vgf-lib/docs/sources/include-c/vgf/decoder.h&gt;</em></div>
+<p>Semantic version of the VGF format. Compatibility is ensured if the file uses the same major version wrt to this library and a minor version which is lesser or equal wrt this library. </p>
+</dd></dl>
+
+<dl class="c struct">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_vgf_section_info">
+<span class="target" id="structmlsdk__decoder__vgf__section__info"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_vgf_section_info</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_vgf_section_info" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;/home/svc_ngp/workspace/VulkanGithubPagesNightly/build/vgf-lib/docs/sources/include-c/vgf/decoder.h&gt;</em></div>
+<p>Section info describing the location and size of a VGF section. </p>
+</dd></dl>
+
+<dl class="c struct">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_spirv_code">
+<span class="target" id="structmlsdk__decoder__spirv__code"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_spirv_code</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_spirv_code" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;/home/svc_ngp/workspace/VulkanGithubPagesNightly/build/vgf-lib/docs/sources/include-c/vgf/decoder.h&gt;</em></div>
+<p>The SPIR-V code view. </p>
+</dd></dl>
+
+<dl class="c struct">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_constant_data">
+<span class="target" id="structmlsdk__decoder__constant__data"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_constant_data</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_constant_data" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;/home/svc_ngp/workspace/VulkanGithubPagesNightly/build/vgf-lib/docs/sources/include-c/vgf/decoder.h&gt;</em></div>
+<p>The constant data view. </p>
+</dd></dl>
+
+<dl class="c struct">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_dispatch_shape">
+<span class="target" id="structmlsdk__decoder__dispatch__shape"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_dispatch_shape</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_dispatch_shape" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;/home/svc_ngp/workspace/VulkanGithubPagesNightly/build/vgf-lib/docs/sources/include-c/vgf/decoder.h&gt;</em></div>
+<p>The dispatch shape view. </p>
+</dd></dl>
+
+<dl class="c struct">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_constant_indexes">
+<span class="target" id="structmlsdk__decoder__constant__indexes"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_constant_indexes</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_constant_indexes" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;/home/svc_ngp/workspace/VulkanGithubPagesNightly/build/vgf-lib/docs/sources/include-c/vgf/decoder.h&gt;</em></div>
+<p>The constant view. </p>
+</dd></dl>
+
+<dl class="c struct">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_tensor_dimensions">
+<span class="target" id="structmlsdk__decoder__tensor__dimensions"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_tensor_dimensions</span></span></span><a class="headerlink" href="#c.mlsdk_decoder_tensor_dimensions" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;/home/svc_ngp/workspace/VulkanGithubPagesNightly/build/vgf-lib/docs/sources/include-c/vgf/decoder.h&gt;</em></div>
+<p>The dimensions view values of “-1” represent unshaped dimensions. </p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="decoder_api.html" class="btn btn-neutral float-left" title="VGF Decoder C++ API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="logging_api.html" class="btn btn-neutral float-right" title="VGF Logging C++ API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, Arm Limited and/or its affiliates &lt;open-source-office@arm.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

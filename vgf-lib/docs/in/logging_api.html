@@ -1,0 +1,258 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VGF Logging C++ API &mdash; ML SDK for Vulkan®  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=b8c9390b" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="VGF Logging C API" href="logging_c_api.html" />
+    <link rel="prev" title="VGF Decoder C API" href="decoder_c_api.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            ML SDK for Vulkan®
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../building.html">Building the ML SDK for Vulkan®</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tensor_aliasing_tutorial.html">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../model-converter/docs/in/index.html">ML SDK Model Converter</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK VGF Library</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ML SDK VGF Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">Building the ML SDK VGF Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="encoder_api.html">VGF Encoder C++ API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decoder_api.html">VGF Decoder C++ API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decoder_c_api.html">VGF Decoder C API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">VGF Logging C++ API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#logging-api-reference">Logging API reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv48LogLevel"><code class="docutils literal notranslate"><span class="pre">LogLevel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv415LoggingCallback"><code class="docutils literal notranslate"><span class="pre">LoggingCallback</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4lsRNSt7ostreamERK8LogLevel"><code class="docutils literal notranslate"><span class="pre">operator&lt;&lt;()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv413EnableLoggingRK15LoggingCallback"><code class="docutils literal notranslate"><span class="pre">EnableLogging()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv414DisableLoggingv"><code class="docutils literal notranslate"><span class="pre">DisableLogging()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logging_c_api.html">VGF Logging C API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vgf_dump.html">VGF Dump Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Scenario Runner</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../scenario-runner/docs/in/index.html">ML SDK Scenario Runner</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML Emulation Layer for Vulkan®</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../emulation-layer/docs/in/index.html">ML Emulation Layer for Vulkan®</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#secure-coding-practices">Secure coding practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#inclusive-language-guidelines">Inclusive language guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/security.html">Security</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ML SDK for Vulkan®</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">ML SDK VGF Library</a></li>
+      <li class="breadcrumb-item active">VGF Logging C++ API</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/vgf-lib/docs/in/logging_api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vgf-logging-c-api">
+<h1>VGF Logging C++ API<a class="headerlink" href="#vgf-logging-c-api" title="Link to this heading"></a></h1>
+<p>The VGF Library produces logging messages. The Logging C++ API allows you to process these logging messages. To enable the logging functionality, you must provide the callback function. The callback function accepts log level and message as input parameters:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;vgf/logging.hpp&quot;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">mlsdk</span><span class="o">::</span><span class="nn">vgflib</span><span class="o">::</span><span class="nn">logging</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loggingCallback</span><span class="p">(</span><span class="n">LogLevel</span><span class="w"> </span><span class="n">logLevel</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">message</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Implementation of the logging callback</span>
+<span class="p">}</span>
+
+<span class="n">EnableLogging</span><span class="p">(</span><span class="n">loggingCallback</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>To disable logging, use the following function:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;vgf/logging.hpp&quot;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">mlsdk</span><span class="o">::</span><span class="nn">vgflib</span><span class="o">::</span><span class="nn">logging</span><span class="p">;</span>
+
+<span class="n">DisableLogging</span><span class="p">();</span>
+</pre></div>
+</div>
+<section id="logging-api-reference">
+<h2>Logging API reference<a class="headerlink" href="#logging-api-reference" title="Link to this heading"></a></h2>
+<dl class="cpp enum-class">
+<dt class="sig sig-object cpp" id="_CPPv48LogLevel">
+<span id="_CPPv38LogLevel"></span><span id="_CPPv28LogLevel"></span><span class="target" id="group__VGFLoggingAPI_1gaddf91603f969df19438a4b5dc84c7103"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LogLevel</span></span></span><a class="headerlink" href="#_CPPv48LogLevel" title="Link to this definition"></a><br /></dt>
+<dd><p>Enum for the log levels. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8LogLevel4INFOE">
+<span id="_CPPv3N8LogLevel4INFOE"></span><span id="_CPPv2N8LogLevel4INFOE"></span><span class="target" id="group__VGFLoggingAPI_1ggaddf91603f969df19438a4b5dc84c7103a551b723eafd6a31d444fcb2f5920fbd3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">INFO</span></span></span><a class="headerlink" href="#_CPPv4N8LogLevel4INFOE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8LogLevel7WARNINGE">
+<span id="_CPPv3N8LogLevel7WARNINGE"></span><span id="_CPPv2N8LogLevel7WARNINGE"></span><span class="target" id="group__VGFLoggingAPI_1ggaddf91603f969df19438a4b5dc84c7103a059e9861e0400dfbe05c98a841f3f96b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">WARNING</span></span></span><a class="headerlink" href="#_CPPv4N8LogLevel7WARNINGE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8LogLevel5DEBUGE">
+<span id="_CPPv3N8LogLevel5DEBUGE"></span><span id="_CPPv2N8LogLevel5DEBUGE"></span><span class="target" id="group__VGFLoggingAPI_1ggaddf91603f969df19438a4b5dc84c7103adc30ec20708ef7b0f641ef78b7880a15"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DEBUG</span></span></span><a class="headerlink" href="#_CPPv4N8LogLevel5DEBUGE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8LogLevel5ERRORE">
+<span id="_CPPv3N8LogLevel5ERRORE"></span><span id="_CPPv2N8LogLevel5ERRORE"></span><span class="target" id="group__VGFLoggingAPI_1ggaddf91603f969df19438a4b5dc84c7103abb1ca97ec761fc37101737ba0aa2e7c5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ERROR</span></span></span><a class="headerlink" href="#_CPPv4N8LogLevel5ERRORE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv415LoggingCallback">
+<span id="_CPPv315LoggingCallback"></span><span id="_CPPv215LoggingCallback"></span><span class="target" id="group__VGFLoggingAPI_1ga888203b698f309d2517dfd89831d9116"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LoggingCallback</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv48LogLevel" title="LogLevel"><span class="n"><span class="pre">LogLevel</span></span></a><span class="w"> </span><span class="n"><span class="pre">logLevel</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv415LoggingCallback" title="Link to this definition"></a><br /></dt>
+<dd><p>Type definition for the logging callback. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Param logLevel<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Log level of the message </p>
+</dd>
+<dt class="field-even">Param message<span class="colon">:</span></dt>
+<dd class="field-even"><p>Log message </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4lsRNSt7ostreamERK8LogLevel">
+<span id="_CPPv3lsRNSt7ostreamERK8LogLevel"></span><span id="_CPPv2lsRNSt7ostreamERK8LogLevel"></span><span id="lshift-operator__osR.LogLevelCR"></span><span class="target" id="group__VGFLoggingAPI_1gacab875b29c51af9169b000ad0dc071d8"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">os</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv48LogLevel" title="LogLevel"><span class="n"><span class="pre">LogLevel</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">logLevel</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4lsRNSt7ostreamERK8LogLevel" title="Link to this definition"></a><br /></dt>
+<dd><p>Support LogLevel in std::ostream output operator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>os</strong> -- Reference to the std::ostream instance </p></li>
+<li><p><strong>logLevel</strong> -- Log level </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Reference to the std::ostream instance </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv413EnableLoggingRK15LoggingCallback">
+<span id="_CPPv313EnableLoggingRK15LoggingCallback"></span><span id="_CPPv213EnableLoggingRK15LoggingCallback"></span><span id="EnableLogging__LoggingCallbackCR"></span><span class="target" id="group__VGFLoggingAPI_1ga483f8723d50d3265ebab611ea124b354"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EnableLogging</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv415LoggingCallback" title="LoggingCallback"><span class="n"><span class="pre">LoggingCallback</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">callback</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv413EnableLoggingRK15LoggingCallback" title="Link to this definition"></a><br /></dt>
+<dd><p>Enables logging functionality. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>callback</strong> -- Callback that should be used for processing the log messages </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv414DisableLoggingv">
+<span id="_CPPv314DisableLoggingv"></span><span id="_CPPv214DisableLoggingv"></span><span id="DisableLogging"></span><span class="target" id="group__VGFLoggingAPI_1ga26a77bcc0519938c13b72a8e6513f8cc"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DisableLogging</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414DisableLoggingv" title="Link to this definition"></a><br /></dt>
+<dd><p>Disables logging functionality. </p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="decoder_c_api.html" class="btn btn-neutral float-left" title="VGF Decoder C API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="logging_c_api.html" class="btn btn-neutral float-right" title="VGF Logging C API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, Arm Limited and/or its affiliates &lt;open-source-office@arm.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

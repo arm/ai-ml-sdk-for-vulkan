@@ -1,0 +1,714 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JSON Test Description Specification &mdash; ML SDK for Vulkan®  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=b8c9390b" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Usage" href="usage.html" />
+    <link rel="prev" title="Building the ML SDK Scenario Runner" href="build.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            ML SDK for Vulkan®
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../building.html">Building the ML SDK for Vulkan®</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tensor_aliasing_tutorial.html">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../model-converter/docs/in/index.html">ML SDK Model Converter</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK VGF Library</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../vgf-lib/docs/in/index.html">ML SDK VGF Library</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Scenario Runner</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ML SDK Scenario Runner</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">Architecture Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build.html">Building the ML SDK Scenario Runner</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">JSON Test Description Specification</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#notation">Notation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#specification">Specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#resources">Resources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#commands">Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML Emulation Layer for Vulkan®</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../emulation-layer/docs/in/index.html">ML Emulation Layer for Vulkan®</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#secure-coding-practices">Secure coding practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#inclusive-language-guidelines">Inclusive language guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/security.html">Security</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ML SDK for Vulkan®</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">ML SDK Scenario Runner</a></li>
+      <li class="breadcrumb-item active">JSON Test Description Specification</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/scenario-runner/docs/in/json.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="json-test-description-specification">
+<h1>JSON Test Description Specification<a class="headerlink" href="#json-test-description-specification" title="Link to this heading"></a></h1>
+<section id="notation">
+<h2>Notation<a class="headerlink" href="#notation" title="Link to this heading"></a></h2>
+<p>The following section describes the notation in the Scenario Runner.</p>
+<p>A class defines a structured type in C terms with typed parameters. The comma separates the typed parameters:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_class</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">my_parameter1</span><span class="p">:</span> <span class="n">its_type</span><span class="p">,</span>
+    <span class="n">my_parameter2</span><span class="p">:</span> <span class="n">another_type</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The previous example defines a class called my_class with two parameters,
+<code class="docutils literal notranslate"><span class="pre">my_parameter1</span></code> of type <code class="docutils literal notranslate"><span class="pre">its_type</span></code>, and <code class="docutils literal notranslate"><span class="pre">my_parameter2</span></code> of type
+<code class="docutils literal notranslate"><span class="pre">another_type</span></code>.</p>
+</div></blockquote>
+<p>Parameter types can be regular types, for example, int, float, string, path, enum or boolean. Parameters can also be other user-defined classes. For class types that are defined later in the spec, the class name is prefixed with class. For
+example:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">some_parameter</span><span class="p">:</span> <span class="k">class</span><span class="w"> </span><span class="nc">some_new_type</span><span class="p">,</span>
+<span class="n">some_new_type</span><span class="p">:</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Arrays of items are wrapped in [] and lists of allowed types are separated with
+<code class="docutils literal notranslate"><span class="pre">|</span></code>.</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_array_of_ints</span><span class="p">:</span> <span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+<span class="n">my_array_of_things</span><span class="p">:</span> <span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>In the previous example, each element in <code class="docutils literal notranslate"><span class="pre">my_array_of_things</span></code> is a union of int and float types but can also be a union of different classes.</p>
+<p>Parameters that are optional have (default=value) postfix decoration on the
+type. Parameters that are not optional are required to be specified in the JSON
+file.</p>
+<p>Parameters that have a limited set of allowed values are postfixed with =
+followed by a | separated list of the allowed values. default values must match
+existing allowed constraints. For example, to define an optional parameter than
+can only be a value of red, green or blue, we do:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_parameter</span><span class="p">:</span><span class="n">string</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="o">|</span><span class="s2">&quot;green&quot;</span><span class="o">|</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Enumerations are similarly specified but without the “”.</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_enum_param</span><span class="p">:</span><span class="n">enum</span> <span class="o">=</span> <span class="p">(</span><span class="n">clockwise</span> <span class="o">|</span> <span class="n">counterclockwise</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Comments in the specification are inlined after //</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_param</span><span class="p">:</span><span class="nb">int</span> <span class="o">//</span> <span class="n">this</span> <span class="n">param</span> <span class="ow">is</span> <span class="n">used</span> <span class="n">by</span> <span class="n">things</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="specification">
+<h2>Specification<a class="headerlink" href="#specification" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>You can use absolute paths. If you do not use absolute paths, all paths are relative to the input scenario JSON file parent directory.</p></li>
+<li><p>All parameters defined in the specification are required unless annotated as
+optional with default=</p></li>
+</ul>
+</div>
+<p>The root of the JSON file has two blocks.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">root</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">resources</span><span class="p">:</span> <span class="p">[</span> <span class="k">class</span><span class="w"> </span><span class="nc">image</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">tensor</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">buffer</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">raw_data</span> <span class="o">|</span>
+                 <span class="k">class</span><span class="w"> </span><span class="nc">graph</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">shader</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">memory_barrier</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">buffer_barrier</span> <span class="o">|</span>
+                 <span class="k">class</span><span class="w"> </span><span class="nc">buffer_barrier</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">tensor_barrier</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">image_barrier</span> <span class="p">],</span>
+    <span class="n">commands</span><span class="p">:</span> <span class="p">[</span> <span class="k">class</span><span class="w"> </span><span class="nc">dispatch_compute</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">dispatch_graph</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">dispatch_barrier</span> <span class="o">|</span>
+                <span class="k">class</span><span class="w"> </span><span class="nc">mark_boundary</span> <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">resources</span></code> lists all the resources in the test case and each item in the
+array can be any of the following types:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#image"><span class="std std-ref">image</span></a></p></li>
+<li><p><a class="reference internal" href="#tensor"><span class="std std-ref">tensor</span></a></p></li>
+<li><p><a class="reference internal" href="#buffer"><span class="std std-ref">buffer</span></a></p></li>
+<li><p><a class="reference internal" href="#raw-data"><span class="std std-ref">raw_data</span></a></p></li>
+<li><p><a class="reference internal" href="#graph"><span class="std std-ref">graph</span></a></p></li>
+<li><p><a class="reference internal" href="#shader"><span class="std std-ref">shader</span></a></p></li>
+<li><p><a class="reference internal" href="#barriers"><span class="std std-ref">Barriers</span></a></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">commands</span></code> lists all the commands in order of execution or dispatch:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#dispatch-compute"><span class="std std-ref">dispatch_compute</span></a></p></li>
+<li><p><a class="reference internal" href="#dispatch-graph"><span class="std std-ref">dispatch_graph</span></a></p></li>
+<li><p><a class="reference internal" href="#dispatch-barrier"><span class="std std-ref">dispatch_barrier</span></a></p></li>
+<li><p><a class="reference internal" href="#mark-boundary"><span class="std std-ref">mark_boundary</span></a></p></li>
+</ul>
+<section id="resources">
+<h3>Resources<a class="headerlink" href="#resources" title="Link to this heading"></a></h3>
+<section id="image">
+<h4>image<a class="headerlink" href="#image" title="Link to this heading"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">image</span></code> resource has the following properties:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">image</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">uid</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">globally</span> <span class="n">unique</span> <span class="n">identifier</span> <span class="k">for</span> <span class="n">the</span> <span class="n">resource</span>
+    <span class="nb">format</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">string</span> <span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">VkFormat</span> <span class="n">enum</span><span class="o">.</span>
+    <span class="n">dims</span><span class="p">:[</span><span class="nb">int</span><span class="p">],</span> <span class="o">//</span> <span class="n">n</span><span class="o">-</span><span class="n">length</span> <span class="n">array</span> <span class="n">of</span> <span class="n">sized</span> <span class="k">for</span> <span class="n">an</span> <span class="n">n</span><span class="o">-</span><span class="n">dimension</span> <span class="n">image</span>
+    <span class="n">shader_access</span><span class="p">:</span><span class="n">enum</span> <span class="o">=</span> <span class="p">(</span><span class="n">readonly</span><span class="o">|</span><span class="n">writeonly</span><span class="o">|</span><span class="n">readwrite</span><span class="o">|</span><span class="n">image_read</span><span class="p">)</span> <span class="o">//</span> <span class="nb">type</span> <span class="n">of</span> <span class="n">access</span> <span class="n">required</span> <span class="n">by</span> <span class="n">the</span> <span class="n">shader</span><span class="o">/</span><span class="n">graph</span>
+    <span class="n">mips</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="o">//</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">mipmaps</span><span class="o">.</span> <span class="n">Create</span> <span class="n">an</span> <span class="n">Image</span> <span class="k">with</span> <span class="n">memory</span> <span class="n">allocated</span> <span class="k">for</span> <span class="n">this</span> <span class="n">many</span> <span class="n">level</span> <span class="n">of</span> <span class="n">details</span><span class="o">.</span> <span class="n">Mipmaps</span> <span class="n">levels</span> <span class="n">are</span> <span class="n">automatically</span> <span class="n">generated</span><span class="o">.</span>
+    <span class="n">src</span><span class="p">:</span><span class="n">path</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="o">//</span> <span class="n">optional</span> <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">DDS</span> <span class="n">file</span> <span class="n">to</span> <span class="n">initialize</span> <span class="n">the</span> <span class="n">resource</span> <span class="kn">from</span>
+<span class="w">    </span><span class="nn">dst</span><span class="p">:</span><span class="n">path</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="o">//</span> <span class="n">optional</span> <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">DDS</span> <span class="n">file</span> <span class="n">to</span> <span class="n">write</span> <span class="n">contents</span> <span class="n">to</span> <span class="p">(</span><span class="n">post</span> <span class="n">execution</span> <span class="n">of</span> <span class="n">commands</span><span class="p">)</span>
+    <span class="n">min_filter</span><span class="p">:</span><span class="n">enum</span> <span class="o">=</span> <span class="p">(</span><span class="n">NEAREST</span><span class="o">|</span><span class="n">LINEAR</span><span class="p">)</span> <span class="o">//</span> <span class="n">sampler</span> <span class="n">setting</span>
+    <span class="n">mag_filter</span><span class="p">:</span><span class="n">enum</span> <span class="o">=</span> <span class="p">(</span><span class="n">NEAREST</span><span class="o">|</span><span class="n">LINEAR</span><span class="p">)</span> <span class="o">//</span> <span class="n">sampler</span> <span class="n">setting</span>
+    <span class="n">mip_filter</span><span class="p">:</span><span class="n">enum</span> <span class="o">=</span> <span class="p">(</span><span class="n">NEAREST</span><span class="o">|</span><span class="n">LINEAR</span><span class="p">)</span> <span class="o">//</span> <span class="n">sampler</span> <span class="n">setting</span>
+    <span class="n">border_address_mode</span><span class="p">:</span><span class="n">enum</span> <span class="o">=</span> <span class="p">(</span><span class="n">CLAMP_EDGE</span><span class="o">|</span><span class="n">CLAMP_BORDER</span><span class="o">|</span><span class="n">REPEAT</span><span class="o">|</span><span class="n">MIRRORED_REPEAT</span><span class="p">)</span> <span class="o">//</span> <span class="n">sampler</span> <span class="n">setting</span>
+    <span class="n">border_color</span><span class="p">:</span><span class="n">enum</span> <span class="o">=</span> <span class="p">(</span><span class="n">FLOAT_TRANSPARENT_BLACK</span><span class="o">|</span><span class="n">FLOAT_OPAQUE_BLACK</span><span class="o">|</span><span class="n">FLOAT_OPAQUE_WHITE</span><span class="o">|</span><span class="n">INT_TRANSPARENT_BLACK</span><span class="o">|</span><span class="n">INT_OPAQUE_BLACK</span><span class="o">|</span><span class="n">INT_OPAQUE_WHITE</span><span class="o">|</span><span class="n">INT_CUSTOM_EXT</span><span class="o">|</span><span class="n">FLOAT_CUSTOM_EXT</span><span class="p">)</span> <span class="o">//</span> <span class="n">sampler</span> <span class="n">setting</span>
+    <span class="n">custom_border_color</span><span class="p">:[</span><span class="nb">int</span><span class="o">|</span><span class="nb">float</span><span class="p">],</span> <span class="o">//</span> <span class="n">length</span> <span class="mi">4</span> <span class="n">array</span> <span class="n">of</span> <span class="n">integer</span> <span class="ow">or</span> <span class="nb">float</span> <span class="n">values</span> <span class="n">representing</span> <span class="n">an</span> <span class="n">RGBA</span> <span class="n">color</span> <span class="n">value</span> <span class="k">for</span> <span class="n">a</span> <span class="n">custom</span> <span class="n">border</span><span class="o">.</span>
+    <span class="n">tiling</span><span class="p">:</span><span class="n">enum</span> <span class="o">=</span> <span class="p">(</span><span class="n">OPTIMAL</span><span class="o">|</span><span class="n">LINEAR</span><span class="p">),</span> <span class="o">//</span> <span class="n">optional</span> <span class="s2">&quot;Tiling&quot;</span> <span class="n">arrangement</span> <span class="n">info</span> <span class="n">of</span> <span class="n">the</span> <span class="n">image</span> <span class="n">resource</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For a complete list of VkFormat entries, see
+<a class="reference external" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkFormat.html">https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkFormat.html</a>
+however, we will only support those which line up with the DDS format
+described here:
+<a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/direct3ddds/dx-graphics-dds-pguide">https://docs.microsoft.com/en-us/windows/win32/direct3ddds/dx-graphics-dds-pguide</a>.</p>
+</section>
+<section id="tensor">
+<h4>tensor<a class="headerlink" href="#tensor" title="Link to this heading"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">tensor</span></code> resources have the following properties:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tensor</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">uid</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">globally</span> <span class="n">unique</span> <span class="n">identifier</span> <span class="k">for</span> <span class="n">the</span> <span class="n">resource</span>
+    <span class="n">dims</span><span class="p">:[</span><span class="nb">int</span><span class="p">],</span> <span class="o">//</span> <span class="n">n</span><span class="o">-</span><span class="n">length</span> <span class="n">array</span> <span class="n">of</span> <span class="n">sized</span> <span class="k">for</span> <span class="n">an</span> <span class="n">n</span><span class="o">-</span><span class="n">dimension</span> <span class="n">tensor</span>
+    <span class="nb">format</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">string</span> <span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">VkFormat</span> <span class="n">enum</span><span class="o">.</span>
+    <span class="n">shader_access</span><span class="p">:</span><span class="n">enum</span> <span class="o">=</span> <span class="p">(</span><span class="n">readonly</span><span class="o">|</span><span class="n">writeonly</span><span class="o">|</span><span class="n">readwrite</span><span class="p">)</span> <span class="o">//</span> <span class="nb">type</span> <span class="n">of</span> <span class="n">access</span> <span class="n">required</span> <span class="n">by</span> <span class="n">the</span> <span class="n">shader</span><span class="o">/</span><span class="n">graph</span>
+    <span class="n">src</span><span class="p">:</span><span class="n">path</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="o">//</span> <span class="n">optional</span> <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">NumPy</span> <span class="n">file</span> <span class="n">to</span> <span class="n">initialize</span> <span class="n">the</span> <span class="n">resource</span> <span class="kn">from</span>
+<span class="w">    </span><span class="nn">dst</span><span class="p">:</span><span class="n">path</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="o">//</span> <span class="n">optional</span> <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">NumPy</span> <span class="n">file</span> <span class="n">to</span> <span class="n">write</span> <span class="n">contents</span> <span class="n">to</span> <span class="p">(</span><span class="n">post</span> <span class="n">execution</span> <span class="n">of</span> <span class="n">commands</span><span class="p">)</span>
+    <span class="n">alias_target</span><span class="p">:</span><span class="n">AliasTarget</span><span class="p">,</span> <span class="o">//</span> <span class="n">optional</span> <span class="s2">&quot;AliasTarget&quot;</span> <span class="n">of</span> <span class="n">image</span> <span class="n">resource</span> <span class="n">to</span> <span class="n">share</span> <span class="n">memory</span> <span class="k">with</span>
+    <span class="n">tiling</span><span class="p">:</span><span class="n">enum</span> <span class="o">=</span> <span class="p">(</span><span class="n">OPTIMAL</span><span class="o">|</span><span class="n">LINEAR</span><span class="p">),</span> <span class="o">//</span> <span class="n">optional</span> <span class="s2">&quot;Tiling&quot;</span> <span class="n">arrangement</span> <span class="n">info</span> <span class="n">of</span> <span class="n">the</span> <span class="n">tensor</span> <span class="n">resource</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Supported formats for tensors are limited to a subset of the single channel
+types defined in the VkFormat enum. Currently supported formats are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">bool</span><span class="p">:</span> <span class="n">VK_FORMAT_R8_BOOL_ARM</span>
+<span class="n">uint8</span><span class="p">:</span> <span class="n">VK_FORMAT_R8_UINT</span>
+<span class="n">int8</span><span class="p">:</span> <span class="n">VK_FORMAT_R8_SINT</span>
+<span class="n">uint16</span><span class="p">:</span> <span class="n">VK_FORMAT_R16_UINT</span>
+<span class="n">int16</span><span class="p">:</span> <span class="n">VK_FORMAT_R16_SINT</span>
+<span class="n">uint32</span><span class="p">:</span> <span class="n">VK_FORMAT_R32_UINT</span>
+<span class="n">int32</span><span class="p">:</span> <span class="n">VK_FORMAT_R32_SINT</span>
+<span class="n">int64</span><span class="p">:</span> <span class="n">VK_FORMAT_R64_SINT</span>
+<span class="n">float16</span><span class="p">:</span> <span class="n">VK_FORMAT_R16_SFLOAT</span>
+<span class="n">float32</span><span class="p">:</span> <span class="n">VK_FORMAT_R32_SFLOAT</span>
+</pre></div>
+</div>
+<p>To allow for memory aliasing, the following object is needed in the <code class="docutils literal notranslate"><span class="pre">tensor</span></code> resource:
+.. code-block:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">AliasTarget</span> <span class="p">{</span>
+    <span class="n">resource_ref</span><span class="p">:</span><span class="n">string</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="o">//</span> <span class="n">Image</span> <span class="s2">&quot;uid&quot;</span> <span class="n">to</span> <span class="n">alias</span> <span class="n">memory</span> <span class="kn">from</span>
+<span class="w">    </span><span class="nn">mip_level</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="o">//</span> <span class="n">optional</span> <span class="n">parameter</span> <span class="n">to</span> <span class="n">decide</span> <span class="n">which</span> <span class="n">image</span> <span class="n">mipmap</span> <span class="n">to</span> <span class="n">alias</span> <span class="p">(</span><span class="n">only</span> <span class="mi">0</span> <span class="n">supported</span><span class="p">)</span>
+    <span class="n">array_layer</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">//</span> <span class="n">optional</span> <span class="n">parameter</span> <span class="n">to</span> <span class="n">decide</span> <span class="n">which</span> <span class="n">image</span> <span class="n">array</span> <span class="n">level</span> <span class="n">to</span> <span class="n">alias</span> <span class="p">(</span><span class="n">only</span> <span class="mi">0</span> <span class="n">supported</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="buffer">
+<h4>buffer<a class="headerlink" href="#buffer" title="Link to this heading"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">buffer</span></code> resources map to Storage Buffers in Vulkan®:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">buffer</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">uid</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">globally</span> <span class="n">unique</span> <span class="n">identifier</span> <span class="k">for</span> <span class="n">the</span> <span class="n">resource</span>
+    <span class="n">size</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="o">//</span> <span class="n">total</span> <span class="n">size</span> <span class="n">of</span> <span class="n">buffer</span> <span class="ow">in</span> <span class="nb">bytes</span>
+    <span class="n">shader_access</span><span class="p">:</span><span class="n">enum</span> <span class="o">=</span> <span class="p">(</span><span class="n">readonly</span><span class="o">|</span><span class="n">writeonly</span><span class="o">|</span><span class="n">readwrite</span><span class="p">)</span> <span class="o">//</span> <span class="nb">type</span> <span class="n">of</span> <span class="n">access</span> <span class="n">required</span> <span class="n">by</span> <span class="n">the</span> <span class="n">shader</span><span class="o">/</span><span class="n">graph</span>
+    <span class="n">src</span><span class="p">:</span><span class="n">path</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="o">//</span> <span class="n">optional</span> <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">NumPy</span> <span class="n">file</span> <span class="n">to</span> <span class="n">initialize</span> <span class="n">the</span> <span class="n">resource</span> <span class="kn">from</span>
+<span class="w">    </span><span class="nn">dst</span><span class="p">:</span><span class="n">path</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="o">//</span> <span class="n">optional</span> <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">NumPy</span> <span class="n">file</span> <span class="n">to</span> <span class="n">write</span> <span class="n">contents</span> <span class="n">to</span> <span class="p">(</span><span class="n">post</span> <span class="n">execution</span> <span class="n">of</span> <span class="n">commands</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Buffers do not have a format and it is up to the shader to interpret the data
+in the correct manner.</p>
+</section>
+<section id="raw-data">
+<h4>raw_data<a class="headerlink" href="#raw-data" title="Link to this heading"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">raw_data</span></code> represents some data in host memory that is fed to the
+dispatches via means other than standard resource binding mechanisms for
+example, push constant or specialization constants.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">raw_data</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">uid</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">globally</span> <span class="n">unique</span> <span class="n">identifier</span> <span class="k">for</span> <span class="n">the</span> <span class="n">resource</span>
+    <span class="n">src</span><span class="p">:</span><span class="n">path</span><span class="p">,</span> <span class="o">//</span> <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">NumPy</span> <span class="n">file</span> <span class="n">to</span> <span class="n">initialize</span> <span class="n">the</span> <span class="n">resource</span> <span class="kn">from</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="shader">
+<h4>shader<a class="headerlink" href="#shader" title="Link to this heading"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">shader</span></code> resource references a SPIR-V™ or GLSL shader file. The runner
+loads the GLSL and compiles it to SPIR-V™ before handing it to the Vulkan®
+Runtime.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">shader</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">uid</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">globally</span> <span class="n">unique</span> <span class="n">identifier</span> <span class="k">for</span> <span class="n">the</span> <span class="n">resource</span>
+    <span class="n">src</span><span class="p">:</span><span class="n">path</span><span class="p">,</span> <span class="o">//</span> <span class="n">path</span> <span class="n">to</span> <span class="n">a</span> <span class="n">shader</span> <span class="n">source</span> <span class="n">file</span>
+    <span class="n">entry</span><span class="p">:</span><span class="n">string</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;main&quot;</span><span class="p">),</span> <span class="o">//</span> <span class="n">entry</span> <span class="n">point</span> <span class="n">into</span> <span class="n">the</span> <span class="n">shader</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="n">enum</span> <span class="o">=</span> <span class="p">(</span><span class="n">GLSL</span> <span class="o">|</span> <span class="n">SPIR</span><span class="o">-</span><span class="n">V</span><span class="p">),</span> <span class="o">//</span> <span class="n">Type</span> <span class="n">of</span> <span class="n">shader</span> <span class="n">source</span> <span class="n">to</span> <span class="n">expect</span>
+    <span class="n">build_options</span><span class="p">:</span><span class="n">string</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="o">//</span> <span class="n">Build</span> <span class="n">options</span> <span class="n">to</span> <span class="n">be</span> <span class="n">used</span> <span class="n">when</span> <span class="n">compiling</span> <span class="n">a</span> <span class="n">GLSL</span> <span class="n">shader</span> <span class="n">source</span>
+    <span class="n">include_dirs</span><span class="p">:[</span><span class="n">string</span><span class="p">](</span><span class="n">default</span><span class="o">=</span><span class="p">[]),</span> <span class="o">//</span> <span class="n">Shaders</span> <span class="n">include</span> <span class="n">directories</span>
+    <span class="n">push_constants_size</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="o">//</span> <span class="n">Size</span> <span class="ow">in</span> <span class="nb">bytes</span> <span class="n">of</span> <span class="n">the</span> <span class="n">push</span> <span class="n">constants</span> <span class="n">used</span> <span class="n">by</span> <span class="n">the</span> <span class="n">shader</span><span class="o">.</span> <span class="n">Must</span> <span class="n">be</span> <span class="n">a</span> <span class="n">multiple</span> <span class="n">of</span> <span class="mi">4</span>
+    <span class="n">specialization_constants</span><span class="p">:</span> <span class="p">[</span><span class="k">class</span><span class="w"> </span><span class="nc">specialization_constant</span><span class="p">](</span><span class="n">default</span><span class="o">=</span><span class="p">),</span> <span class="o">//</span> <span class="n">n</span><span class="o">-</span><span class="n">dimension</span> <span class="n">array</span>
+<span class="p">}</span>
+
+<span class="n">specialization_constant</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>    <span class="o">//</span> <span class="nb">id</span> <span class="n">of</span> <span class="n">the</span> <span class="n">specialization</span> <span class="n">constant</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">shader</span>
+    <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="o">|</span><span class="nb">float</span> <span class="o">//</span> <span class="nb">float</span> <span class="ow">or</span> <span class="n">integer</span> <span class="n">value</span> <span class="n">to</span> <span class="nb">set</span> <span class="n">the</span> <span class="n">constant</span> <span class="n">to</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="graph">
+<h4>graph<a class="headerlink" href="#graph" title="Link to this heading"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">graph</span></code> resource is loaded from a VGF file via the
+SDK parser API.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">uid</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">globally</span> <span class="n">unique</span> <span class="n">identifier</span> <span class="k">for</span> <span class="n">the</span> <span class="n">resource</span>
+    <span class="n">src</span><span class="p">:</span><span class="n">path</span><span class="p">,</span> <span class="o">//</span> <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">VGF</span> <span class="n">file</span> <span class="n">to</span> <span class="n">initialize</span> <span class="n">the</span> <span class="n">resource</span> <span class="kn">from</span>
+<span class="w">    </span><span class="nn">specialization_constants_map</span><span class="p">:</span> <span class="p">[</span><span class="k">class</span><span class="w"> </span><span class="nc">specialization_constant_map</span><span class="p">](</span><span class="n">default</span><span class="o">=</span><span class="p">),</span> <span class="o">//</span> <span class="n">array</span> <span class="n">containing</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">specialization</span> <span class="n">constants</span> <span class="n">referenced</span> <span class="n">within</span> <span class="n">a</span> <span class="n">graph</span><span class="o">.</span>
+    <span class="n">shader_substitutions</span><span class="p">:[</span><span class="k">class</span><span class="w"> </span><span class="nc">shader_substitutions</span><span class="p">](</span><span class="n">default</span><span class="o">=</span><span class="p">)</span> <span class="o">//</span> <span class="n">array</span> <span class="n">containing</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">shaders</span> <span class="n">to</span> <span class="n">substitute</span> <span class="n">within</span> <span class="n">the</span> <span class="n">graph</span><span class="o">.</span>
+    <span class="n">push_constants_size</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="o">//</span> <span class="n">Size</span> <span class="ow">in</span> <span class="nb">bytes</span> <span class="n">of</span> <span class="n">the</span> <span class="n">push</span> <span class="n">constants</span> <span class="n">used</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">graph</span><span class="o">.</span> <span class="n">Must</span> <span class="n">be</span> <span class="n">a</span> <span class="n">multiple</span> <span class="n">of</span> <span class="mi">4</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The specialization constant map allows to map specialization constants to
+multiple shaders within a graph.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">specialization_constant_map</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">specialization_constants</span><span class="p">:[</span><span class="n">specialization_constant</span><span class="p">],</span> <span class="o">//</span> <span class="n">array</span> <span class="n">of</span> <span class="n">specialization</span> <span class="n">constants</span> <span class="nb">id</span><span class="o">-</span><span class="n">value</span> <span class="n">pair</span>
+    <span class="n">shader_target</span><span class="p">:</span><span class="n">string</span> <span class="o">//</span> <span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">shader</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">graph</span> <span class="n">on</span> <span class="n">which</span> <span class="n">to</span> <span class="n">apply</span> <span class="n">the</span> <span class="n">constants</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">shader_substitutions</span></code> parameter is an array of shader_substitution objects. Each shader_substitution describes a placeholder shader node in the
+graph that will be substituted with an actual shader implementation. The shader
+substitution occurs during graph parsing and before graph compilation.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">shader_substitutions</span><span class="p">:</span> <span class="p">{</span>
+    <span class="p">{</span>
+        <span class="n">shader_ref</span><span class="p">:</span> <span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">reference</span> <span class="n">to</span> <span class="n">the</span> <span class="n">shader</span> <span class="n">resource</span> <span class="p">(</span><span class="n">by</span> <span class="n">UID</span><span class="p">)</span> <span class="n">to</span> <span class="n">use</span> <span class="k">for</span> <span class="n">the</span> <span class="n">substitution</span>
+        <span class="n">target</span><span class="p">:</span> <span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">placeholder</span> <span class="n">shader</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">graph</span> <span class="n">to</span> <span class="n">replace</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="barriers">
+<h4>Barriers<a class="headerlink" href="#barriers" title="Link to this heading"></a></h4>
+<p>The barrier type resources represents memory, image, tensor and buffer barriers in Vulkan® which are inserted
+by the dispatch_barrier command. You must ensure that implicit barriers are disabled for the target pipeline in
+the corresponding dispatch command.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">memory_barrier</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">uid</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">globally</span> <span class="n">unique</span> <span class="n">identifier</span> <span class="k">for</span> <span class="n">the</span> <span class="n">resource</span>
+    <span class="n">src_access</span><span class="p">:</span><span class="n">enum</span><span class="p">(</span><span class="n">ACCESS_MEMORY_WRITE</span><span class="o">|</span><span class="n">ACCESS_MEMORY_READ</span><span class="o">|</span><span class="n">ACCESS_GRAPH_WRITE</span><span class="o">|</span><span class="n">ACCESS_GRAPH_READ</span><span class="o">|</span><span class="n">ACCESS_COMPUTE_SHADER_WRITE</span><span class="o">|</span><span class="n">ACCESS_COMPUTE_SHADER_READ</span><span class="p">),</span> <span class="o">//</span> <span class="n">memory</span> <span class="n">access</span> <span class="nb">type</span> <span class="kn">from</span><span class="w"> </span><span class="nn">the</span> <span class="n">source</span>
+    <span class="n">dst_access</span><span class="p">:</span><span class="n">enum</span><span class="p">(</span><span class="n">ACCESS_MEMORY_WRITE</span><span class="o">|</span><span class="n">ACCESS_MEMORY_READ</span><span class="o">|</span><span class="n">ACCESS_GRAPH_WRITE</span><span class="o">|</span><span class="n">ACCESS_GRAPH_READ</span><span class="o">|</span><span class="n">ACCESS_COMPUTE_SHADER_WRITE</span><span class="o">|</span><span class="n">ACCESS_COMPUTE_SHADER_READ</span><span class="p">),</span> <span class="o">//</span> <span class="n">memory</span> <span class="n">access</span> <span class="nb">type</span> <span class="kn">from</span><span class="w"> </span><span class="nn">the</span> <span class="n">destination</span>
+    <span class="n">src_stage</span><span class="p">:[</span><span class="n">enum</span><span class="p">(</span><span class="n">GRAPH</span><span class="o">|</span><span class="n">COMPUTE</span><span class="o">|</span><span class="n">ALL</span><span class="p">)],</span> <span class="o">//</span> <span class="n">source</span> <span class="n">pipeline</span> <span class="n">stages</span>
+    <span class="n">dst_stage</span><span class="p">:[</span><span class="n">enum</span><span class="p">(</span><span class="n">GRAPH</span><span class="o">|</span><span class="n">COMPUTE</span><span class="o">|</span><span class="n">ALL</span><span class="p">)],</span> <span class="o">//</span> <span class="n">destination</span> <span class="n">pipeline</span> <span class="n">stages</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">buffer_barrier</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">uid</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">globally</span> <span class="n">unique</span> <span class="n">identifier</span> <span class="k">for</span> <span class="n">the</span> <span class="n">resource</span>
+    <span class="n">buffer_resource</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">reference</span> <span class="n">to</span> <span class="n">the</span> <span class="n">buffer</span> <span class="n">resource</span>
+    <span class="n">size</span><span class="p">:</span><span class="nb">int</span> <span class="o">//</span> <span class="n">total</span> <span class="n">size</span> <span class="n">of</span> <span class="n">the</span> <span class="n">buffer</span> <span class="n">affected</span> <span class="n">by</span> <span class="n">this</span> <span class="n">barrier</span> <span class="ow">in</span> <span class="nb">bytes</span>
+    <span class="n">src_access</span><span class="p">:</span><span class="n">enum</span><span class="p">(</span><span class="n">ACCESS_MEMORY_WRITE</span><span class="o">|</span><span class="n">ACCESS_MEMORY_READ</span><span class="o">|</span><span class="n">ACCESS_GRAPH_WRITE</span><span class="o">|</span><span class="n">ACCESS_GRAPH_READ</span><span class="o">|</span><span class="n">ACCESS_COMPUTE_SHADER_WRITE</span><span class="o">|</span><span class="n">ACCESS_COMPUTE_SHADER_READ</span><span class="p">),</span> <span class="o">//</span> <span class="n">memory</span> <span class="n">access</span> <span class="nb">type</span> <span class="kn">from</span><span class="w"> </span><span class="nn">the</span> <span class="n">source</span>
+    <span class="n">dst_access</span><span class="p">:</span><span class="n">enum</span><span class="p">(</span><span class="n">ACCESS_MEMORY_WRITE</span><span class="o">|</span><span class="n">ACCESS_MEMORY_READ</span><span class="o">|</span><span class="n">ACCESS_GRAPH_WRITE</span><span class="o">|</span><span class="n">ACCESS_GRAPH_READ</span><span class="o">|</span><span class="n">ACCESS_COMPUTE_SHADER_WRITE</span><span class="o">|</span><span class="n">ACCESS_COMPUTE_SHADER_READ</span><span class="p">),</span> <span class="o">//</span> <span class="n">memory</span> <span class="n">access</span> <span class="nb">type</span> <span class="kn">from</span><span class="w"> </span><span class="nn">the</span> <span class="n">destination</span>
+    <span class="n">src_stage</span><span class="p">:[</span><span class="n">enum</span><span class="p">(</span><span class="n">GRAPH</span><span class="o">|</span><span class="n">COMPUTE</span><span class="o">|</span><span class="n">ALL</span><span class="p">)],</span> <span class="o">//</span> <span class="n">source</span> <span class="n">pipeline</span> <span class="n">stages</span>
+    <span class="n">dst_stage</span><span class="p">:[</span><span class="n">enum</span><span class="p">(</span><span class="n">GRAPH</span><span class="o">|</span><span class="n">COMPUTE</span><span class="o">|</span><span class="n">ALL</span><span class="p">)],</span> <span class="o">//</span> <span class="n">destination</span> <span class="n">pipeline</span> <span class="n">stages</span>
+    <span class="n">offset</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="o">//</span> <span class="n">the</span> <span class="n">offset</span> <span class="ow">in</span> <span class="nb">bytes</span> <span class="n">into</span> <span class="n">the</span> <span class="n">backing</span> <span class="n">memory</span> <span class="k">for</span> <span class="n">the</span> <span class="n">buffer</span> <span class="n">affected</span> <span class="n">by</span> <span class="n">this</span> <span class="n">barrier</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">image_barrier</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">uid</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">globally</span> <span class="n">unique</span> <span class="n">identifier</span> <span class="k">for</span> <span class="n">the</span> <span class="n">resource</span>
+    <span class="n">src_access</span><span class="p">:</span><span class="n">enum</span><span class="p">(</span><span class="n">ACCESS_MEMORY_WRITE</span><span class="o">|</span><span class="n">ACCESS_MEMORY_READ</span><span class="o">|</span><span class="n">ACCESS_GRAPH_WRITE</span><span class="o">|</span><span class="n">ACCESS_GRAPH_READ</span><span class="o">|</span><span class="n">ACCESS_COMPUTE_SHADER_WRITE</span><span class="o">|</span><span class="n">ACCESS_COMPUTE_SHADER_READ</span><span class="p">),</span> <span class="o">//</span> <span class="n">memory</span> <span class="n">access</span> <span class="nb">type</span> <span class="kn">from</span><span class="w"> </span><span class="nn">the</span> <span class="n">source</span>
+    <span class="n">dst_access</span><span class="p">:</span><span class="n">enum</span><span class="p">(</span><span class="n">ACCESS_MEMORY_WRITE</span><span class="o">|</span><span class="n">ACCESS_MEMORY_READ</span><span class="o">|</span><span class="n">ACCESS_GRAPH_WRITE</span><span class="o">|</span><span class="n">ACCESS_GRAPH_READ</span><span class="o">|</span><span class="n">ACCESS_COMPUTE_SHADER_WRITE</span><span class="o">|</span><span class="n">ACCESS_COMPUTE_SHADER_READ</span><span class="p">),</span> <span class="o">//</span> <span class="n">memory</span> <span class="n">access</span> <span class="nb">type</span> <span class="kn">from</span><span class="w"> </span><span class="nn">the</span> <span class="n">destination</span>
+    <span class="n">old_layout</span><span class="p">:</span><span class="n">enum</span> <span class="o">=</span> <span class="p">(</span><span class="n">IMAGE_LAYOUT_TENSOR_ALIASING</span><span class="o">|</span><span class="n">IMAGE_LAYOUT_GENERAL</span><span class="o">|</span><span class="n">IMAGE_LAYOUT_UNDEFINED</span><span class="p">),</span> <span class="o">//</span> <span class="n">the</span> <span class="n">old</span> <span class="n">image</span> <span class="n">layout</span> <span class="ow">in</span> <span class="n">an</span> <span class="n">image</span> <span class="n">layout</span> <span class="n">transition</span>
+    <span class="n">new_layout</span><span class="p">:</span><span class="n">enum</span> <span class="o">=</span> <span class="p">(</span><span class="n">IMAGE_LAYOUT_TENSOR_ALIASING</span><span class="o">|</span><span class="n">IMAGE_LAYOUT_GENERAL</span><span class="o">|</span><span class="n">IMAGE_LAYOUT_UNDEFINED</span><span class="p">),</span> <span class="o">//</span> <span class="n">the</span> <span class="n">new</span> <span class="n">image</span> <span class="n">layout</span> <span class="ow">in</span> <span class="n">an</span> <span class="n">image</span> <span class="n">layout</span> <span class="n">transition</span>
+    <span class="n">image_resource</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">reference</span> <span class="n">to</span> <span class="n">the</span> <span class="n">image</span> <span class="n">resource</span>
+    <span class="n">subresource_range</span><span class="p">:</span> <span class="k">class</span><span class="w"> </span><span class="nc">subresource_range</span> <span class="o">//</span> <span class="n">the</span> <span class="n">subresource</span> <span class="nb">range</span> <span class="n">within</span> <span class="n">the</span> <span class="n">image</span> <span class="n">affected</span> <span class="n">by</span> <span class="n">this</span> <span class="n">barrier</span>
+    <span class="n">src_stage</span><span class="p">:[</span><span class="n">enum</span><span class="p">(</span><span class="n">GRAPH</span><span class="o">|</span><span class="n">COMPUTE</span><span class="o">|</span><span class="n">ALL</span><span class="p">)],</span> <span class="o">//</span> <span class="n">source</span> <span class="n">pipeline</span> <span class="n">stages</span>
+    <span class="n">dst_stage</span><span class="p">:[</span><span class="n">enum</span><span class="p">(</span><span class="n">GRAPH</span><span class="o">|</span><span class="n">COMPUTE</span><span class="o">|</span><span class="n">ALL</span><span class="p">)],</span> <span class="o">//</span> <span class="n">destination</span> <span class="n">pipeline</span> <span class="n">stages</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The subresource_range resource maps the image subresources of an image affected by an image barrier:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">subresource_range</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">base_mip_level</span><span class="p">:</span><span class="nb">int</span> <span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="o">//</span> <span class="n">the</span> <span class="n">first</span> <span class="n">mipmap</span> <span class="n">level</span> <span class="n">accessible</span> <span class="n">to</span> <span class="n">view</span>
+    <span class="n">level_count</span><span class="p">:</span><span class="nb">int</span> <span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="o">//</span> <span class="n">number</span> <span class="n">of</span> <span class="n">mipmap</span> <span class="n">levels</span> <span class="n">accessible</span>
+    <span class="n">base_array_layer</span><span class="p">:</span><span class="nb">int</span> <span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="o">//</span> <span class="n">the</span> <span class="n">first</span> <span class="n">array</span> <span class="n">layer</span> <span class="n">accessible</span> <span class="n">to</span> <span class="n">view</span>
+    <span class="n">layer_count</span><span class="p">:</span><span class="nb">int</span> <span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">array</span> <span class="n">layers</span> <span class="n">accessible</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tensor_barrier</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">uid</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">globally</span> <span class="n">unique</span> <span class="n">identifier</span> <span class="k">for</span> <span class="n">the</span> <span class="n">resource</span>
+    <span class="n">tensor_resource</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">reference</span> <span class="n">to</span> <span class="n">the</span> <span class="n">tensor</span> <span class="n">resource</span>
+    <span class="n">src_access</span><span class="p">:</span><span class="n">enum</span><span class="p">(</span><span class="n">ACCESS_MEMORY_WRITE</span><span class="o">|</span><span class="n">ACCESS_MEMORY_READ</span><span class="o">|</span><span class="n">ACCESS_GRAPH_WRITE</span><span class="o">|</span><span class="n">ACCESS_GRAPH_READ</span><span class="o">|</span><span class="n">ACCESS_COMPUTE_SHADER_WRITE</span><span class="o">|</span><span class="n">ACCESS_COMPUTE_SHADER_READ</span><span class="p">),</span> <span class="o">//</span> <span class="n">memory</span> <span class="n">access</span> <span class="nb">type</span> <span class="kn">from</span><span class="w"> </span><span class="nn">the</span> <span class="n">source</span>
+    <span class="n">dst_access</span><span class="p">:</span><span class="n">enum</span><span class="p">(</span><span class="n">ACCESS_MEMORY_WRITE</span><span class="o">|</span><span class="n">ACCESS_MEMORY_READ</span><span class="o">|</span><span class="n">ACCESS_GRAPH_WRITE</span><span class="o">|</span><span class="n">ACCESS_GRAPH_READ</span><span class="o">|</span><span class="n">ACCESS_COMPUTE_SHADER_WRITE</span><span class="o">|</span><span class="n">ACCESS_COMPUTE_SHADER_READ</span><span class="p">),</span> <span class="o">//</span> <span class="n">memory</span> <span class="n">access</span> <span class="nb">type</span> <span class="kn">from</span><span class="w"> </span><span class="nn">the</span> <span class="n">destination</span>
+    <span class="n">src_stage</span><span class="p">:[</span><span class="n">enum</span><span class="p">(</span><span class="n">GRAPH</span><span class="o">|</span><span class="n">COMPUTE</span><span class="o">|</span><span class="n">ALL</span><span class="p">)],</span> <span class="o">//</span> <span class="n">source</span> <span class="n">pipeline</span> <span class="n">stages</span>
+    <span class="n">dst_stage</span><span class="p">:[</span><span class="n">enum</span><span class="p">(</span><span class="n">GRAPH</span><span class="o">|</span><span class="n">COMPUTE</span><span class="o">|</span><span class="n">ALL</span><span class="p">)],</span> <span class="o">//</span> <span class="n">destination</span> <span class="n">pipeline</span> <span class="n">stages</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="commands">
+<h3>Commands<a class="headerlink" href="#commands" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Commands</span></code> are executed in order of appearance in the JSON file. Initial
+implementation will execute in-order with no overlap.</p>
+<section id="dispatch-compute">
+<h4>dispatch_compute<a class="headerlink" href="#dispatch-compute" title="Link to this heading"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">dispatch_compute</span></code> command dispatches a compute shader to execute.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dispatch_compute</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">shader_ref</span><span class="p">:</span> <span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">reference</span> <span class="n">to</span> <span class="n">the</span> <span class="n">shader</span> <span class="n">resource</span>
+    <span class="n">push_data_ref</span><span class="p">:</span> <span class="n">string</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="o">//</span> <span class="n">reference</span> <span class="n">to</span> <span class="n">raw_data</span> <span class="n">resource</span> <span class="n">containing</span> <span class="n">the</span> <span class="n">push_constants</span> <span class="n">data</span>
+    <span class="n">rangeND</span><span class="p">:</span> <span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="o">//</span> <span class="mi">3</span><span class="o">-</span><span class="n">dimension</span> <span class="n">dispatch</span> <span class="nb">range</span> <span class="n">expressed</span> <span class="k">as</span> <span class="n">number</span> <span class="n">of</span> <span class="n">local</span> <span class="n">workgroups</span> <span class="n">per</span> <span class="n">dimension</span>
+    <span class="n">bindings</span><span class="p">:</span> <span class="p">[</span><span class="k">class</span><span class="w"> </span><span class="nc">binding</span><span class="p">]</span> <span class="o">//</span> <span class="n">array</span> <span class="n">of</span> <span class="n">bindings</span> <span class="n">mapping</span> <span class="n">a</span> <span class="n">resource</span> <span class="n">reference</span> <span class="n">to</span> <span class="n">a</span> <span class="n">descriptor</span> <span class="nb">set</span> <span class="ow">and</span> <span class="nb">id</span>
+    <span class="n">implicit_barrier</span><span class="p">:</span><span class="n">boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">true</span><span class="p">)</span> <span class="o">//</span> <span class="n">inclusion</span> <span class="n">of</span> <span class="n">implicit</span> <span class="n">memory</span> <span class="n">barrier</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>While <code class="docutils literal notranslate"><span class="pre">push_constants</span></code> can technically support other stages, we focus on
+a single <code class="docutils literal notranslate"><span class="pre">push_constant</span></code> buffer for the compute stage only.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">binding</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nb">set</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">//</span> <span class="n">descriptor</span> <span class="nb">set</span> <span class="nb">id</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">//</span> <span class="n">descriptor</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">the</span> <span class="nb">set</span>
+    <span class="n">resource_ref</span><span class="p">:</span> <span class="n">string</span> <span class="o">//</span> <span class="n">named</span> <span class="n">reference</span> <span class="n">to</span> <span class="n">the</span> <span class="n">resource</span> <span class="n">to</span> <span class="n">bind</span>
+    <span class="n">lod</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">//</span> <span class="n">Optional</span><span class="o">.</span> <span class="n">Level</span> <span class="n">of</span> <span class="n">details</span> <span class="n">index</span><span class="o">.</span> <span class="n">In</span> <span class="n">case</span> <span class="n">of</span> <span class="n">an</span> <span class="n">Image</span> <span class="n">resource</span> <span class="k">with</span> <span class="n">mipmaps</span> <span class="n">could</span> <span class="n">be</span> <span class="n">used</span> <span class="n">to</span> <span class="n">bind</span> <span class="n">specific</span> <span class="n">level</span> <span class="n">of</span> <span class="n">details</span><span class="o">.</span>
+    <span class="n">descriptor_type</span><span class="p">:</span><span class="n">enum</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">VK_DESCRIPTOR_TYPE_AUTO</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">VK_DESCRIPTOR_TYPE_AUTO</span><span class="o">|</span><span class="n">VK_DESCRIPTOR_TYPE_STORAGE_IMAGE</span><span class="p">),</span> <span class="o">//</span> <span class="n">descriptor</span> <span class="nb">type</span> <span class="k">for</span> <span class="n">the</span> <span class="n">resource</span> <span class="ow">in</span> <span class="n">current</span> <span class="n">dispatch</span><span class="o">.</span> <span class="n">Needed</span> <span class="n">only</span> <span class="n">when</span> <span class="n">descriptor</span> <span class="nb">type</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">correctly</span> <span class="n">inferred</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="dispatch-graph">
+<h4>dispatch_graph<a class="headerlink" href="#dispatch-graph" title="Link to this heading"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">dispatch_graph</span></code> command dispatches a compiled graph using the proposed
+ML extensions for Vulkan®.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dispatch_graph</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">graph_ref</span><span class="p">:</span> <span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">reference</span> <span class="n">to</span> <span class="n">the</span> <span class="n">graph</span> <span class="n">resource</span>
+    <span class="n">push_constants</span><span class="p">:</span> <span class="p">[</span><span class="k">class</span><span class="w"> </span><span class="nc">push_constant_map</span><span class="p">](</span><span class="n">default</span><span class="o">=</span><span class="p">),</span> <span class="o">//</span> <span class="n">mappings</span> <span class="n">between</span> <span class="n">push</span> <span class="n">constants</span> <span class="n">data</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">target</span> <span class="n">shader</span> <span class="n">node</span><span class="o">.</span>
+    <span class="n">bindings</span><span class="p">:</span> <span class="p">[</span><span class="k">class</span><span class="w"> </span><span class="nc">binding</span><span class="p">]</span> <span class="o">//</span> <span class="n">array</span> <span class="n">of</span> <span class="n">bindings</span> <span class="n">mapping</span> <span class="n">a</span> <span class="n">resource</span> <span class="n">reference</span> <span class="n">to</span> <span class="n">a</span> <span class="n">descriptor</span> <span class="nb">set</span> <span class="ow">and</span> <span class="nb">id</span><span class="o">.</span> <span class="n">These</span> <span class="n">bindings</span> <span class="n">describe</span> <span class="n">the</span> <span class="n">inputs</span> <span class="ow">and</span> <span class="n">outputs</span> <span class="n">to</span> <span class="n">the</span> <span class="n">graph</span><span class="o">.</span>
+    <span class="n">implicit_barrier</span><span class="p">:</span><span class="n">boolean</span><span class="p">(</span><span class="n">defualt</span><span class="o">=</span><span class="n">true</span><span class="p">)</span> <span class="o">//</span> <span class="n">inclusion</span> <span class="n">of</span> <span class="n">implicit</span> <span class="n">memory</span> <span class="n">barrier</span>
+<span class="p">}</span>
+
+<span class="n">push_constant_map</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">push_data_ref</span><span class="p">:</span> <span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">reference</span> <span class="n">to</span> <span class="n">raw_data</span> <span class="n">resource</span> <span class="n">containing</span> <span class="n">the</span> <span class="n">push_constants</span> <span class="n">data</span>
+    <span class="n">shader_target</span><span class="p">:</span> <span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">shader</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">graph</span> <span class="n">to</span> <span class="n">apply</span> <span class="n">the</span> <span class="n">push</span> <span class="n">constants</span> <span class="n">to</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="dispatch-barrier">
+<h4>dispatch_barrier<a class="headerlink" href="#dispatch-barrier" title="Link to this heading"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">dispatch_barrier</span></code> command dispatches memory, image and buffer barriers.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dispatch_barrier</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">image_barrier_refs</span><span class="p">:[</span><span class="n">string</span><span class="p">]</span> <span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[]),</span> <span class="o">//</span> <span class="n">array</span> <span class="n">of</span> <span class="n">image</span> <span class="n">barrier</span> <span class="n">uids</span>
+    <span class="n">tensor_barrier_refs</span><span class="p">:[</span><span class="n">string</span><span class="p">]</span> <span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[]),</span> <span class="o">//</span> <span class="n">array</span> <span class="n">of</span> <span class="n">tensor</span> <span class="n">barrier</span> <span class="n">uids</span>
+    <span class="n">memory_barrier_refs</span><span class="p">:[</span><span class="n">string</span><span class="p">]</span> <span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[]),</span> <span class="o">//</span> <span class="n">array</span> <span class="n">of</span> <span class="n">memory</span> <span class="n">barrier</span> <span class="n">uids</span>
+    <span class="n">buffer_barrier_refs</span><span class="p">:[</span><span class="n">string</span><span class="p">]</span> <span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[])</span> <span class="o">//</span> <span class="n">array</span> <span class="n">of</span> <span class="n">buffer</span> <span class="n">barrier</span> <span class="n">uids</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="mark-boundary">
+<h4>mark_boundary<a class="headerlink" href="#mark-boundary" title="Link to this heading"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">mark_boundary</span></code> command defines the end of a ‘frame’ and explicitly submits
+JSON commands in the frame. Tools can use this information to identify frames and
+capture targeted resources specified in the command options. The end of a ‘frame’
+implicitly marks the start of the next frame.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mark_boundary</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">resources</span><span class="p">:[</span><span class="n">string</span><span class="p">],</span> <span class="o">//</span> <span class="n">array</span> <span class="n">of</span> <span class="n">named</span> <span class="n">references</span> <span class="n">to</span> <span class="n">the</span> <span class="n">resources</span> <span class="n">to</span> <span class="n">capture</span>
+    <span class="n">frame_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">//</span> <span class="n">Id</span> <span class="n">to</span> <span class="n">be</span> <span class="n">assigned</span> <span class="n">to</span> <span class="n">the</span> <span class="n">frame</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<p>Example resource descriptors:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;resources&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;InputColorBuffer0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dims&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">],</span>
+        <span class="s2">&quot;mips&quot;</span><span class="p">:</span> <span class="s2">&quot;false&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;VK_FORMAT_R8G8B8A8_SRGB&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;src&quot;</span><span class="p">:</span> <span class="s2">&quot;./color.dds&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dst&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;shader_access&quot;</span><span class="p">:</span> <span class="s2">&quot;readonly&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;border_color&quot;</span><span class="p">:</span> <span class="s2">&quot;INT_TRANSPARENT_BLACK&quot;</span>
+     <span class="p">},</span>
+    <span class="s2">&quot;tensor&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;intermediate0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dims&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">256</span><span class="p">,</span><span class="mi">256</span><span class="p">],</span>
+        <span class="s2">&quot;data_type&quot;</span><span class="p">:</span> <span class="s2">&quot;VK_FORMAT_R32_SFLOAT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;shader_access&quot;</span><span class="p">:</span> <span class="s2">&quot;readwrite&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;tensor&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;weights0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dims&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span>
+        <span class="s2">&quot;data_type&quot;</span><span class="p">:</span> <span class="s2">&quot;VK_FORMAT_R32_SFLOAT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;src&quot;</span><span class="p">:</span> <span class="s2">&quot;./weights.npy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;shader_access&quot;</span><span class="p">:</span> <span class="s2">&quot;readonly&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Shader modules that are used in dispatch commands can be defined as resources.
+They can have associated <code class="docutils literal notranslate"><span class="pre">push_constants</span></code> which are also provided via
+<code class="docutils literal notranslate"><span class="pre">raw_data</span></code> resource definitions.</p>
+<p>Shader resource example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;raw_data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;prep_push_constants&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;src&quot;</span><span class="p">:</span> <span class="s2">&quot;./prep_pc.npy&quot;</span>
+<span class="p">},</span>
+<span class="s2">&quot;shader&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;prep_shader_8x8&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;src&quot;</span><span class="p">:</span> <span class="s2">&quot;preprocess.glsl&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;GLSL&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;push_constants_size&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+    <span class="s2">&quot;specialization_constants&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nb">id</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="n">value</span><span class="p">:</span> <span class="mi">8</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nb">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">value</span><span class="p">:</span> <span class="mi">8</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+    <span class="o">//...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can load complete graphs via the VGF Library Decoder. The complete graphs are specified as
+VGF files. For some use cases, you should substitute placeholder shader
+nodes in the graph for specific shaders.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;graph&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;graph_file&quot;</span>
+    <span class="s2">&quot;src&quot;</span><span class="p">:</span> <span class="s2">&quot;./graph_file.vgf&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;shader_substitutions&quot;</span> <span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;shader_ref&quot;</span><span class="p">:</span><span class="s2">&quot;prep_shader&quot;</span><span class="p">,</span> <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;tfl_custom_pre_node&quot;</span><span class="p">}</span>
+        <span class="p">{</span><span class="s2">&quot;shader_ref&quot;</span><span class="p">:</span><span class="s2">&quot;post_shader&quot;</span><span class="p">,</span> <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;tfl_custom_post_node&quot;</span><span class="p">}</span>
+    <span class="p">],</span>
+    <span class="o">//...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The behavior of the scenario is defined with the <code class="docutils literal notranslate"><span class="pre">Commands</span></code> section. These
+commands are processed in order of appearance in the file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;commands&quot;</span> <span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;dispatch_compute&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;shader_ref&quot;</span><span class="p">:</span> <span class="s2">&quot;degamma_shader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;push_data_ref&quot;</span><span class="p">:</span> <span class="s2">&quot;gamma_consts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bindings&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;resource_ref&quot;</span><span class="p">:</span><span class="s2">&quot;InputColorBuffer0&quot;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;resource_ref&quot;</span><span class="p">:</span><span class="s2">&quot;intermediate0&quot;</span><span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;rangeND&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;dispatch_graph&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;graph_ref&quot;</span><span class="p">:</span> <span class="s2">&quot;NN_graph&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bindings&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;resource_ref&quot;</span><span class="p">:</span><span class="s2">&quot;intermediate0&quot;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;resource_ref&quot;</span><span class="p">:</span><span class="s2">&quot;vectors&quot;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;resource_ref&quot;</span><span class="p">:</span><span class="s2">&quot;depth&quot;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;resource_ref&quot;</span><span class="p">:</span><span class="s2">&quot;upscaled0&quot;</span><span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;dispatch_compute&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;shader_ref&quot;</span><span class="p">:</span> <span class="s2">&quot;post_shader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;push_data_ref: &quot;</span><span class="n">inv_projection</span><span class="s2">&quot;,</span>
+        <span class="s2">&quot;bindings&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;resource_ref&quot;</span><span class="p">:</span><span class="s2">&quot;upscaled0&quot;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;resource_ref&quot;</span><span class="p">:</span><span class="s2">&quot;result0&quot;</span><span class="p">},</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;rangeND&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">mark_boundary</span></code> command to signal the completion of a frame and explicitly
+submit all commands in this frame.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;commands&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;dispatch_compute&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;bindings&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;resource_ref&quot;</span><span class="p">:</span> <span class="s2">&quot;inBufferA&quot;</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;resource_ref&quot;</span><span class="p">:</span> <span class="s2">&quot;inBufferB&quot;</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;resource_ref&quot;</span><span class="p">:</span> <span class="s2">&quot;outBufferAdd&quot;</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;rangeND&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">],</span>
+            <span class="s2">&quot;shader_ref&quot;</span><span class="p">:</span> <span class="s2">&quot;add_shader&quot;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;mark_boundary&quot;</span><span class="p">:{</span>
+            <span class="s2">&quot;resources&quot;</span><span class="p">:</span> <span class="p">[</span>
+              <span class="s2">&quot;inBufferA&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;inBufferB&quot;</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;frame_id&quot;</span> <span class="p">:</span> <span class="mi">0</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">],</span>
+<span class="s2">&quot;resources&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;shader&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;entry&quot;</span><span class="p">:</span> <span class="s2">&quot;main&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;src&quot;</span><span class="p">:</span> <span class="s2">&quot;path/to/add_shader.spv&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;SPIR-V&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;add_shader&quot;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;buffer&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;shader_access&quot;</span><span class="p">:</span> <span class="s2">&quot;readonly&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
+            <span class="s2">&quot;src&quot;</span><span class="p">:</span> <span class="s2">&quot;path/to/inBufferA.npy&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;inBufferA&quot;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;buffer&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;shader_access&quot;</span><span class="p">:</span> <span class="s2">&quot;readonly&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
+            <span class="s2">&quot;src&quot;</span><span class="p">:</span> <span class="s2">&quot;path/to/inBufferB.npy&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;inBufferB&quot;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;buffer&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;dst&quot;</span><span class="p">:</span> <span class="s2">&quot;path/to/outBufferAdd.npy&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;shader_access&quot;</span><span class="p">:</span> <span class="s2">&quot;readwrite&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
+            <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;outBufferAdd&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="build.html" class="btn btn-neutral float-left" title="Building the ML SDK Scenario Runner" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, Arm Limited and/or its affiliates &lt;open-source-office@arm.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

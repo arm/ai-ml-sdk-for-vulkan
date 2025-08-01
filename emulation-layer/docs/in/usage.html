@@ -1,0 +1,287 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usage &mdash; ML SDK for Vulkan®  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=b8c9390b" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="License" href="license.html" />
+    <link rel="prev" title="Building the ML SDK Emulation Layer for Vulkan®" href="building.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            ML SDK for Vulkan®
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../building.html">Building the ML SDK for Vulkan®</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tensor_aliasing_tutorial.html">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../model-converter/docs/in/index.html">ML SDK Model Converter</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK VGF Library</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../vgf-lib/docs/in/index.html">ML SDK VGF Library</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Scenario Runner</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../scenario-runner/docs/in/index.html">ML SDK Scenario Runner</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML Emulation Layer for Vulkan®</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ML Emulation Layer for Vulkan®</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">Building the ML SDK Emulation Layer for Vulkan®</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#usage-on-linux">Usage on Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage-on-windows">Usage on Windows®</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage-on-android">Usage on Android</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vulkan-layer-documentation">Vulkan® Layer Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#all-zero-output-from-amd-gpus-on-linux">All zero output from AMD GPUs on Linux</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#secure-coding-practices">Secure coding practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#inclusive-language-guidelines">Inclusive language guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/security.html">Security</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ML SDK for Vulkan®</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">ML Emulation Layer for Vulkan®</a></li>
+      <li class="breadcrumb-item active">Usage</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/emulation-layer/docs/in/usage.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h1>
+<section id="usage-on-linux">
+<h2>Usage on Linux<a class="headerlink" href="#usage-on-linux" title="Link to this heading"></a></h2>
+<p>You can enable the graph and tensor layers using environment variables only,
+without modifying the Vulkan® application. The following environment variables
+are used:</p>
+<ul class="simple">
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> environment variable to point at the <code class="docutils literal notranslate"><span class="pre">VkLayer_Graph</span></code>
+and <code class="docutils literal notranslate"><span class="pre">VkLayer_Tensor</span></code> libraries.</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">VK_ADD_LAYER_PATH</span></code> environment variable to point at the
+<code class="docutils literal notranslate"><span class="pre">VkLayer_Graph.json</span></code> and <code class="docutils literal notranslate"><span class="pre">VkLayer_Tensor.json</span></code> manifest file.</p></li>
+<li><p>You must enable the graph layer before the tensor layer. To do this, use the
+<code class="docutils literal notranslate"><span class="pre">VK_INSTANCE_LAYERS</span></code> environment variable.</p></li>
+</ul>
+<p>If you have installed the Emulation Layer into a deploy folder, use the
+following environment variables to enable the layers:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$PWD</span>/deploy/lib:<span class="nv">$LD_LIBRARY_PATH</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">VK_ADD_LAYER_PATH</span><span class="o">=</span><span class="nv">$PWD</span>/deploy/share/vulkan/explicit_layer.d
+<span class="nb">export</span><span class="w"> </span><span class="nv">VK_INSTANCE_LAYERS</span><span class="o">=</span>VK_LAYER_ML_Graph_Emulation:VK_LAYER_ML_Tensor_Emulation
+</pre></div>
+</div>
+<p>You can also enable logging using environment variables. Logging must be set
+before the application is started. Logging severity can be one of <code class="docutils literal notranslate"><span class="pre">error</span></code>,
+<code class="docutils literal notranslate"><span class="pre">warning</span></code>, <code class="docutils literal notranslate"><span class="pre">info</span></code>, or <code class="docutils literal notranslate"><span class="pre">debug</span></code>. Logging severity is set independently for the
+graph and tensor layer using the following commands:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">VMEL_GRAPH_SEVERITY</span><span class="o">=</span>debug
+<span class="nb">export</span><span class="w"> </span><span class="nv">VMEL_TENSOR_SEVERITY</span><span class="o">=</span>info
+</pre></div>
+</div>
+<p>Common severity for both layers can be set using the following command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">VMEL_COMMON_SEVERITY</span><span class="o">=</span>debug
+</pre></div>
+</div>
+</section>
+<section id="usage-on-windows">
+<h2>Usage on Windows®<a class="headerlink" href="#usage-on-windows" title="Link to this heading"></a></h2>
+<p>You can enable the graph and tensor layers using environment variables only,
+without modifying the Vulkan® application. The following environment variables
+are used:</p>
+<ul class="simple">
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">VK_ADD_LAYER_PATH</span></code> environment variable to point at the
+<code class="docutils literal notranslate"><span class="pre">VkLayer_Graph.json</span></code> and <code class="docutils literal notranslate"><span class="pre">VkLayer_Tensor.json</span></code> manifest files.</p></li>
+<li><p>You must enable the graph layer before the tensor layer. To do this, use the
+<code class="docutils literal notranslate"><span class="pre">VK_INSTANCE_LAYERS</span></code> environment variable.</p></li>
+</ul>
+<p>If you have installed the Emulation Layer into a deploy folder, use the
+following environment variables to enable the layers:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$env:VK_LAYER_PATH</span><span class="p">=</span><span class="s2">&quot;$PWD\deploy\bin&quot;</span>
+<span class="nv">$env:VK_INSTANCE_LAYERS</span><span class="p">=</span><span class="s2">&quot;VK_LAYER_ML_Graph_Emulation;VK_LAYER_ML_Tensor_Emulation&quot;</span>
+</pre></div>
+</div>
+<p>Alternatively, you can use the Windows® registry keys to load the manifest
+files. This can be done using the Windows® GUI. Or, if you have installed the
+emulation layer into a deploy folder, you set the path to the manifest files
+using:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">reg</span> <span class="n">add</span> <span class="n">HKEY_LOCAL_MACHINE</span><span class="p">\</span><span class="n">SOFTWARE</span><span class="p">\</span><span class="n">Khronos</span><span class="p">\</span><span class="n">Vulkan</span><span class="p">\</span><span class="n">ExplicitLayers</span> <span class="p">/</span><span class="n">v</span> <span class="p">`</span>
+<span class="p">{</span><span class="n">ABSOLUTE_PATH</span><span class="p">}\</span><span class="n">deploy</span><span class="p">\</span><span class="n">bin</span> <span class="p">/</span><span class="n">t</span> <span class="n">REG_DWORD</span> <span class="p">/</span><span class="n">d</span> <span class="n">0</span> <span class="p">/</span><span class="n">f</span>
+
+<span class="nv">$env:VK_INSTANCE_LAYERS</span><span class="p">=</span><span class="s2">&quot;VK_LAYER_ML_Graph_Emulation;VK_LAYER_ML_Tensor_Emulation&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If running a Windows® terminal with elevated permissions, <code class="docutils literal notranslate"><span class="pre">VK_ADD_LAYER_PATH</span></code> is ignored
+for security reasons. However, if <code class="docutils literal notranslate"><span class="pre">VK_ADD_LAYER_PATH</span></code> is set and not ignored, then Vulkan
+skips searching the registry keys for manifest files.</p>
+</div>
+<p>You can also enable logging using environment variables. Logging must be set
+before the application is started. Logging severity can be one of <code class="docutils literal notranslate"><span class="pre">error</span></code>,
+<code class="docutils literal notranslate"><span class="pre">warning</span></code>, <code class="docutils literal notranslate"><span class="pre">info</span></code>, or <code class="docutils literal notranslate"><span class="pre">debug</span></code>. Logging severity is set independently for the
+graph and tensor layer using the following commands:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$env:VMEL_GRAPH_SEVERITY</span><span class="p">=</span><span class="s2">&quot;debug&quot;</span>
+<span class="nv">$env:VMEL_TENSOR_SEVERITY</span><span class="p">=</span><span class="s2">&quot;info&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="usage-on-android">
+<h2>Usage on Android<a class="headerlink" href="#usage-on-android" title="Link to this heading"></a></h2>
+<p>You can pack the graph and tensor layer libraries into the Application Package
+Kit (APK) or push to the <code class="docutils literal notranslate"><span class="pre">/data/local/debug/vulkan</span></code> directory for Android to
+discover the Emulation Layer. Applications can enable the layers during Vulkan
+instance creation or you can enable the layers without modifying the application
+by using following commands:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>adb<span class="w"> </span>shell<span class="w"> </span>settings<span class="w"> </span>put<span class="w"> </span>global<span class="w"> </span>enable_gpu_debug_layers<span class="w"> </span><span class="m">1</span>
+$<span class="w"> </span>adb<span class="w"> </span>shell<span class="w"> </span>settings<span class="w"> </span>put<span class="w"> </span>global<span class="w"> </span>gpu_debug_app<span class="w"> </span><span class="si">${</span><span class="nv">package_name</span><span class="si">}</span>
+$<span class="w"> </span>adb<span class="w"> </span>shell<span class="w"> </span>settings<span class="w"> </span>put<span class="w"> </span>global<span class="w"> </span>gpu_debug_layers<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>VK_LAYER_ML_Graph_Emulation:VK_LAYER_ML_Tensor_Emulation
+</pre></div>
+</div>
+</section>
+<section id="vulkan-layer-documentation">
+<h2>Vulkan® Layer Documentation<a class="headerlink" href="#vulkan-layer-documentation" title="Link to this heading"></a></h2>
+<p>For more information about using layers, see the
+<a class="reference external" href="https://github.com/KhronosGroup/Vulkan-Loader/blob/main/docs/LoaderLayerInterface.md">Vulkan® Layer Documentation</a>.</p>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<section id="all-zero-output-from-amd-gpus-on-linux">
+<h3>All zero output from AMD GPUs on Linux<a class="headerlink" href="#all-zero-output-from-amd-gpus-on-linux" title="Link to this heading"></a></h3>
+<p>Some workloads may cause silent GPU crashes due to timeout errors. You can check
+for related kernel messages with the following command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>amdgpu
+</pre></div>
+</div>
+<p>To change the timeout, follow these steps (applies if your system uses GRUB as
+the bootloader):</p>
+<ol class="arabic simple">
+<li><p>Edit the GRUB configuration file:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/default/grub
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Add or modify the <code class="docutils literal notranslate"><span class="pre">GRUB_CMDLINE_LINUX</span></code> line to include a longer timeout value
+in milliseconds:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="s2">&quot;quiet splash amdgpu.lockup_timeout=20000&quot;</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Update the GRUB configuration:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>update-grub
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Reboot the system:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>reboot
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="building.html" class="btn btn-neutral float-left" title="Building the ML SDK Emulation Layer for Vulkan®" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="license.html" class="btn btn-neutral float-right" title="License" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, Arm Limited and/or its affiliates &lt;open-source-office@arm.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

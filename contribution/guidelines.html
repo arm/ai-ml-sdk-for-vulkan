@@ -1,0 +1,301 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contributor Guide &mdash; ML SDK for Vulkan®  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=b8c9390b" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Security" href="security.html" />
+    <link rel="prev" title="Security" href="../emulation-layer/docs/in/security.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ML SDK for Vulkan®
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../building.html">Building the ML SDK for Vulkan®</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tensor_aliasing_tutorial.html">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../model-converter/docs/in/index.html">ML SDK Model Converter</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK VGF Library</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../vgf-lib/docs/in/index.html">ML SDK VGF Library</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Scenario Runner</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scenario-runner/docs/in/index.html">ML SDK Scenario Runner</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML Emulation Layer for Vulkan®</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../emulation-layer/docs/in/index.html">ML Emulation Layer for Vulkan®</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Contributor Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#developer-certificate-of-origin-dco">Developer Certificate of Origin (DCO)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c-coding-style">C++ Coding Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#python-coding-style">Python Coding Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-pre-commit-tests">Run pre-commit tests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#secure-coding-practices">Secure coding practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#inclusive-language-guidelines">Inclusive language guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ML SDK for Vulkan®</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Contributor Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/contribution/guidelines.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="contributor-guide">
+<h1>Contributor Guide<a class="headerlink" href="#contributor-guide" title="Link to this heading"></a></h1>
+<p>The ML SDK for Vulkan® project is open for external contributors and welcomes
+contributions. ML SDK for Vulkan® is licensed under the Apache-2.0 and all
+accepted contributions must have the same license.</p>
+<section id="developer-certificate-of-origin-dco">
+<h2>Developer Certificate of Origin (DCO)<a class="headerlink" href="#developer-certificate-of-origin-dco" title="Link to this heading"></a></h2>
+<p>Before the ML SDK for Vulkan® project accepts your contribution, you need to
+certify its origin and give us your permission. To manage this process we use
+Developer Certificate of Origin (DCO) V1.1
+(<a class="reference external" href="https://developercertificate.org/">https://developercertificate.org/</a>).</p>
+<p>To indicate that you agree to the the terms of the DCO, you “sign off” your
+contribution by adding a line with your name and e-mail address to every git
+commit message:</p>
+<p>Signed-off-by: John Doe <a class="reference external" href="mailto:john&#46;doe&#37;&#52;&#48;example&#46;org">john<span>&#46;</span>doe<span>&#64;</span>example<span>&#46;</span>org</a></p>
+<p>You must use your real name, no pseudonyms or anonymous contributions are
+accepted.</p>
+</section>
+<section id="c-coding-style">
+<h2>C++ Coding Style<a class="headerlink" href="#c-coding-style" title="Link to this heading"></a></h2>
+<p>Changes to ML SDK for Vulkan® should follow the
+<a class="reference external" href="https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md">CppCoreGuidelines</a>.</p>
+<p>Use clang-format and cppcheck to check your changes. They can be install by
+running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>clang-format<span class="w"> </span>cppcheck
+</pre></div>
+</div>
+<p>Configuration files for clang-format is present to the root folder of the
+project.</p>
+</section>
+<section id="python-coding-style">
+<h2>Python Coding Style<a class="headerlink" href="#python-coding-style" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="https://github.com/psf/black">Black</a> is the code style to use as defined in
+<code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>.</p>
+</section>
+<section id="run-pre-commit-tests">
+<h2>Run pre-commit tests<a class="headerlink" href="#run-pre-commit-tests" title="Link to this heading"></a></h2>
+<p>Pre-commit tests can be run using the <code class="docutils literal notranslate"><span class="pre">pre-commit</span></code> hooks.</p>
+<p>You can install the precommit hooks using the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pre-commit<span class="w"> </span>install
+</pre></div>
+</div>
+<p>The pre-commit tests will be run on each commit. You can run them manually as
+follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pre-commit<span class="w"> </span>run<span class="w"> </span>--all-files<span class="w"> </span>--hook-stage<span class="w"> </span>commit
+pre-commit<span class="w"> </span>run<span class="w"> </span>--all-files<span class="w"> </span>--hook-stage<span class="w"> </span>push
+</pre></div>
+</div>
+<p>or run specific pre-commit hook as follow</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pre-commit<span class="w"> </span>run<span class="w"> </span>&lt;hook_id&gt;
+</pre></div>
+</div>
+</section>
+</section>
+<section id="secure-coding-practices">
+<h1>Secure coding practices<a class="headerlink" href="#secure-coding-practices" title="Link to this heading"></a></h1>
+<p>General coding best practices are:</p>
+<ul>
+<li><p>Use tested and approved managed code rather than creating new unmanaged code
+for common tasks.</p></li>
+<li><p>Utilize locking to prevent multiple simultaneous requests for use a
+synchronization mechanism to prevent race conditions.</p></li>
+<li><p>Protect shared variables and resources from inappropriate concurrent access.</p></li>
+<li><p>Explicitly initialize all your variables and other data stores, either during
+declaration or just before the first usage.</p></li>
+<li><p>In cases where the application must run with elevated privileges, raise
+privileges as late as possible, and drop them as soon as possible.</p></li>
+<li><p>Avoid calculation errors by understanding your programming language’s
+underlying representation and how it interacts with numeric calculation. Pay
+close attention to byte size discrepancies, precision, signed/unsigned
+distinctions, truncation, conversion and casting between types, “not-a-number”
+calculations, and how your language handles numbers that are too large or too
+small for its underlying representation.</p></li>
+<li><p>Restrict users from generating new code or altering existing code.</p></li>
+<li><p>For common tasks, use tested and approved managed code rather than creating new
+unmanaged code.</p></li>
+<li><p>Utilize locking to prevent multiple simultaneous requests and use a synchronization
+mechanism to prevent race conditions.</p></li>
+<li><p>Protect shared variables and resources from inappropriate concurrent access.</p></li>
+<li><p>Explicitly initialize all your variables and other data stores, either during
+declaration or just before the first usage.</p></li>
+<li><p>In cases where the application must run with elevated privileges, raise
+privileges as late as possible. Then drop privileges as soon as possible.</p></li>
+<li><p>Avoid calculation errors by understanding the underlying representation of
+your programming language and how it interacts with numeric calculation, especially:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Byte size discrepancies</p></li>
+<li><p>Precision</p></li>
+<li><p>Signed and unsigned distinctions</p></li>
+<li><p>Truncation</p></li>
+<li><p>Conversion and casting between types</p></li>
+<li><p>Not-a-number calculations and how your language handles numbers that are
+too large or too small for its underlying representation.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Restrict users from generating new code or altering existing code.</p></li>
+</ul>
+<p>Secure coding best practices are:</p>
+<ul>
+<li><p>Validate input from all untrusted data sources. Proper input validation can
+eliminate most software vulnerabilities. Be suspicious of most external data
+sources, including:</p>
+<ul class="simple">
+<li><p>Command line arguments</p></li>
+<li><p>Network interfaces</p></li>
+<li><p>Environmental variables</p></li>
+<li><p>User controlled files</p></li>
+</ul>
+</li>
+<li><p>Be aware of compiler warnings. Compile code using the default compiler flags
+that exist in the CMakeLists file.</p></li>
+<li><p>Use static analysis tools to detect and eliminate additional security flaws.</p></li>
+<li><p>Keep the design as simple and small as possible. Complex designs increase the
+likelihood that errors will be made in their implementation, configuration, and
+use. Additionally, the effort required to achieve an appropriate level of assurance
+increases dramatically as security mechanisms become more complex.</p></li>
+<li><p>Base access decisions on permission rather than exclusion. This means that, by
+default, access is denied and the protection scheme identifies conditions under
+which access is permitted.</p></li>
+<li><p>Adhere to the principle of least privilege. Every process should execute with
+the least set of privileges necessary to complete the job. Any elevated permission
+should only be accessed for the least amount of time required to complete the
+privileged task. This approach reduces the opportunities an attacker has to
+execute arbitrary code with elevated privileges.</p></li>
+<li><p>Sanitize all data passed to complex subsystems, for example:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Command shells</p></li>
+<li><p>Relational databases</p></li>
+<li><p>Commercial off-the-shelf (COTS) components</p></li>
+</ul>
+</div></blockquote>
+<p>Attackers may be able to invoke unused functionality in these components using
+various injection attacks. This is not necessarily an input validation problem
+because the complex subsystem being invoked does not understand the context in
+which the call is made. Because the calling process understands the context, it
+is responsible for sanitizing the data before invoking the subsystem.</p>
+</li>
+<li><p>Manage risk with multiple defensive strategies. For example, if one layer of
+defense turns out to be inadequate, another layer of defense can:</p>
+<ul class="simple">
+<li><p>Prevent a security flaw from becoming an exploitable vulnerability.</p></li>
+<li><p>Limit the consequences of a successful exploit. For example, by combining
+secure programming techniques with secure runtime environments. This should
+reduce the likelihood that vulnerabilities remaining in the code at deployment
+time can be exploited in the operational environment.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="inclusive-language-guidelines">
+<h1>Inclusive language guidelines<a class="headerlink" href="#inclusive-language-guidelines" title="Link to this heading"></a></h1>
+<p>Arm® values inclusive communities. Arm® recognizes that we and our industry have
+used language that can be offensive. Arm® strives to lead the industry and create
+change.</p>
+<p>We believe that this document contains no offensive language. To report offensive
+language in this document, email <a class="reference external" href="mailto:terms&#37;&#52;&#48;arm&#46;com">terms<span>&#64;</span>arm<span>&#46;</span>com</a>.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../emulation-layer/docs/in/security.html" class="btn btn-neutral float-left" title="Security" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="security.html" class="btn btn-neutral float-right" title="Security" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, Arm Limited and/or its affiliates &lt;open-source-office@arm.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

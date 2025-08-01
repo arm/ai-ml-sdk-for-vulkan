@@ -1,0 +1,559 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VGF Encoder C++ API &mdash; ML SDK for Vulkan®  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=b8c9390b" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="VGF Decoder C++ API" href="decoder_api.html" />
+    <link rel="prev" title="Building the ML SDK VGF Library" href="building.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            ML SDK for Vulkan®
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../building.html">Building the ML SDK for Vulkan®</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tensor_aliasing_tutorial.html">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../model-converter/docs/in/index.html">ML SDK Model Converter</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK VGF Library</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ML SDK VGF Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">Building the ML SDK VGF Library</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">VGF Encoder C++ API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#encoder-example-usage">Encoder Example Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#encoder-api-reference">Encoder API Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv413CreateEncoder8uint16_t"><code class="docutils literal notranslate"><span class="pre">CreateEncoder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib9ModuleRefE"><code class="docutils literal notranslate"><span class="pre">mlsdk::vgflib::ModuleRef</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib11ResourceRefE"><code class="docutils literal notranslate"><span class="pre">mlsdk::vgflib::ResourceRef</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib11ConstantRefE"><code class="docutils literal notranslate"><span class="pre">mlsdk::vgflib::ConstantRef</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib14BindingSlotRefE"><code class="docutils literal notranslate"><span class="pre">mlsdk::vgflib::BindingSlotRef</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib20DescriptorSetInfoRefE"><code class="docutils literal notranslate"><span class="pre">mlsdk::vgflib::DescriptorSetInfoRef</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib14SegmentInfoRefE"><code class="docutils literal notranslate"><span class="pre">mlsdk::vgflib::SegmentInfoRef</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib17PushConstRangeRefE"><code class="docutils literal notranslate"><span class="pre">mlsdk::vgflib::PushConstRangeRef</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib7EncoderE"><code class="docutils literal notranslate"><span class="pre">mlsdk::vgflib::Encoder</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="decoder_api.html">VGF Decoder C++ API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decoder_c_api.html">VGF Decoder C API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging_api.html">VGF Logging C++ API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging_c_api.html">VGF Logging C API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vgf_dump.html">VGF Dump Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Scenario Runner</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../scenario-runner/docs/in/index.html">ML SDK Scenario Runner</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML Emulation Layer for Vulkan®</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../emulation-layer/docs/in/index.html">ML Emulation Layer for Vulkan®</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#secure-coding-practices">Secure coding practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#inclusive-language-guidelines">Inclusive language guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/security.html">Security</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ML SDK for Vulkan®</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">ML SDK VGF Library</a></li>
+      <li class="breadcrumb-item active">VGF Encoder C++ API</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/vgf-lib/docs/in/encoder_api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vgf-encoder-c-api">
+<h1>VGF Encoder C++ API<a class="headerlink" href="#vgf-encoder-c-api" title="Link to this heading"></a></h1>
+<p>The Encoder Application Program Interface is an offline tool that provides a set of API calls for creating VGF files. The API calls allow you to specify the inputs, outputs, resources and modules required to represent a model in the VGF format. The following example outlines the usage of the API calls to create an output VGF file.</p>
+<section id="encoder-example-usage">
+<h2>Encoder Example Usage<a class="headerlink" href="#encoder-example-usage" title="Link to this heading"></a></h2>
+<p>After you create the encoder object, you can create resources for a given segment. The VGF Encoder stores these resources in a model resource table. Resources are defined for the segment inputs, outputs, and constants:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Encoder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">encoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateEncoder</span><span class="p">(</span><span class="n">pretendVulkanHeaderVersion</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shape1</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">};</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">strides1</span><span class="p">{</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">DescriptorType</span><span class="w"> </span><span class="n">VK_DESCRIPTOR_TYPE_STORAGE_IMAGE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">    </span><span class="n">FormatType</span><span class="w"> </span><span class="n">VK_FORMAT_R4G4_UNORM_PACK8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ResourceRef</span><span class="w"> </span><span class="n">resource0</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">encoder</span><span class="o">-&gt;</span><span class="n">AddInputResource</span><span class="p">(</span><span class="n">VK_DESCRIPTOR_TYPE_STORAGE_IMAGE</span><span class="p">,</span><span class="w"> </span><span class="n">VK_FORMAT_R4G4_UNORM_PACK8</span><span class="p">,</span><span class="w"> </span><span class="n">shape1</span><span class="p">,</span><span class="w"> </span><span class="n">strides1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ResourceRef</span><span class="w"> </span><span class="n">resource1</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">encoder</span><span class="o">-&gt;</span><span class="n">AddOutputResource</span><span class="p">(</span><span class="n">VK_DESCRIPTOR_TYPE_STORAGE_IMAGE</span><span class="p">,</span><span class="w"> </span><span class="n">VK_FORMAT_R4G4_UNORM_PACK8</span><span class="p">,</span><span class="w"> </span><span class="n">shape1</span><span class="p">,</span><span class="w"> </span><span class="n">strides1</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>For a constant resource, constant values are assigned to the created constant object. The resource reference is used to determine the index of the resource in the model resource table:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">FormatType</span><span class="w"> </span><span class="n">VK_FORMAT_R4G4B4A4_UNORM_PACK16</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">12</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shape2</span><span class="p">{</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">};</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">strides2</span><span class="p">{</span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w"> </span><span class="mi">15</span><span class="p">};</span>
+<span class="w">    </span><span class="n">ResourceRef</span><span class="w"> </span><span class="n">resource2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">encoder</span><span class="o">-&gt;</span><span class="n">AddConstantResource</span><span class="p">(</span><span class="n">VK_FORMAT_R4G4B4A4_UNORM_PACK16</span><span class="p">,</span><span class="w"> </span><span class="n">shape2</span><span class="p">,</span><span class="w"> </span><span class="n">strides2</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Next, you can specify binding slots within the VGF. The assigned resources in the model resource table are then linked:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">BindingSlotRef</span><span class="w"> </span><span class="n">inputBinding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">encoder</span><span class="o">-&gt;</span><span class="n">AddBindingSlot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">inputRef</span><span class="p">);</span>
+<span class="w">    </span><span class="n">BindingSlotRef</span><span class="w"> </span><span class="n">outputBinding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">encoder</span><span class="o">-&gt;</span><span class="n">AddBindingSlot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">outputRef</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You can add descriptor set information, which is linked to each of the created binding slots:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">BindingSlotRef</span><span class="o">&gt;</span><span class="w"> </span><span class="n">inputBindings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">inputBinding</span><span class="p">};</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">BindingSlotRef</span><span class="o">&gt;</span><span class="w"> </span><span class="n">outputBindings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">outputBinding</span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">DescriptorSetInfoRef</span><span class="w"> </span><span class="n">inputDescriptorRef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">encoder</span><span class="o">-&gt;</span><span class="n">AddDescriptorSetInfo</span><span class="p">(</span><span class="n">inputBindings</span><span class="p">);</span>
+<span class="w">    </span><span class="n">DescriptorSetInfoRef</span><span class="w"> </span><span class="n">outputDescriptorRef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">encoder</span><span class="o">-&gt;</span><span class="n">AddDescriptorSetInfo</span><span class="p">(</span><span class="n">outputBindings</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">DescriptorSetInfoRef</span><span class="o">&gt;</span><span class="w"> </span><span class="n">descriptorRefs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">inputDescriptorRef</span><span class="p">,</span><span class="w"> </span><span class="n">outputDescriptorRef</span><span class="p">};</span>
+</pre></div>
+</div>
+<p>You must then specify the module for the segment, containing the SPIR-V™ module. This can also be done prior to adding resources:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">ModuleRef</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">encoder</span><span class="o">-&gt;</span><span class="n">AddModule</span><span class="p">(</span><span class="n">ModuleType</span><span class="o">::</span><span class="n">GRAPH</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;test_module&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;entry_point&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">code</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Alternatively, you can add a placeholder module. The application provisions the SPIR-V™ binary data when the model is loaded.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">ModuleRef</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">encoder</span><span class="o">-&gt;</span><span class="n">AddPlaceholderModule</span><span class="p">(</span><span class="n">ModuleType</span><span class="o">::</span><span class="n">GRAPH</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;test_module&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;entry_point&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>If required, you can specify push constants for the segment:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">PushConstRangeRef</span><span class="w"> </span><span class="n">pushConstRange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">encoder</span><span class="o">-&gt;</span><span class="n">AddPushConstRange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">PushConstRangeRef</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pushConstRanges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">pushConstRange</span><span class="p">};</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">SegmentInfoRef</span><span class="w"> </span><span class="n">segment</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">encoder</span><span class="o">-&gt;</span><span class="n">AddSegmentInfo</span><span class="p">(</span><span class="k">module</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;test_segment&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">descriptorRefs</span><span class="p">,</span><span class="w"> </span><span class="n">inputBindings</span><span class="p">,</span><span class="w"> </span><span class="n">outputBindings</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You must repeat this process for multiple segments in the model. After creating each of the model segments, you must specify the sequencing based on the binding slots inputs and outputs:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">encoder</span><span class="o">-&gt;</span><span class="n">AddModelSequenceInputsOutputs</span><span class="p">(</span><span class="n">inputBindings</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;input&quot;</span><span class="p">},</span><span class="w"> </span><span class="n">outputBindings</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;output&quot;</span><span class="p">});</span>
+</pre></div>
+</div>
+<p>You must indicate the end of the encoding sequence. Then, you can write the VGF file representing the model:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">stringstream</span><span class="w"> </span><span class="n">buffer</span><span class="p">;</span>
+<span class="w">    </span><span class="n">encoder</span><span class="o">-&gt;</span><span class="n">Finish</span><span class="p">();</span>
+<span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">encoder</span><span class="o">-&gt;</span><span class="n">WriteTo</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="encoder-api-reference">
+<h2>Encoder API Reference<a class="headerlink" href="#encoder-api-reference" title="Link to this heading"></a></h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv413CreateEncoder8uint16_t">
+<span id="_CPPv313CreateEncoder8uint16_t"></span><span id="_CPPv213CreateEncoder8uint16_t"></span><span id="CreateEncoder__uint16_t"></span><span class="target" id="group__encoderAPI_1gaf0d9d3fd327bd74caaff348c25ad12d4"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Encoder</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CreateEncoder</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint16_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">vkHeaderVersion</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv413CreateEncoder8uint16_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Create an <a class="reference internal" href="#classmlsdk_1_1vgflib_1_1Encoder"><span class="std std-ref">Encoder</span></a> object. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>vkHeaderVersion</strong> -- Value of VK_HEADER_VERSION as defined in vulkan_core.h as included by the users code. This is necessary so that loaders of the VGF file know how to interpret “VkFormat” and “VkDescriptorType” enumeration types. A value of 0 (NOT RECOMMENDED) indicates that the VGF generating tool does not use the Vulkan definitions directly.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmlsdk_1_1vgflib_1_1Encoder"><span class="std std-ref">Encoder</span></a> object </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib9ModuleRefE">
+<span id="_CPPv3N5mlsdk6vgflib9ModuleRefE"></span><span id="_CPPv2N5mlsdk6vgflib9ModuleRefE"></span><span id="mlsdk::vgflib::ModuleRef"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleRef"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ModuleRef</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vgflib</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Ref</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib9ModuleRefE" title="mlsdk::vgflib::ModuleRef"><span class="n"><span class="pre">ModuleRef</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib9ModuleRefE" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;encoder.hpp&gt;</em></div>
+<p>Class to store reference to a Module. </p>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib11ResourceRefE">
+<span id="_CPPv3N5mlsdk6vgflib11ResourceRefE"></span><span id="_CPPv2N5mlsdk6vgflib11ResourceRefE"></span><span id="mlsdk::vgflib::ResourceRef"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ResourceRef"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ResourceRef</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vgflib</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Ref</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib11ResourceRefE" title="mlsdk::vgflib::ResourceRef"><span class="n"><span class="pre">ResourceRef</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib11ResourceRefE" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;encoder.hpp&gt;</em></div>
+<p>Class to store reference to a Resource. </p>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib11ConstantRefE">
+<span id="_CPPv3N5mlsdk6vgflib11ConstantRefE"></span><span id="_CPPv2N5mlsdk6vgflib11ConstantRefE"></span><span id="mlsdk::vgflib::ConstantRef"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ConstantRef"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ConstantRef</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vgflib</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Ref</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib11ConstantRefE" title="mlsdk::vgflib::ConstantRef"><span class="n"><span class="pre">ConstantRef</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib11ConstantRefE" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;encoder.hpp&gt;</em></div>
+<p>Class to store reference to a Constant. </p>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib14BindingSlotRefE">
+<span id="_CPPv3N5mlsdk6vgflib14BindingSlotRefE"></span><span id="_CPPv2N5mlsdk6vgflib14BindingSlotRefE"></span><span id="mlsdk::vgflib::BindingSlotRef"></span><span class="target" id="classmlsdk_1_1vgflib_1_1BindingSlotRef"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BindingSlotRef</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vgflib</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Ref</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib14BindingSlotRefE" title="mlsdk::vgflib::BindingSlotRef"><span class="n"><span class="pre">BindingSlotRef</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib14BindingSlotRefE" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;encoder.hpp&gt;</em></div>
+<p>Class to store reference to a Binding Slot. </p>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib20DescriptorSetInfoRefE">
+<span id="_CPPv3N5mlsdk6vgflib20DescriptorSetInfoRefE"></span><span id="_CPPv2N5mlsdk6vgflib20DescriptorSetInfoRefE"></span><span id="mlsdk::vgflib::DescriptorSetInfoRef"></span><span class="target" id="classmlsdk_1_1vgflib_1_1DescriptorSetInfoRef"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DescriptorSetInfoRef</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vgflib</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Ref</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib20DescriptorSetInfoRefE" title="mlsdk::vgflib::DescriptorSetInfoRef"><span class="n"><span class="pre">DescriptorSetInfoRef</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib20DescriptorSetInfoRefE" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;encoder.hpp&gt;</em></div>
+<p>Class to store reference to a Descriptor Set. </p>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib14SegmentInfoRefE">
+<span id="_CPPv3N5mlsdk6vgflib14SegmentInfoRefE"></span><span id="_CPPv2N5mlsdk6vgflib14SegmentInfoRefE"></span><span id="mlsdk::vgflib::SegmentInfoRef"></span><span class="target" id="classmlsdk_1_1vgflib_1_1SegmentInfoRef"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SegmentInfoRef</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vgflib</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Ref</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib14SegmentInfoRefE" title="mlsdk::vgflib::SegmentInfoRef"><span class="n"><span class="pre">SegmentInfoRef</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib14SegmentInfoRefE" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;encoder.hpp&gt;</em></div>
+<p>Class to store reference to Segment Info. </p>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib17PushConstRangeRefE">
+<span id="_CPPv3N5mlsdk6vgflib17PushConstRangeRefE"></span><span id="_CPPv2N5mlsdk6vgflib17PushConstRangeRefE"></span><span id="mlsdk::vgflib::PushConstRangeRef"></span><span class="target" id="classmlsdk_1_1vgflib_1_1PushConstRangeRef"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PushConstRangeRef</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vgflib</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Ref</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib17PushConstRangeRefE" title="mlsdk::vgflib::PushConstRangeRef"><span class="n"><span class="pre">PushConstRangeRef</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib17PushConstRangeRefE" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;encoder.hpp&gt;</em></div>
+<p>Class to store reference to a Push Constant Range. </p>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib7EncoderE">
+<span id="_CPPv3N5mlsdk6vgflib7EncoderE"></span><span id="_CPPv2N5mlsdk6vgflib7EncoderE"></span><span id="mlsdk::vgflib::Encoder"></span><span class="target" id="classmlsdk_1_1vgflib_1_1Encoder"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Encoder</span></span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib7EncoderE" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;encoder.hpp&gt;</em></div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib7EncoderD0Ev">
+<span id="_CPPv3N5mlsdk6vgflib7EncoderD0Ev"></span><span id="_CPPv2N5mlsdk6vgflib7EncoderD0Ev"></span><span id="mlsdk::vgflib::Encoder::~Encoder"></span><span class="target" id="classmlsdk_1_1vgflib_1_1Encoder_1a7dd83703aa37b769af9731a7341c734a"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~Encoder</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib7EncoderD0Ev" title="Link to this definition"></a><br /></dt>
+<dd><p>Destructor for the <a class="reference internal" href="#classmlsdk_1_1vgflib_1_1Encoder"><span class="std std-ref">Encoder</span></a> class. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib7Encoder9AddModuleE10ModuleTypeRKNSt6stringERKNSt6stringERKNSt6vectorI8uint32_tEE">
+<span id="_CPPv3N5mlsdk6vgflib7Encoder9AddModuleE10ModuleTypeRKNSt6stringERKNSt6stringERKNSt6vectorI8uint32_tEE"></span><span id="_CPPv2N5mlsdk6vgflib7Encoder9AddModuleE10ModuleTypeRKNSt6stringERKNSt6stringERKNSt6vectorI8uint32_tEE"></span><span id="mlsdk::vgflib::Encoder::AddModule__ModuleType.ssCR.ssCR.std::vector:uint32_t:CR"></span><span class="target" id="classmlsdk_1_1vgflib_1_1Encoder_1acf03f95aeadbb33d99f9be3fcda87545"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib9ModuleRefE" title="mlsdk::vgflib::ModuleRef"><span class="n"><span class="pre">ModuleRef</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddModule</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ModuleType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">entryPoint</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">uint32_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">code</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib7Encoder9AddModuleE10ModuleTypeRKNSt6stringERKNSt6stringERKNSt6vectorI8uint32_tEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Adds a module, with code, to the VGF. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> -- The type of the module </p></li>
+<li><p><strong>name</strong> -- Unique string name of the module </p></li>
+<li><p><strong>entryPoint</strong> -- Entry point into the shader e.g. “main” </p></li>
+<li><p><strong>code</strong> -- Vector of uint32 representing SPIR-V byte code </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmlsdk_1_1vgflib_1_1ModuleRef"><span class="std std-ref">ModuleRef</span></a> Type containing information for the added module </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib7Encoder20AddPlaceholderModuleE10ModuleTypeRKNSt6stringERKNSt6stringE">
+<span id="_CPPv3N5mlsdk6vgflib7Encoder20AddPlaceholderModuleE10ModuleTypeRKNSt6stringERKNSt6stringE"></span><span id="_CPPv2N5mlsdk6vgflib7Encoder20AddPlaceholderModuleE10ModuleTypeRKNSt6stringERKNSt6stringE"></span><span id="mlsdk::vgflib::Encoder::AddPlaceholderModule__ModuleType.ssCR.ssCR"></span><span class="target" id="classmlsdk_1_1vgflib_1_1Encoder_1a5de2dab11909e2eaa4994ba7b4916762"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib9ModuleRefE" title="mlsdk::vgflib::ModuleRef"><span class="n"><span class="pre">ModuleRef</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddPlaceholderModule</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ModuleType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">entryPoint</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib7Encoder20AddPlaceholderModuleE10ModuleTypeRKNSt6stringERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Adds a placeholder module to the VGF where the code will be provisioned at load/decode time. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> -- The type of the module </p></li>
+<li><p><strong>name</strong> -- Unique string name of the module </p></li>
+<li><p><strong>entryPoint</strong> -- Entry point into the shader e.g. “main” </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmlsdk_1_1vgflib_1_1ModuleRef"><span class="std std-ref">ModuleRef</span></a> Type containing information for the added module </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib7Encoder16AddInputResourceE14DescriptorType10FormatTypeRKNSt6vectorI7int64_tEERKNSt6vectorI7int64_tEE">
+<span id="_CPPv3N5mlsdk6vgflib7Encoder16AddInputResourceE14DescriptorType10FormatTypeRKNSt6vectorI7int64_tEERKNSt6vectorI7int64_tEE"></span><span id="_CPPv2N5mlsdk6vgflib7Encoder16AddInputResourceE14DescriptorType10FormatTypeRKNSt6vectorI7int64_tEERKNSt6vectorI7int64_tEE"></span><span id="mlsdk::vgflib::Encoder::AddInputResource__DescriptorType.FormatType.std::vector:int64_t:CR.std::vector:int64_t:CR"></span><span class="target" id="classmlsdk_1_1vgflib_1_1Encoder_1a155c09da1a8febece9209ee95c4d8cc2"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib11ResourceRefE" title="mlsdk::vgflib::ResourceRef"><span class="n"><span class="pre">ResourceRef</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddInputResource</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">DescriptorType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">descriptorType</span></span>, <span class="n"><span class="pre">FormatType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">vkFormat</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">int64_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">shape</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">int64_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">strides</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib7Encoder16AddInputResourceE14DescriptorType10FormatTypeRKNSt6vectorI7int64_tEERKNSt6vectorI7int64_tEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Add an INPUT resource to the model resource table. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>descriptorType</strong> -- The module type of the resource table </p></li>
+<li><p><strong>vkFormat</strong> -- VkFormat of the resource data </p></li>
+<li><p><strong>shape</strong> -- Vector representation of the resource shape. “-1” values represent an unshaped dimension </p></li>
+<li><p><strong>strides</strong> -- Vector representation of the resource stride. An empty strides is assumed packed layout </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmlsdk_1_1vgflib_1_1ResourceRef"><span class="std std-ref">ResourceRef</span></a> type containing information for the added table entry </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib7Encoder17AddOutputResourceE14DescriptorType10FormatTypeRKNSt6vectorI7int64_tEERKNSt6vectorI7int64_tEE">
+<span id="_CPPv3N5mlsdk6vgflib7Encoder17AddOutputResourceE14DescriptorType10FormatTypeRKNSt6vectorI7int64_tEERKNSt6vectorI7int64_tEE"></span><span id="_CPPv2N5mlsdk6vgflib7Encoder17AddOutputResourceE14DescriptorType10FormatTypeRKNSt6vectorI7int64_tEERKNSt6vectorI7int64_tEE"></span><span id="mlsdk::vgflib::Encoder::AddOutputResource__DescriptorType.FormatType.std::vector:int64_t:CR.std::vector:int64_t:CR"></span><span class="target" id="classmlsdk_1_1vgflib_1_1Encoder_1a44a1eed4819d7c34cdbe7396755fa999"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib11ResourceRefE" title="mlsdk::vgflib::ResourceRef"><span class="n"><span class="pre">ResourceRef</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddOutputResource</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">DescriptorType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">descriptorType</span></span>, <span class="n"><span class="pre">FormatType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">vkFormat</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">int64_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">shape</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">int64_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">strides</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib7Encoder17AddOutputResourceE14DescriptorType10FormatTypeRKNSt6vectorI7int64_tEERKNSt6vectorI7int64_tEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Add an OUTPUT resource to the model resource table. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>descriptorType</strong> -- The module type of the resource table </p></li>
+<li><p><strong>vkFormat</strong> -- VkFormat of the resource data </p></li>
+<li><p><strong>shape</strong> -- Vector representation of the resource shape. “-1” values represent an unshaped dimension </p></li>
+<li><p><strong>strides</strong> -- Vector representation of the resource stride. An empty strides is assumed packed layout </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmlsdk_1_1vgflib_1_1ResourceRef"><span class="std std-ref">ResourceRef</span></a> type containing information for the added table entry </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib7Encoder23AddIntermediateResourceE14DescriptorType10FormatTypeRKNSt6vectorI7int64_tEERKNSt6vectorI7int64_tEE">
+<span id="_CPPv3N5mlsdk6vgflib7Encoder23AddIntermediateResourceE14DescriptorType10FormatTypeRKNSt6vectorI7int64_tEERKNSt6vectorI7int64_tEE"></span><span id="_CPPv2N5mlsdk6vgflib7Encoder23AddIntermediateResourceE14DescriptorType10FormatTypeRKNSt6vectorI7int64_tEERKNSt6vectorI7int64_tEE"></span><span id="mlsdk::vgflib::Encoder::AddIntermediateResource__DescriptorType.FormatType.std::vector:int64_t:CR.std::vector:int64_t:CR"></span><span class="target" id="classmlsdk_1_1vgflib_1_1Encoder_1aef90d87df5ac7f0353d0d1dc038a1b70"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib11ResourceRefE" title="mlsdk::vgflib::ResourceRef"><span class="n"><span class="pre">ResourceRef</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddIntermediateResource</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">DescriptorType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">descriptorType</span></span>, <span class="n"><span class="pre">FormatType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">vkFormat</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">int64_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">shape</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">int64_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">strides</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib7Encoder23AddIntermediateResourceE14DescriptorType10FormatTypeRKNSt6vectorI7int64_tEERKNSt6vectorI7int64_tEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Add an INTERMEDIATE resource to the model resource table. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>descriptorType</strong> -- The module type of the resource table </p></li>
+<li><p><strong>vkFormat</strong> -- VkFormat of the resource data </p></li>
+<li><p><strong>shape</strong> -- Vector representation of the resource shape. “-1” values represent an unshaped dimension </p></li>
+<li><p><strong>strides</strong> -- Vector representation of the resource stride. An empty strides is assumed packed layout </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmlsdk_1_1vgflib_1_1ResourceRef"><span class="std std-ref">ResourceRef</span></a> type containing information for the added table entry </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib7Encoder19AddConstantResourceE10FormatTypeRKNSt6vectorI7int64_tEERKNSt6vectorI7int64_tEE">
+<span id="_CPPv3N5mlsdk6vgflib7Encoder19AddConstantResourceE10FormatTypeRKNSt6vectorI7int64_tEERKNSt6vectorI7int64_tEE"></span><span id="_CPPv2N5mlsdk6vgflib7Encoder19AddConstantResourceE10FormatTypeRKNSt6vectorI7int64_tEERKNSt6vectorI7int64_tEE"></span><span id="mlsdk::vgflib::Encoder::AddConstantResource__FormatType.std::vector:int64_t:CR.std::vector:int64_t:CR"></span><span class="target" id="classmlsdk_1_1vgflib_1_1Encoder_1adbfb03fde51c1afcfeab46eaa5ee9f49"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib11ResourceRefE" title="mlsdk::vgflib::ResourceRef"><span class="n"><span class="pre">ResourceRef</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddConstantResource</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">FormatType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">vkFormat</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">int64_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">shape</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">int64_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">strides</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib7Encoder19AddConstantResourceE10FormatTypeRKNSt6vectorI7int64_tEERKNSt6vectorI7int64_tEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Add a CONSTANT tensor to the model resource table. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vkFormat</strong> -- VkFormat of the resource data </p></li>
+<li><p><strong>shape</strong> -- Vector representation of the resource shape. “-1” values represent an unshaped dimension </p></li>
+<li><p><strong>strides</strong> -- Vector representation of the resource stride. An empty strides is assumed packed layout </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmlsdk_1_1vgflib_1_1ResourceRef"><span class="std std-ref">ResourceRef</span></a> type containing information for the added table entry </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib7Encoder11AddConstantE11ResourceRefPKv6size_t7int64_t">
+<span id="_CPPv3N5mlsdk6vgflib7Encoder11AddConstantE11ResourceRefPKv6size_t7int64_t"></span><span id="_CPPv2N5mlsdk6vgflib7Encoder11AddConstantE11ResourceRefPKv6size_t7int64_t"></span><span id="mlsdk::vgflib::Encoder::AddConstant__ResourceRef.voidCP.s.int64_t"></span><span class="target" id="classmlsdk_1_1vgflib_1_1Encoder_1acf4f1b1d16d3c099fbdfa02aec01a852"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib11ConstantRefE" title="mlsdk::vgflib::ConstantRef"><span class="n"><span class="pre">ConstantRef</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddConstant</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib11ResourceRefE" title="mlsdk::vgflib::ResourceRef"><span class="n"><span class="pre">ResourceRef</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">resource</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sizeInBytes</span></span>, <span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sparsityDimension</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib7Encoder11AddConstantE11ResourceRefPKv6size_t7int64_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Add constant values to a constant resource type in the model resource table. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resource</strong> -- Resource reference used in model resource table </p></li>
+<li><p><strong>data</strong> -- Pointer to the memory containing the constant data </p></li>
+<li><p><strong>sizeInBytes</strong> -- Size of the constant data to encode </p></li>
+<li><p><strong>sparsityDimension</strong> -- Dimension on which the constant is sparse </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmlsdk_1_1vgflib_1_1ConstantRef"><span class="std std-ref">ConstantRef</span></a> type containing information for the added constant </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib7Encoder14AddBindingSlotE8uint32_t11ResourceRef">
+<span id="_CPPv3N5mlsdk6vgflib7Encoder14AddBindingSlotE8uint32_t11ResourceRef"></span><span id="_CPPv2N5mlsdk6vgflib7Encoder14AddBindingSlotE8uint32_t11ResourceRef"></span><span id="mlsdk::vgflib::Encoder::AddBindingSlot__uint32_t.ResourceRef"></span><span class="target" id="classmlsdk_1_1vgflib_1_1Encoder_1ac6073fda11a9f33e4b8754c4be352414"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib14BindingSlotRefE" title="mlsdk::vgflib::BindingSlotRef"><span class="n"><span class="pre">BindingSlotRef</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddBindingSlot</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">binding</span></span>, <a class="reference internal" href="#_CPPv4N5mlsdk6vgflib11ResourceRefE" title="mlsdk::vgflib::ResourceRef"><span class="n"><span class="pre">ResourceRef</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">resource</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib7Encoder14AddBindingSlotE8uint32_t11ResourceRef" title="Link to this definition"></a><br /></dt>
+<dd><p>Add a binding slot and associate to resource in the model resource table. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>binding</strong> -- The binding slot to be added </p></li>
+<li><p><strong>resource</strong> -- Ref to resource in model resource table </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmlsdk_1_1vgflib_1_1BindingSlotRef"><span class="std std-ref">BindingSlotRef</span></a> type containing information for the added binding slot </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib7Encoder20AddDescriptorSetInfoERKNSt6vectorI14BindingSlotRefEE">
+<span id="_CPPv3N5mlsdk6vgflib7Encoder20AddDescriptorSetInfoERKNSt6vectorI14BindingSlotRefEE"></span><span id="_CPPv2N5mlsdk6vgflib7Encoder20AddDescriptorSetInfoERKNSt6vectorI14BindingSlotRefEE"></span><span id="mlsdk::vgflib::Encoder::AddDescriptorSetInfo__std::vector:BindingSlotRef:CR"></span><span class="target" id="classmlsdk_1_1vgflib_1_1Encoder_1a7872c308e19b5a8cdb71cf7f85796c23"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib20DescriptorSetInfoRefE" title="mlsdk::vgflib::DescriptorSetInfoRef"><span class="n"><span class="pre">DescriptorSetInfoRef</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddDescriptorSetInfo</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib14BindingSlotRefE" title="mlsdk::vgflib::BindingSlotRef"><span class="n"><span class="pre">BindingSlotRef</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">bindings</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib7Encoder20AddDescriptorSetInfoERKNSt6vectorI14BindingSlotRefEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Add descriptor set info for bindings. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bindings</strong> -- Vector of binding slot references </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmlsdk_1_1vgflib_1_1DescriptorSetInfoRef"><span class="std std-ref">DescriptorSetInfoRef</span></a> type containing information for the added descriptor set </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib7Encoder17AddPushConstRangeE8uint32_t8uint32_t8uint32_t">
+<span id="_CPPv3N5mlsdk6vgflib7Encoder17AddPushConstRangeE8uint32_t8uint32_t8uint32_t"></span><span id="_CPPv2N5mlsdk6vgflib7Encoder17AddPushConstRangeE8uint32_t8uint32_t8uint32_t"></span><span id="mlsdk::vgflib::Encoder::AddPushConstRange__uint32_t.uint32_t.uint32_t"></span><span class="target" id="classmlsdk_1_1vgflib_1_1Encoder_1a8ad67786635d7be2806c54422a602d2c"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib17PushConstRangeRefE" title="mlsdk::vgflib::PushConstRangeRef"><span class="n"><span class="pre">PushConstRangeRef</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddPushConstRange</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">stageFlags</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">offset</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib7Encoder17AddPushConstRangeE8uint32_t8uint32_t8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Add push constant range to segment info. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stageFlags</strong> -- Stage flags describing the shader stages </p></li>
+<li><p><strong>offset</strong> -- Start offset in units of bytes and must be a multiple of 4 </p></li>
+<li><p><strong>size</strong> -- Start size in units of bytes and must be a multiple of 4 </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmlsdk_1_1vgflib_1_1PushConstRangeRef"><span class="std std-ref">PushConstRangeRef</span></a> type containing information for the added push constant range </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib7Encoder14AddSegmentInfoE9ModuleRefRKNSt6stringERKNSt6vectorI20DescriptorSetInfoRefEERKNSt6vectorI14BindingSlotRefEERKNSt6vectorI14BindingSlotRefEERKNSt6vectorI11ConstantRefEERKNSt5arrayI8uint32_tXL3EEEERKNSt6vectorI17PushConstRangeRefEE">
+<span id="_CPPv3N5mlsdk6vgflib7Encoder14AddSegmentInfoE9ModuleRefRKNSt6stringERKNSt6vectorI20DescriptorSetInfoRefEERKNSt6vectorI14BindingSlotRefEERKNSt6vectorI14BindingSlotRefEERKNSt6vectorI11ConstantRefEERKNSt5arrayI8uint32_tXL3EEEERKNSt6vectorI17PushConstRangeRefEE"></span><span id="_CPPv2N5mlsdk6vgflib7Encoder14AddSegmentInfoE9ModuleRefRKNSt6stringERKNSt6vectorI20DescriptorSetInfoRefEERKNSt6vectorI14BindingSlotRefEERKNSt6vectorI14BindingSlotRefEERKNSt6vectorI11ConstantRefEERKNSt5arrayI8uint32_tX3EEERKNSt6vectorI17PushConstRangeRefEE"></span><span id="mlsdk::vgflib::Encoder::AddSegmentInfo__ModuleRef.ssCR.std::vector:DescriptorSetInfoRef:CR.std::vector:BindingSlotRef:CR.std::vector:BindingSlotRef:CR.std::vector:ConstantRef:CR.std::array:uint32_t.3:CR.std::vector:PushConstRangeRef:CR"></span><span class="target" id="classmlsdk_1_1vgflib_1_1Encoder_1a378e437dbbf05d2b51cbaca3e2bca052"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib14SegmentInfoRefE" title="mlsdk::vgflib::SegmentInfoRef"><span class="n"><span class="pre">SegmentInfoRef</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddSegmentInfo</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib9ModuleRefE" title="mlsdk::vgflib::ModuleRef"><span class="n"><span class="pre">ModuleRef</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">module</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib20DescriptorSetInfoRefE" title="mlsdk::vgflib::DescriptorSetInfoRef"><span class="n"><span class="pre">DescriptorSetInfoRef</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">descriptors</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib14BindingSlotRefE" title="mlsdk::vgflib::BindingSlotRef"><span class="n"><span class="pre">BindingSlotRef</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">inputs</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib14BindingSlotRefE" title="mlsdk::vgflib::BindingSlotRef"><span class="n"><span class="pre">BindingSlotRef</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">outputs</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib11ConstantRefE" title="mlsdk::vgflib::ConstantRef"><span class="n"><span class="pre">ConstantRef</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">constants</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">uint32_t</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">dispatchShape</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib17PushConstRangeRefE" title="mlsdk::vgflib::PushConstRangeRef"><span class="n"><span class="pre">PushConstRangeRef</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">pushConstRanges</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib7Encoder14AddSegmentInfoE9ModuleRefRKNSt6stringERKNSt6vectorI20DescriptorSetInfoRefEERKNSt6vectorI14BindingSlotRefEERKNSt6vectorI14BindingSlotRefEERKNSt6vectorI11ConstantRefEERKNSt5arrayI8uint32_tXL3EEEERKNSt6vectorI17PushConstRangeRefEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Add segment info with approprate references. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>module</strong> -- Module reference of the added module </p></li>
+<li><p><strong>name</strong> -- Unique string name of the segment </p></li>
+<li><p><strong>descriptors</strong> -- Vector of references to descriptor set info </p></li>
+<li><p><strong>inputs</strong> -- Vector of references to binding slots used as inputs </p></li>
+<li><p><strong>outputs</strong> -- Vector of references to binding slots used as outputs </p></li>
+<li><p><strong>constants</strong> -- Vector of references to segment constants </p></li>
+<li><p><strong>dispatchShape</strong> -- 3-dimensional array of dispatch shape </p></li>
+<li><p><strong>pushConstRanges</strong> -- Vector of references to segment push constant ranges </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmlsdk_1_1vgflib_1_1SegmentInfoRef"><span class="std std-ref">SegmentInfoRef</span></a> type containing information for the added push constant range </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib7Encoder29AddModelSequenceInputsOutputsERKNSt6vectorI14BindingSlotRefEERKNSt6vectorINSt6stringEEERKNSt6vectorI14BindingSlotRefEERKNSt6vectorINSt6stringEEE">
+<span id="_CPPv3N5mlsdk6vgflib7Encoder29AddModelSequenceInputsOutputsERKNSt6vectorI14BindingSlotRefEERKNSt6vectorINSt6stringEEERKNSt6vectorI14BindingSlotRefEERKNSt6vectorINSt6stringEEE"></span><span id="_CPPv2N5mlsdk6vgflib7Encoder29AddModelSequenceInputsOutputsERKNSt6vectorI14BindingSlotRefEERKNSt6vectorINSt6stringEEERKNSt6vectorI14BindingSlotRefEERKNSt6vectorINSt6stringEEE"></span><span id="mlsdk::vgflib::Encoder::AddModelSequenceInputsOutputs__std::vector:BindingSlotRef:CR.std::vector:ss:CR.std::vector:BindingSlotRef:CR.std::vector:ss:CR"></span><span class="target" id="classmlsdk_1_1vgflib_1_1Encoder_1a6487fe418829818a04b651b31ea99a27"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddModelSequenceInputsOutputs</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib14BindingSlotRefE" title="mlsdk::vgflib::BindingSlotRef"><span class="n"><span class="pre">BindingSlotRef</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">inputs</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">inputNames</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib14BindingSlotRefE" title="mlsdk::vgflib::BindingSlotRef"><span class="n"><span class="pre">BindingSlotRef</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">outputs</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">outputNames</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib7Encoder29AddModelSequenceInputsOutputsERKNSt6vectorI14BindingSlotRefEERKNSt6vectorINSt6stringEEERKNSt6vectorI14BindingSlotRefEERKNSt6vectorINSt6stringEEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Add the sequence of inputs and outputs to the model. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> -- Vector of BindingSlotRefs used as inputs to the model </p></li>
+<li><p><strong>inputNames</strong> -- Vector of std::string containing the names corresponding to inputs. inputNames must be empty or equal inputs.size() </p></li>
+<li><p><strong>outputs</strong> -- Vector of BindingSlotRefs used as outputs to the model </p></li>
+<li><p><strong>outputNames</strong> -- Vector of std::string containing the names corresponding to outputs. outputNames must be empty or equal outputs.size() </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib7Encoder6FinishEv">
+<span id="_CPPv3N5mlsdk6vgflib7Encoder6FinishEv"></span><span id="_CPPv2N5mlsdk6vgflib7Encoder6FinishEv"></span><span id="mlsdk::vgflib::Encoder::Finish"></span><span class="target" id="classmlsdk_1_1vgflib_1_1Encoder_1a027f7efe3adcd7e38edd5767ec187f90"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Finish</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib7Encoder6FinishEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Inidicate the finishing of VGF file encoding. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib7Encoder7WriteToERNSt7ostreamE">
+<span id="_CPPv3N5mlsdk6vgflib7Encoder7WriteToERNSt7ostreamE"></span><span id="_CPPv2N5mlsdk6vgflib7Encoder7WriteToERNSt7ostreamE"></span><span id="mlsdk::vgflib::Encoder::WriteTo__osR"></span><span class="target" id="classmlsdk_1_1vgflib_1_1Encoder_1a7f6d47bedeaae1f9ae3e5d9e4e08a46b"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">WriteTo</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">output</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib7Encoder7WriteToERNSt7ostreamE" title="Link to this definition"></a><br /></dt>
+<dd><p>Write the output VGF file. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>output</strong> -- Output destination of the .vgf file </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Bool True if write successful </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="building.html" class="btn btn-neutral float-left" title="Building the ML SDK VGF Library" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="decoder_api.html" class="btn btn-neutral float-right" title="VGF Decoder C++ API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, Arm Limited and/or its affiliates &lt;open-source-office@arm.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

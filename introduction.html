@@ -1,0 +1,305 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction &mdash; ML SDK for Vulkan®  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=b8c9390b" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Cloning the repository" href="cloning.html" />
+    <link rel="prev" title="Welcome to the ‘ML SDK for Vulkan®’ documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ML SDK for Vulkan®
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#production">Production</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exploration">Exploration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#platforms">Platforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">Building the ML SDK for Vulkan®</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_aliasing_tutorial.html">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="model-converter/docs/in/index.html">ML SDK Model Converter</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK VGF Library</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="vgf-lib/docs/in/index.html">ML SDK VGF Library</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Scenario Runner</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="scenario-runner/docs/in/index.html">ML SDK Scenario Runner</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML Emulation Layer for Vulkan®</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="emulation-layer/docs/in/index.html">ML Emulation Layer for Vulkan®</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contribution/guidelines.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution/guidelines.html#secure-coding-practices">Secure coding practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution/guidelines.html#inclusive-language-guidelines">Inclusive language guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution/security.html">Security</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ML SDK for Vulkan®</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/introduction.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
+<p>The ML SDK for Vulkan® is a collection of libraries and tools consisting of various components:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="model-converter/docs/in/index.html#ml-sdk-model-converter"><span class="std std-ref">ML SDK Model Converter</span></a></p></li>
+<li><p><a class="reference internal" href="vgf-lib/docs/in/index.html#ml-sdk-vgf-library"><span class="std std-ref">ML SDK VGF Library</span></a></p></li>
+<li><p><a class="reference internal" href="scenario-runner/docs/in/index.html#ml-sdk-scenario-runner"><span class="std std-ref">ML SDK Scenario Runner</span></a></p></li>
+<li><p><a class="reference internal" href="emulation-layer/docs/in/index.html#ml-emulation-layer-for-vulkan"><span class="std std-ref">ML Emulation Layer for Vulkan®</span></a></p></li>
+</ul>
+<p>The following figure shows how you can use each of the ML SDK for Vulkan® components in a larger system:</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/ml_sdk_for_vulkan_components.svg"><img alt="_images/ml_sdk_for_vulkan_components.svg" src="_images/ml_sdk_for_vulkan_components.svg" style="width: 85%;" />
+</a>
+</figure>
+<p>The following gives a brief introduction to each of the ML SDK for Vulkan® components:</p>
+<dl>
+<dt><strong>Model Converter</strong></dt><dd><p>Converts TOSA models into SPIR-V™ graphs and packages the whole use case into a
+VGF file. The Model Converter must be used as part of an asset pipeline
+deployment flow and is separated into two stages:</p>
+<p>1. The framework specific conversion mechanism lowers the framework model to a TOSA intermediate representation
+(not part of the ML SDK for Vulkan®).</p>
+<p>2. The Model Converter applies additional transforms and optimizations before lowering to SPIR-V™ graph
+intermediate representation (IR) and then packaging the use case into a <code class="code docutils literal notranslate"><span class="pre">.vgf</span></code> file.</p>
+</dd>
+<dt><strong>VGF Library</strong></dt><dd><p>A simple, efficient container format for ML use cases consisting of SPIR-V™ graphs, custom shaders,
+and constant data. This component provides:</p>
+<ul class="simple">
+<li><p>A C++ encoder and decoder API for writing and efficiently reading VGF files.</p></li>
+<li><p>A C decoder wrapper API to provide stable ABI bindings.</p></li>
+<li><p>A VGF Dump Tool for working with VGF files.</p></li>
+</ul>
+<p>The VGF Library is intended for integration into game engines. The library has been designed around
+efficient decoding of the VGF file at runtime by supporting memory mapped file access (optional). The
+library requires user managed memory allocation to minimise copying and in-memory duplication of
+potentially large constant data.</p>
+</dd>
+<dt><strong>Scenario Runner</strong></dt><dd><p>A data driven test and validation tool for executing ML workloads described in
+JSON scenario files.</p>
+</dd>
+<dt><strong>Emulation layer</strong></dt><dd><p>A TOSA compliant, compute-based implementation of the graph and tensor extensions which is exposed
+using Vulkan® Layers.</p>
+</dd>
+</dl>
+<p>In addition to these components, you will find documentation, tutorials, samples, and tests.</p>
+<section id="production">
+<h2>Production<a class="headerlink" href="#production" title="Link to this heading"></a></h2>
+<p>The proposed production workflow involves integrating the ML SDK Model Converter into the
+application or game <code class="code docutils literal notranslate"><span class="pre">asset</span> <span class="pre">deployment</span> <span class="pre">pipeline</span></code>. The pipeline needs a TOSA intermediate
+representation of a framework specific native model file. To obtain a TOSA intermediate
+representation, you should use a specific framework to TOSA converter (not depicted here).</p>
+<p>The TOSA intermediate representation is then passed to the ML SDK Model Converter
+to produce a <code class="code docutils literal notranslate"><span class="pre">.vgf</span></code> file. The VGF file contents can then be:</p>
+<ul class="simple">
+<li><p>Embedded into the game or application’s native packaging format.</p></li>
+<li><p>Distributed as a file on disk as part of the normal platform specific application deployment flow.</p></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>When exploring the API, a tight integration is not necessary because the Model Converter can work directly
+with the framework files. The ML SDK Scenario Runner can also parse the VGF file directly. We recommend
+passing the TOSA intermediate representation to the ML SDK Model Converter for smoother Model Authoring
+workflows when in production.</p>
+</div>
+<p>The application or game component that runs on the device, must integrate the
+<code class="code docutils literal notranslate"><span class="pre">ML</span> <span class="pre">SDK</span> <span class="pre">VGF</span> <span class="pre">Library</span> <span class="pre">decoder</span></code> library to parse the VGF file contents so that the application or
+game code can set up the required Vulkan® state.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The ML SDK VGF Library does not make any calls into the Vulkan® API. The integration must translate the parsed
+information directly into Vulkan® API calls, for example, allocating memory and creating resources,
+pipelines, synchronisation, and session objects.</p>
+</div>
+</section>
+<section id="exploration">
+<h2>Exploration<a class="headerlink" href="#exploration" title="Link to this heading"></a></h2>
+<p>When exploring the viability of a ML use case or API integration, it can be useful to first explore the use
+case for the ML SDK Scenario Runner. The ML SDK Scenario Runner allows running use cases in a declarative manner before
+working on more complicated feature integrations.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>While the API is relatively new, we recommend you use the ML SDK Emulation Layer for Vulkan® for exploration. The Emulation Layer
+provides a TOSA conformant software implementation of the Vulkan® graph and tensor extensions. The Emulation
+Layer is enabled by the Vulkan® Layer mechanism.</p>
+<p>Another useful tool for exploration and debugging is the VGF Dump Tool. The VGF Dump Tool allows a developer
+to extract specific elements of the VGF file or even generate a template scenario description for a VGF file.</p>
+</div>
+</section>
+<section id="platforms">
+<h2>Platforms<a class="headerlink" href="#platforms" title="Link to this heading"></a></h2>
+<p>This table represents the status of platform support: supported (✅), unsupported (❌) and not applicable (N/A).
+We will increase support in the upcoming releases.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>Platforms</p></th>
+<th class="head"><p>ML SDK
+Model
+Converter</p></th>
+<th class="head"><p>ML SDK
+VGF
+Library</p></th>
+<th class="head"><p>ML SDK
+Scenario
+Runner</p></th>
+<th class="head"><p>ML SDK
+Emulation
+Layer</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="2"><p>Linux</p></td>
+<td><p>AArch64</p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>X86-64</p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>Windows</p></td>
+<td><p>AArch64</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+</tr>
+<tr class="row-odd"><td><p>X86-64</p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>MacOS</p></td>
+<td><p>AArch64</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+<td><p>N/A</p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-odd"><td><p>X86-64</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+<td><p>N/A</p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>Android</p></td>
+<td><p>AArch64</p></td>
+<td><p>N/A</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+</tr>
+<tr class="row-odd"><td><p>X86-64</p></td>
+<td><p>N/A</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to the ‘ML SDK for Vulkan®’ documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cloning.html" class="btn btn-neutral float-right" title="Cloning the repository" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, Arm Limited and/or its affiliates &lt;open-source-office@arm.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

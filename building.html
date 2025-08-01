@@ -1,0 +1,225 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building the ML SDK for Vulkan® &mdash; ML SDK for Vulkan®  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=b8c9390b" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Converting and deploying a PyTorch model tutorial" href="tutorial.html" />
+    <link rel="prev" title="Cloning the repository" href="cloning.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ML SDK for Vulkan®
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Building the ML SDK for Vulkan®</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#build-the-documentation">Build the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#more-command-line-options">More command line options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_aliasing_tutorial.html">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="model-converter/docs/in/index.html">ML SDK Model Converter</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK VGF Library</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="vgf-lib/docs/in/index.html">ML SDK VGF Library</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Scenario Runner</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="scenario-runner/docs/in/index.html">ML SDK Scenario Runner</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML Emulation Layer for Vulkan®</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="emulation-layer/docs/in/index.html">ML Emulation Layer for Vulkan®</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contribution/guidelines.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution/guidelines.html#secure-coding-practices">Secure coding practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution/guidelines.html#inclusive-language-guidelines">Inclusive language guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution/security.html">Security</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ML SDK for Vulkan®</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Building the ML SDK for Vulkan®</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/building.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="building-the-ml-sdk-for-vulkan">
+<h1>Building the ML SDK for Vulkan®<a class="headerlink" href="#building-the-ml-sdk-for-vulkan" title="Link to this heading"></a></h1>
+<p>The ML SDK for Vulkan® consists of four components:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/arm/ai-ml-sdk-vgf-library">VGF Library</a></p></li>
+<li><p><a class="reference external" href="https://github.com/arm/ai-ml-sdk-model-converter">Model Converter</a></p></li>
+<li><p><a class="reference external" href="https://github.com/arm/ai-ml-sdk-scenario-runner">Scenario Runner</a></p></li>
+<li><p><a class="reference external" href="https://github.com/arm/ai-ml-emulation-layer-for-vulkan">Emulation Layer</a></p></li>
+</ul>
+<p>These can be built from the ML SDK for Vulkan® root repository or individually
+from their respective repositories.</p>
+<p>The build system must have:</p>
+<ul class="simple">
+<li><p>CMake 3.25 or later.</p></li>
+<li><p>C/C++ 17 compiler: GCC, or optionally Clang on Linux and MSVC on Windows®.</p></li>
+<li><p>Python 3.10 or later. Required python libraries for building are listed in
+<code class="docutils literal notranslate"><span class="pre">tooling-requirements.txt</span></code>.</p></li>
+<li><p>Flatbuffers flatc compiler.</p></li>
+<li><p>Doxygen 1.9.1 or later. (When building documentation)</p></li>
+</ul>
+<p>The following dependencies are also needed:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/p-ranav/argparse">Argument Parser for Modern C++</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/llvm/llvm-project">LLVM</a>.</p></li>
+<li><p><a class="reference external" href="https://review.mlplatform.org/plugins/gitiles/tosa/serialization_lib">TOSA Serialization Library</a>.</p></li>
+<li><p><a class="reference external" href="https://review.mlplatform.org/plugins/gitiles/tosa/tosa_mlir_translator">TOSA MLIR Translator</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/nlohmann/json">JSON for Modern C++</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/pybind/pybind11">pybind11</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/google/googletest">GoogleTest</a>. Optional, for testing.</p></li>
+<li><p><a class="reference external" href="https://github.com/KhronosGroup/glslang">glslang</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/KhronosGroup/SPIRV-Headers">SPIRV-Headers</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/KhronosGroup/SPIRV-Tools">SPIRV-Tools</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/KhronosGroup/SPIRV-Cross">SPIRV-Cross</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/KhronosGroup/Vulkan-Headers">Vulkan-Headers</a>.</p></li>
+</ul>
+<p>For building the ML SDK for Vulkan® components, run the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scripts/build.py
+</pre></div>
+</div>
+<p>If the ML SDK for Vulkan® components are installed in custom locations, specify
+their paths by adding the following command line option:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scripts/build.py<span class="w"> </span>--<span class="nv">$COMPONENT_NAME</span><span class="w"> </span><span class="nv">$PATH_TO_COMPONENT</span>
+</pre></div>
+</div>
+<p>COMPONENT_NAME, with the respective default relative locations within
+paranthesis, can be:</p>
+<ul class="simple">
+<li><p>vgf-lib (sw/vgf-lib)</p></li>
+<li><p>model-converter (sw/model-converter)</p></li>
+<li><p>scenario-runner (sw/scenario-runner)</p></li>
+<li><p>emulation-layer (sw/emulation-layer)</p></li>
+</ul>
+<p>Similarly, dependencies with custom install locations need to be specifed. For
+instance if glslang was installed at <code class="docutils literal notranslate"><span class="pre">$GLSLANG_REPO_PATH</span></code>, use the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scripts/build.py<span class="w"> </span>--glslang-path<span class="w"> </span><span class="nv">$GLSLANG_REPO_PATH</span>
+</pre></div>
+</div>
+<p>Upon a sparse checkout, missing components will be skipped during building. Note
+that some components have strict dependencies on each other, with VGF Library
+being required by Scenario Runner and Model Converter.</p>
+<p>The build artifacts can be installed into a specified location by passing the
+option <code class="docutils literal notranslate"><span class="pre">--install</span></code> with the required path.</p>
+<p>To create an archive with the build artifacts, add the option <code class="docutils literal notranslate"><span class="pre">--package</span></code>. The
+archive will be stored in the provided location.</p>
+<section id="build-the-documentation">
+<h2>Build the documentation<a class="headerlink" href="#build-the-documentation" title="Link to this heading"></a></h2>
+<p>To build the documentation, run the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scripts/build.py<span class="w"> </span>--doc
+</pre></div>
+</div>
+</section>
+<section id="more-command-line-options">
+<h2>More command line options<a class="headerlink" href="#more-command-line-options" title="Link to this heading"></a></h2>
+<p>For more command line options, consult the program help:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scripts/build.py<span class="w"> </span>--help
+</pre></div>
+</div>
+</section>
+<p>For more information about building the ML SDK for Vulkan®, see the following build instructions:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="model-converter/docs/in/building.html#building-the-ml-sdk-model-converter"><span class="std std-ref">Building the ML SDK Model Converter</span></a></p></li>
+<li><p><a class="reference internal" href="vgf-lib/docs/in/building.html#building-the-ml-sdk-vgf-library"><span class="std std-ref">Building the ML SDK VGF Library</span></a></p></li>
+<li><p><a class="reference internal" href="scenario-runner/docs/in/build.html#building-the-ml-sdk-scenario-runner"><span class="std std-ref">Building the ML SDK Scenario Runner</span></a></p></li>
+<li><p><a class="reference internal" href="emulation-layer/docs/in/building.html#building-the-ml-sdk-emulation-layer-for-vulkan"><span class="std std-ref">Building the ML SDK Emulation Layer for Vulkan®</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cloning.html" class="btn btn-neutral float-left" title="Cloning the repository" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorial.html" class="btn btn-neutral float-right" title="Converting and deploying a PyTorch model tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, Arm Limited and/or its affiliates &lt;open-source-office@arm.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

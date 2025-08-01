@@ -1,0 +1,246 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Converting and deploying a PyTorch model tutorial &mdash; ML SDK for Vulkan®  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=b8c9390b" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tensor aliasing tutorial" href="tensor_aliasing_tutorial.html" />
+    <link rel="prev" title="Building the ML SDK for Vulkan®" href="building.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ML SDK for Vulkan®
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">Building the ML SDK for Vulkan®</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Converting and deploying a PyTorch model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_aliasing_tutorial.html">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="model-converter/docs/in/index.html">ML SDK Model Converter</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK VGF Library</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="vgf-lib/docs/in/index.html">ML SDK VGF Library</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Scenario Runner</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="scenario-runner/docs/in/index.html">ML SDK Scenario Runner</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML Emulation Layer for Vulkan®</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="emulation-layer/docs/in/index.html">ML Emulation Layer for Vulkan®</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contribution/guidelines.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution/guidelines.html#secure-coding-practices">Secure coding practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution/guidelines.html#inclusive-language-guidelines">Inclusive language guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution/security.html">Security</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ML SDK for Vulkan®</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Converting and deploying a PyTorch model tutorial</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tutorial.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="converting-and-deploying-a-pytorch-model-tutorial">
+<h1>Converting and deploying a PyTorch model tutorial<a class="headerlink" href="#converting-and-deploying-a-pytorch-model-tutorial" title="Link to this heading"></a></h1>
+<p>This tutorial describes how to convert and deploy a PyTorch model using the ML SDK for Vulkan®.
+In this tutorial, we generate a sample PyTorch file with a single MaxPool2D operation
+to demonstrate each step of the end-to-end workflow.</p>
+<p>1. Run the following python script to create a PyTorch model for a single MaxPool2D operation. For the
+model input,use a NumPy file. To convert the model to TOSA FlatBuffers, use ExecuTorch:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1">#</span>
+<span class="c1"># SPDX-FileCopyrightText: Copyright 2024-2025 Arm Limited and/or its affiliates &lt;open-source-office@arm.com&gt;</span>
+<span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
+<span class="c1">#</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">executorch.backends.arm.arm_backend</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArmCompileSpecBuilder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">executorch.backends.arm.tosa_partitioner</span><span class="w"> </span><span class="kn">import</span> <span class="n">TOSAPartitioner</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">executorch.exir</span><span class="w"> </span><span class="kn">import</span> <span class="n">EdgeCompileConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">executorch.exir</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_edge_transform_and_lower</span>
+
+<span class="c1"># Define model</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MaxPoolModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MaxPoolModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pool</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+
+<span class="c1"># Generate test input</span>
+<span class="n">example_input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;input-0.npy&quot;</span><span class="p">,</span> <span class="n">example_input</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">MaxPoolModel</span><span class="p">()</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+<span class="c1"># Save model intermediates</span>
+<span class="n">compile_spec</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">ArmCompileSpecBuilder</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">tosa_compile_spec</span><span class="p">(</span><span class="s2">&quot;TOSA-1.0+FP&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">dump_intermediate_artifacts_to</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">build</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">partitioner</span> <span class="o">=</span> <span class="n">TOSAPartitioner</span><span class="p">(</span><span class="n">compile_spec</span><span class="p">)</span>
+
+<span class="n">exported_program</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export_for_training</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="p">(</span><span class="n">example_input</span><span class="p">,))</span>
+
+<span class="n">to_edge_transform_and_lower</span><span class="p">(</span>
+    <span class="n">exported_program</span><span class="p">,</span>
+    <span class="n">partitioner</span><span class="o">=</span><span class="p">[</span><span class="n">partitioner</span><span class="p">],</span>
+    <span class="n">compile_config</span><span class="o">=</span><span class="n">EdgeCompileConfig</span><span class="p">(</span>
+        <span class="n">_check_ir_validity</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>MaxPool2DModel.py
+</pre></div>
+</div>
+<p>This generates a TOSA Flatbuffers <code class="code docutils literal notranslate"><span class="pre">${NAME}.tosa</span></code>, where the tool generates <code class="code docutils literal notranslate"><span class="pre">${NAME}</span></code></p>
+<ol class="arabic simple" start="2">
+<li><p>Convert the TOSA FlatBuffers file into a VGF file:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>model-converter<span class="w"> </span>--input<span class="w"> </span><span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.tosa<span class="w"> </span>--output<span class="w"> </span>maxpool.vgf
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For more information about the ML SDK Model Converter, see: <a class="reference internal" href="model-converter/docs/in/index.html#ml-sdk-model-converter"><span class="std std-ref">ML SDK Model Converter</span></a></p>
+</div>
+<p>3. Use the VGF Dump Tool to generate a Scenario Template. To run a scenario on the ML SDK Scenario Runner,
+you must have a scenario specification in the form of a JSON file. Use the VGF file that was generated in the previous
+step and pass it to the VGF Dump Tool:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">$vgf_dump</span><span class="w"> </span>--input<span class="w"> </span>maxpool.vgf<span class="w"> </span>--output<span class="w"> </span>scenario.json<span class="w"> </span>--scenario-template
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For more information about VGF Library and the VGF Dump Tool, see: <a class="reference internal" href="vgf-lib/docs/in/index.html#ml-sdk-vgf-library"><span class="std std-ref">ML SDK VGF Library</span></a></p>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>The generated <code class="code docutils literal notranslate"><span class="pre">scenario.json</span></code> file contains placeholder names for input and output bindings
+for the scenario. You must replace these names with the actual input and output filenames that will
+be used when running the scenario. In the example <code class="code docutils literal notranslate"><span class="pre">scenario.json</span></code> file generated in the preceding step:</p>
+<ol class="loweralpha simple">
+<li><p>Replace the name TEMPLATE_PATH_TENSOR_INPUT_0 with the actual input file <code class="code docutils literal notranslate"><span class="pre">input-0.npy</span></code>.</p></li>
+<li><p>Replace the name TEMPLATE_PATH_TENSOR_OUTPUT_0 with the actual output filename <code class="code docutils literal notranslate"><span class="pre">output-0.npy</span></code>.</p></li>
+</ol>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For more information about the test description format, see:
+<a class="reference internal" href="scenario-runner/docs/in/json.html#json-test-description-specification"><span class="std std-ref">JSON Test Description Specification</span></a>.</p>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Run the ML SDK Scenario Runner on the Emulation Layer:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scenario-runner<span class="w"> </span>--scenario<span class="w"> </span>scenario.json
+</pre></div>
+</div>
+<p>The output from the scenario is produced as a file named <code class="code docutils literal notranslate"><span class="pre">output-0.npy</span></code>. The file is specified in scenario.json.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For more information about building and running the ML SDK Scenario Runner, see: <a class="reference internal" href="scenario-runner/docs/in/index.html#ml-sdk-scenario-runner"><span class="std std-ref">ML SDK Scenario Runner</span></a>.</p>
+<p>For more information about building and setting up the Emulation Layer, see:
+<a class="reference internal" href="emulation-layer/docs/in/index.html#ml-emulation-layer-for-vulkan"><span class="std std-ref">ML Emulation Layer for Vulkan®</span></a></p>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="building.html" class="btn btn-neutral float-left" title="Building the ML SDK for Vulkan®" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tensor_aliasing_tutorial.html" class="btn btn-neutral float-right" title="Tensor aliasing tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, Arm Limited and/or its affiliates &lt;open-source-office@arm.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
