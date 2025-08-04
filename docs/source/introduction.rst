@@ -58,6 +58,10 @@ The proposed production workflow involves integrating the ML SDK Model Converter
 application or game :code:`asset deployment pipeline`. The pipeline needs a TOSA intermediate
 representation of a framework specific native model file. To obtain a TOSA intermediate
 representation, you should use a specific framework to TOSA converter (not depicted here).
+For example:
+
+- `TOSA converter for TFLite <https://gitlab.arm.com/tosa/tosa-converter-for-tflite>`_
+- `ExecuTorch <https://github.com/pytorch/executorch>`_
 
 The TOSA intermediate representation is then passed to the ML SDK Model Converter
 to produce a :code:`.vgf` file. The VGF file contents can then be:
