@@ -154,7 +154,12 @@ using Vulkan® Layers.</p>
 <p>The proposed production workflow involves integrating the ML SDK Model Converter into the
 application or game <code class="code docutils literal notranslate"><span class="pre">asset</span> <span class="pre">deployment</span> <span class="pre">pipeline</span></code>. The pipeline needs a TOSA intermediate
 representation of a framework specific native model file. To obtain a TOSA intermediate
-representation, you should use a specific framework to TOSA converter (not depicted here).</p>
+representation, you should use a specific framework to TOSA converter (not depicted here).
+For example:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://gitlab.arm.com/tosa/tosa-converter-for-tflite">TOSA converter for TFLite</a></p></li>
+<li><p><a class="reference external" href="https://github.com/pytorch/executorch">ExecuTorch</a></p></li>
+</ul>
 <p>The TOSA intermediate representation is then passed to the ML SDK Model Converter
 to produce a <code class="code docutils literal notranslate"><span class="pre">.vgf</span></code> file. The VGF file contents can then be:</p>
 <ul class="simple">
