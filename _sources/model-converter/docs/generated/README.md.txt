@@ -133,6 +133,14 @@ For more information, see the help output:
 ./build/model-converter --help
 ```
 
+## Known Limitations
+
+- Usage of the `patches/llvm.patch` file is temporary until the required changes
+  can be upstreamed to main LLVM Project
+- The emit-debug-info cli option does not produce debug symbols for the
+  SPV_ARM_graph and SPIR-V™ extended instructions for TOSA operators in the
+  generated SPIR-V™ module.
+
 ## License
 
 [Apache-2.0](LICENSES/Apache-2.0.txt)

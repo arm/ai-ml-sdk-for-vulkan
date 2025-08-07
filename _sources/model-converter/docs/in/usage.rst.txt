@@ -4,4 +4,4 @@ Usage
 .. include:: ../generated/README.md
     :parser: myst_parser.sphinx_
     :start-after: ### Usage
-    :end-before: ## License
+    :end-before: ## Known Limitations

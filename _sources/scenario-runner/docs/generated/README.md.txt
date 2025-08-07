@@ -123,6 +123,10 @@ For more details, see the help output:
 ./build/scenario-runner --help
 ```
 
+## Known Limitations
+
+- Resources created with `Optimal` tiling cannot be used with memory aliasing.
+
 ## License
 
 [Apache-2.0](LICENSES/Apache-2.0.txt)
