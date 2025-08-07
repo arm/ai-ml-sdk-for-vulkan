@@ -51,7 +51,7 @@ step and pass it to the VGF Dump Tool:
     :ref:`JSON Test Description Specification`.
 
 
-5. Run the ML SDK Scenario Runner on the Emulation Layer:
+5. Run the ML SDK Scenario Runner on the ML Emulation Layer for Vulkan®:
 
 .. code-block:: bash
 

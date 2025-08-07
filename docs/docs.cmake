@@ -13,6 +13,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/README.md ${SPHINX_GEN_DIR}/README.md
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/CONTRIBUTING.md ${SPHINX_GEN_DIR}/CONTRIBUTING.md COPYONLY)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/SECURITY.md ${SPHINX_GEN_DIR}/SECURITY.md COPYONLY)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/LICENSES/Apache-2.0.txt ${SPHINX_GEN_DIR}/Apache-2.0.txt COPYONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/scripts/compare_numpy.py ${SPHINX_GEN_DIR}/scripts/compare_numpy.py COPYONLY)
 
 execute_process(
     COMMAND "${CMAKE_COMMAND}" -E make_directory "${SPHINX_SRC_DIR}"
