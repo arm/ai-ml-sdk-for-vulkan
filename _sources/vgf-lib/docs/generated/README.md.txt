@@ -27,6 +27,10 @@ use vgf_dump to generate scenario file templates. You can use the scenario file
 templates with the
 [Scenario Runner](https://github.com/arm/ai-ml-sdk-scenario-runner) tool.
 
+To see the contents of a VGF file in a visual format, you can use the
+[VGF Adapter for Model Explorer](https://github.com/arm/vgf-adapter-model-explorer),
+which lets you view the inputs, outputs, constants and SPIR-V™ graphs.
+
 ### Building VGF Library from source
 
 The build system must have:
