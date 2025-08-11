@@ -18,12 +18,12 @@ Where:
   format. If the resources in the JSON_FILE are not specified with absolute paths,
   their relative paths will be resolved against the parent directory of the JSON_FILE.
 
-Tensor/Image aliasing
----------------------
+Resource memory aliasing
+------------------------
 
 It is useful for some resources to share the same underlying memory. Sharing memory allows resources to share inputs or outputs between shaders and VGF workloads.
 
-To enable the Tensor/Image aliasing feature, in the scenario json file, a tensor must have a ``alias_target`` field with the ``resource_ref`` contained inside pointing at the ``uid`` of the aliased image. The tensor must not have an ``src`` field.
+To enable the resource memory aliasing feature, in the scenario json file, a tensor must have a ``memory_group`` field with the ``uid`` contained inside naming the unique memory object that the resources will use. Only one resource in a single ``memory_group`` can have a ``src`` file.
 
 The following example shows you how to setup a tensor resource that alias an image resource.
 
@@ -39,6 +39,9 @@ The following example shows you how to setup a tensor resource that alias an ima
                   "format": "VK_FORMAT_R32_SFLOAT",
                   "src": "input.dds",
                   "uid": "input_image",
+                  "memory_group": {
+                      "uid" : "group0"
+                  }
               }
           },
           {
@@ -48,8 +51,8 @@ The following example shows you how to setup a tensor resource that alias an ima
                   "format": "VK_FORMAT_R32_SFLOAT",
                   "dst": "output.npy",
                   "uid": "output_tensor",
-                  "alias_target": {
-                      "resource_ref" : "input_image"
+                  "memory_group": {
+                      "uid" : "group0"
                   }
               }
           }
@@ -58,7 +61,7 @@ The following example shows you how to setup a tensor resource that alias an ima
 
 This example performs no calculations. However, the example reads in the input image data and saves it to the ``output.npy`` file. If the image has padding added to its data, the image padding is discarded when saving to the NumPy file.
 
-The following example is a more realistic usage of the Tensor/Image aliasing feature. The example has a preprocessing shader which has images as its input and output. The example then uses this image output as the input for a VGF dispatch, which has tensors for its input and output. The image outputs of the preprocessing shader stage are then aliased to tensors which are used as input of the VGF dispatch stage.
+The following example is a more realistic usage of the memory aliasing feature. The example has a preprocessing shader which has images as its input and output. The example then uses this image output as the input for a VGF dispatch, which has tensors for its input and output. The image outputs of the preprocessing shader stage are then aliased to tensors which are used as input of the VGF dispatch stage.
 
 .. code-block:: json
 
@@ -91,13 +94,13 @@ The following example is a more realistic usage of the Tensor/Image aliasing fea
           "uid": "image_shader",
           "src": "imageShader.spv",
           "entry": "main",
-          "type": "SPIR-V",
+          "type": "SPIR-V"
         }
       },
       {
         "graph": {
           "uid": "tensor_vgf",
-          "src": "tensorVgf.vgf",
+          "src": "tensorVgf.vgf"
         }
       },
       {
@@ -115,6 +118,9 @@ The following example is a more realistic usage of the Tensor/Image aliasing fea
           "mips": false,
           "format": "VK_FORMAT_R16G16B16A16_SFLOAT",
           "shader_access": "writeonly",
+          "memory_group": {
+            "uid": "group0"
+          }
         }
       },
       {
@@ -123,9 +129,9 @@ The following example is a more realistic usage of the Tensor/Image aliasing fea
           "dims": [1, 64, 64, 4],
           "format": "VK_FORMAT_R16_UINT",
           "shader_access": "readwrite",
-          "alias_target": {
-            "resource_ref": "output_image"
-          },
+          "memory_group": {
+            "uid": "group0"
+          }
         }
       },
       {

@@ -68,7 +68,7 @@
 <li class="toctree-l2"><a class="reference internal" href="build.html">Building the ML SDK Scenario Runner</a></li>
 <li class="toctree-l2"><a class="reference internal" href="json.html">JSON Test Description Specification</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Usage</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#tensor-image-aliasing">Tensor/Image aliasing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#resource-memory-aliasing">Resource memory aliasing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#using-emulation-and-validation-layers">Using Emulation and Validation layers</a></li>
 </ul>
 </li>
@@ -134,10 +134,10 @@
 format. If the resources in the JSON_FILE are not specified with absolute paths,
 their relative paths will be resolved against the parent directory of the JSON_FILE.</p></li>
 </ul>
-<section id="tensor-image-aliasing">
-<h2>Tensor/Image aliasing<a class="headerlink" href="#tensor-image-aliasing" title="Link to this heading"></a></h2>
+<section id="resource-memory-aliasing">
+<h2>Resource memory aliasing<a class="headerlink" href="#resource-memory-aliasing" title="Link to this heading"></a></h2>
 <p>It is useful for some resources to share the same underlying memory. Sharing memory allows resources to share inputs or outputs between shaders and VGF workloads.</p>
-<p>To enable the Tensor/Image aliasing feature, in the scenario json file, a tensor must have a <code class="docutils literal notranslate"><span class="pre">alias_target</span></code> field with the <code class="docutils literal notranslate"><span class="pre">resource_ref</span></code> contained inside pointing at the <code class="docutils literal notranslate"><span class="pre">uid</span></code> of the aliased image. The tensor must not have an <code class="docutils literal notranslate"><span class="pre">src</span></code> field.</p>
+<p>To enable the resource memory aliasing feature, in the scenario json file, a tensor must have a <code class="docutils literal notranslate"><span class="pre">memory_group</span></code> field with the <code class="docutils literal notranslate"><span class="pre">uid</span></code> contained inside naming the unique memory object that the resources will use. Only one resource in a single <code class="docutils literal notranslate"><span class="pre">memory_group</span></code> can have a <code class="docutils literal notranslate"><span class="pre">src</span></code> file.</p>
 <p>The following example shows you how to setup a tensor resource that alias an image resource.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;commands&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
@@ -149,6 +149,9 @@ their relative paths will be resolved against the parent directory of the JSON_F
 <span class="w">                </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VK_FORMAT_R32_SFLOAT&quot;</span><span class="p">,</span>
 <span class="w">                </span><span class="nt">&quot;src&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input.dds&quot;</span><span class="p">,</span>
 <span class="w">                </span><span class="nt">&quot;uid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input_image&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;memory_group&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uid&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;group0&quot;</span>
+<span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span>
@@ -158,8 +161,8 @@ their relative paths will be resolved against the parent directory of the JSON_F
 <span class="w">                </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VK_FORMAT_R32_SFLOAT&quot;</span><span class="p">,</span>
 <span class="w">                </span><span class="nt">&quot;dst&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;output.npy&quot;</span><span class="p">,</span>
 <span class="w">                </span><span class="nt">&quot;uid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;output_tensor&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;alias_target&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;resource_ref&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input_image&quot;</span>
+<span class="w">                </span><span class="nt">&quot;memory_group&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uid&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;group0&quot;</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
@@ -168,7 +171,7 @@ their relative paths will be resolved against the parent directory of the JSON_F
 </pre></div>
 </div>
 <p>This example performs no calculations. However, the example reads in the input image data and saves it to the <code class="docutils literal notranslate"><span class="pre">output.npy</span></code> file. If the image has padding added to its data, the image padding is discarded when saving to the NumPy file.</p>
-<p>The following example is a more realistic usage of the Tensor/Image aliasing feature. The example has a preprocessing shader which has images as its input and output. The example then uses this image output as the input for a VGF dispatch, which has tensors for its input and output. The image outputs of the preprocessing shader stage are then aliased to tensors which are used as input of the VGF dispatch stage.</p>
+<p>The following example is a more realistic usage of the memory aliasing feature. The example has a preprocessing shader which has images as its input and output. The example then uses this image output as the input for a VGF dispatch, which has tensors for its input and output. The image outputs of the preprocessing shader stage are then aliased to tensors which are used as input of the VGF dispatch stage.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;commands&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
@@ -198,13 +201,13 @@ their relative paths will be resolved against the parent directory of the JSON_F
 <span class="w">        </span><span class="nt">&quot;uid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;image_shader&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;src&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;imageShader.spv&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;entry&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;main&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SPIR-V&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SPIR-V&quot;</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">&quot;graph&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="nt">&quot;uid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tensor_vgf&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;src&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tensorVgf.vgf&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;src&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tensorVgf.vgf&quot;</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
@@ -222,6 +225,9 @@ their relative paths will be resolved against the parent directory of the JSON_F
 <span class="w">        </span><span class="nt">&quot;mips&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VK_FORMAT_R16G16B16A16_SFLOAT&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;shader_access&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;writeonly&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;memory_group&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;uid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;group0&quot;</span>
+<span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
@@ -230,9 +236,9 @@ their relative paths will be resolved against the parent directory of the JSON_F
 <span class="w">        </span><span class="nt">&quot;dims&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">],</span>
 <span class="w">        </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VK_FORMAT_R16_UINT&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;shader_access&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;readwrite&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;alias_target&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;resource_ref&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;output_image&quot;</span>
-<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;memory_group&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;uid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;group0&quot;</span>
+<span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>

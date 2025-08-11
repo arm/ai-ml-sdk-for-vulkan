@@ -127,6 +127,7 @@ The ``image`` resource has the following properties:
       border_address_mode:enum = (CLAMP_EDGE|CLAMP_BORDER|REPEAT|MIRRORED_REPEAT) // sampler setting
       border_color:enum = (FLOAT_TRANSPARENT_BLACK|FLOAT_OPAQUE_BLACK|FLOAT_OPAQUE_WHITE|INT_TRANSPARENT_BLACK|INT_OPAQUE_BLACK|INT_OPAQUE_WHITE|INT_CUSTOM_EXT|FLOAT_CUSTOM_EXT) // sampler setting
       custom_border_color:[int|float], // length 4 array of integer or float values representing an RGBA color value for a custom border.
+      memory_group, // optional memory group to share memory object between resources
       tiling:enum = (OPTIMAL|LINEAR), // optional "Tiling" arrangement info of the image resource
   }
 
@@ -151,7 +152,8 @@ The ``tensor`` resources have the following properties:
       shader_access:enum = (readonly|writeonly|readwrite) // type of access required by the shader/graph
       src:path(default=""), // optional path to the NumPy file to initialize the resource from
       dst:path(default=""), // optional path to the NumPy file to write contents to (post execution of commands)
-      alias_target:AliasTarget, // optional "AliasTarget" of image resource to share memory with
+      alias_target:AliasTarget, // (Deprecated) optional "AliasTarget" of image resource to share memory with
+      memory_group, // optional memory group to share memory object between resources
       tiling:enum = (OPTIMAL|LINEAR), // optional "Tiling" arrangement info of the tensor resource
   }
 
@@ -171,13 +173,11 @@ types defined in the VkFormat enum. Currently supported formats are:
   float16: VK_FORMAT_R16_SFLOAT
   float32: VK_FORMAT_R32_SFLOAT
 
-To allow for memory aliasing, the following object is needed in the ``tensor`` resource:
+To allow for memory aliasing, the following object is needed in each resource:
 .. code-block::
 
-  struct AliasTarget {
-      resource_ref:string(default=""), // Image "uid" to alias memory from
-      mip_level:int(default=0), // optional parameter to decide which image mipmap to alias (only 0 supported)
-      array_layer:int(default=0) // optional parameter to decide which image array level to alias (only 0 supported)
+  struct MemoryGroup {
+      uid:string(default=""), // unique string defining the shared memory object
   }
 
 buffer
@@ -193,6 +193,7 @@ The ``buffer`` resources map to Storage Buffers in Vulkan®:
       shader_access:enum = (readonly|writeonly|readwrite) // type of access required by the shader/graph
       src:path(default=""), // optional path to the NumPy file to initialize the resource from
       dst:path(default=""), // optional path to the NumPy file to write contents to (post execution of commands)
+      memory_group, // optional memory group to share memory object between resources
   }
 
 Buffers do not have a format and it is up to the shader to interpret the data
