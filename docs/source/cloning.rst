@@ -47,7 +47,7 @@ be manually updated, for example:
 
 .. code-block:: bash
 
-    cd dependencies/glslang
+    cd dependencies/tosa_mlir_translator
     git submodule update --init --recursive
 
 After the sync command completes successfully, you can find the individual components in :code:`<repo_root>/sw/`.
