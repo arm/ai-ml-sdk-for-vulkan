@@ -155,10 +155,6 @@ python<span class="w"> </span>&lt;path-to-git-repo&gt;/git-repo/repo<span class=
 </div>
 <p>Due to a known issue in <code class="code docutils literal notranslate"><span class="pre">git-repo</span></code>, nested submodules do not always update as part of <code class="code docutils literal notranslate"><span class="pre">repo</span> <span class="pre">sync</span></code> and need to
 be manually updated, for example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>dependencies/SPIRV-Tools
-git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive
-</pre></div>
-</div>
 <p>After the sync command completes successfully, you can find the ML SDK VGF Library in <code class="code docutils literal notranslate"><span class="pre">&lt;repo_root&gt;/sw/vgf-lib/</span></code>.
 You can also find all the dependencies required by the ML SDK VGF Library in <code class="code docutils literal notranslate"><span class="pre">&lt;repo_root&gt;/dependencies/</span></code>.</p>
 </section>

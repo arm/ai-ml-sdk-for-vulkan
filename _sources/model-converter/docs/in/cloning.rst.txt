@@ -56,7 +56,7 @@ be manually updated, for example:
 
 .. code-block:: bash
 
-    cd dependencies/SPIRV-Tools
+    cd dependencies/tosa_mlir_translator
     git submodule update --init --recursive
 
 After the sync command completes successfully, you can find the ML SDK Model Converter in :code:`<repo_root>/sw/model-converter/`.
