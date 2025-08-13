@@ -51,8 +51,5 @@ After the repo is initialized, fetch the contents with:
         python <path-to-git-repo>/git-repo/repo init -u <manifest-url> -g all
         python <path-to-git-repo>/git-repo/repo sync
 
-Due to a known issue in :code:`git-repo`, nested submodules do not always update as part of :code:`repo sync` and need to
-be manually updated, for example:
-
 After the sync command completes successfully, you can find the |VGF_project| in :code:`<repo_root>/sw/vgf-lib/`.
 You can also find all the dependencies required by the |VGF_project| in :code:`<repo_root>/dependencies/`.
