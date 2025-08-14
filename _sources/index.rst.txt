@@ -25,6 +25,7 @@ accross multiple vendor implementations.
    building.rst
    tutorial.rst
    tensor_aliasing_tutorial.rst
+   e2e_tflite_tutorial.rst
    license.rst
 
 
