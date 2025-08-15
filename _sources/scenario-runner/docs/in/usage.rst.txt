@@ -40,7 +40,7 @@ The following example shows you how to setup a tensor resource that alias an ima
                   "src": "input.dds",
                   "uid": "input_image",
                   "memory_group": {
-                      "uid" : "group0"
+                      "id": "group0"
                   }
               }
           },
@@ -52,7 +52,7 @@ The following example shows you how to setup a tensor resource that alias an ima
                   "dst": "output.npy",
                   "uid": "output_tensor",
                   "memory_group": {
-                      "uid" : "group0"
+                      "id": "group0"
                   }
               }
           }
@@ -119,7 +119,7 @@ The following example is a more realistic usage of the memory aliasing feature. 
           "format": "VK_FORMAT_R16G16B16A16_SFLOAT",
           "shader_access": "writeonly",
           "memory_group": {
-            "uid": "group0"
+            "id": "group0"
           }
         }
       },
@@ -130,7 +130,7 @@ The following example is a more realistic usage of the memory aliasing feature. 
           "format": "VK_FORMAT_R16_UINT",
           "shader_access": "readwrite",
           "memory_group": {
-            "uid": "group0"
+            "id": "group0"
           }
         }
       },
