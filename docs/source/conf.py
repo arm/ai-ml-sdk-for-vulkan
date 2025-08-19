@@ -61,7 +61,12 @@ extensions = [
 ]
 
 # Disable superfluous warnings
-suppress_warnings = ["autosectionlabel.*", "toc.no_title"]
+suppress_warnings = [
+    "autosectionlabel.*",
+    "toc.no_title",
+    "myst.xref_missing",
+    "myst.header",
+]
 autosectionlabel_prefix_document = False
 
 # Breathe Configuration
