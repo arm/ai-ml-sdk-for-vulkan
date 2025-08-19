@@ -10,11 +10,8 @@ project(MLSdkForVulkan
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-if(ML_SDK_GENERATE_CPACK STREQUAL "TRUE")
-    set(ML_SDK_GENERATE_CPACK TRUE CACHE BOOL "Generate CPack artifacts")
-else()
-    set(ML_SDK_GENERATE_CPACK FALSE CACHE BOOL "Generate CPack artifacts")
-endif()
+option(ML_SDK_GENERATE_CPACK "Generate CPack artifacts" OFF)
+
 list(APPEND CMAKE_MODULE_PATH
     ${CMAKE_CURRENT_LIST_DIR}/cmake
 )
