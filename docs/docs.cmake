@@ -35,10 +35,19 @@ foreach(SRC_IN IN LISTS DOC_SRC_FILES)
     list(APPEND DOC_SRC_FILES_FULL_PATHS ${DOC_SOURCE_FILE})
 endforeach()
 
+# if not building all components allow warnings
+list(LENGTH ML_SDK_COMPONENTS_DIRS ML_SDK_COMPONENTS_NUM)
+set(SPHINX_WARN_ARGS)
+if(ML_SDK_COMPONENTS_NUM GREATER_EQUAL 4)
+    list(APPEND SPHINX_WARN_ARGS -W)
+else()
+    message(STATUS "Sparse checkout detected, allowing doc warnings")
+endif()
+
 add_custom_command(
     OUTPUT ${SPHINX_INDEX_HTML}
     DEPENDS ${DOC_SRC_FILES_FULL_PATHS}
-    COMMAND ${SPHINX_EXECUTABLE} -b html -W -Dbreathe_projects.MLSDK=${DOXYGEN_XML_GEN} ${SPHINX_SRC_DIR} ${SPHINX_BLD_DIR}
+    COMMAND ${SPHINX_EXECUTABLE} -b html ${SPHINX_WARN_ARGS} -Dbreathe_projects.MLSDK=${DOXYGEN_XML_GEN} ${SPHINX_SRC_DIR} ${SPHINX_BLD_DIR}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "Generating API documentation with Sphinx"
     VERBATIM
