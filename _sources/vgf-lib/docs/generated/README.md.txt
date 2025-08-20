@@ -76,8 +76,6 @@ cmake -B build -DCMAKE_INSTALL_PREFIX=/usr/local
 cmake --build build --target install
 ```
 
-<a name="building-with-the-script"></a>
-
 ### Building with the script
 
 To make the build configuration options easily discoverable, we provide a python

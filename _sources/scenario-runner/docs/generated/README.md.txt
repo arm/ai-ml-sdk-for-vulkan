@@ -56,8 +56,6 @@ cmake -B build -DCMAKE_INSTALL_PREFIX=/usr/local
 cmake --build build --target install
 ```
 
-<a name="building-with-the-script"></a>
-
 ### Building with the script
 
 To build the script on your current platform, for example, Linux or Windows®,
