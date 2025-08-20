@@ -3,7 +3,9 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
+jsonschema
 numpy<2.0
 Pillow==11.0.0
 pytest
 pytest-xdist
+referencing

@@ -12,13 +12,16 @@ ARG uid=1000
 
 ENV LANG=C.UTF-8
 ENV DEBIAN_FRONTEND=noninteractive
+ENV PATH="/home/$user/.local/bin:$PATH"
 
 RUN apt-get update
 RUN apt-get install -y \
+    bash \
     bash-completion \
     build-essential \
     clang-format \
     clang \
+    cppcheck \
     curl \
     doxygen \
     git \
@@ -30,6 +33,7 @@ RUN apt-get install -y \
     python3 \
     python3-pip \
     python3-venv \
+    python-is-python3 \
     sudo \
     vulkan-tools
 
@@ -37,7 +41,8 @@ RUN curl -sSL -o cmake-3.25.3-linux-x86_64.sh https://github.com/Kitware/CMake/r
     bash cmake-3.25.3-linux-x86_64.sh --prefix=/usr/local --skip-license && \
     rm cmake-3.25.3-linux-x86_64.sh
 
-RUN curl -sSL --create-dirs -o /home/$user/.local/bin/repo https://storage.googleapis.com/git-repo-downloads/repo
+RUN curl -sSL --create-dirs -o /home/$user/.local/bin/repo https://storage.googleapis.com/git-repo-downloads/repo && \
+    chmod u+x . /home/$user/.local/bin/repo
 
 RUN pip install \
     build \
@@ -55,6 +60,8 @@ RUN git lfs install
 RUN useradd -m -u $uid -U $user && \
     echo "$user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-USER $user
 WORKDIR /home/$user
-CMD ["bash"]
+RUN chown -R $user:$user .
+
+USER $user
+CMD ["/bin/bash"]
