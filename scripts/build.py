@@ -6,6 +6,7 @@
 import argparse
 import os
 import pathlib
+import platform
 import subprocess
 import sys
 
@@ -17,6 +18,7 @@ except:
 ML_SDK_FOR_VULKAN_DIR = pathlib.Path(__file__).resolve().parents[1]
 ML_SDK_FOR_VULKAN_COMPONENTS_DIR = ML_SDK_FOR_VULKAN_DIR / "sw"
 DEPENDENCIES_DIR = ML_SDK_FOR_VULKAN_DIR / "dependencies"
+CMAKE_TOOLCHAIN_PATH = ML_SDK_FOR_VULKAN_DIR / "cmake" / "toolchain"
 
 
 class Builder:
@@ -50,11 +52,45 @@ class Builder:
         self.llvm = args.external_llvm
         self.skip_llvm_patch = args.skip_llvm_patch
         self.threads = args.threads
+        self.target_platform = args.target_platform
 
         self.doc = args.doc
         self.install = args.install
         self.package = args.package
         self.package_type = args.package_type
+
+    def setup_platform_build(self, cmake_setup_cmd):
+        system = platform.system()
+        if self.target_platform == "host":
+            if system == "Linux":
+                cmake_setup_cmd.append(
+                    f"-DCMAKE_TOOLCHAIN_FILE={CMAKE_TOOLCHAIN_PATH / 'gcc.cmake'}"
+                )
+                return True
+            if system == "Darwin":
+                cmake_setup_cmd.append(
+                    f"-DCMAKE_TOOLCHAIN_FILE={CMAKE_TOOLCHAIN_PATH / 'clang.cmake'}"
+                )
+                return True
+            if system == "Windows":
+                cmake_setup_cmd.append(
+                    f"-DCMAKE_TOOLCHAIN_FILE={CMAKE_TOOLCHAIN_PATH / 'windows-msvc.cmake'}"
+                )
+                cmake_setup_cmd.append("-DMSVC=ON")
+                return True
+            print(f"Unsupported host platform {system}", file=sys.stderr)
+            return False
+        if self.target_platform == "linux-clang":
+            if system != "Linux":
+                print(
+                    f"ERROR: target {self.target_platform} only supported on Linux. Host platform {system}",
+                    file=sys.stderr,
+                )
+                return False
+            cmake_setup_cmd.append(
+                f"-DCMAKE_TOOLCHAIN_FILE={CMAKE_TOOLCHAIN_PATH / 'clang.cmake'}"
+            )
+            return True
 
     def run(self):
         cmake_setup_cmd = [
@@ -80,6 +116,8 @@ class Builder:
             f"-DML_SDK_EMULATION_LAYER_PATH={self.emulation_layer}",
             f"-DML_SDK_GENERATE_CPACK={str(self.package != '').upper()})",
         ]
+        if not self.setup_platform_build(cmake_setup_cmd):
+            return 1
 
         if self.skip_llvm_patch:
             cmake_setup_cmd.append("-DMODEL_CONVERTER_APPLY_LLVM_PATCH=OFF")
@@ -185,6 +223,12 @@ def parse_arguments():
         "--vulkan-headers-path",
         help="Path to Vulkan headers folder",
         default=f"{DEPENDENCIES_DIR /'Vulkan-Headers'}",
+    )
+    parser.add_argument(
+        "--target-platform",
+        help="Specify the target build platform",
+        choices=["host", "linux-clang"],
+        default="host",
     )
     parser.add_argument(
         "--glslang-path",
