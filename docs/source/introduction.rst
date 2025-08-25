@@ -118,11 +118,20 @@ We will increase support in the upcoming releases.
 +          +---------+-----------+----------+----------+-----------+
 |          | X86-64  | |/|       | |/|      | |/|      | |/|       |
 +----------+---------+-----------+----------+----------+-----------+
-| macOS®   | AArch64 | |x|       | |x|      | |x|      | |x|       |
+| Darwin   | AArch64 | |/|       | |/|      | |/| *    | |/| *     |
 +          +---------+-----------+----------+----------+-----------+
 |          | X86-64  | |x|       | |x|      | |x|      | |x|       |
 +----------+---------+-----------+----------+----------+-----------+
-| Android™ | AArch64 | |-|       | |x|      | |x|      | |x|       |
+| Android™ | AArch64 | |-|       | |/| **   | |/| **   | |/| **    |
 +          +---------+-----------+----------+----------+-----------+
 |          | X86-64  | |-|       | |x|      | |x|      | |x|       |
 +----------+---------+-----------+----------+----------+-----------+
+
+
+\*  Experimental support on Darwin via MoltenVK.
+More information can be found in the documentation of ML Emulation
+layer for Vulkan®, in the Darwin section.
+
+\** Initial Experimental support on Android™.
+
+See details of limitations in the "Known Limitations" section of each component.
