@@ -161,13 +161,25 @@ cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"
 discoverable. When the script is run from a git-repo manifest checkout, the
 script uses default paths and does not require any additional arguments.
 Otherwise the paths to the dependencies must be specified.</p>
-<p>To build on the current platform, for example on Linux or Windows®, run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span><span class="nv">$SDK_PATH</span>/sw/model-converter/scripts/build.py<span class="w"> </span>-j<span class="w"> </span><span class="k">$(</span>nproc<span class="k">)</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--vgf-lib-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_VGF_LIB_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--flatbuffers-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_FLATBUFFERS_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--argparse-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_ARGPARSE_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--tosa-mlir-translator-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_TOSA_MLIR_TRANSLATOR_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--external-llvm<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_LLVM_CHECKOUT</span><span class="si">}</span>
+<p>To build on Linux, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SDK_PATH</span><span class="o">=</span><span class="s2">&quot;path/to/sdk&quot;</span>
+python3<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/sw/scenario-runner/scripts/build.py<span class="w"> </span>-j<span class="w"> </span><span class="k">$(</span>nproc<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--vgf-lib-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/sw/vgf-lib<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--flatbuffers-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/flatbuffers<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--argparse-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/argparse<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--tosa-mlir-translator-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/tosa_mlir_translator<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--external-llvm<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/llvm-project
+</pre></div>
+</div>
+<p>To build on Windows®, run:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$env:SDK_PATH</span><span class="p">=</span><span class="s2">&quot;path\to\sdk&quot;</span>
+<span class="nv">$cores</span> <span class="p">=</span> <span class="no">[System.Environment]</span><span class="p">::</span><span class="n">ProcessorCount</span>
+<span class="n">python3</span> <span class="s2">&quot;$env:SDK_PATH\sw\scenario-runner\scripts\build.py&quot;</span> <span class="n">-j</span> <span class="nv">$cores</span> <span class="p">`</span>
+    <span class="p">-</span><span class="n">-vgf-lib-path</span> <span class="s2">&quot;$env:SDK_PATH\sw\vgf-lib&quot;</span> <span class="p">`</span>
+    <span class="p">-</span><span class="n">-flatbuffers-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\flatbuffers&quot;</span> <span class="p">`</span>
+    <span class="p">-</span><span class="n">-argparse-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\argparse&quot;</span> <span class="p">`</span>
+    <span class="p">-</span><span class="n">-tosa-mlir-translator-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\tosa_mlir_translator&quot;</span> <span class="p">`</span>
+    <span class="p">-</span><span class="n">-external-llvm</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\llvm-project&quot;</span>
 </pre></div>
 </div>
 <p>If the components are in their default locations, it is not necessary to specify

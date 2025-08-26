@@ -162,31 +162,47 @@ cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"
 </section>
 <section id="building-with-the-script">
 <h2>Building with the script<a class="headerlink" href="#building-with-the-script" title="Link to this heading"></a></h2>
-<p>To build the script on your current platform, for example, Linux or Windows®,
-run the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span><span class="nv">$SDK_PATH</span>/sw/scenario-runner/scripts/build.py<span class="w"> </span>-j<span class="w"> </span><span class="k">$(</span>nproc<span class="k">)</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--flatbuffers-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_FLATBUFFERS_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--argparse-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_ARGPARSE_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--json-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_JSON_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--vulkan-headers-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_VULKAN_HEADERS_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--glslang-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_GLSLANG_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--spirv-headers-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_SPIRV_HEADERS_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--spirv-tools-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_SPIRV_TOOLS_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--vgf-lib-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_VGF_LIB_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--gtest-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_GOOGLETEST_CHECKOUT</span><span class="si">}</span>
+<p>To build on Linux, run the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SDK_PATH</span><span class="o">=</span><span class="s2">&quot;path/to/sdk&quot;</span>
+python3<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/sw/scenario-runner/scripts/build.py<span class="w"> </span>-j<span class="w"> </span><span class="k">$(</span>nproc<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--flatbuffers-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/flatbuffers<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--argparse-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/argparse<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--json-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--vulkan-headers-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/Vulkan-Headers<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--glslang-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/glslang<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--spirv-headers-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/SPIRV-Headers<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--spirv-tools-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/SPIRV-Tools<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--vgf-lib-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/sw/vgf-lib<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--gtest-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/googletest
+</pre></div>
+</div>
+<p>To build on Windows®, run the following command:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$env:SDK_PATH</span><span class="p">=</span><span class="s2">&quot;path\to\sdk&quot;</span>
+<span class="nv">$cores</span> <span class="p">=</span> <span class="no">[System.Environment]</span><span class="p">::</span><span class="n">ProcessorCount</span>
+<span class="n">python</span> <span class="s2">&quot;$env:SDK_PATH\sw\scenario-runner\scripts\build.py&quot;</span> <span class="n">-j</span> <span class="nv">$cores</span>  <span class="p">`</span>
+    <span class="p">-</span><span class="n">-flatbuffers-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\flatbuffers&quot;</span> <span class="p">`</span>
+    <span class="p">-</span><span class="n">-argparse-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\argparse&quot;</span> <span class="p">`</span>
+    <span class="p">-</span><span class="n">-json-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\json&quot;</span> <span class="p">`</span>
+    <span class="p">-</span><span class="n">-vulkan-headers-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\Vulkan-Headers&quot;</span> <span class="p">`</span>
+    <span class="p">-</span><span class="n">-glslang-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\glslang&quot;</span> <span class="p">`</span>
+    <span class="p">-</span><span class="n">-spirv-headers-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\SPIRV-Headers&quot;</span> <span class="p">`</span>
+    <span class="p">-</span><span class="n">-spirv-tools-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\SPIRV-Tools&quot;</span> <span class="p">`</span>
+    <span class="p">-</span><span class="n">-vgf-lib-path</span> <span class="s2">&quot;$env:SDK_PATH\sw\vgf-lib&quot;</span> <span class="p">`</span>
+    <span class="p">-</span><span class="n">-gtest-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\googletest&quot;</span>
 </pre></div>
 </div>
 <p>To cross compile for AArch64 architecture, you can add the following option:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span><span class="nv">$SDK_PATH</span>/sw/scenario-runner/scripts/build.py<span class="w"> </span>-j<span class="w"> </span><span class="k">$(</span>nproc<span class="k">)</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--flatbuffers-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_FLATBUFFERS_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--argparse-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_ARGPARSE_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--json-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_JSON_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--vulkan-headers-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_VULKAN_HEADERS_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--glslang-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_GLSLANG_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--spirv-headers-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_SPIRV_HEADERS_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--spirv-tools-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_SPIRV_TOOLS_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--vgf-lib-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_VGF_LIB_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--gtest-path<span class="w"> </span><span class="si">${</span><span class="nv">PATH_TO_GOOGLETEST_CHECKOUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SDK_PATH</span><span class="o">=</span><span class="s2">&quot;path/to/sdk&quot;</span>
+python3<span class="w"> </span><span class="nv">$SDK_PATH</span>/sw/scenario-runner/scripts/build.py<span class="w"> </span>-j<span class="w"> </span><span class="k">$(</span>nproc<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--flatbuffers-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/flatbuffers<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--argparse-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/argparse<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--json-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--vulkan-headers-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/Vulkan-Headers<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--glslang-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/glslang<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--spirv-headers-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/SPIRV-Headers<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--spirv-tools-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/SPIRV-Tools<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--vgf-lib-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/sw/vgf-lib<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--gtest-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/googletest<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--target-platform<span class="w"> </span>aarch64
 </pre></div>
 </div>

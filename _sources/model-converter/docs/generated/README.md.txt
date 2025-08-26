@@ -80,15 +80,29 @@ discoverable. When the script is run from a git-repo manifest checkout, the
 script uses default paths and does not require any additional arguments.
 Otherwise the paths to the dependencies must be specified.
 
-To build on the current platform, for example on Linux or Windows®, run:
+To build on Linux, run:
 
 ```bash
-python3 $SDK_PATH/sw/model-converter/scripts/build.py -j $(nproc) \
-    --vgf-lib-path ${PATH_TO_VGF_LIB_CHECKOUT} \
-    --flatbuffers-path ${PATH_TO_FLATBUFFERS_CHECKOUT} \
-    --argparse-path ${PATH_TO_ARGPARSE_CHECKOUT} \
-    --tosa-mlir-translator-path ${PATH_TO_TOSA_MLIR_TRANSLATOR_CHECKOUT} \
-    --external-llvm ${PATH_TO_LLVM_CHECKOUT}
+SDK_PATH="path/to/sdk"
+python3 ${SDK_PATH}/sw/scenario-runner/scripts/build.py -j $(nproc) \
+    --vgf-lib-path ${SDK_PATH}/sw/vgf-lib \
+    --flatbuffers-path ${SDK_PATH}/dependencies/flatbuffers \
+    --argparse-path ${SDK_PATH}/dependencies/argparse \
+    --tosa-mlir-translator-path ${SDK_PATH}/dependencies/tosa_mlir_translator \
+    --external-llvm ${SDK_PATH}/dependencies/llvm-project
+```
+
+To build on Windows®, run:
+
+```powershell
+$env:SDK_PATH="path\to\sdk"
+$cores = [System.Environment]::ProcessorCount
+python3 "$env:SDK_PATH\sw\scenario-runner\scripts\build.py" -j $cores `
+    --vgf-lib-path "$env:SDK_PATH\sw\vgf-lib" `
+    --flatbuffers-path "$env:SDK_PATH\dependencies\flatbuffers" `
+    --argparse-path "$env:SDK_PATH\dependencies\argparse" `
+    --tosa-mlir-translator-path "$env:SDK_PATH\dependencies\tosa_mlir_translator" `
+    --external-llvm "$env:SDK_PATH\dependencies\llvm-project"
 ```
 
 If the components are in their default locations, it is not necessary to specify

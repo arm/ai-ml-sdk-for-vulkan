@@ -58,35 +58,53 @@ cmake --build build --target install
 
 ### Building with the script
 
-To build the script on your current platform, for example, Linux or Windows®,
-run the following command:
+To build on Linux, run the following command:
 
 ```bash
-python3 $SDK_PATH/sw/scenario-runner/scripts/build.py -j $(nproc) \
-    --flatbuffers-path ${PATH_TO_FLATBUFFERS_CHECKOUT} \
-    --argparse-path ${PATH_TO_ARGPARSE_CHECKOUT} \
-    --json-path ${PATH_TO_JSON_CHECKOUT} \
-    --vulkan-headers-path ${PATH_TO_VULKAN_HEADERS_CHECKOUT} \
-    --glslang-path ${PATH_TO_GLSLANG_CHECKOUT} \
-    --spirv-headers-path ${PATH_TO_SPIRV_HEADERS_CHECKOUT} \
-    --spirv-tools-path ${PATH_TO_SPIRV_TOOLS_CHECKOUT} \
-    --vgf-lib-path ${PATH_TO_VGF_LIB_CHECKOUT} \
-    --gtest-path ${PATH_TO_GOOGLETEST_CHECKOUT}
+SDK_PATH="path/to/sdk"
+python3 ${SDK_PATH}/sw/scenario-runner/scripts/build.py -j $(nproc) \
+    --flatbuffers-path ${SDK_PATH}/dependencies/flatbuffers \
+    --argparse-path ${SDK_PATH}/dependencies/argparse \
+    --json-path ${SDK_PATH}/dependencies/json \
+    --vulkan-headers-path ${SDK_PATH}/dependencies/Vulkan-Headers \
+    --glslang-path ${SDK_PATH}/dependencies/glslang \
+    --spirv-headers-path ${SDK_PATH}/dependencies/SPIRV-Headers \
+    --spirv-tools-path ${SDK_PATH}/dependencies/SPIRV-Tools \
+    --vgf-lib-path ${SDK_PATH}/sw/vgf-lib \
+    --gtest-path ${SDK_PATH}/dependencies/googletest
+```
+
+To build on Windows®, run the following command:
+
+```powershell
+$env:SDK_PATH="path\to\sdk"
+$cores = [System.Environment]::ProcessorCount
+python "$env:SDK_PATH\sw\scenario-runner\scripts\build.py" -j $cores  `
+    --flatbuffers-path "$env:SDK_PATH\dependencies\flatbuffers" `
+    --argparse-path "$env:SDK_PATH\dependencies\argparse" `
+    --json-path "$env:SDK_PATH\dependencies\json" `
+    --vulkan-headers-path "$env:SDK_PATH\dependencies\Vulkan-Headers" `
+    --glslang-path "$env:SDK_PATH\dependencies\glslang" `
+    --spirv-headers-path "$env:SDK_PATH\dependencies\SPIRV-Headers" `
+    --spirv-tools-path "$env:SDK_PATH\dependencies\SPIRV-Tools" `
+    --vgf-lib-path "$env:SDK_PATH\sw\vgf-lib" `
+    --gtest-path "$env:SDK_PATH\dependencies\googletest"
 ```
 
 To cross compile for AArch64 architecture, you can add the following option:
 
 ```bash
+SDK_PATH="path/to/sdk"
 python3 $SDK_PATH/sw/scenario-runner/scripts/build.py -j $(nproc) \
-    --flatbuffers-path ${PATH_TO_FLATBUFFERS_CHECKOUT} \
-    --argparse-path ${PATH_TO_ARGPARSE_CHECKOUT} \
-    --json-path ${PATH_TO_JSON_CHECKOUT} \
-    --vulkan-headers-path ${PATH_TO_VULKAN_HEADERS_CHECKOUT} \
-    --glslang-path ${PATH_TO_GLSLANG_CHECKOUT} \
-    --spirv-headers-path ${PATH_TO_SPIRV_HEADERS_CHECKOUT} \
-    --spirv-tools-path ${PATH_TO_SPIRV_TOOLS_CHECKOUT} \
-    --vgf-lib-path ${PATH_TO_VGF_LIB_CHECKOUT} \
-    --gtest-path ${PATH_TO_GOOGLETEST_CHECKOUT} \
+    --flatbuffers-path ${SDK_PATH}/dependencies/flatbuffers \
+    --argparse-path ${SDK_PATH}/dependencies/argparse \
+    --json-path ${SDK_PATH}/dependencies/json \
+    --vulkan-headers-path ${SDK_PATH}/dependencies/Vulkan-Headers \
+    --glslang-path ${SDK_PATH}/dependencies/glslang \
+    --spirv-headers-path ${SDK_PATH}/dependencies/SPIRV-Headers \
+    --spirv-tools-path ${SDK_PATH}/dependencies/SPIRV-Tools \
+    --vgf-lib-path ${SDK_PATH}/sw/vgf-lib \
+    --gtest-path ${SDK_PATH}/dependencies/googletest \
     --target-platform aarch64
 ```
 

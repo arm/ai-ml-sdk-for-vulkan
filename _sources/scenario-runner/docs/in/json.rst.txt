@@ -137,6 +137,19 @@ however, we will only support those which line up with the DDS format
 described here:
 https://docs.microsoft.com/en-us/windows/win32/direct3ddds/dx-graphics-dds-pguide.
 
+The following image formats are supported and have corresponding DDS equivalents:
+``VK_FORMAT_R8_SNORM``, ``VK_FORMAT_R8G8_SINT``, ``VK_FORMAT_R8G8_UNORM``, ``VK_FORMAT_R8G8B8_SINT``,
+``VK_FORMAT_R32_SFLOAT``, ``VK_FORMAT_R8G8B8A8_UNORM``, ``VK_FORMAT_R8G8B8A8_SNORM``, ``VK_FORMAT_R8G8B8_SNORM``,
+``VK_FORMAT_R8G8B8A8_SINT``, ``VK_FORMAT_R16G16B16A16_SFLOAT``, ``VK_FORMAT_R32G32B32A32_SFLOAT``,
+``VK_FORMAT_R16G16_SFLOAT``, ``VK_FORMAT_B10G11R11_UFLOAT_PACK32``, ``VK_FORMAT_D32_SFLOAT_S8_UINT``,
+``VK_FORMAT_R8_UNORM``
+
+The following formats have no corresponding DDS equivalents.
+They may still be used for intermediate images or via memory aliasing:
+``VK_FORMAT_R16G16B16A16_UNORM``, ``VK_FORMAT_R16G16B16A16_SNORM``, ``VK_FORMAT_R16G16B16A16_SINT``,
+``VK_FORMAT_R8_BOOL_ARM``, ``VK_FORMAT_R8_UINT``, ``VK_FORMAT_R8_SINT``, ``VK_FORMAT_R16_UINT``,
+``VK_FORMAT_R16_SINT``, ``VK_FORMAT_R32_UINT``, ``VK_FORMAT_R32_SINT``, ``VK_FORMAT_R64_SINT``,
+``VK_FORMAT_R16_SFLOAT``
 
 tensor
 """"""
