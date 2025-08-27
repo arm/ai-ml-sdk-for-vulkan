@@ -60,7 +60,10 @@
 <p class="caption" role="heading"><span class="caption-text">ML SDK VGF Library</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">ML SDK VGF Library</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Cloning the repository</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Cloning the repository</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cloning-on-windows">Cloning on Windows®</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="building.html">Building the ML SDK VGF Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="encoder_api.html">VGF Encoder C++ API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="decoder_api.html">VGF Decoder C++ API</a></li>
@@ -115,15 +118,18 @@
              
   <section id="cloning-the-repository">
 <h1>Cloning the repository<a class="headerlink" href="#cloning-the-repository" title="Link to this heading"></a></h1>
-<p>To clone the ML SDK VGF Library as a stand-alone repository, you can use regular git clone commands. However, for
-better management of dependencies and to ensure everything is placed in the appropriate directories, we recommend
-using the <code class="code docutils literal notranslate"><span class="pre">git-repo</span></code> tool to clone the repository as part of the ML SDK for Vulkan® suite. The tool is available here:
-(<a class="reference external" href="https://gerrit.googlesource.com/git-repo">https://gerrit.googlesource.com/git-repo</a>).</p>
-<p>For a minimal build and to initialize only the ML SDK VGF Library and its dependencies, run:</p>
+<p>To clone the ML SDK VGF Library as a stand-alone repository, you can use regular
+git clone commands. However, for better management of dependencies and to ensure
+everything is placed in the appropriate directories, we recommend using the
+<code class="docutils literal notranslate"><span class="pre">git-repo</span></code> tool to clone the repository as part of the ML SDK for Vulkan®
+suite. The tool is available <a class="reference external" href="https://gerrit.googlesource.com/git-repo">here</a>.</p>
+<p>For a minimal build and to initialize only the ML SDK VGF Library and its
+dependencies, run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>repo<span class="w"> </span>init<span class="w"> </span>-u<span class="w"> </span>https://github.com/arm/ai-ml-sdk-manifest<span class="w"> </span>-g<span class="w"> </span>vgf-lib
 </pre></div>
 </div>
-<p>Alternatively, to initialize the repo structure for the entire ML SDK for Vulkan®, including the VGF Library, run:</p>
+<p>Alternatively, to initialize the repo structure for the entire ML SDK for
+Vulkan®, including the VGF Library, run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>repo<span class="w"> </span>init<span class="w"> </span>-u<span class="w"> </span>https://github.com/arm/ai-ml-sdk-manifest<span class="w"> </span>-g<span class="w"> </span>all
 </pre></div>
 </div>
@@ -131,10 +137,11 @@ using the <code class="code docutils literal notranslate"><span class="pre">git-
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>repo<span class="w"> </span>sync
 </pre></div>
 </div>
-<div class="admonition-note-cloning-on-windows admonition">
-<p class="admonition-title">Note: Cloning on Windows®</p>
-<p>To ensure nested submodules do not exceed the maximum long path length, you must enable long paths on Windows®, and
-you must clone close to the root directory or use a symlink. Make sure to use Git for Windows.</p>
+<section id="cloning-on-windows">
+<h2>Cloning on Windows®<a class="headerlink" href="#cloning-on-windows" title="Link to this heading"></a></h2>
+<p>To ensure nested submodules do not exceed the maximum long path length, you must
+enable long paths on Windows®, and you must clone close to the root directory
+or use a symlink. Make sure to use Git for Windows.</p>
 <p>Using <strong>PowerShell</strong>:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-ItemProperty</span> <span class="n">-Path</span> <span class="s2">&quot;HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;LongPathsEnabled&quot;</span> <span class="n">-Value</span> <span class="n">1</span>
 <span class="n">git</span> <span class="n">config</span> <span class="p">-</span><span class="n">-global</span> <span class="n">core</span><span class="p">.</span><span class="n">longpaths</span> <span class="n">true</span>
@@ -153,9 +160,10 @@ python<span class="w"> </span>&lt;path-to-git-repo&gt;/git-repo/repo<span class=
 python<span class="w"> </span>&lt;path-to-git-repo&gt;/git-repo/repo<span class="w"> </span>sync
 </pre></div>
 </div>
-</div>
-<p>After the sync command completes successfully, you can find the ML SDK VGF Library in <code class="code docutils literal notranslate"><span class="pre">&lt;repo_root&gt;/sw/vgf-lib/</span></code>.
-You can also find all the dependencies required by the ML SDK VGF Library in <code class="code docutils literal notranslate"><span class="pre">&lt;repo_root&gt;/dependencies/</span></code>.</p>
+<p>After the sync command completes successfully, you can find the ML SDK VGF
+Library in <code class="docutils literal notranslate"><span class="pre">&lt;repo_root&gt;/sw/vgf-lib/</span></code>. You can also find all the dependencies
+required by the ML SDK VGF Library in <code class="docutils literal notranslate"><span class="pre">&lt;repo_root&gt;/dependencies/</span></code>.</p>
+</section>
 </section>
 
 

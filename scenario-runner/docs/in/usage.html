@@ -118,23 +118,43 @@
   <section id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h1>
 <p>To run a scenario file, use the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build/scenario-runner<span class="w"> </span>--scenario<span class="w"> </span><span class="si">${</span><span class="nv">SCENARIO_JSON_FILE</span><span class="si">}</span>
-</pre></div>
-</div>
-<p>For more details, see the help output:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build/scenario-runner<span class="w"> </span>--help
-</pre></div>
-</div>
-<p>The following command is an example run command that reads a JSON file and executes it:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build/scenario-runner<span class="w"> </span>--scenario<span class="o">=</span>JSON_FILE
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scenario-runner<span class="w"> </span>--scenario<span class="w"> </span><span class="si">${</span><span class="nv">SCENARIO_JSON_FILE</span><span class="si">}</span>
 </pre></div>
 </div>
 <p>Where:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">--scenario</span></code>: File to load the scenario from. The file must be in JSON
-format. If the resources in the JSON_FILE are not specified with absolute paths,
-their relative paths will be resolved against the parent directory of the JSON_FILE.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--scenario</span></code>: File to load the scenario from. The file must be in JSON format.
+If the resources in the SCENARIO_JSON_FILE are not specified with absolute
+paths, their relative paths will be resolved against the parent directory of
+the SCENARIO_JSON_FILE.</p></li>
 </ul>
+<p>For more details, see the help output:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scenario-runner<span class="w"> </span>--help
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: ./scenario-runner [--help] [--version] --scenario VAR [--output VAR] [--profiling-dump-path VAR] [--pipeline-caching] [--clear-pipeline-cache] [--cache-path VAR] [--fail-on-pipeline-cache-miss] [--perf-counters-dump-path VAR] [--log-level VAR] [--wait-for-key-stroke-before-run] [--dry-run] [--disable-extension VAR...]... [--enable-gpu-debug-markers] [--session-memory-dump-dir VAR] [--repeat VAR] [--capture-frame]
+
+Optional arguments:
+  -h, --help                        shows help message and exits 
+  -v, --version                     prints version information and exits 
+  --scenario                        file to load the scenario from. File should be in JSON format [nargs=0..1] [default: &quot;&quot;]
+  --output                          output folder [nargs=0..1] [default: &quot;&quot;]
+  --profiling-dump-path             path to save runtime profiling [nargs=0..1] [default: &quot;&quot;]
+  --pipeline-caching                enable the pipeline caching 
+  --clear-pipeline-cache            clear pipeline cache 
+  --cache-path                      set pipeline cache location [nargs=0..1] [default: &quot;/tmp&quot;]
+  --fail-on-pipeline-cache-miss     ensure an error is generated on a pipeline cache miss 
+  --perf-counters-dump-path         path to save performance counter stats [nargs=0..1] [default: &quot;&quot;]
+  --log-level                       set logging level [nargs=0..1] [default: &quot;debug&quot;]
+  --wait-for-key-stroke-before-run  Wait for a key stroke before run 
+  --dry-run                         Setup pipelines but skip the actual execution 
+  --disable-extension               specify extensions to disable out of the following: VK_EXT_custom_border_color, VK_EXT_frame_boundary, VK_KHR_maintenance5, VK_KHR_deferred_host_operations,  [nargs: 0 or more] [may be repeated]
+  --enable-gpu-debug-markers        enable GPU debug markers 
+  --session-memory-dump-dir         path to dump the contents of the sessions ram after inference completes 
+  --repeat                          Repeat count for scenario execution [nargs=0..1] [default: 1]
+  --capture-frame                   Enable RenderDoc integration for frame capturing 
+</pre></div>
+</div>
 <section id="resource-memory-aliasing">
 <h2>Resource memory aliasing<a class="headerlink" href="#resource-memory-aliasing" title="Link to this heading"></a></h2>
 <p>It is useful for some resources to share the same underlying memory. Sharing memory allows resources to share inputs or outputs between shaders and VGF workloads.</p>

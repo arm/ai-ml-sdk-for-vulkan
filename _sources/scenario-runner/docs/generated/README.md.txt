@@ -6,7 +6,69 @@ Runner acts as a validation and performance exploration vehicle. The Scenario
 Runner also acts as a mechanism to define test-cases called scenarios in a
 declarative way via a JSON description. The Scenario Runner can parse the JSON,
 load the input stimulus that is described in the JSON, execute the scenario and
-produce output artefacts.
+produce output artifacts.
+
+### Cloning the repository
+
+To clone the ML SDK Scenario Runner as a stand-alone repository, you can use
+regular git clone commands. However, for better management of dependencies and
+to ensure everything is placed in the appropriate directories, we recommend
+using the `git-repo` tool to clone the repository as part of the ML SDK for
+Vulkan® suite. The tool is available
+[here](https://gerrit.googlesource.com/git-repo).
+
+For a minimal build and to initialize only the Scenario Runner and its
+dependencies, run:
+
+```bash
+repo init -u https://github.com/arm/ai-ml-sdk-manifest -g scenario-runner
+```
+
+Alternatively, to initialize the repo structure for the entire ML SDK for
+Vulkan®, including the Scenario Runner, run:
+
+```bash
+repo init -u https://github.com/arm/ai-ml-sdk-manifest -g all
+```
+
+Once the repo is initialized, you can fetch the contents:
+
+```bash
+repo sync
+```
+
+### Cloning on Windows®
+
+To ensure nested submodules do not exceed the maximum long path length, you must
+enable long paths on Windows®, and you must clone close to the root directory
+or use a symlink. Make sure to use Git for Windows.
+
+Using **PowerShell**:
+
+```powershell
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1
+git config --global core.longpaths true
+git --version # Ensure you are using Git for Windows, for example 2.50.1.windows.1
+git clone <git-repo-tool-url>
+python <path-to-git-repo>\git-repo\repo init -u <manifest-url> -g all
+python <path-to-git-repo>\git-repo\repo sync
+```
+
+Using **Git Bash**:
+
+```bash
+cmd.exe "/c reg.exe add \"HKLM\System\CurrentControlSet\Control\FileSystem"" /v LongPathsEnabled /t REG_DWORD /d 1 /f"
+git config --global core.longpaths true
+git --version # Ensure you are using the Git for Windows, for example 2.50.1.windows.1
+git clone <git-repo-tool-url>
+python <path-to-git-repo>/git-repo/repo init -u <manifest-url> -g all
+python <path-to-git-repo>/git-repo/repo sync
+```
+
+After the sync command completes successfully, you can find the ML SDK Scenario
+Runner in `<repo_root>/sw/scenario-runner/`. You can also find all the
+dependencies required by the ML SDK Scenario Runner in
+`<repo_root>/dependencies/`.
 
 ### Building Scenario Runner from source
 
@@ -130,13 +192,20 @@ python3 $SDK_PATH/sw/scenario-runner/scripts/build.py --help
 To run a scenario file, use the following command:
 
 ```bash
-./build/scenario-runner --scenario ${SCENARIO_JSON_FILE}
+./scenario-runner --scenario ${SCENARIO_JSON_FILE}
 ```
+
+Where:
+
+- `--scenario`: File to load the scenario from. The file must be in JSON format.
+  If the resources in the SCENARIO_JSON_FILE are not specified with absolute
+  paths, their relative paths will be resolved against the parent directory of
+  the SCENARIO_JSON_FILE.
 
 For more details, see the help output:
 
 ```bash
-./build/scenario-runner --help
+./scenario-runner --help
 ```
 
 ## Known Limitations

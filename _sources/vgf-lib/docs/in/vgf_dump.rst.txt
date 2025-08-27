@@ -11,6 +11,23 @@ After you have built the VGF Library, a vgf_dump binary is produced as an artifa
   and output resource bindings which are setup with placeholder filenames. Therefore, you
   only need to point the resources to the actual file paths.
 
+An example usage of vgf_dump is the following:
+
+.. code-block:: bash
+
+  vgf_dump input.vgf
+
+Which outputs the human-readable json representation of the VGF file.
+
+For more information the help output can be consulted:
+
+.. code-block:: bash
+
+  vgf_dump --help
+
+.. literalinclude:: ../generated/vgf_dump_help.txt
+    :language: text
+
 `--dump-spirv`
 --------------
 

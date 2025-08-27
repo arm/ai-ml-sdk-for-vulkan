@@ -130,6 +130,30 @@ template to use with <cite>Scenario Runner</cite>. The scenario template sets up
 and output resource bindings which are setup with placeholder filenames. Therefore, you
 only need to point the resources to the actual file paths.</p></li>
 </ul>
+<p>An example usage of vgf_dump is the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vgf_dump<span class="w"> </span>input.vgf
+</pre></div>
+</div>
+<p>Which outputs the human-readable json representation of the VGF file.</p>
+<p>For more information the help output can be consulted:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vgf_dump<span class="w"> </span>--help
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: ./vgf_dump [--help] [--version] --input VAR --output VAR
+                  [[--dump-spirv VAR]|[--dump-constant VAR]|
+                  [--scenario-template]] [--scenario-template-add-boundaries]
+
+Optional arguments:
+  -h, --help                          shows help message and exits 
+  -v, --version                       prints version information and exits 
+  -i, --input                         The VGF input file [required]
+  -o, --output                        The output file [nargs=0..1] [default: &quot;-&quot;]
+  --dump-spirv                        Dump the SPIR-V™ module code at the given index 
+  --dump-constant                     Dump the constant at the given index. Outputs NumPy file if output file is .npy, otherwise dumps as raw binary. 
+  --scenario-template                 Create a scenario template based on the VGF 
+  --scenario-template-add-boundaries  If creating a scenario template, add frame boundaries before and after 
+</pre></div>
+</div>
 <section id="dump-spirv">
 <h2><cite>--dump-spirv</cite><a class="headerlink" href="#dump-spirv" title="Link to this heading"></a></h2>
 <p>This option outputs the raw SPIR-V™ data of the given module index to stdout. <cite>--dump-spirv</cite> is incompatible with <cite>--dump-constant</cite> and <cite>--scenario-template</cite> options.</p>

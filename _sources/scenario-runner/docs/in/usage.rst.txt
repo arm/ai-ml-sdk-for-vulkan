@@ -1,22 +1,13 @@
 Usage
-=============
+=====
 
 .. include:: ../generated/README.md
     :parser: myst_parser.sphinx_
     :start-after: ### Usage
     :end-before: ## Known Limitations
 
-The following command is an example run command that reads a JSON file and executes it:
-
-.. code-block:: bash
-
-  ./build/scenario-runner --scenario=JSON_FILE
-
-Where:
-
-- ``--scenario``: File to load the scenario from. The file must be in JSON
-  format. If the resources in the JSON_FILE are not specified with absolute paths,
-  their relative paths will be resolved against the parent directory of the JSON_FILE.
+.. literalinclude:: ../generated/scenario_runner_help.txt
+    :language: text
 
 Resource memory aliasing
 ------------------------

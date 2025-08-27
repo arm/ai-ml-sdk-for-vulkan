@@ -28,6 +28,76 @@ The suggested workflow for this tool as part of the ML SDK for Vulkan® is:
     then dispatches the contained SPIR-V™ modules to the ML extensions for
     Vulkan®.
 
+### Cloning the repository
+
+To clone the ML SDK Model Converter as a stand-alone repository, you can use
+regular git clone commands. However, for better management of dependencies and
+to ensure everything is placed in the appropriate directories, we recommend
+using the `git-repo` tool to clone the repository as part of the ML SDK for
+Vulkan® suite. The tool is available
+[here](https://gerrit.googlesource.com/git-repo).
+
+For a minimal build and to initialize only the ML SDK Model Converter and its
+dependencies, run:
+
+```bash
+repo init -u https://github.com/arm/ai-ml-sdk-manifest -g model-converter
+```
+
+Alternatively, to initialize the repo structure for the entire ML SDK for
+Vulkan®, including the ML SDK Model Converter, run:
+
+```bash
+repo init -u https://github.com/arm/ai-ml-sdk-manifest -g all
+```
+
+After the repo is initialized, you can fetch the contents with:
+
+```bash
+repo sync
+```
+
+### Cloning on Windows®
+
+To ensure nested submodules do not exceed the maximum long path length, you must
+enable long paths on Windows®, and you must clone close to the root directory
+or use a symlink. Make sure to use Git for Windows.
+
+Using **PowerShell**:
+
+```powershell
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1
+git config --global core.longpaths true
+git --version # Ensure you are using Git for Windows, for example 2.50.1.windows.1
+git clone <git-repo-tool-url>
+python <path-to-git-repo>\git-repo\repo init -u <manifest-url> -g all
+python <path-to-git-repo>\git-repo\repo sync
+```
+
+Using **Git Bash**:
+
+```powershell
+cmd.exe "/c reg.exe add \"HKLM\System\CurrentControlSet\Control\FileSystem"" /v LongPathsEnabled /t REG_DWORD /d 1 /f"
+git config --global core.longpaths true
+git --version # Ensure you are using the Git for Windows, for example 2.50.1.windows.1
+git clone <git-repo-tool-url>
+python <path-to-git-repo>/git-repo/repo init -u <manifest-url> -g all
+python <path-to-git-repo>/git-repo/repo sync
+```
+
+Due to a known issue in `git-repo`, nested submodules do not always update as
+part of `repo sync` and need to be manually updated, for example:
+
+```bash
+cd dependencies/tosa_mlir_translator
+git submodule update --init --recursive
+```
+
+After the sync command completes successfully, you can find the ML SDK Model
+Converter in `<repo_root>/sw/model-converter/`. You can also find all the
+dependencies required by the ML SDK Model Converter in
+:`<repo_root>/dependencies/`.
+
 ### Building the ML SDK Model Converter from source
 
 The build system must have:

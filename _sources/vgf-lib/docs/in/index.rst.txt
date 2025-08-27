@@ -4,7 +4,7 @@ ML SDK VGF Library
 .. include:: ../generated/README.md
     :parser: myst_parser.sphinx_
     :start-after: # ML SDK VGF Library
-    :end-before: ### Building VGF Library from source
+    :end-before: ### Cloning the repository
 
 .. toctree::
    :maxdepth: 1
