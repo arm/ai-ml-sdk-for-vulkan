@@ -14,8 +14,8 @@ ENV LANG=C.UTF-8
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PATH="/home/$user/.local/bin:$PATH"
 
-RUN apt-get update
-RUN apt-get install -y \
+RUN apt-get update && \
+    apt-get install -y \
     bash \
     bash-completion \
     build-essential \
@@ -29,6 +29,10 @@ RUN apt-get install -y \
     jq \
     libc++-dev \
     libc++abi-dev \
+    libvulkan-dev \
+    mesa-common-dev \
+    mesa-utils \
+    mesa-vulkan-drivers \
     ninja-build \
     python3 \
     python3-pip \
