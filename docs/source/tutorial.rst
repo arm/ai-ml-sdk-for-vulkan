@@ -1,12 +1,54 @@
 Converting and deploying a PyTorch model tutorial
 =================================================
 
+.. note::
+    For details on platform support, installation, and usage of ExecuTorch, please refer to the official documentation:
+
+    - `Getting Started with ExecuTorch <https://docs.pytorch.org/executorch/stable/getting-started.html>`_
+    - `Arm® Backend Tutorial <https://github.com/pytorch/executorch/blob/main/docs/source/tutorial-arm.md>`_
+
 This tutorial describes how to convert and deploy a PyTorch model using the |SDK_project|.
 In this tutorial, we generate a sample PyTorch file with a single MaxPool2D operation
 to demonstrate each step of the end-to-end workflow.
 
-1. Run the following python script to create a PyTorch model for a single MaxPool2D operation. For the
-model input,use a NumPy file. To convert the model to TOSA FlatBuffers, use ExecuTorch:
+ExecuTorch can be installed via prebuilt wheels:
+
+.. note::
+    Here we are installing from a developmental wheel.
+    In the future, replace it with an official release.
+
+.. code-block:: bash
+
+    pip install --upgrade --pre -f https://download.pytorch.org/whl/nightly/executorch/ "executorch==0.8.0.dev20250811"
+
+Download the ExecuTorch repo, and install the required dependencies using the script.
+
+.. note::
+    In order to run the setup script, Git username and email need to be configured.
+    For example:
+
+    .. code-block:: bash
+
+        git config --global user.name "Your Name"
+        git config --global user.email "you@example.com"
+
+.. code-block:: bash
+
+    git clone https://github.com/pytorch/executorch.git
+    ./executorch/examples/arm/setup.sh --disable-ethos-u-deps
+
+1. Add the ML SDK Model Converter to :code:`PATH`:
+
+The ExecuTorch backend relies on the ML SDK Model Converter.
+
+.. code-block:: bash
+
+    export PATH=/path/containing/model-converter/:$PATH
+    which model-converter
+
+This should print out the path to the `model-converter` binary.
+
+2. Run the following python script to create a PyTorch model for a single MaxPool2D operation.
 
 .. literalinclude:: assets/MaxPool2DModel.py
     :language: python
@@ -15,16 +57,9 @@ model input,use a NumPy file. To convert the model to TOSA FlatBuffers, use Exec
 
    python MaxPool2DModel.py
 
-This generates a TOSA Flatbuffers :code:`${NAME}.tosa`, where the tool generates :code:`${NAME}`
-
-2. Convert the TOSA FlatBuffers file into a VGF file:
-
-.. code-block:: bash
-
-    model-converter --input ${NAME}.tosa --output maxpool.vgf
-
-.. note::
-   For more information about the ML SDK Model Converter, see: :ref:`ML SDK Model Converter`
+This generates a VGF file :code:`${NAME}.vgf` in the current working directory,
+where the tool generates :code:`${NAME}`.
+A matching example input is also generated in the same directory for testing.
 
 3. Use the VGF Dump Tool to generate a Scenario Template. To run a scenario on the ML SDK Scenario Runner,
 you must have a scenario specification in the form of a JSON file. Use the VGF file that was generated in the previous
@@ -32,7 +67,7 @@ step and pass it to the VGF Dump Tool:
 
 .. code-block:: bash
 
-    $vgf_dump --input maxpool.vgf --output scenario.json --scenario-template
+    $vgf_dump --input ${NAME}.vgf --output scenario.json --scenario-template
 
 .. note::
    For more information about VGF Library and the VGF Dump Tool, see: :ref:`ML SDK VGF Library`

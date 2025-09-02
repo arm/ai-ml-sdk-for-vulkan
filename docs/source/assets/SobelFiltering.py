@@ -7,12 +7,13 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from executorch.backends.arm.arm_backend import ArmCompileSpecBuilder
-from executorch.backends.arm.tosa_partitioner import TOSAPartitioner
+from executorch.backends.arm.vgf_partitioner import VgfPartitioner
 from executorch.exir import EdgeCompileConfig
 from executorch.exir import to_edge_transform_and_lower
 
 image_height = 480
 image_width = 640
+
 
 # Sobel filter definitions
 def get_sobel_filters():
@@ -51,14 +52,14 @@ example_input = torch.randn(1, 4, image_height, image_width)
 
 model = SobelFilteringModel().eval()
 
-# Save model intermediates
+# Save the VGF model
 compile_spec = (
     ArmCompileSpecBuilder()
-    .tosa_compile_spec("TOSA-1.0+FP")
+    .vgf_compile_spec()
     .dump_intermediate_artifacts_to(".")
     .build()
 )
-partitioner = TOSAPartitioner(compile_spec)
+partitioner = VgfPartitioner(compile_spec)
 
 exported_program = torch.export.export_for_training(model, (example_input,))
 
