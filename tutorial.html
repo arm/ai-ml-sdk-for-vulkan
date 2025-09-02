@@ -103,11 +103,52 @@
              
   <section id="converting-and-deploying-a-pytorch-model-tutorial">
 <h1>Converting and deploying a PyTorch model tutorial<a class="headerlink" href="#converting-and-deploying-a-pytorch-model-tutorial" title="Link to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For details on platform support, installation, and usage of ExecuTorch, please refer to the official documentation:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.pytorch.org/executorch/stable/getting-started.html">Getting Started with ExecuTorch</a></p></li>
+<li><p><a class="reference external" href="https://github.com/pytorch/executorch/blob/main/docs/source/tutorial-arm.md">Arm® Backend Tutorial</a></p></li>
+</ul>
+</div>
 <p>This tutorial describes how to convert and deploy a PyTorch model using the ML SDK for Vulkan®.
 In this tutorial, we generate a sample PyTorch file with a single MaxPool2D operation
 to demonstrate each step of the end-to-end workflow.</p>
-<p>1. Run the following python script to create a PyTorch model for a single MaxPool2D operation. For the
-model input,use a NumPy file. To convert the model to TOSA FlatBuffers, use ExecuTorch:</p>
+<p>ExecuTorch can be installed via prebuilt wheels:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Here we are installing from a developmental wheel.
+In the future, replace it with an official release.</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>--pre<span class="w"> </span>-f<span class="w"> </span>https://download.pytorch.org/whl/nightly/executorch/<span class="w"> </span><span class="s2">&quot;executorch==0.8.0.dev20250811&quot;</span>
+</pre></div>
+</div>
+<p>Download the ExecuTorch repo, and install the required dependencies using the script.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In order to run the setup script, Git username and email need to be configured.
+For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;Your Name&quot;</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;you@example.com&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/pytorch/executorch.git
+./executorch/examples/arm/setup.sh<span class="w"> </span>--disable-ethos-u-deps
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>Add the ML SDK Model Converter to <code class="code docutils literal notranslate"><span class="pre">PATH</span></code>:</p></li>
+</ol>
+<p>The ExecuTorch backend relies on the ML SDK Model Converter.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/path/containing/model-converter/:<span class="nv">$PATH</span>
+which<span class="w"> </span>model-converter
+</pre></div>
+</div>
+<p>This should print out the path to the <cite>model-converter</cite> binary.</p>
+<ol class="arabic simple" start="2">
+<li><p>Run the following python script to create a PyTorch model for a single MaxPool2D operation.</p></li>
+</ol>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="c1">#</span>
 <span class="c1"># SPDX-FileCopyrightText: Copyright 2024-2025 Arm Limited and/or its affiliates &lt;open-source-office@arm.com&gt;</span>
@@ -118,9 +159,10 @@ model input,use a NumPy file. To convert the model to TOSA FlatBuffers, use Exec
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">executorch.backends.arm.arm_backend</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArmCompileSpecBuilder</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">executorch.backends.arm.tosa_partitioner</span><span class="w"> </span><span class="kn">import</span> <span class="n">TOSAPartitioner</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">executorch.backends.arm.vgf_partitioner</span><span class="w"> </span><span class="kn">import</span> <span class="n">VgfPartitioner</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">executorch.exir</span><span class="w"> </span><span class="kn">import</span> <span class="n">EdgeCompileConfig</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">executorch.exir</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_edge_transform_and_lower</span>
+
 
 <span class="c1"># Define model</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">MaxPoolModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -139,14 +181,14 @@ model input,use a NumPy file. To convert the model to TOSA FlatBuffers, use Exec
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">MaxPoolModel</span><span class="p">()</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
 
-<span class="c1"># Save model intermediates</span>
+<span class="c1"># Save the VGF model</span>
 <span class="n">compile_spec</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">ArmCompileSpecBuilder</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">tosa_compile_spec</span><span class="p">(</span><span class="s2">&quot;TOSA-1.0+FP&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">vgf_compile_spec</span><span class="p">()</span>
     <span class="o">.</span><span class="n">dump_intermediate_artifacts_to</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">build</span><span class="p">()</span>
 <span class="p">)</span>
-<span class="n">partitioner</span> <span class="o">=</span> <span class="n">TOSAPartitioner</span><span class="p">(</span><span class="n">compile_spec</span><span class="p">)</span>
+<span class="n">partitioner</span> <span class="o">=</span> <span class="n">VgfPartitioner</span><span class="p">(</span><span class="n">compile_spec</span><span class="p">)</span>
 
 <span class="n">exported_program</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export_for_training</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="p">(</span><span class="n">example_input</span><span class="p">,))</span>
 
@@ -162,21 +204,13 @@ model input,use a NumPy file. To convert the model to TOSA FlatBuffers, use Exec
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>MaxPool2DModel.py
 </pre></div>
 </div>
-<p>This generates a TOSA Flatbuffers <code class="code docutils literal notranslate"><span class="pre">${NAME}.tosa</span></code>, where the tool generates <code class="code docutils literal notranslate"><span class="pre">${NAME}</span></code></p>
-<ol class="arabic simple" start="2">
-<li><p>Convert the TOSA FlatBuffers file into a VGF file:</p></li>
-</ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>model-converter<span class="w"> </span>--input<span class="w"> </span><span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.tosa<span class="w"> </span>--output<span class="w"> </span>maxpool.vgf
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For more information about the ML SDK Model Converter, see: <a class="reference internal" href="model-converter/docs/in/index.html#ml-sdk-model-converter"><span class="std std-ref">ML SDK Model Converter</span></a></p>
-</div>
+<p>This generates a VGF file <code class="code docutils literal notranslate"><span class="pre">${NAME}.vgf</span></code> in the current working directory,
+where the tool generates <code class="code docutils literal notranslate"><span class="pre">${NAME}</span></code>.
+A matching example input is also generated in the same directory for testing.</p>
 <p>3. Use the VGF Dump Tool to generate a Scenario Template. To run a scenario on the ML SDK Scenario Runner,
 you must have a scenario specification in the form of a JSON file. Use the VGF file that was generated in the previous
 step and pass it to the VGF Dump Tool:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">$vgf_dump</span><span class="w"> </span>--input<span class="w"> </span>maxpool.vgf<span class="w"> </span>--output<span class="w"> </span>scenario.json<span class="w"> </span>--scenario-template
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">$vgf_dump</span><span class="w"> </span>--input<span class="w"> </span><span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.vgf<span class="w"> </span>--output<span class="w"> </span>scenario.json<span class="w"> </span>--scenario-template
 </pre></div>
 </div>
 <div class="admonition note">

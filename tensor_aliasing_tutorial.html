@@ -199,12 +199,13 @@ use the following <code class="code docutils literal notranslate"><span class="p
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">executorch.backends.arm.arm_backend</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArmCompileSpecBuilder</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">executorch.backends.arm.tosa_partitioner</span><span class="w"> </span><span class="kn">import</span> <span class="n">TOSAPartitioner</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">executorch.backends.arm.vgf_partitioner</span><span class="w"> </span><span class="kn">import</span> <span class="n">VgfPartitioner</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">executorch.exir</span><span class="w"> </span><span class="kn">import</span> <span class="n">EdgeCompileConfig</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">executorch.exir</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_edge_transform_and_lower</span>
 
 <span class="n">image_height</span> <span class="o">=</span> <span class="mi">480</span>
 <span class="n">image_width</span> <span class="o">=</span> <span class="mi">640</span>
+
 
 <span class="c1"># Sobel filter definitions</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_sobel_filters</span><span class="p">():</span>
@@ -243,14 +244,14 @@ use the following <code class="code docutils literal notranslate"><span class="p
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">SobelFilteringModel</span><span class="p">()</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
 
-<span class="c1"># Save model intermediates</span>
+<span class="c1"># Save the VGF model</span>
 <span class="n">compile_spec</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">ArmCompileSpecBuilder</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">tosa_compile_spec</span><span class="p">(</span><span class="s2">&quot;TOSA-1.0+FP&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">vgf_compile_spec</span><span class="p">()</span>
     <span class="o">.</span><span class="n">dump_intermediate_artifacts_to</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">build</span><span class="p">()</span>
 <span class="p">)</span>
-<span class="n">partitioner</span> <span class="o">=</span> <span class="n">TOSAPartitioner</span><span class="p">(</span><span class="n">compile_spec</span><span class="p">)</span>
+<span class="n">partitioner</span> <span class="o">=</span> <span class="n">VgfPartitioner</span><span class="p">(</span><span class="n">compile_spec</span><span class="p">)</span>
 
 <span class="n">exported_program</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export_for_training</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="p">(</span><span class="n">example_input</span><span class="p">,))</span>
 
