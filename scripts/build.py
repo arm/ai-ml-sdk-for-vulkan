@@ -45,6 +45,7 @@ class Builder:
         self.spirv_cross_path = args.spirv_cross_path
         self.vgf_lib = args.vgf_lib
         self.emulation_layer = args.emulation_layer
+        self.gtest_path = args.gtest_path
         self.argparse = args.argparse
         self.flatbuffers = args.flatbuffers
         self.json = args.json
@@ -127,6 +128,8 @@ class Builder:
 
         if self.doc:
             cmake_setup_cmd.append("-DML_SDK_BUILD_DOCS=ON")
+
+        cmake_setup_cmd.append(f"-DGTEST_PATH={self.gtest_path}")
 
         cmake_build_cmd = [
             "cmake",
@@ -290,6 +293,11 @@ def parse_arguments():
         help="Skip applying LLVM patch. Default: %(default)s",
         action="store_true",
         default=False,
+    )
+    parser.add_argument(
+        "--gtest-path",
+        help="Path to gtest repo",
+        default=f"{DEPENDENCIES_DIR / 'googletest'}",
     )
     parser.add_argument(
         "--doc",
