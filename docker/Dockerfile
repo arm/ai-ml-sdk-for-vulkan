@@ -26,10 +26,12 @@ RUN apt-get update && \
     doxygen \
     git \
     git-lfs \
+    graphviz \
     jq \
     libc++-dev \
     libc++abi-dev \
     libvulkan-dev \
+    lld \
     mesa-common-dev \
     mesa-utils \
     mesa-vulkan-drivers \
