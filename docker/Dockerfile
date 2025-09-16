@@ -50,11 +50,6 @@ RUN curl -sSL -o cmake-3.25.3-linux-x86_64.sh https://github.com/Kitware/CMake/r
 RUN curl -sSL --create-dirs -o /home/$user/.local/bin/repo https://storage.googleapis.com/git-repo-downloads/repo && \
     chmod u+x . /home/$user/.local/bin/repo
 
-RUN pip install \
-    build \
-    setuptools \
-    wheel
-
 COPY --chown=$user ../requirements.txt ./
 COPY --chown=$user ../tooling-requirements.txt ./
 RUN pip install -r requirements.txt
