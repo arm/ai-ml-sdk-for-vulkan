@@ -70,9 +70,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">ML Emulation Layer for Vulkan®</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Building the ML SDK Emulation Layer for Vulkan®</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#building-for-linux">Building for Linux</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#building-for-windows">Building for Windows®</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#building-for-android">Building for Android</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-with-the-script">Building with the script</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html">Usage</a></li>
@@ -116,72 +114,48 @@
              
   <section id="building-the-ml-sdk-emulation-layer-for-vulkan">
 <h1>Building the ML SDK Emulation Layer for Vulkan®<a class="headerlink" href="#building-the-ml-sdk-emulation-layer-for-vulkan" title="Link to this heading"></a></h1>
-<section id="building-for-linux">
-<h2>Building for Linux<a class="headerlink" href="#building-for-linux" title="Link to this heading"></a></h2>
-<p>Building the code requires CMake. Also required are Vulkan® and SPIR-V™
-dependencies including the ML extensions for Vulkan®.</p>
-<p>To build the Emulation Layer, run:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w">                                               </span><span class="se">\</span>
-<span class="w">   </span>-DGLSLANG_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/glslang<span class="w">                 </span><span class="se">\</span>
-<span class="w">   </span>-DSPIRV_CROSS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/SPIRV-Cross<span class="w">         </span><span class="se">\</span>
-<span class="w">   </span>-DSPIRV_HEADERS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/SPIRV-Headers<span class="w">     </span><span class="se">\</span>
-<span class="w">   </span>-DSPIRV_TOOLS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/SPIRV-Tools<span class="w">         </span><span class="se">\</span>
-<span class="w">   </span>-DVULKAN_HEADERS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/Vulkan-Headers
-
-$<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span>build
-</pre></div>
-</div>
-<p>To build the documentation, add the <code class="docutils literal notranslate"><span class="pre">-DVMEL_BUILD_DOCS=ON</span></code> build flag.</p>
-<p>To install the Emulation Layer into a <code class="docutils literal notranslate"><span class="pre">deploy</span></code> folder, run:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>--install<span class="w"> </span>build<span class="w"> </span>--prefix<span class="w"> </span>deploy
-</pre></div>
-</div>
-</section>
-<section id="building-for-windows">
-<h2>Building for Windows®<a class="headerlink" href="#building-for-windows" title="Link to this heading"></a></h2>
-<p>To build on Windows®, the machine must have a Vulkan® ICD and Vulkan® Loader
-installed. Vulkan® API 1.3 must also be supported.</p>
-<p>The reference environment that the Emulation Layer has been built and tested
-with is:</p>
+<p>The build system must have:</p>
 <ul class="simple">
-<li><p>OS: Win10</p></li>
-<li><p>Build Tool: Visual Studio 17 2022</p></li>
-<li><p>Compiler: MSVC 19.37.32825.0</p></li>
-<li><p>CMake: 3.27.7</p></li>
-<li><p>Terminal: PowerShell</p></li>
+<li><p>CMake 3.25 or later.</p></li>
+<li><p>C/C++ 17 compiler: GCC, or optionally Clang on Linux and MSVC on Windows®.</p></li>
 </ul>
-<p>To build the Emulation Layer, run:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$env:REPO</span><span class="p">=</span><span class="s2">&quot;path\to\repo&quot;</span>
-<span class="n">cmake</span> <span class="n">-B</span> <span class="n">build</span>                                                 <span class="p">`</span>
-   <span class="n">-DGLSLANG_PATH</span><span class="p">=</span><span class="s2">&quot;$env:REPO\dependencies\glslang&quot;</span>             <span class="p">`</span>
-   <span class="n">-DSPIRV_CROSS_PATH</span><span class="p">=</span><span class="s2">&quot;$env:REPO\dependencies\SPIRV-Cross&quot;</span>     <span class="p">`</span>
-   <span class="n">-DSPIRV_HEADERS_PATH</span><span class="p">=</span><span class="s2">&quot;$env:REPO\dependencies\SPIRV-Headers&quot;</span> <span class="p">`</span>
-   <span class="n">-DSPIRV_TOOLS_PATH</span><span class="p">=</span><span class="s2">&quot;$env:REPO\dependencies\SPIRV-Tools&quot;</span>     <span class="p">`</span>
-   <span class="n">-DVULKAN_HEADERS_PATH</span><span class="p">=</span><span class="s2">&quot;$env:REPO\dependencies\Vulkan-Headers&quot;</span>
-<span class="n">cmake</span> <span class="p">-</span><span class="n">-build</span> <span class="n">build</span> <span class="p">-</span><span class="n">-config</span> <span class="n">Release</span>
+<p>The following dependencies are also needed:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/KhronosGroup/glslang">glslang</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/KhronosGroup/SPIRV-Headers">SPIRV-Headers</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/KhronosGroup/SPIRV-Tools">SPIRV-Tools</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/KhronosGroup/SPIRV-Cross">SPIRV-Cross</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/KhronosGroup/Vulkan-Headers">Vulkan-Headers</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/google/googletest">GoogleTest</a>. Optional, for testing.</p></li>
+</ul>
+<p>For the preferred dependency versions see the manifest file.</p>
+<p><a name="building-with-the-script"></a></p>
+<section id="building-with-the-script">
+<h2>Building with the script<a class="headerlink" href="#building-with-the-script" title="Link to this heading"></a></h2>
+<p>To make the build configuration options easily discoverable, we provide a python
+build script. When you run the script from a git-repo manifest checkout, the
+script uses default paths and does not require any additional arguments. If you
+do not use the script, you must specify paths to the dependencies.</p>
+<p>To build on the current platform, for example on Linux or Windows®, run the
+following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span><span class="nv">$SDK_PATH</span>/sw/emulation-layer/scripts/build.py<span class="w"> </span>-j<span class="w"> </span><span class="k">$(</span>nproc<span class="k">)</span>
 </pre></div>
 </div>
-<p>To install the Emulation Layer into a <code class="docutils literal notranslate"><span class="pre">deploy</span></code> folder, run:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> <span class="p">-</span><span class="n">-install</span> <span class="n">build</span> <span class="p">-</span><span class="n">-prefix</span> <span class="n">deploy</span>
+<p>To cross compile for AArch64 architecture, add the following option:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span><span class="nv">$SDK_PATH</span>/sw/emulation-layer/scripts/build.py<span class="w"> </span>-j<span class="w"> </span><span class="k">$(</span>nproc<span class="k">)</span><span class="w"> </span>--target-platform<span class="w"> </span>aarch64
 </pre></div>
 </div>
-</section>
-<section id="building-for-android">
-<h2>Building for Android<a class="headerlink" href="#building-for-android" title="Link to this heading"></a></h2>
-<p>(Experimental)</p>
-<p>The Android NDK toolset is required to build the Emulation layer for an Android
-device. The Android device must have Vulkan® API 1.3 support.</p>
-<p>To build the Emulation Layer, run:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cmake<span class="w"> </span>-B<span class="w"> </span>build
-<span class="w">   </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="si">${</span><span class="nv">NDK</span><span class="si">}</span>/build/cmake/android.toolchain.cmake<span class="w"> </span><span class="se">\</span>
-<span class="w">   </span>-DANDROID_ABI<span class="o">=</span>arm64-v8a<span class="w">                                           </span><span class="se">\</span>
-<span class="w">   </span>-DGLSLANG_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/glslang<span class="w">                       </span><span class="se">\</span>
-<span class="w">   </span>-DSPIRV_CROSS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/SPIRV-Cross<span class="w">               </span><span class="se">\</span>
-<span class="w">   </span>-DSPIRV_HEADERS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/SPIRV-Headers<span class="w">           </span><span class="se">\</span>
-<span class="w">   </span>-DSPIRV_TOOLS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/SPIRV-Tools<span class="w">               </span><span class="se">\</span>
-<span class="w">   </span>-DVULKAN_HEADERS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/Vulkan-Headers
-
-$<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span>build
+<p>To enable and run tests, use the <code class="docutils literal notranslate"><span class="pre">--test</span></code> option. To lint the tests, use the
+<code class="docutils literal notranslate"><span class="pre">--lint</span></code> option. To build the documentation, use the <code class="docutils literal notranslate"><span class="pre">--doc</span></code> option. To build
+the documentation, you must have <code class="docutils literal notranslate"><span class="pre">sphinx</span></code> and <code class="docutils literal notranslate"><span class="pre">doxygen</span></code> installed on your
+machine.</p>
+<p>You can install the build artifacts for this project into a specified location.
+To install the build artifacts, pass the <code class="docutils literal notranslate"><span class="pre">--install</span></code> option with the required
+path.</p>
+<p>To create an archive with the build artifacts option, you must add the
+<code class="docutils literal notranslate"><span class="pre">--package</span></code> option. The archive is stored in the provided location.</p>
+<p>For more command line options, see the help output:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span><span class="nv">$SDK_PATH</span>/sw/emulation-layer/scripts/build.py<span class="w"> </span>--help
 </pre></div>
 </div>
 </section>
