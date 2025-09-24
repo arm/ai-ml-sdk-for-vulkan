@@ -36,6 +36,7 @@ RUN apt-get update && \
     mesa-utils \
     mesa-vulkan-drivers \
     ninja-build \
+    pkg-config \
     python3 \
     python3-pip \
     python3-venv \
