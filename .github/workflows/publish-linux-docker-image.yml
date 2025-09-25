@@ -1,0 +1,36 @@
+#
+# SPDX-FileCopyrightText: Copyright 2025 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-License-Identifier: Apache-2.0
+#
+name: Build and Publish Linux Docker Image
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'docker/Dockerfile'
+    workflow_dispatch:
+
+jobs:
+  docker-build:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build
+        run: |
+          cd docker
+          docker build --tag ghcr.io/arm/ml-sdk-linux-amd64:latest --file Dockerfile ..
+
+      - name: Push
+        run: docker push ghcr.io/arm/ml-sdk-linux-amd64:latest

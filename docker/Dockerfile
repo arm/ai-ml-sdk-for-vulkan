@@ -7,7 +7,7 @@
 
 ARG ubuntu_version=22.04
 FROM ubuntu:$ubuntu_version
-ARG user=myuser
+ARG user=mlsdkuser
 ARG uid=1000
 
 ENV LANG=C.UTF-8
