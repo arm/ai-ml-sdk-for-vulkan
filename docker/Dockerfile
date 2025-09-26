@@ -10,6 +10,8 @@ FROM ubuntu:$ubuntu_version
 ARG user=mlsdkuser
 ARG uid=1000
 
+ARG BUILDPLATFORM
+
 ENV LANG=C.UTF-8
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PATH="/home/$user/.local/bin:$PATH"
@@ -49,9 +51,10 @@ RUN apt-get update && \
 
 RUN mkdir -p /home/$user/.local/bin
 
-RUN curl -sSL -o cmake-3.25.3-linux-x86_64.sh https://github.com/Kitware/CMake/releases/download/v3.25.3/cmake-3.25.3-linux-x86_64.sh && \
-    bash cmake-3.25.3-linux-x86_64.sh --prefix=/home/$user/.local --skip-license && \
-    rm cmake-3.25.3-linux-x86_64.sh
+RUN if [ "$BUILDPLATFORM" = "linux/amd64" ] ; then ARCH="x86_64"; else ARCH="aarch64"; fi && \
+    curl -sSL -o cmake-3.25.3-linux-${ARCH}.sh https://github.com/Kitware/CMake/releases/download/v3.25.3/cmake-3.25.3-linux-${ARCH}.sh && \
+    bash cmake-3.25.3-linux-${ARCH}.sh --prefix=/home/$user/.local --skip-license && \
+    rm cmake-3.25.3-linux-${ARCH}.sh
 
 RUN curl -sSL -o /home/$user/.local/bin/repo https://storage.googleapis.com/git-repo-downloads/repo && \
     chmod u+x . /home/$user/.local/bin/repo
