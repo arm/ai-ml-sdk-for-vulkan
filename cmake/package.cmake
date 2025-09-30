@@ -61,4 +61,6 @@ macro(mlsdk_package)
 
     install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_PACKAGE_NAME}ConfigVersion.cmake"
             DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${ARGS_PACKAGE_NAME}")
+    install(FILES "${PROJECT_SOURCE_DIR}/ai-ml-sdk-for-vulkan.spdx.json"
+            DESTINATION "${CMAKE_INSTALL_LIBDIR}/")
 endmacro()
