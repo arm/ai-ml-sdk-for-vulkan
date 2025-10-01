@@ -23,7 +23,7 @@ repo init -u https://github.com/arm/ai-ml-sdk-manifest.git -g all
 After the repository is initialized, fetch the contents with:
 
 ```bash
-repo sync
+repo sync --no-clone-bundle
 ```
 
 ### Cloning on Windows®
@@ -40,7 +40,7 @@ git config --global core.longpaths true
 git --version # Ensure you are using Git for Windows, for example 2.50.1.windows.1
 git clone <git-repo-tool-url>
 python <path-to-git-repo>\git-repo\repo init -u <manifest-url> -g all
-python <path-to-git-repo>\git-repo\repo sync
+python <path-to-git-repo>\git-repo\repo sync --no-clone-bundle
 ```
 
 Using **Git Bash**:
@@ -51,7 +51,7 @@ git config --global core.longpaths true
 git --version # Ensure you are using the Git for Windows, for example 2.50.1.windows.1
 git clone <git-repo-tool-url>
 python <path-to-git-repo>/git-repo/repo init -u <manifest-url> -g all
-python <path-to-git-repo>/git-repo/repo sync
+python <path-to-git-repo>/git-repo/repo sync --no-clone-bundle
 ```
 
 Due to a known issue in `git-repo`, nested submodules do not always update as
