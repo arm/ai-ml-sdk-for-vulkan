@@ -131,7 +131,7 @@ Vulkan®, including the ML SDK Model Converter, run:</p>
 </pre></div>
 </div>
 <p>After the repo is initialized, you can fetch the contents with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>repo<span class="w"> </span>sync
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>repo<span class="w"> </span>sync<span class="w"> </span>--no-clone-bundle
 </pre></div>
 </div>
 <section id="cloning-on-windows">
@@ -145,7 +145,7 @@ or use a symlink. Make sure to use Git for Windows.</p>
 <span class="n">git</span> <span class="p">-</span><span class="n">-version</span> <span class="c"># Ensure you are using Git for Windows, for example 2.50.1.windows.1</span>
 <span class="n">git</span> <span class="n">clone</span> <span class="p">&lt;</span><span class="n">git-repo-tool-url</span><span class="p">&gt;</span>
 <span class="n">python</span> <span class="p">&lt;</span><span class="n">path-to-git-repo</span><span class="p">&gt;\</span><span class="n">git-repo</span><span class="p">\</span><span class="n">repo</span> <span class="n">init</span> <span class="n">-u</span> <span class="p">&lt;</span><span class="n">manifest-url</span><span class="p">&gt;</span> <span class="n">-g</span> <span class="n">all</span>
-<span class="n">python</span> <span class="p">&lt;</span><span class="n">path-to-git-repo</span><span class="p">&gt;\</span><span class="n">git-repo</span><span class="p">\</span><span class="n">repo</span> <span class="n">sync</span>
+<span class="n">python</span> <span class="p">&lt;</span><span class="n">path-to-git-repo</span><span class="p">&gt;\</span><span class="n">git-repo</span><span class="p">\</span><span class="n">repo</span> <span class="n">sync</span> <span class="p">-</span><span class="n">-no-clone-bundle</span>
 </pre></div>
 </div>
 <p>Using <strong>Git Bash</strong>:</p>
@@ -154,7 +154,7 @@ or use a symlink. Make sure to use Git for Windows.</p>
 <span class="s2">git --version # Ensure you are using the Git for Windows, for example 2.50.1.windows.1</span>
 <span class="s2">git clone &lt;git-repo-tool-url&gt;</span>
 <span class="s2">python &lt;path-to-git-repo&gt;/git-repo/repo init -u &lt;manifest-url&gt; -g all</span>
-<span class="s2">python &lt;path-to-git-repo&gt;/git-repo/repo sync</span>
+<span class="s2">python &lt;path-to-git-repo&gt;/git-repo/repo sync --no-clone-bundle</span>
 </pre></div>
 </div>
 <p>Due to a known issue in <code class="docutils literal notranslate"><span class="pre">git-repo</span></code>, nested submodules do not always update as
