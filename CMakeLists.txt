@@ -72,7 +72,7 @@ optional_add_subdirectory("${ML_SDK_EMULATION_LAYER_PATH}" emulation-layer)
 optional_add_subdirectory("${ML_SDK_SCENARIO_RUNNER_PATH}" scenario-runner)
 
 if(ML_SDK_GENERATE_CPACK)
-    set(CPACK_PACKAGE_NAME "ml-sdk")
+    set(CPACK_PACKAGE_NAME "ai_ml_sdk_for_vulkan")
     set(CPACK_GENERATOR "TGZ")
     include(cmake/package.cmake)
     mlsdk_package(
