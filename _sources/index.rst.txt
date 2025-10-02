@@ -13,7 +13,7 @@ deployment of ML workloads that are both portable and accelerable. The extension
 
 The tight integration of ML workloads into the rendering pipeline enables graphics
 use cases at improved levels of performance and efficiency and by leveraging the
-`TOSA <https://www.mlplatform.org/tosa>`_ 1.x specification, you can expect consistent behavior
+TOSA 1.x specification, you can expect consistent behavior
 accross multiple vendor implementations.
 
 .. toctree::
