@@ -852,7 +852,7 @@
             "licenseConcluded": "Apache-2.0 WITH LLVM-exception",
             "licenseDeclared": "Apache-2.0 WITH LLVM-exception",
             "copyrightText": "Copyright (c) ARM Limited.",
-            "versionInfo": "v2025.07.0",
+            "versionInfo": "v2025.07.1",
             "supplier": "Organization: tosa (https:gitlab.arm.com/tosa)",
             "licenseInfoFromFiles": [
                 "NOASSERTION"
@@ -861,7 +861,7 @@
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/tosa_mlir_translator@v2025.07.0"
+                    "referenceLocator": "pkg:generic/tosa_mlir_translator@v2025.07.1"
                 }
             ]
         },
@@ -873,7 +873,7 @@
             "licenseConcluded": "Apache 2.0",
             "licenseDeclared": "Apache 2.0",
             "copyrightText": "Copyright (c) ARM Limited.",
-            "versionInfo": "359145e",
+            "versionInfo": "v2025.07.1",
             "supplier": "Organization: tosa (https://gitlab.arm.com/tosa)",
             "licenseInfoFromFiles": [
                 "NOASSERTION"
@@ -882,7 +882,7 @@
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/serialization_lib@359145e"
+                    "referenceLocator": "pkg:generic/serialization_lib@v2025.07.1"
                 }
             ]
         },
