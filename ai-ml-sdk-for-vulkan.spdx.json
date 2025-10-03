@@ -853,7 +853,7 @@
             "licenseDeclared": "Apache-2.0 WITH LLVM-exception",
             "copyrightText": "Copyright (c) ARM Limited.",
             "versionInfo": "v2025.07.1",
-            "supplier": "Organization: tosa (https:gitlab.arm.com/tosa)",
+            "supplier": "Organization: tosa (https://gitlab.arm.com/tosa)",
             "licenseInfoFromFiles": [
                 "NOASSERTION"
             ],
