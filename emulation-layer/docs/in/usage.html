@@ -73,8 +73,8 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Usage</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#usage-on-linux">Usage on Linux</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#usage-on-windows">Usage on Windows®</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#usage-on-android">Usage on Android</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#cross-compilation-for-aarch64-on-x86-64">Cross compilation for AArch64 on x86-64</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage-on-android">Usage on Android™</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cross-compilation-for-aarch64-on-x86-64-experimental">Cross compilation for AArch64 on x86-64 (Experimental)</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#vulkan-layer-documentation">Vulkan® Layer Documentation</a></li>
@@ -200,9 +200,9 @@ graph and tensor layer using the following commands:</p>
 </div>
 </section>
 <section id="usage-on-android">
-<h2>Usage on Android<a class="headerlink" href="#usage-on-android" title="Link to this heading"></a></h2>
+<h2>Usage on Android™<a class="headerlink" href="#usage-on-android" title="Link to this heading"></a></h2>
 <p>You can pack the graph and tensor layer libraries into the Application Package
-Kit (APK) or push to the <code class="docutils literal notranslate"><span class="pre">/data/local/debug/vulkan</span></code> directory for Android to
+Kit (APK) or push to the <code class="docutils literal notranslate"><span class="pre">/data/local/debug/vulkan</span></code> directory for Android™ to
 discover the Emulation Layer. Applications can enable the layers during Vulkan
 instance creation or you can enable the layers without modifying the application
 by using following commands:</p>
@@ -212,8 +212,8 @@ $<span class="w"> </span>adb<span class="w"> </span>shell<span class="w"> </span
 <span class="w">    </span>VK_LAYER_ML_Graph_Emulation:VK_LAYER_ML_Tensor_Emulation
 </pre></div>
 </div>
-<section id="cross-compilation-for-aarch64-on-x86-64">
-<h3>Cross compilation for AArch64 on x86-64<a class="headerlink" href="#cross-compilation-for-aarch64-on-x86-64" title="Link to this heading"></a></h3>
+<section id="cross-compilation-for-aarch64-on-x86-64-experimental">
+<h3>Cross compilation for AArch64 on x86-64 (Experimental)<a class="headerlink" href="#cross-compilation-for-aarch64-on-x86-64-experimental" title="Link to this heading"></a></h3>
 <p>The shader pre-compilation step requires a glslang compiler. There are three
 ways to accomplish this when cross-compiling:</p>
 <ol class="arabic simple">
