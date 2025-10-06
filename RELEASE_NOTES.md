@@ -23,4 +23,13 @@ across vendors. The SDK comprises four main components:
 - **Scenario Runner**
 - **Emulation Layer**
 
+Please refer to the single components release notes for more details.
+
+## Platform Support
+
+The following platform combinations are supported:
+
+- Linux - X86-64
+- Windows® - X86-64
+
 ---
