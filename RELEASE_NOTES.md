@@ -1,8 +1,8 @@
-## ML SDK for Vulkan® — Release Notes
+# ML SDK for Vulkan® — Release Notes
 
 ---
 
-## Version 0.7.0 – *Initial Public Release*
+## Version 2025.10.0 – *Initial Public Release*
 
 ## Overview
 
