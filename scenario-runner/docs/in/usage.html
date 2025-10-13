@@ -132,7 +132,7 @@ the SCENARIO_JSON_FILE.</p></li>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scenario-runner<span class="w"> </span>--help
 </pre></div>
 </div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: ./scenario-runner [--help] [--version] --scenario VAR [--output VAR] [--profiling-dump-path VAR] [--pipeline-caching] [--clear-pipeline-cache] [--cache-path VAR] [--fail-on-pipeline-cache-miss] [--perf-counters-dump-path VAR] [--log-level VAR] [--wait-for-key-stroke-before-run] [--dry-run] [--disable-extension VAR...]... [--enable-gpu-debug-markers] [--session-memory-dump-dir VAR] [--repeat VAR] [--capture-frame]
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: ./scenario-runner [--help] [--version] --scenario VAR [--output VAR] [--profiling-dump-path VAR] [--pipeline-caching] [--clear-pipeline-cache] [--cache-path VAR] [--fail-on-pipeline-cache-miss] [--perf-counters-dump-path VAR] [--log-level VAR] [--wait-for-key-stroke-before-run] [--dry-run] [--disable-extension VAR...]... [--enable-gpu-debug-markers] [--session-memory-dump-dir VAR] [--repeat VAR] [--capture-frame] [--pause-on-exit]
 
 Optional arguments:
   -h, --help                        shows help message and exits 
@@ -152,7 +152,8 @@ Optional arguments:
   --enable-gpu-debug-markers        enable GPU debug markers 
   --session-memory-dump-dir         path to dump the contents of the sessions ram after inference completes 
   --repeat                          Repeat count for scenario execution [nargs=0..1] [default: 1]
-  --capture-frame                   Enable RenderDoc integration for frame capturing
+  --capture-frame                   Enable RenderDoc integration for frame capturing 
+  --pause-on-exit                   pause before exiting
 </pre></div>
 </div>
 <section id="resource-memory-aliasing">
