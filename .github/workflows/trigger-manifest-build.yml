@@ -1,0 +1,19 @@
+#
+# SPDX-FileCopyrightText: Copyright 2025 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-License-Identifier: Apache-2.0
+#
+name: Trigger manifest build
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  call:
+    uses: .github/workflows/build-with-manifest.yml
+    permissions:
+      contents: read
+    with:
+      changed_repo: arm/ai-ml-sdk-for-vulkan
+      changed_sha:  ${{ github.sha }}

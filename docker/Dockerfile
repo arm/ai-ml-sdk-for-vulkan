@@ -45,6 +45,7 @@ RUN apt-get update && \
     python-is-python3 \
     sudo \
     vulkan-tools \
+    xmlstarlet \
     gcc-aarch64-linux-gnu \
     g++-aarch64-linux-gnu \
     android-sdk-platform-tools
