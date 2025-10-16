@@ -19,7 +19,7 @@ ExecuTorch can be installed via prebuilt wheels:
 
 .. code-block:: bash
 
-    pip install --upgrade --pre -f https://download.pytorch.org/whl/nightly/executorch/ "executorch==0.8.0.dev20250811"
+    pip install --upgrade --pre -f https://download.pytorch.org/whl/nightly/executorch/ "executorch==1.0.0.dev20250916"
 
 Download the ExecuTorch repo, and install the required dependencies using the script.
 
