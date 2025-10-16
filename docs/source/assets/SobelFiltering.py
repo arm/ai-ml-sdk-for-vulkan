@@ -6,8 +6,8 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from executorch.backends.arm.arm_backend import ArmCompileSpecBuilder
-from executorch.backends.arm.vgf_partitioner import VgfPartitioner
+from executorch.backends.arm.vgf import VgfCompileSpec
+from executorch.backends.arm.vgf import VgfPartitioner
 from executorch.exir import EdgeCompileConfig
 from executorch.exir import to_edge_transform_and_lower
 
@@ -53,12 +53,8 @@ example_input = torch.randn(1, 4, image_height, image_width)
 model = SobelFilteringModel().eval()
 
 # Save the VGF model
-compile_spec = (
-    ArmCompileSpecBuilder()
-    .vgf_compile_spec()
-    .dump_intermediate_artifacts_to(".")
-    .build()
-)
+compile_spec = VgfCompileSpec()
+compile_spec.dump_intermediate_artifacts_to(".")
 partitioner = VgfPartitioner(compile_spec)
 
 exported_program = torch.export.export_for_training(model, (example_input,))
