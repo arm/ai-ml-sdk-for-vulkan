@@ -6,6 +6,10 @@ name: Build ML SDK
 
 on:
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      changed_repo: { type: string, required: true }  # e.g., org/repo-a
+      changed_sha:  { type: string, required: true }  # e.g., 40-char sha
 
 permissions:
   contents: read
@@ -27,12 +31,35 @@ jobs:
           MANIFEST_URL: https://github.com/arm/ai-ml-sdk-manifest.git
           REPO_DIR:     ${{ github.workspace }}/sdk
           INSTALL_DIR:  ${{ github.workspace }}/install
+          CHANGED_REPO: ${{ inputs.changed_repo }}
+          CHANGED_SHA:  ${{ inputs.changed_sha }}
         run: |
           mkdir -p $REPO_DIR && cd $REPO_DIR
 
           # Initialize the default manifest state
           repo init -u $MANIFEST_URL
           repo sync --no-clone-bundle -j $(nproc)
+
+          if [ -n "$CHANGED_REPO" ]; then
+            # Find project path for changed repo
+            PROJECT_PATH=$(repo manifest -r | xmlstarlet sel -t -v "//project[@name='${CHANGED_REPO}']/@path")
+            if [ -z "$PROJECT_PATH" ]; then
+              echo "Could not find project path for ${CHANGED_REPO} in manifest"
+              exit 1
+            fi
+            echo "Changed project path: $PROJECT_PATH"
+
+            # Create a local manifest override to pin the changed repo to the exact SHA
+            mkdir -p .repo/local_manifests
+            cat > .repo/local_manifests/override.xml <<EOF
+          <manifest>
+            <project name="${CHANGED_REPO}" revision="${CHANGED_SHA}" remote="github"/>
+          </manifest>
+          EOF
+
+            # Re-sync the changed project to the specified SHA
+            repo sync -j $(nproc) --force-sync "$PROJECT_PATH"
+          fi
 
           echo "Build VGF-Lib"
           ./sw/vgf-lib/scripts/build.py -j $(nproc) --doc --test
