@@ -42,13 +42,14 @@ class SobelFilteringModel(nn.Module):
             self.conv_y.weight[:, :3, :, :] = y_filter
 
     def forward(self, x):
+        x = x.permute(0, 3, 1, 2)
         gx = self.conv_x(x)
         gy = self.conv_y(x)
-        return torch.sqrt(gx**2 + gy**2)
+        return torch.sqrt(gx**2 + gy**2).permute(0, 2, 3, 1)
 
 
 # Generate test input
-example_input = torch.randn(1, 4, image_height, image_width)
+example_input = torch.randn(1, image_height, image_width, 4)
 
 model = SobelFilteringModel().eval()
 
