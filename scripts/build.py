@@ -57,8 +57,10 @@ class Builder:
 
         self.doc = args.doc
         self.install = args.install
-        self.package = args.package
-        self.package_type = args.package_type
+
+        self.package_dir = args.package_dir or self.build_dir
+        self.package_tgz = "tgz" in args.package_type
+        self.package_zip = "zip" in args.package_type
 
     def setup_platform_build(self, cmake_setup_cmd):
         system = platform.system()
@@ -93,6 +95,22 @@ class Builder:
             )
             return True
 
+    def generate_cmake_package(self, generator):
+        cmake_package_cmd = [
+            "cpack",
+            "--config",
+            f"{self.build_dir}/CPackConfig.cmake",
+            "-C",
+            self.build_type,
+            "-G",
+            generator,
+            "-B",
+            self.package_dir,
+            "-D",
+            "CPACK_INCLUDE_TOPLEVEL_DIRECTORY=OFF",
+        ]
+        subprocess.run(cmake_package_cmd, check=True)
+
     def run(self):
         cmake_setup_cmd = [
             "cmake",
@@ -119,7 +137,7 @@ class Builder:
         if not self.setup_platform_build(cmake_setup_cmd):
             return 1
 
-        if self.package:
+        if self.package_tgz or self.package_zip:
             cmake_setup_cmd.append(f"-DML_SDK_GENERATE_CPACK=ON")
 
         if self.skip_llvm_patch:
@@ -159,29 +177,12 @@ class Builder:
                 ]
                 subprocess.run(cmake_install_cmd, check=True)
 
-            if self.package:
-                package_type = self.package_type or "tgz"
-                cpack_generator = package_type.upper()
-                install_dir = os.path.join(self.build_dir, "install")
+            if self.package_tgz:
+                self.generate_cmake_package("TGZ")
 
-                subprocess.run(
-                    ["cmake", "--install", self.build_dir, "--prefix", install_dir],
-                    check=True,
-                )
-                cmake_package_cmd = [
-                    "cpack",
-                    "--config",
-                    f"{self.build_dir}/CPackConfig.cmake",
-                    "-C",
-                    self.build_type,
-                    "-G",
-                    cpack_generator,
-                    "-B",
-                    self.package,
-                    "-D",
-                    "CPACK_INCLUDE_TOPLEVEL_DIRECTORY=OFF",
-                ]
-                subprocess.run(cmake_package_cmd, check=True)
+            if self.package_zip:
+                self.generate_cmake_package("ZIP")
+
         except ValueError as e:
             print(
                 f"Exception caught in documentation build script: {e}", file=sys.stderr
@@ -312,14 +313,16 @@ def parse_arguments():
         help="Install build artifacts into a provided location",
     )
     parser.add_argument(
-        "--package",
-        help="Create a package with build artifacts and store it in a provided location",
+        "--package-dir",
+        help="Specify location for packages to be created. Default path is the build directory",
         default="",
     )
     parser.add_argument(
         "--package-type",
         choices=["zip", "tgz"],
-        help="Package type",
+        action="append",
+        help="Create a package of a certain type",
+        default=[],
     )
     if argcomplete:
         argcomplete.autocomplete(parser)
