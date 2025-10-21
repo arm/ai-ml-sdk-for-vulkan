@@ -21,40 +21,47 @@ jobs:
     outputs:
       overrides_json: ${{ steps.collect.outputs.overrides_json }}
     steps:
-      - name: Install gh
-        uses: cli/cli-action@v2
-
       - name: Collect PRs by branch across org
         id: collect
         env:
-          ORG: arm
-          TOPIC: ${{ inputs.topic_branch }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ORG:       ${{ github.repository_owner }}
+          TOPIC:     ${{ inputs.topic_branch }}
+          GH_TOKEN:  ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Find open PRs whose headRefName matches the topic branch across the org
-          JSON=$(gh api graphql -f query='
-            query($org:String!, $branch:String!, $after:String) {
-              search(query: $org + " is:pr is:open head:" + $branch, type: ISSUE, first: 100, after: $after) {
-                issueCount
-                pageInfo { hasNextPage endCursor }
-                edges {
-                  node {
-                    ... on PullRequest {
-                      repository { nameWithOwner }
-                      headRefName
-                      headRefOid
+          # Construct the full GitHub search query string
+          QUERY_STRING="org:$ORG is:pr is:open head:$TOPIC"
+
+          # Create GraphQL payload with the query string embedded directly
+          QUERY='
+          {
+            search(query: "'"$QUERY_STRING"'", type: ISSUE, first: 100) {
+              issueCount
+              pageInfo {
+                hasNextPage
+                endCursor
+              }
+              edges {
+                node {
+                  ... on PullRequest {
+                    repository {
+                      nameWithOwner
                     }
+                    headRefName
+                    headRefOid
                   }
                 }
               }
-            }' -F org:"org:${ORG}" -F branch:"${TOPIC}")
+            }
+          }'
+
+          # Run the query via gh api
+          JSON=$(gh api graphql -f query="$QUERY")
 
           # Build a repo->sha map from results
           echo "$JSON" | jq -r '
             .data.search.edges
-            | map({repo: .node.repository.nameWithOwner, sha: .node.headRefOid})
-            | from_entries? as $noop
-            | reduce ( .[] ) as $i ({}; .[$i.repo]=$i.sha)
+            | map({key: .node.repository.nameWithOwner, value: .node.headRefOid})
+            | from_entries
           ' > overrides.json
 
           # If jq logic above returns null for empty, make an empty object
