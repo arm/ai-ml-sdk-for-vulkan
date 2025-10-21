@@ -5,20 +5,58 @@
 name: Build and Publish Linux Docker Image
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
     paths:
       - 'docker/Dockerfile'
-    workflow_dispatch:
+      - '.github/workflows/scripts/ci_build.sh'
+      - '.github/workflows/publish-linux-docker-image.yml'
+  schedule:
+    - cron: '0 3 * * 1' # every Monday at 03:00 UTC to refresh weekly cache
+
+concurrency:
+    group: ${{ github.workflow }}
+    cancel-in-progress: false
 
 jobs:
   docker-build:
-    runs-on: ubuntu-24.04
+    runs-on: ${{ matrix.platform }}
+    strategy:
+      matrix:
+        platform: [ ubuntu-24.04, ubuntu-24.04-arm ]
+      fail-fast: false
+
     permissions:
       contents: read
       packages: write
     steps:
       - uses: actions/checkout@v4
+
+      - name: Compute image tag, platform, and cache scope
+        id: meta
+        shell: bash
+        run: |
+          arch=$(uname -m)
+          case "$arch" in
+            x86_64) arch_tag="amd64"; plat="linux/amd64" ;;
+            aarch64) arch_tag="arm64"; plat="linux/arm64" ;;
+            *) arch_tag="$arch"; plat="linux/$arch_tag" ;;
+          esac
+          echo "Architecture detected: $arch"
+          echo "arch_tag=$arch_tag" >> $GITHUB_ENV
+          echo "platform=$plat" >> $GITHUB_ENV
+
+          echo "tag=ghcr.io/${{ github.repository_owner }}/ml-sdk-linux-${arch_tag}:latest" >> $GITHUB_ENV
+    
+          # per-arch cache scope (for gha cache)
+          echo "cache_scope=ml-sdk-linux-${arch_tag}" >> $GITHUB_ENV
+    
+          # separate registry cache tag (DO NOT use the image tag here)
+          echo "cache_ref=ghcr.io/${{ github.repository_owner }}/ml-sdk-linux-${arch_tag}:buildcache" >> $GITHUB_ENV
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
@@ -27,10 +65,22 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build
-        run: |
-          cd docker
-          docker build --tag ghcr.io/arm/ml-sdk-linux-amd64:latest --file Dockerfile ..
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/Dockerfile
+          tags: ${{ env.tag }}
+          push: true
+          platforms: ${{ env.platform }}
 
-      - name: Push
-        run: docker push ghcr.io/arm/ml-sdk-linux-amd64:latest
+          # 1) Share GHA cache across runs with a stable per-arch scope
+          # 2) Also store cache in GHCR under a dedicated cache tag
+          # 3) Disable cache for weekly cron builds
+          cache-from: |
+            ${{ github.event_name == 'schedule' && '' || format('type=gha,scope={0}', env.cache_scope) }}
+            ${{ github.event_name == 'schedule' && '' || format('type=registry,ref={0}', env.cache_ref) }}
+
+          cache-to: |
+            ${{ github.event_name == 'schedule' && '' || format('type=gha,mode=max,scope={0}', env.cache_scope) }}
+            ${{ github.event_name == 'schedule' && '' || format('type=registry,ref={0},mode=max', env.cache_ref) }}

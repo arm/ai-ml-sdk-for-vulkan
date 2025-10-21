@@ -6,10 +6,15 @@ name: Build ML SDK
 
 on:
   workflow_dispatch:
+    inputs:
+      changed_repo: { type: string, required: false, default: "", description: "org/repo-a" }
+      changed_sha:  { type: string, required: false, default: "", description: "40-char sha" }
+      clean:        { type: boolean, required: false, default: false , description: "without cache" }
   workflow_call:
     inputs:
-      changed_repo: { type: string, required: true }  # e.g., org/repo-a
-      changed_sha:  { type: string, required: true }  # e.g., 40-char sha
+      changed_repo: { type: string, required: true, description: "org/repo-a" }
+      changed_sha:  { type: string, required: true, description: "40-char sha" }
+      clean:        { type: boolean, required: false, default: false , description: "without cache" }
 
 permissions:
   contents: read
@@ -17,64 +22,36 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.platform }}
+    strategy:
+      matrix:
+        include:
+          - platform: ubuntu-24.04
+            arch_tag: amd64
+          - platform: ubuntu-24.04-arm
+            arch_tag: arm64
+      fail-fast: false
+
     container:
-      image: ghcr.io/arm/ml-sdk-linux-amd64:latest
+      image: ghcr.io/${{ github.repository_owner }}/ml-sdk-linux-${{ matrix.arch_tag }}:latest
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
       options: --user root
 
+    env:
+      REPO_DIR:    /home/mlsdkuser/src
+      INSTALL_DIR: /home/mlsdkuser/install
+      MANIFEST_URL: https://github.com/${{ github.repository_owner }}/ai-ml-sdk-manifest.git
+      CHANGED_REPO: ${{ inputs.changed_repo }}
+      CHANGED_SHA: ${{ inputs.changed_sha }}
+
     steps:
-      - name: Clone repositories and build
-        env:
-          MANIFEST_URL: https://github.com/arm/ai-ml-sdk-manifest.git
-          REPO_DIR:     ${{ github.workspace }}/sdk
-          INSTALL_DIR:  ${{ github.workspace }}/install
-          CHANGED_REPO: ${{ inputs.changed_repo }}
-          CHANGED_SHA:  ${{ inputs.changed_sha }}
+      - name: clean
+        if: ${{ inputs.clean == true }}
         run: |
-          mkdir -p $REPO_DIR && cd $REPO_DIR
+            rm -rf $REPO_DIR
+            rm -rf $INSTALL_DIR
 
-          # Initialize the default manifest state
-          repo init -u $MANIFEST_URL
-          repo sync --no-clone-bundle -j $(nproc)
-
-          if [ -n "$CHANGED_REPO" ]; then
-            # Find project path for changed repo
-            PROJECT_PATH=$(repo manifest -r | xmlstarlet sel -t -v "//project[@name='${CHANGED_REPO}']/@path")
-            if [ -z "$PROJECT_PATH" ]; then
-              echo "Could not find project path for ${CHANGED_REPO} in manifest"
-              exit 1
-            fi
-            echo "Changed project path: $PROJECT_PATH"
-
-            # Create a local manifest override to pin the changed repo to the exact SHA
-            mkdir -p .repo/local_manifests
-            cat > .repo/local_manifests/override.xml <<EOF
-          <manifest>
-            <project name="${CHANGED_REPO}" revision="${CHANGED_SHA}" remote="github"/>
-          </manifest>
-          EOF
-
-            # Re-sync the changed project to the specified SHA
-            repo sync -j $(nproc) --force-sync "$PROJECT_PATH"
-          fi
-
-          echo "Build VGF-Lib"
-          ./sw/vgf-lib/scripts/build.py -j $(nproc) --doc --test
-
-          echo "Build Model Converter"
-          ./sw/model-converter/scripts/build.py -j $(nproc) --doc --test
-
-          echo "Build Emulation Layer"
-          export VK_LAYER_PATH=$INSTALL_DIR/share/vulkan/explicit_layer.d
-          export LD_LIBRARY_PATH=$INSTALL_DIR/lib
-          ./sw/emulation-layer/scripts/build.py -j $(nproc) --doc --test --install $INSTALL_DIR
-
-          echo "Build Scenario Runner"
-          export VK_INSTANCE_LAYERS=VK_LAYER_ML_Graph_Emulation:VK_LAYER_ML_Tensor_Emulation
-          ./sw/scenario-runner/scripts/build.py -j $(nproc) --doc --test
-
-          echo "Build SDK Root"
-          ./scripts/build.py -j $(nproc) --doc
+      - name: update repositories and build
+        run: /home/mlsdkuser/ci_build.sh
