@@ -11,9 +11,10 @@ on:
 
 jobs:
   call:
-    uses: .github/workflows/build-with-manifest.yml
+    uses: ./.github/workflows/build-with-manifest.yml
     permissions:
       contents: read
+      pull-requests: write
     with:
       changed_repo: arm/ai-ml-sdk-for-vulkan
       changed_sha:  ${{ github.sha }}
