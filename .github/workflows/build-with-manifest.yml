@@ -40,7 +40,7 @@ jobs:
       options: --user root
 
     env:
-      REPO_DIR:    /home/mlsdkuser/src
+      REPO_DIR:    /home/mlsdkuser/sdk
       INSTALL_DIR: /home/mlsdkuser/install
       MANIFEST_URL: https://github.com/${{ github.repository_owner }}/ai-ml-sdk-manifest.git
       CHANGED_REPO: ${{ inputs.changed_repo }}

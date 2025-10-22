@@ -100,7 +100,7 @@ USER $user
 
 ARG REPO_OWNER=arm
 ARG MANIFEST_URL=https://github.com/$REPO_OWNER/ai-ml-sdk-manifest.git
-ARG REPO_DIR=./src
+ARG REPO_DIR=./sdk
 ARG INSTALL_DIR=./install
 ARG CHANGED_REPO
 ARG CHANGED_SHA
