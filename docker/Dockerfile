@@ -92,4 +92,13 @@ WORKDIR /home/$user
 RUN chown -R $user:$user .
 
 USER $user
+
+# Configure git to avoid warnings and issues with permissions
+RUN git config --global user.name "github-actions[bot]" && \
+    git config --global user.email "github-actions[bot]@users.noreply.github.com" && \
+    git config --global color.ui false && \
+    git config --global --add safe.directory '*'
+
+COPY --chown=$user --chmod=755 ../.github/workflows/scripts/ci_build.sh ./
+
 CMD ["/bin/bash"]
