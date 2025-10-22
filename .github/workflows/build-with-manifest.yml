@@ -6,15 +6,10 @@ name: Build ML SDK
 
 on:
   workflow_dispatch:
-    inputs:
-      changed_repo: { type: string, required: false, default: "", description: "org/repo-a" }
-      changed_sha:  { type: string, required: false, default: "", description: "40-char sha" }
-      clean:        { type: boolean, required: false, default: false , description: "without cache" }
   workflow_call:
     inputs:
-      changed_repo: { type: string, required: true, description: "org/repo-a" }
-      changed_sha:  { type: string, required: true, description: "40-char sha" }
-      clean:        { type: boolean, required: false, default: false , description: "without cache" }
+      changed_repo: { type: string, required: true }  # e.g., org/repo-a
+      changed_sha:  { type: string, required: true }  # e.g., 40-char sha
 
 permissions:
   contents: read
@@ -30,19 +25,12 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
       options: --user root
 
-    env:
-      REPO_DIR:    /home/mlsdkuser/sdk
-      INSTALL_DIR: /home/mlsdkuser/install
-      MANIFEST_URL: https://github.com/${{ github.repository_owner }}/ai-ml-sdk-manifest.git
-      CHANGED_REPO: ${{ inputs.changed_repo }}
-      CHANGED_SHA: ${{ inputs.changed_sha }}
-
     steps:
-      - name: clean
-        if: ${{ inputs.clean == true }}
-        run: |
-            rm -rf $REPO_DIR
-            rm -rf $INSTALL_DIR
-
-      - name: Update repositories and build
+      - name: Clone repositories and build
+        env:
+          MANIFEST_URL: https://github.com/${{ github.repository_owner }}/ai-ml-sdk-manifest.git
+          REPO_DIR:     ${{ github.workspace }}/sdk
+          INSTALL_DIR:  ${{ github.workspace }}/install
+          CHANGED_REPO: ${{ inputs.changed_repo }}
+          CHANGED_SHA:  ${{ inputs.changed_sha }}
         run: /home/mlsdkuser/ci_build.sh

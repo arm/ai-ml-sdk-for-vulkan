@@ -23,12 +23,11 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
       options: --user root
 
-    env:
-      REPO_DIR: /home/mlsdkuser/sdk
-      INSTALL_DIR: /home/mlsdkuser/install
-      MANIFEST_URL: https://github.com/${{ github.repository_owner }}/ai-ml-sdk-manifest.git
-      OVERRIDES: ${{ inputs.overrides_json }}
-
     steps:
-      - name: update repositories and build
+      - name: Clone repositories and build
+        env:
+          MANIFEST_URL: https://github.com/${{ github.repository_owner }}/ai-ml-sdk-manifest.git
+          REPO_DIR:     ${{ github.workspace }}/sdk
+          INSTALL_DIR:  ${{ github.workspace }}/install
+          OVERRIDES:    ${{ inputs.overrides_json }}
         run: /home/mlsdkuser/ci_build.sh
