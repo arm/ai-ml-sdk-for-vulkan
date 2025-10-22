@@ -137,7 +137,7 @@ class Builder:
         if not self.setup_platform_build(cmake_setup_cmd):
             return 1
 
-        if self.package_tgz or self.package_zip:
+        if self.install or self.package_tgz or self.package_zip:
             cmake_setup_cmd.append(f"-DML_SDK_GENERATE_CPACK=ON")
 
         if self.skip_llvm_patch:
