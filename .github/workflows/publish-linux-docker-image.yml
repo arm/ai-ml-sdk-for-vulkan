@@ -58,11 +58,10 @@ jobs:
 
           # 1) Share GHA cache across runs with a stable per-arch scope
           # 2) Also store cache in GHCR under a dedicated cache tag
-          # 3) Disable cache for weekly cron builds
           cache-from: |
-            ${{ github.event_name == 'schedule' && '' || format('type=gha,scope={0}', env.cache_scope) }}
-            ${{ github.event_name == 'schedule' && '' || format('type=registry,ref={0}', env.cache_ref) }}
+            ${{ format('type=gha,scope={0}', env.cache_scope) }}
+            ${{ format('type=registry,ref={0}', env.cache_ref) }}
 
           cache-to: |
-            ${{ github.event_name == 'schedule' && '' || format('type=gha,mode=max,scope={0}', env.cache_scope) }}
-            ${{ github.event_name == 'schedule' && '' || format('type=registry,ref={0},mode=max', env.cache_ref) }}
+            ${{ format('type=gha,mode=max,scope={0}', env.cache_scope) }}
+            ${{ format('type=registry,ref={0},mode=max', env.cache_ref) }}
