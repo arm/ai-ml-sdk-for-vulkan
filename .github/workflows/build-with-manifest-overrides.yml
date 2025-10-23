@@ -39,7 +39,10 @@ jobs:
 
           mkdir -p .repo/local_manifests
           echo '<manifest>' > .repo/local_manifests/override.xml
-          echo "$OVERRIDES" | jq -r 'to_entries[] | "<project name=\"\(.key)\" remote="github" revision=\"\(.value)\"/>"' >> .repo/local_manifests/override.xml
+          echo "$OVERRIDES" | jq -r '
+            to_entries[] |
+            "<project name=\"\(.key)\" remote=\"github\" revision=\"\(.value)\"/>"
+          ' >> .repo/local_manifests/override.xml
           echo '</manifest>' >> .repo/local_manifests/override.xml
 
           # Resolve each project's path from the active manifest and re-sync it
