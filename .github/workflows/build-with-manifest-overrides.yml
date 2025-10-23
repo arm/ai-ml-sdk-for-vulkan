@@ -38,20 +38,25 @@ jobs:
           repo sync --no-clone-bundle -j $(nproc)
 
           mkdir -p .repo/local_manifests
-          echo '<manifest>' > .repo/local_manifests/override.xml
-          echo "$OVERRIDES" | jq -r '
-            to_entries[] |
-            "<project name=\"\(.key)\" remote=\"github\" revision=\"\(.value)\"/>"
-          ' >> .repo/local_manifests/override.xml
-          echo '</manifest>' >> .repo/local_manifests/override.xml
+          MANIFEST_XML=$(repo manifest -r)
 
           # Resolve each project's path from the active manifest and re-sync it
           for NAME in $(echo "$OVERRIDES" | jq -r 'keys[]'); do
-            PROJECT_PATH=$(repo manifest -r | xmlstarlet sel -t -v "//project[@name='${NAME}']/@path")
+            REVISION=$(echo "$OVERRIDES" | jq -r --arg name "$NAME" '.[$name]')
+
+            PROJECT_PATH=$(echo "$MANIFEST_XML" | xmlstarlet sel -t -v "//project[@name='${NAME}']/@path")
             if [ -z "$PROJECT_PATH" ]; then
               echo "ERROR: project path for $NAME not found in manifest"
               exit 1
             fi
+
+            rm -f .repo/local_manifests/override.xml
+            cat > .repo/local_manifests/override.xml <<EOF
+          <manifest>
+            <project name="${NAME}" revision="${REVISION}" remote="github"/>
+          </manifest>
+          EOF
+
             echo "Syncing $NAME ($PROJECT_PATH)"
             repo sync -j"$(nproc)" --force-sync "$PROJECT_PATH"
           done
