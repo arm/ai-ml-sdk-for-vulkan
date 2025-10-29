@@ -52,15 +52,6 @@ git --version # Ensure you are using the Git for Windows, for example 2.50.1.win
 git clone <git-repo-tool-url>
 python <path-to-git-repo>/git-repo/repo init -u <manifest-url> -g all
 python <path-to-git-repo>/git-repo/repo sync --no-clone-bundle
-```
-
-Due to a known issue in `git-repo`, nested submodules do not always update as
-part of `repo sync` and need to be manually updated, for example:
-
-```bash
-cd dependencies/tosa_mlir_translator
-git submodule update --init --recursive
-```
 
 After the sync command completes successfully, you can find the individual
 components in `<repo_root>/sw/`. You can also find all the required dependencies
@@ -105,8 +96,7 @@ The following dependencies are also needed:
 
 - [Argument Parser for Modern C++](https://github.com/p-ranav/argparse).
 - [LLVM](https://github.com/llvm/llvm-project).
-- [TOSA Serialization Library](https://gitlab.arm.com/tosa/tosa-serialization).
-- [TOSA MLIR Translator](https://gitlab.arm.com/tosa/tosa-mlir-translator).
+- [TOSA Tools](https://gitlab.arm.com/tosa/tosa-tools).
 - [JSON for Modern C++](https://github.com/nlohmann/json).
 - [pybind11](https://github.com/pybind/pybind11).
 - [GoogleTest](https://github.com/google/googletest). Optional, for testing.

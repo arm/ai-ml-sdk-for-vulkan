@@ -48,7 +48,7 @@ class Builder:
         self.argparse = args.argparse
         self.flatbuffers = args.flatbuffers
         self.json = args.json
-        self.tosa_mlir_translator = args.tosa_mlir_translator
+        self.tosa_tools = args.tosa_tools
         self.llvm = args.external_llvm
         self.skip_llvm_patch = args.skip_llvm_patch
         self.threads = args.threads
@@ -127,7 +127,7 @@ class Builder:
             f"-DSPIRV_CROSS_PATH={self.spirv_cross_path}",
             f"-DVULKAN_HEADERS_PATH={self.vulkan_headers_path}",
             f"-DLLVM_PATH={self.llvm}",
-            f"-DTOSA_MLIR_TRANSLATOR_PATH={self.tosa_mlir_translator}",
+            f"-DTOSA_TOOLS_PATH={self.tosa_tools}",
             f"-DML_SDK_MODEL_CONVERTER_PATH={self.model_converter}",
             f"-DML_SDK_SCENARIO_RUNNER_PATH={self.scenario_runner}",
             f"-DML_SDK_VGF_LIB_PATH={self.vgf_lib}",
@@ -283,9 +283,9 @@ def parse_arguments():
         default=f"{DEPENDENCIES_DIR / 'json'}",
     )
     parser.add_argument(
-        "--tosa-mlir-translator",
+        "--tosa-tools",
         help="Path to TOSA MLIR Translator",
-        default=f"{DEPENDENCIES_DIR / 'tosa_mlir_translator'}",
+        default=f"{DEPENDENCIES_DIR / 'tosa-tools'}",
     )
     parser.add_argument(
         "--external-llvm",

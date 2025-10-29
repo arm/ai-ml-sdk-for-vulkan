@@ -32,7 +32,7 @@ set(CATCH2_PATH                      "${ML_SDK_FOR_VULKAN_PATH}/dependencies/Cat
 set(FLATBUFFERS_PATH                 "${ML_SDK_FOR_VULKAN_PATH}/dependencies/flatbuffers" CACHE PATH "Path to FlatBuffers")
 set(JSON_PATH                        "${ML_SDK_FOR_VULKAN_PATH}/dependencies/json" CACHE PATH "Path to JSON")
 set(LLVM_PATH                        "${ML_SDK_FOR_VULKAN_PATH}/dependencies/llvm-project" CACHE PATH "Path to LLVM")
-set(TOSA_MLIR_TRANSLATOR_PATH        "${ML_SDK_FOR_VULKAN_PATH}/dependencies/tosa_mlir_translator" CACHE PATH "Path to TOSA MLIR Translator")
+set(TOSA_TOOLS_PATH                  "${ML_SDK_FOR_VULKAN_PATH}/dependencies/tosa-tools" CACHE PATH "Path to TOSA Tools")
 
 # Khronos dependencies
 set(GLSLANG_PATH                     "${ML_SDK_FOR_VULKAN_PATH}/dependencies/glslang" CACHE PATH "Path to GLSLang")
