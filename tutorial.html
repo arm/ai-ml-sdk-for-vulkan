@@ -120,7 +120,7 @@ to demonstrate each step of the end-to-end workflow.</p>
 <p>Here we are installing from a developmental wheel.
 In the future, replace it with an official release.</p>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>--pre<span class="w"> </span>-f<span class="w"> </span>https://download.pytorch.org/whl/nightly/executorch/<span class="w"> </span><span class="s2">&quot;executorch==0.8.0.dev20250811&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>--pre<span class="w"> </span>-f<span class="w"> </span>https://download.pytorch.org/whl/nightly/executorch/<span class="w"> </span><span class="s2">&quot;executorch==1.0.0.dev20250916&quot;</span>
 </pre></div>
 </div>
 <p>Download the ExecuTorch repo, and install the required dependencies using the script.</p>
@@ -158,8 +158,8 @@ which<span class="w"> </span>model-converter
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">executorch.backends.arm.arm_backend</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArmCompileSpecBuilder</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">executorch.backends.arm.vgf_partitioner</span><span class="w"> </span><span class="kn">import</span> <span class="n">VgfPartitioner</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">executorch.backends.arm.vgf</span><span class="w"> </span><span class="kn">import</span> <span class="n">VgfCompileSpec</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">executorch.backends.arm.vgf</span><span class="w"> </span><span class="kn">import</span> <span class="n">VgfPartitioner</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">executorch.exir</span><span class="w"> </span><span class="kn">import</span> <span class="n">EdgeCompileConfig</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">executorch.exir</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_edge_transform_and_lower</span>
 
@@ -182,12 +182,9 @@ which<span class="w"> </span>model-converter
 <span class="n">model</span> <span class="o">=</span> <span class="n">MaxPoolModel</span><span class="p">()</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
 
 <span class="c1"># Save the VGF model</span>
-<span class="n">compile_spec</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">ArmCompileSpecBuilder</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">vgf_compile_spec</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">dump_intermediate_artifacts_to</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">build</span><span class="p">()</span>
-<span class="p">)</span>
+<span class="n">compile_spec</span> <span class="o">=</span> <span class="n">VgfCompileSpec</span><span class="p">()</span>
+<span class="n">compile_spec</span><span class="o">.</span><span class="n">dump_intermediate_artifacts_to</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+
 <span class="n">partitioner</span> <span class="o">=</span> <span class="n">VgfPartitioner</span><span class="p">(</span><span class="n">compile_spec</span><span class="p">)</span>
 
 <span class="n">exported_program</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export_for_training</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="p">(</span><span class="n">example_input</span><span class="p">,))</span>
