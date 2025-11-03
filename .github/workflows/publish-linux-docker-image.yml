@@ -35,12 +35,12 @@ jobs:
       - name: Compute image tag, and cache scope
         id: meta
         shell: bash
-        run: |          
+        run: |
           echo "tag=ghcr.io/${{ github.repository_owner }}/ml-sdk-linux-amd64:latest" >> $GITHUB_ENV
-          
+
           # cache scope (for gha cache)
           echo "cache_scope=ml-sdk-linux-amd64" >> $GITHUB_ENV
-          
+
           # separate registry cache tag (DO NOT use the image tag here)
           echo "cache_ref=ghcr.io/${{ github.repository_owner }}/ml-sdk-linux-amd64:buildcache" >> $GITHUB_ENV
 
