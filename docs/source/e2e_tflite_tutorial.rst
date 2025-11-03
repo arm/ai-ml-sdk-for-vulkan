@@ -36,7 +36,7 @@ Run the following command to convert the SESR model from TFLite to TOSA in the f
     tosa-converter-for-tflite ./ML-zoo/models/superresolution/SESR/tflite_int8/SESR_1080p_to_4K_withD2S_full_int8.tflite \
         -o SESR_1080p_to_4K_withD2S_full_int8.mlirbc
 
-4. Generate the VGF File and Scenario Template:
+4. Generate the VGF File:
 
 Similarly as for deploying the PyTorch files (:ref:`Converting and deploying a PyTorch model tutorial`),
 to generate the VGF file and Scenario Template, use the TOSA MLIR bytecode file:
@@ -45,24 +45,12 @@ to generate the VGF file and Scenario Template, use the TOSA MLIR bytecode file:
 
     model-converter --input SESR_1080p_to_4K_withD2S_full_int8.mlirbc --output SESR_1080p_to_4K_withD2S_full_int8.vgf
 
-.. code-block:: bash
+3. Run the VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®
 
-    vgf_dump --input SESR_1080p_to_4K_withD2S_full_int8.vgf --output scenario.json --scenario-template
-
-5. Modify the Scenario Template:
-
-    a. Replace :code:`TEMPLATE_PATH_TENSOR_INPUT_0` with :code:`ML-zoo/models/superresolution/SESR/tflite_int8/testing_input/net_input/0.npy`.
-
-    b. Replace :code:`TEMPLATE_PATH_TENSOR_OUTPUT_0` with :code:`output.npy`.
-
-6. Run the ML SDK Scenario Runner on the ML Emulation Layer for Vulkan®:
-
-.. code-block:: bash
-
-    scenario-runner --scenario scenario.json
+To execute the VGF file refer to :ref:`How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®`.
 
 After the run, the contents of :code:`ML-zoo/models/superresolution/SESR/tflite_int8/testing_output/net_output/0.npy`
-and :code:`output.npy` should be identical.
+and :code:`output-0.npy` should be identical.
 
 To verify the output matches the reference output, save the following script into :code:`compare_numpy.py`:
 
@@ -73,6 +61,6 @@ Then run the following command:
 
 .. code-block:: bash
 
-    python3 compare_numpy.py ML-zoo/models/superresolution/SESR/tflite_int8/testing_output/net_output/0.npy output.npy
+    python3 compare_numpy.py ML-zoo/models/superresolution/SESR/tflite_int8/testing_output/net_output/0.npy output-0.npy
 
 An exit status of 0 indicates that the contents of the two files are identical.
