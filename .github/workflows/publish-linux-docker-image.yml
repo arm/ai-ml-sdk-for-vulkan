@@ -50,12 +50,12 @@ jobs:
           echo "Architecture detected: $arch"
           echo "arch_tag=$arch_tag" >> $GITHUB_ENV
           echo "platform=$plat" >> $GITHUB_ENV
-          
+
           echo "tag=ghcr.io/${{ github.repository_owner }}/ml-sdk-linux-${arch_tag}:latest" >> $GITHUB_ENV
-          
+
           # per-arch cache scope (for gha cache)
           echo "cache_scope=ml-sdk-linux-${arch_tag}" >> $GITHUB_ENV
-          
+
           # separate registry cache tag (DO NOT use the image tag here)
           echo "cache_ref=ghcr.io/${{ github.repository_owner }}/ml-sdk-linux-${arch_tag}:buildcache" >> $GITHUB_ENV
 
