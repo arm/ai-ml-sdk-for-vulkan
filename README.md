@@ -171,12 +171,8 @@ For more command line options, consult the program help:
 
 ## License
 
-[Apache-2.0](LICENSES/Apache-2.0.txt)
-
-## Security
-
-If you believe you have discovered a security issue please refer to the
-[Security Section](SECURITY.md)
+The ML SDK for Vulkan® is distributed under the software licenses in LICENSES
+directory.
 
 ## Trademark notice
 
