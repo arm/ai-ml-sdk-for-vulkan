@@ -10,8 +10,8 @@ Vulkan® components, utilities, and documentation.
 
 ## Cloning the repository
 
-To clone the ML SDK for Vulkan® repository, you can use the Repo tool. The tool
-is [here](https://gerrit.googlesource.com/git-repo). Cloning using Repo tool
+To clone the ML SDK for Vulkan® repository, you can use the
+[Repo tool](https://gerrit.googlesource.com/git-repo). Cloning using Repo tool
 ensures all components and dependencies are fetched and in a suitable default
 location on the file system. To initialize the repo structure for the entire ML
 SDK for Vulkan®, including all components, run:
