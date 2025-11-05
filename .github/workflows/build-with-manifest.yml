@@ -17,9 +17,18 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.platform }}
+    strategy:
+      matrix:
+        include:
+          - platform: ubuntu-24.04
+            arch_tag: amd64
+          - platform: ubuntu-24.04-arm
+            arch_tag: arm64
+      fail-fast: false
+
     container:
-      image: ghcr.io/${{ github.repository_owner }}/ml-sdk-linux-amd64:latest
+      image: ghcr.io/${{ github.repository_owner }}/ml-sdk-linux-${{ matrix.arch_tag }}:latest
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
