@@ -132,6 +132,8 @@ class Builder:
             f"-DML_SDK_SCENARIO_RUNNER_PATH={self.scenario_runner}",
             f"-DML_SDK_VGF_LIB_PATH={self.vgf_lib}",
             f"-DML_SDK_EMULATION_LAYER_PATH={self.emulation_layer}",
+            "-G",
+            "Ninja",
         ]
         if not self.setup_platform_build(cmake_setup_cmd):
             return 1

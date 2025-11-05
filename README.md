@@ -99,6 +99,7 @@ The build system must have:
   `tooling-requirements.txt`.
 - Flatbuffers flatc compiler.
 - Doxygen 1.9.1 or later. (When building documentation)
+- Ninja 1.10 or later.
 
 The following dependencies are also needed:
 
