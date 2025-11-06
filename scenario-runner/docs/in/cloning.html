@@ -48,9 +48,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../cloning.html">Cloning the repository</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../building.html">Building the ML SDK for Vulkan®</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tensor_aliasing_tutorial.html">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../e2e_pytorch_tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../e2e_tflite_tutorial.html">Converting and deploying a TFLite model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../e2e_onnx_tutorial.html">Converting and deploying an ONNX model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../vgf_run_tutorial.html">How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
@@ -120,8 +122,7 @@
 regular git clone commands. However, for better management of dependencies and
 to ensure everything is placed in the appropriate directories, we recommend
 using the <code class="docutils literal notranslate"><span class="pre">git-repo</span></code> tool to clone the repository as part of the ML SDK for
-Vulkan® suite. The tool is available
-<a class="reference external" href="https://gerrit.googlesource.com/git-repo">here</a>.</p>
+Vulkan® suite. <a class="reference external" href="https://gerrit.googlesource.com/git-repo">Repo tool</a>.</p>
 <p>For a minimal build and to initialize only the Scenario Runner and its
 dependencies, run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>repo<span class="w"> </span>init<span class="w"> </span>-u<span class="w"> </span>https://github.com/arm/ai-ml-sdk-manifest<span class="w"> </span>-g<span class="w"> </span>scenario-runner

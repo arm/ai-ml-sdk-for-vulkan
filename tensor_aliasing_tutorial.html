@@ -20,8 +20,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Converting and deploying a TFLite model tutorial" href="e2e_tflite_tutorial.html" />
-    <link rel="prev" title="Converting and deploying a PyTorch model tutorial" href="tutorial.html" /> 
+    <link rel="next" title="Converting and deploying a PyTorch model tutorial" href="e2e_pytorch_tutorial.html" />
+    <link rel="prev" title="Building the ML SDK for Vulkan®" href="building.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,9 +48,11 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">Building the ML SDK for Vulkan®</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e2e_pytorch_tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="e2e_tflite_tutorial.html">Converting and deploying a TFLite model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e2e_onnx_tutorial.html">Converting and deploying an ONNX model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vgf_run_tutorial.html">How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
@@ -103,7 +105,7 @@
              
   <section id="tensor-aliasing-tutorial">
 <h1>Tensor aliasing tutorial<a class="headerlink" href="#tensor-aliasing-tutorial" title="Link to this heading"></a></h1>
-<p>This tutorial builds on the previous <a class="reference internal" href="tutorial.html#converting-and-deploying-a-pytorch-model-tutorial"><span class="std std-ref">Converting and deploying a PyTorch model tutorial</span></a>. The tutorial
+<p>This tutorial builds on the previous <a class="reference internal" href="e2e_pytorch_tutorial.html#converting-and-deploying-a-pytorch-model-tutorial"><span class="std std-ref">Converting and deploying a PyTorch model tutorial</span></a>. The tutorial
 describes tensor aliasing by showing you how to implement edge detection with Sobel filtering. This
 tutorial also demonstrates how to implement image filtering using tensor operations.</p>
 <a class="reference internal image-reference" href="_images/PoolTable.jpg"><img alt="_images/PoolTable.jpg" src="_images/PoolTable.jpg" style="width: 400px;" />
@@ -279,7 +281,7 @@ based on the input image in the previous step.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>For more information about this command, see
-<a class="reference internal" href="tutorial.html#converting-and-deploying-a-pytorch-model-tutorial"><span class="std std-ref">Converting and deploying a PyTorch model tutorial</span></a>.</p>
+<a class="reference internal" href="e2e_pytorch_tutorial.html#converting-and-deploying-a-pytorch-model-tutorial"><span class="std std-ref">Converting and deploying a PyTorch model tutorial</span></a>.</p>
 </div>
 <ol class="arabic" start="4">
 <li><p>Modify the Scenario Template:</p>
@@ -361,8 +363,8 @@ of this tensor resource should look like the following code:</p></li>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="tutorial.html" class="btn btn-neutral float-left" title="Converting and deploying a PyTorch model tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="e2e_tflite_tutorial.html" class="btn btn-neutral float-right" title="Converting and deploying a TFLite model tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="building.html" class="btn btn-neutral float-left" title="Building the ML SDK for Vulkan®" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="e2e_pytorch_tutorial.html" class="btn btn-neutral float-right" title="Converting and deploying a PyTorch model tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

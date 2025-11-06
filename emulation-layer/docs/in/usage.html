@@ -48,9 +48,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../cloning.html">Cloning the repository</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../building.html">Building the ML SDK for Vulkan®</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tensor_aliasing_tutorial.html">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../e2e_pytorch_tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../e2e_tflite_tutorial.html">Converting and deploying a TFLite model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../e2e_onnx_tutorial.html">Converting and deploying an ONNX model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../vgf_run_tutorial.html">How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
@@ -235,9 +237,9 @@ the shaders would be compiled at runtime.</p></li>
 </ol>
 <p>An example build flow using the option 1 would be:</p>
 <p>First, build the glslang standalone under <code class="docutils literal notranslate"><span class="pre">&lt;repo_root&gt;/dependencies/glslang/</span></code>:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span>-DENABLE_GLSLANG_BINARIES<span class="o">=</span>ON<span class="w"> </span>-DENABLE_OPT<span class="o">=</span>OFF<span class="w"> </span>-DBUILD_SHARED_LIBS<span class="o">=</span>OFF
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span>-DENABLE_GLSLANG_BINARIES<span class="o">=</span>ON<span class="w"> </span>-DENABLE_OPT<span class="o">=</span>OFF<span class="w"> </span>-DBUILD_SHARED_LIBS<span class="o">=</span>OFF
 
-$<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--target<span class="w"> </span>glslang-standalone
+cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--target<span class="w"> </span>glslang-standalone
 </pre></div>
 </div>
 <p>After building, the binary will be at
@@ -273,31 +275,29 @@ for related kernel messages with the following command:</p>
 </div>
 <p>To change the timeout, follow these steps (applies if your system uses GRUB as
 the bootloader):</p>
-<ol class="arabic simple">
-<li><p>Edit the GRUB configuration file:</p></li>
-</ol>
+<ol class="arabic">
+<li><p>Edit the GRUB configuration file:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/default/grub
 </pre></div>
 </div>
-<ol class="arabic simple" start="2">
+</li>
 <li><p>Add or modify the <code class="docutils literal notranslate"><span class="pre">GRUB_CMDLINE_LINUX</span></code> line to include a longer timeout value
-in milliseconds:</p></li>
-</ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="s2">&quot;quiet splash amdgpu.lockup_timeout=20000&quot;</span>
+in milliseconds:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GRUB_CMDLINE_LINUX=&quot;quiet splash amdgpu.lockup_timeout=20000&quot;
 </pre></div>
 </div>
-<ol class="arabic simple" start="3">
-<li><p>Update the GRUB configuration:</p></li>
-</ol>
+</li>
+<li><p>Update the GRUB configuration:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>update-grub
 </pre></div>
 </div>
-<ol class="arabic simple" start="4">
-<li><p>Reboot the system:</p></li>
-</ol>
+</li>
+<li><p>Reboot the system:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>reboot
 </pre></div>
 </div>
+</li>
+</ol>
 </section>
 </section>
 </section>

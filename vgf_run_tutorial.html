@@ -3,25 +3,25 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Search &mdash; ML SDK for Vulkan®  documentation</title>
+  <title>How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan® &mdash; ML SDK for Vulkan®  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=b8c9390b" />
 
   
-    
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="_static/documentation_options.js?v=5929fcd5"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
-    <script src="_static/searchtools.js"></script>
-    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="#" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="License" href="license.html" />
+    <link rel="prev" title="Converting and deploying an ONNX model tutorial" href="e2e_onnx_tutorial.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -36,7 +36,7 @@
             ML SDK for Vulkan®
           </a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="#" method="get">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -44,7 +44,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">Building the ML SDK for Vulkan®</a></li>
@@ -52,7 +52,7 @@
 <li class="toctree-l1"><a class="reference internal" href="e2e_pytorch_tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="e2e_tflite_tutorial.html">Converting and deploying a TFLite model tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="e2e_onnx_tutorial.html">Converting and deploying an ONNX model tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="vgf_run_tutorial.html">How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
@@ -93,8 +93,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Search</li>
+      <li class="breadcrumb-item active">How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®</li>
       <li class="wy-breadcrumbs-aside">
+            <a href="_sources/vgf_run_tutorial.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -102,22 +103,54 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <noscript>
-  <div id="fallback" class="admonition warning">
-    <p class="last">
-      Please activate JavaScript to enable the search functionality.
-    </p>
-  </div>
-  </noscript>
+  <section id="how-to-run-a-vgf-file-with-ml-sdk-scenario-runner-and-ml-emulation-layer-for-vulkan">
+<h1>How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®<a class="headerlink" href="#how-to-run-a-vgf-file-with-ml-sdk-scenario-runner-and-ml-emulation-layer-for-vulkan" title="Link to this heading"></a></h1>
+<p>1. Use the VGF Dump Tool to generate a Scenario Template. To run a scenario on the ML SDK Scenario Runner,
+you must have a scenario specification in the form of a JSON file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">$vgf_dump</span><span class="w"> </span>--input<span class="w"> </span><span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.vgf<span class="w"> </span>--output<span class="w"> </span>scenario.json<span class="w"> </span>--scenario-template
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For more information about VGF Library and the VGF Dump Tool, see: <a class="reference internal" href="vgf-lib/docs/in/index.html#ml-sdk-vgf-library"><span class="std std-ref">ML SDK VGF Library</span></a></p>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>The generated <code class="code docutils literal notranslate"><span class="pre">scenario.json</span></code> file contains placeholder names for input and output bindings
+for the scenario. You must replace these names with the actual input and output filenames that will
+be used when running the scenario. In the example <code class="code docutils literal notranslate"><span class="pre">scenario.json</span></code> file generated in the preceding step:</p>
+<ol class="loweralpha simple">
+<li><p>Replace the name TEMPLATE_PATH_TENSOR_INPUT_0 with the actual input file <code class="code docutils literal notranslate"><span class="pre">input-0.npy</span></code>.</p></li>
+<li><p>Replace the name TEMPLATE_PATH_TENSOR_OUTPUT_0 with the actual output filename <code class="code docutils literal notranslate"><span class="pre">output-0.npy</span></code>.</p></li>
+</ol>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For more information about the test description format, see:
+<a class="reference internal" href="scenario-runner/docs/in/json.html#json-test-description-specification"><span class="std std-ref">JSON Test Description Specification</span></a>.</p>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Run the ML SDK Scenario Runner on the ML Emulation Layer for Vulkan®:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scenario-runner<span class="w"> </span>--scenario<span class="w"> </span>scenario.json
+</pre></div>
+</div>
+<p>The output from the scenario is produced as a file named <code class="code docutils literal notranslate"><span class="pre">output-0.npy</span></code>. The file is specified in scenario.json.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For more information about building and running the ML SDK Scenario Runner, see: <a class="reference internal" href="scenario-runner/docs/in/index.html#ml-sdk-scenario-runner"><span class="std std-ref">ML SDK Scenario Runner</span></a>.</p>
+<p>For more information about building and setting up the Emulation Layer, see:
+<a class="reference internal" href="emulation-layer/docs/in/index.html#ml-emulation-layer-for-vulkan"><span class="std std-ref">ML Emulation Layer for Vulkan®</span></a></p>
+</div>
+</section>
 
-  
-  <div id="search-results">
-  
-  </div>
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="e2e_onnx_tutorial.html" class="btn btn-neutral float-left" title="Converting and deploying an ONNX model tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="license.html" class="btn btn-neutral float-right" title="License" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
@@ -139,14 +172,7 @@
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-  <script>
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-  </script>
-  
-  <script id="searchindexloader"></script>
-   
-
+  </script> 
 
 </body>
 </html>

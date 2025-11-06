@@ -1,0 +1,192 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Converting and deploying an ONNX model tutorial &mdash; ML SDK for Vulkan®  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=b8c9390b" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®" href="vgf_run_tutorial.html" />
+    <link rel="prev" title="Converting and deploying a TFLite model tutorial" href="e2e_tflite_tutorial.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ML SDK for Vulkan®
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">Building the ML SDK for Vulkan®</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_aliasing_tutorial.html">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e2e_pytorch_tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e2e_tflite_tutorial.html">Converting and deploying a TFLite model tutorial</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Converting and deploying an ONNX model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vgf_run_tutorial.html">How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="model-converter/docs/in/index.html">ML SDK Model Converter</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK VGF Library</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="vgf-lib/docs/in/index.html">ML SDK VGF Library</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Scenario Runner</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="scenario-runner/docs/in/index.html">ML SDK Scenario Runner</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML Emulation Layer for Vulkan®</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="emulation-layer/docs/in/index.html">ML Emulation Layer for Vulkan®</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contribution/guidelines.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution/guidelines.html#secure-coding-practices">Secure coding practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution/guidelines.html#inclusive-language-guidelines">Inclusive language guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution/security.html">Security</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ML SDK for Vulkan®</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Converting and deploying an ONNX model tutorial</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/e2e_onnx_tutorial.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="converting-and-deploying-an-onnx-model-tutorial">
+<h1>Converting and deploying an ONNX model tutorial<a class="headerlink" href="#converting-and-deploying-an-onnx-model-tutorial" title="Link to this heading"></a></h1>
+<p>This tutorial demonstrates how to convert and deploy an ONNX model using Torch-MLIR and the ML SDK for Vulkan®.
+It walks through model conversion to TOSA MLIR, VGF file generation, and execution using the ML SDK Scenario Runner.</p>
+<ol class="arabic simple">
+<li><p>Install Torch-MLIR</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--pre<span class="w"> </span>torch-mlir<span class="w"> </span>-f<span class="w"> </span>https://github.com/llvm/torch-mlir-release/releases/expanded_assets/dev-wheels
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Download the ONNX Model:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-LO<span class="w"> </span>https://github.com/onnx/models/raw/main/validated/vision/classification/mnist/model/mnist-12.onnx
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Generate input tensor:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">numpy</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;input-0.npy&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Convert the Model to TOSA MLIR Bytecode:</p></li>
+</ol>
+<p>Convert the ONNX model to the Torch-MLIR ONNX MLIR dialect:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>torch-mlir-import-onnx<span class="w"> </span>mnist-12.onnx<span class="w"> </span>--data-prop<span class="w"> </span>--clear-domain<span class="w"> </span>-o<span class="w"> </span>mnist-12.torch.mlir
+</pre></div>
+</div>
+<p>Convert the MLIR file to the Torch-MLIR backend dialect:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>torch-mlir-opt<span class="w"> </span>mnist-12.torch.mlir<span class="w"> </span>--torch-onnx-to-torch-backend-pipeline<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--canonicalize<span class="w"> </span>-o<span class="w"> </span>mnist-12.torch.backend.mlir
+</pre></div>
+</div>
+<p>Use the Torch-MLIR TOSA backend to convert the backend MLIR to the TOSA MLIR dialect:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>torch-mlir-opt<span class="w"> </span>mnist-12.torch.backend.mlir<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pass-pipeline<span class="o">=</span><span class="s2">&quot;builtin.module(torch-backend-to-tosa-backend-pipeline{require-full-tosa-conversion})&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-o<span class="w"> </span>mnist-12.tosa.mlir
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Generate the VGF File:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>model-converter<span class="w"> </span>--input<span class="w"> </span>mnist-12.tosa.mlir<span class="w"> </span>--output<span class="w"> </span>mnist-12.vgf
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>Run the VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®</p></li>
+</ol>
+<p>To execute the VGF file refer to <a class="reference internal" href="vgf_run_tutorial.html#how-to-run-a-vgf-file-with-ml-sdk-scenario-runner-and-ml-emulation-layer-for-vulkan"><span class="std std-ref">How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®</span></a>.</p>
+<p>After this executes, the MNIST model output will be stored in <code class="code docutils literal notranslate"><span class="pre">output-0.npy</span></code>.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="e2e_tflite_tutorial.html" class="btn btn-neutral float-left" title="Converting and deploying a TFLite model tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="vgf_run_tutorial.html" class="btn btn-neutral float-right" title="How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, Arm Limited and/or its affiliates &lt;open-source-office@arm.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

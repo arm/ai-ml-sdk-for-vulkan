@@ -20,8 +20,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Tensor aliasing tutorial" href="tensor_aliasing_tutorial.html" />
-    <link rel="prev" title="Building the ML SDK for Vulkan®" href="building.html" /> 
+    <link rel="next" title="Converting and deploying a TFLite model tutorial" href="e2e_tflite_tutorial.html" />
+    <link rel="prev" title="Tensor aliasing tutorial" href="tensor_aliasing_tutorial.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,9 +48,11 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">Building the ML SDK for Vulkan®</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Converting and deploying a PyTorch model tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tensor_aliasing_tutorial.html">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Converting and deploying a PyTorch model tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="e2e_tflite_tutorial.html">Converting and deploying a TFLite model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e2e_onnx_tutorial.html">Converting and deploying an ONNX model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vgf_run_tutorial.html">How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
@@ -93,7 +95,7 @@
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Converting and deploying a PyTorch model tutorial</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/tutorial.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/e2e_pytorch_tutorial.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -204,52 +206,18 @@ which<span class="w"> </span>model-converter
 <p>This generates a VGF file <code class="code docutils literal notranslate"><span class="pre">${NAME}.vgf</span></code> in the current working directory,
 where the tool generates <code class="code docutils literal notranslate"><span class="pre">${NAME}</span></code>.
 A matching example input is also generated in the same directory for testing.</p>
-<p>3. Use the VGF Dump Tool to generate a Scenario Template. To run a scenario on the ML SDK Scenario Runner,
-you must have a scenario specification in the form of a JSON file. Use the VGF file that was generated in the previous
-step and pass it to the VGF Dump Tool:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">$vgf_dump</span><span class="w"> </span>--input<span class="w"> </span><span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.vgf<span class="w"> </span>--output<span class="w"> </span>scenario.json<span class="w"> </span>--scenario-template
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For more information about VGF Library and the VGF Dump Tool, see: <a class="reference internal" href="vgf-lib/docs/in/index.html#ml-sdk-vgf-library"><span class="std std-ref">ML SDK VGF Library</span></a></p>
-</div>
-<ol class="arabic simple" start="4">
-<li><p>The generated <code class="code docutils literal notranslate"><span class="pre">scenario.json</span></code> file contains placeholder names for input and output bindings
-for the scenario. You must replace these names with the actual input and output filenames that will
-be used when running the scenario. In the example <code class="code docutils literal notranslate"><span class="pre">scenario.json</span></code> file generated in the preceding step:</p>
-<ol class="loweralpha simple">
-<li><p>Replace the name TEMPLATE_PATH_TENSOR_INPUT_0 with the actual input file <code class="code docutils literal notranslate"><span class="pre">input-0.npy</span></code>.</p></li>
-<li><p>Replace the name TEMPLATE_PATH_TENSOR_OUTPUT_0 with the actual output filename <code class="code docutils literal notranslate"><span class="pre">output-0.npy</span></code>.</p></li>
+<ol class="arabic simple" start="3">
+<li><p>Run the VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®</p></li>
 </ol>
-</li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For more information about the test description format, see:
-<a class="reference internal" href="scenario-runner/docs/in/json.html#json-test-description-specification"><span class="std std-ref">JSON Test Description Specification</span></a>.</p>
-</div>
-<ol class="arabic simple" start="5">
-<li><p>Run the ML SDK Scenario Runner on the ML Emulation Layer for Vulkan®:</p></li>
-</ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scenario-runner<span class="w"> </span>--scenario<span class="w"> </span>scenario.json
-</pre></div>
-</div>
-<p>The output from the scenario is produced as a file named <code class="code docutils literal notranslate"><span class="pre">output-0.npy</span></code>. The file is specified in scenario.json.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For more information about building and running the ML SDK Scenario Runner, see: <a class="reference internal" href="scenario-runner/docs/in/index.html#ml-sdk-scenario-runner"><span class="std std-ref">ML SDK Scenario Runner</span></a>.</p>
-<p>For more information about building and setting up the Emulation Layer, see:
-<a class="reference internal" href="emulation-layer/docs/in/index.html#ml-emulation-layer-for-vulkan"><span class="std std-ref">ML Emulation Layer for Vulkan®</span></a></p>
-</div>
+<p>To execute the VGF file refer to <a class="reference internal" href="vgf_run_tutorial.html#how-to-run-a-vgf-file-with-ml-sdk-scenario-runner-and-ml-emulation-layer-for-vulkan"><span class="std std-ref">How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®</span></a>.</p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="building.html" class="btn btn-neutral float-left" title="Building the ML SDK for Vulkan®" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="tensor_aliasing_tutorial.html" class="btn btn-neutral float-right" title="Tensor aliasing tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="tensor_aliasing_tutorial.html" class="btn btn-neutral float-left" title="Tensor aliasing tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="e2e_tflite_tutorial.html" class="btn btn-neutral float-right" title="Converting and deploying a TFLite model tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

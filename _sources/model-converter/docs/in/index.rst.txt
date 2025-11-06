@@ -4,7 +4,7 @@ ML SDK Model Converter
 .. include:: ../generated/README.md
     :parser: myst_parser.sphinx_
     :start-after: # ML SDK Model Converter
-    :end-before: ### Cloning the repository
+    :end-before: ## Cloning the repository
 
 .. toctree::
   :maxdepth: 1

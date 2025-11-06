@@ -4,7 +4,7 @@ ML SDK Scenario Runner
 .. include:: ../generated/README.md
     :parser: myst_parser.sphinx_
     :start-after: # ML SDK Scenario Runner
-    :end-before: ### Cloning the repository
+    :end-before: ## Cloning the repository
 
 .. toctree::
    :maxdepth: 1
