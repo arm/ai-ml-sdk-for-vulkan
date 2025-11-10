@@ -5,9 +5,10 @@
 
 
 set -o errexit
-set -o pipefail
 set -o errtrace
 set -o nounset
+set -o pipefail
+set -o xtrace
 
 usage() {
   echo "Usage: $(basename "$0")"
@@ -120,8 +121,8 @@ if [ "$(uname)" = "Darwin" ]; then
 fi
 
 echo "Build VGF-Lib"
-# run_checks ./sw/vgf-lib
-# ./sw/vgf-lib/scripts/build.py -j $(nproc) --doc --test
+run_checks ./sw/vgf-lib
+./sw/vgf-lib/scripts/build.py -j $(nproc) --doc --test
 
 echo "Build Model Converter"
 # run_checks ./sw/model-converter
@@ -136,14 +137,14 @@ export VMEL_COMMON_SEVERITY="debug"
 
 echo "Build Emulation Layer"
 run_checks ./sw/emulation-layer
-./sw/emulation-layer/scripts/build.py -j $(nproc) --doc $SR_EL_TEST_OPT --install $INSTALL_DIR
+# ./sw/emulation-layer/scripts/build.py -j $(nproc) --doc $SR_EL_TEST_OPT --install $INSTALL_DIR
 
 echo "Build Scenario Runner"
 run_checks ./sw/scenario-runner
-./sw/scenario-runner/scripts/build.py -j $(nproc) --doc $SR_EL_TEST_OPT --emulation-layer
+# ./sw/scenario-runner/scripts/build.py -j $(nproc) --doc $SR_EL_TEST_OPT --emulation-layer
 
 echo "Build SDK Root"
 run_checks .
-./scripts/build.py -j $(nproc) --doc
+# ./scripts/build.py -j $(nproc) --doc
 
 popd
