@@ -1,0 +1,41 @@
+#
+# SPDX-FileCopyrightText: Copyright 2025 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-License-Identifier: Apache-2.0
+#
+version = 1
+SPDX-PackageName = "ai-ml-sdk-for-vulkan"
+
+[[annotations]]
+path = "**.md"
+SPDX-FileCopyrightText = "Copyright 2023-2025 Arm Limited and/or its affiliates <open-source-office@arm.com>"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = "CONTRIBUTORS.txt"
+SPDX-FileCopyrightText = "Copyright 2025 Arm Limited and/or its affiliates <open-source-office@arm.com>"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = "docs/source/**/*.rst"
+SPDX-FileCopyrightText = "Copyright 2023-2025 Arm Limited and/or its affiliates <open-source-office@arm.com>"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = "docs/source/*.rst"
+SPDX-FileCopyrightText = "Copyright 2023-2025 Arm Limited and/or its affiliates <open-source-office@arm.com>"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = "docs/source/assets/PoolTable.jpg"
+SPDX-FileCopyrightText = "Copyright 2023-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path =  "docs/source/assets/PoolTableOutput.jpg"
+SPDX-FileCopyrightText = "Copyright 2023-2024 Arm Limited and/or its affiliates <open-source-office@arm.com>"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = "docs/source/puml/*.puml"
+SPDX-FileCopyrightText = "Copyright 2023-2025 Arm Limited and/or its affiliates <open-source-office@arm.com>"
+SPDX-License-Identifier = "Apache-2.0"
