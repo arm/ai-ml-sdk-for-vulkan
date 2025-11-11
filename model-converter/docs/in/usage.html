@@ -60,7 +60,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">ML SDK Model Converter</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="building.html">Building the ML SDK Model Converter</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Usage</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pypi">PyPI</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="limitations.html">Known Limitations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
 </ul>
@@ -125,6 +128,14 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build/model-converter<span class="w"> </span>--help
 </pre></div>
 </div>
+<section id="pypi">
+<h2>PyPI<a class="headerlink" href="#pypi" title="Link to this heading"></a></h2>
+<p>The ML SDK Model Converter is available on PyPI as the <a class="reference external" href="https://pypi.org/project/ai-ml-sdk-model-converter">ai-ml-sdk-model-converter</a> package.</p>
+<p>Install:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>ai-ml-sdk-model-converter
+</pre></div>
+</div>
+</section>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: ./model-converter [--help] [--version] [--input VAR] [--output VAR] [--tosa-flatbuffer] [--tosa-flatbuffer-schema VAR] [--dump-mlir] [--emit-debug-info] [--require-static-shape] [--experimental-analysis] [--type-narrowing VAR]
 
 Optional arguments:
