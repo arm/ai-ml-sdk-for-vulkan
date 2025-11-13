@@ -8,6 +8,7 @@ set -o errexit
 set -o pipefail
 set -o errtrace
 set -o nounset
+set -o xtrace
 
 usage() {
   echo "Usage: $(basename "$0")"
