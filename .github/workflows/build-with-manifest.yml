@@ -15,8 +15,15 @@ permissions:
   contents: read
   packages: read
 
+env:
+  MANIFEST_URL: https://github.com/${{ github.repository_owner }}/ai-ml-sdk-manifest.git
+  REPO_DIR:     ${{ github.workspace }}/sdk
+  INSTALL_DIR:  ${{ github.workspace }}/install
+  CHANGED_REPO: ${{ inputs.changed_repo }}
+  CHANGED_SHA:  ${{ inputs.changed_sha }}
+
 jobs:
-  build:
+  build-linux:
     runs-on: ${{ matrix.platform }}
     strategy:
       matrix:
@@ -37,10 +44,61 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Clone repositories and build
-        env:
-          MANIFEST_URL: https://github.com/${{ github.repository_owner }}/ai-ml-sdk-manifest.git
-          REPO_DIR:     ${{ github.workspace }}/sdk
-          INSTALL_DIR:  ${{ github.workspace }}/install
-          CHANGED_REPO: ${{ inputs.changed_repo }}
-          CHANGED_SHA:  ${{ inputs.changed_sha }}
         run: .github/workflows/scripts/ci_build.sh
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up MSVC (Developer Command Prompt)
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: amd64
+
+      - name: Install Vulkan SDK
+        uses: jakoch/install-vulkan-sdk-action@v1
+        with:
+          install_runtime: true
+          install_lavapipe: true
+
+      - name: Set Vulkan registry for lavapipe ICD
+        shell: pwsh
+        run: |
+          Get-ChildItem "C:\lavapipe\share\vulkan\icd.d\"
+          New-Item -Path "HKLM:\SOFTWARE\Khronos\Vulkan\Drivers" -Force | Out-Null
+          New-ItemProperty `
+              -Path "HKLM:\SOFTWARE\Khronos\Vulkan\Drivers" `
+              -Name "C:\lavapipe\share\vulkan\icd.d\lvp_icd.x86_64.json" `
+              -PropertyType DWord `
+              -Value 0 `
+              -Force
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        shell: pwsh
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ./requirements.txt
+
+      - name: Install tools with Chocolatey
+        shell: pwsh
+        run: |
+          choco install -y xmlstarlet
+          xml.exe --version
+
+      - name: git-repo tool
+        shell: pwsh
+        run: |
+          git clone https://gerrit.googlesource.com/git-repo
+
+      - name: Run CI build script
+        shell: pwsh
+        env:
+          REPO: .\git-repo\repo
+        run: |
+          & "$env:GITHUB_WORKSPACE/.github/workflows/scripts/ci_build.ps1"
