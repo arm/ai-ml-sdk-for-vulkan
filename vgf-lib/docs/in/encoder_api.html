@@ -194,7 +194,7 @@
 <p>You must indicate the end of the encoding sequence. Then, you can write the VGF file representing the model:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">stringstream</span><span class="w"> </span><span class="n">buffer</span><span class="p">;</span>
 <span class="w">    </span><span class="n">encoder</span><span class="o">-&gt;</span><span class="n">Finish</span><span class="p">();</span>
-<span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">encoder</span><span class="o">-&gt;</span><span class="n">WriteTo</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">encoder</span><span class="o">-&gt;</span><span class="n">WriteTo</span><span class="p">(</span><span class="n">buffer</span><span class="p">));</span>
 </pre></div>
 </div>
 </section>

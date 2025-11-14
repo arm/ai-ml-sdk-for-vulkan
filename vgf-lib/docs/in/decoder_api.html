@@ -138,8 +138,8 @@ The header decoder also uses memory size and offset pairs to provide the locatio
 </pre></div>
 </div>
 <p>After creating a header decoder, you can verify the validity of the VGF file and its compatibility with the library. To verify the validity of the VGF file, check if their versions match:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">decoder</span><span class="o">-&gt;</span><span class="n">IsValid</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
-<span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">decoder</span><span class="o">-&gt;</span><span class="n">CheckVersion</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">decoder</span><span class="o">-&gt;</span><span class="n">IsValid</span><span class="p">());</span>
+<span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">decoder</span><span class="o">-&gt;</span><span class="n">CheckVersion</span><span class="p">());</span>
 </pre></div>
 </div>
 <p>To further verify a potentially unsafe vgf file, use the verify functions for each section:</p>
