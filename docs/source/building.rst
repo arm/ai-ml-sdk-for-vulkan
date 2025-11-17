@@ -11,4 +11,4 @@ For more information about building the ML SDK for Vulkan®, see the following b
 - :ref:`Building the ML SDK Model Converter`
 - :ref:`Building the ML SDK VGF Library`
 - :ref:`Building the ML SDK Scenario Runner`
-- :ref:`Building the ML SDK Emulation Layer for Vulkan®`
+- :ref:`Building the ML Emulation Layer for Vulkan®`

@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.abspath("."))
 # Main project config
 SDK_project = "ML SDK for Vulkan®"
 MC_project = "ML SDK Model Converter"
-EL_project = "ML SDK Emulation Layer for Vulkan®"
+EL_project = "ML Emulation Layer for Vulkan®"
 SR_project = "ML SDK Scenario Runner"
 VGF_project = "ML SDK VGF Library"
 copyright = "2022-2025, Arm Limited and/or its affiliates <open-source-office@arm.com>"
