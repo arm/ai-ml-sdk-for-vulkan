@@ -92,7 +92,7 @@ case for the ML SDK Scenario Runner. The ML SDK Scenario Runner allows running u
 working on more complicated feature integrations.
 
 .. tip::
-    While the API is relatively new, we recommend you use the ML SDK Emulation Layer for Vulkan® for exploration. The Emulation Layer
+    While the API is relatively new, we recommend you use the ML Emulation Layer for Vulkan® for exploration. The Emulation Layer
     provides a TOSA conformant software implementation of the Vulkan® graph and tensor extensions. The Emulation
     Layer is enabled by the Vulkan® Layer mechanism.
 

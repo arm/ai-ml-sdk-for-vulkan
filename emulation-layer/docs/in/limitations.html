@@ -71,7 +71,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">ML Emulation Layer for Vulkan®</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
-<li class="toctree-l2"><a class="reference internal" href="building.html">Building the ML SDK Emulation Layer for Vulkan®</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">Building the ML Emulation Layer for Vulkan®</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Known Limitations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
@@ -117,6 +117,12 @@
 <li><p>Resources created with <code class="docutils literal notranslate"><span class="pre">VK_IMAGE_TILING_OPTIMAL</span></code> and
 <code class="docutils literal notranslate"><span class="pre">VK_TENSOR_TILING_OPTIMAL_ARM</span></code> flags cannot be used with memory aliasing.</p></li>
 <li><p>Data graph pipeline creation without a shader module is not supported.</p></li>
+</ul>
+<p>MoltenVK currently does not have full Vulkan® coverage, some notable issues are:</p>
+<ul class="simple">
+<li><p>Several Vulkan® extensions are not available in MoltenVK, e.g. <a class="reference external" href="https://docs.vulkan.org/refpages/latest/refpages/source/VK_EXT_custom_border_color.html">custom border color</a>.</p></li>
+<li><p>High-precision types in buffers/push constants is currently not supported, which forces lower precision to be used instead.</p></li>
+<li><p>Passing Shader Storage Buffer Objects, SSBOs, to functions is currently not supported in MoltenVK.</p></li>
 </ul>
 </section>
 
