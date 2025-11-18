@@ -1,0 +1,96 @@
+#
+# SPDX-FileCopyrightText: Copyright 2025 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-License-Identifier: Apache-2.0
+#
+name: Build windows job
+
+on:
+  workflow_call:
+    inputs:
+      manifest_url:
+        required: true
+        type: string
+      repo_dir:
+        required: true
+        type: string
+      install_dir:
+        required: true
+        type: string
+      changed_repo:
+        required: false
+        type: string
+      changed_sha:
+        required: false
+        type: string
+      overrides_json:
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+env:
+  MANIFEST_URL: ${{ inputs.manifest_url }}
+  REPO_DIR:     ${{ inputs.repo_dir }}
+  INSTALL_DIR:  ${{ inputs.install_dir }}
+  CHANGED_REPO: ${{ inputs.changed_repo }}
+  CHANGED_SHA:  ${{ inputs.changed_sha }}
+  OVERRIDES:    ${{ inputs.overrides_json }}
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up MSVC (Developer Command Prompt)
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: amd64
+
+      - name: Install Vulkan SDK
+        uses: jakoch/install-vulkan-sdk-action@v1
+        with:
+          install_runtime: true
+          install_lavapipe: true
+
+      - name: Set Vulkan registry for lavapipe ICD
+        shell: pwsh
+        run: |
+          Get-ChildItem "C:\lavapipe\share\vulkan\icd.d\"
+          New-Item -Path "HKLM:\SOFTWARE\Khronos\Vulkan\Drivers" -Force | Out-Null
+          New-ItemProperty `
+              -Path "HKLM:\SOFTWARE\Khronos\Vulkan\Drivers" `
+              -Name "C:\lavapipe\share\vulkan\icd.d\lvp_icd.x86_64.json" `
+              -PropertyType DWord `
+              -Value 0 `
+              -Force
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        shell: pwsh
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ./requirements.txt
+
+      - name: Install tools with Chocolatey
+        shell: pwsh
+        run: |
+          choco install -y xmlstarlet
+          xml.exe --version
+
+      - name: git-repo tool
+        shell: pwsh
+        run: |
+          git clone https://gerrit.googlesource.com/git-repo
+
+      - name: Run CI build script
+        shell: pwsh
+        env:
+          REPO: .\git-repo\repo
+        run: |
+          & "$env:GITHUB_WORKSPACE/.github/workflows/scripts/ci_build.ps1"
