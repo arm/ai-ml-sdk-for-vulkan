@@ -11,15 +11,11 @@ This tutorial describes how to convert and deploy a PyTorch model using the |SDK
 In this tutorial, we generate a sample PyTorch file with a single MaxPool2D operation
 to demonstrate each step of the end-to-end workflow.
 
-ExecuTorch can be installed via prebuilt wheels:
-
-.. note::
-    Here we are installing from a developmental wheel.
-    In the future, replace it with an official release.
+To install ExecuTorch, run:
 
 .. code-block:: bash
 
-    pip install --upgrade --pre -f https://download.pytorch.org/whl/nightly/executorch/ "executorch==1.0.0.dev20250916"
+    pip install "executorch==1.0.0"
 
 Download the ExecuTorch repo, and install the required dependencies using the script.
 
@@ -35,6 +31,7 @@ Download the ExecuTorch repo, and install the required dependencies using the sc
 .. code-block:: bash
 
     git clone https://github.com/pytorch/executorch.git
+    cd executorch && git checkout origin/release/1.0 && cd ..
     ./executorch/examples/arm/setup.sh --disable-ethos-u-deps
 
 1. Add the ML SDK Model Converter to :code:`PATH`:
