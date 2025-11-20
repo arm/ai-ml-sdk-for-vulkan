@@ -108,6 +108,7 @@ fi
 
 run_checks() {
   pushd "${1}"
+  echo "Current commit: $(git rev-parse HEAD)"
   git show -s --format=%B HEAD | grep "Signed-off-by:"
   pre-commit run --all-files --hook-stage commit --show-diff-on-failure
   pre-commit run --all-files --hook-stage push --show-diff-on-failure
