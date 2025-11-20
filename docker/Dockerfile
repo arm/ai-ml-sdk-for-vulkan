@@ -18,6 +18,7 @@ ENV PATH="/home/$user/.local/bin:$PATH"
 
 RUN apt-get update && \
     apt-get install -y \
+    android-sdk-platform-tools \
     bash \
     bash-completion \
     build-essential \
@@ -26,6 +27,8 @@ RUN apt-get update && \
     cppcheck \
     curl \
     doxygen \
+    g++-aarch64-linux-gnu \
+    gcc-aarch64-linux-gnu \
     git \
     git-lfs \
     graphviz \
@@ -45,10 +48,7 @@ RUN apt-get update && \
     python-is-python3 \
     sudo \
     vulkan-tools \
-    xmlstarlet \
-    gcc-aarch64-linux-gnu \
-    g++-aarch64-linux-gnu \
-    android-sdk-platform-tools
+    xmlstarlet
 
 RUN mkdir -p /home/$user/.local/bin
 
@@ -76,6 +76,15 @@ RUN git clone --depth 1 https://github.com/google/flatbuffers.git -b v23.5.26 &&
     cmake --build build -j $(nproc) && \
     cp build/flatc /home/$user/.local/bin && \
     cd .. && rm -rf flatbuffers
+
+# Install sccache v0.12.0
+RUN mkdir -p /home/$user/sccache
+WORKDIR /home/$user/sccache
+RUN if [ "$BUILDPLATFORM" = "linux/amd64" ] ; then ARCH="x86_64"; else ARCH="aarch64"; fi && \
+    curl -sSL -o sccache-v0.12.0-${ARCH}-unknown-linux-musl.tar.gz  https://github.com/mozilla/sccache/releases/download/v0.12.0/sccache-v0.12.0-${ARCH}-unknown-linux-musl.tar.gz && \
+    tar xvf sccache-v0.12.0-${ARCH}-unknown-linux-musl.tar.gz --strip-components=1 && \
+    cp sccache /home/$user/.local/bin/ && \
+    rm -rf /home/$user/sccache
 
 COPY --chown=$user ../requirements.txt ./
 COPY --chown=$user ../tooling-requirements.txt ./
