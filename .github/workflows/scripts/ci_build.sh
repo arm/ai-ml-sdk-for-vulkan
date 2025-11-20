@@ -121,6 +121,10 @@ if [ "$(uname)" = "Darwin" ]; then
     SR_EL_TEST_OPT=""
 fi
 
+echo "List disk quotes"
+df -h
+du -sh /tmp
+
 echo "Build VGF-Lib"
 run_checks ./sw/vgf-lib
 ./sw/vgf-lib/scripts/build.py -j $(nproc) --doc --test
