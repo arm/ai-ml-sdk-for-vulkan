@@ -249,9 +249,11 @@ For example, a tensor entry contains its element type, shape and stride. However
 
 <span class="w">    </span><span class="n">ResourceCategory</span><span class="w"> </span><span class="n">category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mrtDecoder</span><span class="o">-&gt;</span><span class="n">getCategory</span><span class="p">(</span><span class="n">mrtIndex</span><span class="p">);</span>
 <span class="w">    </span><span class="n">DataView</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mrtDecoder</span><span class="o">-&gt;</span><span class="n">getTensorShape</span><span class="p">(</span><span class="n">mrtIndex</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ASSERT_FALSE</span><span class="p">(</span><span class="n">shape</span><span class="p">.</span><span class="n">empty</span><span class="p">());</span>
 <span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">DescriptorType</span><span class="o">&gt;</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mrtDecoder</span><span class="o">-&gt;</span><span class="n">getDescriptorType</span><span class="p">(</span><span class="n">mrtIndex</span><span class="p">);</span>
 <span class="w">    </span><span class="n">FormatType</span><span class="w"> </span><span class="n">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mrtDecoder</span><span class="o">-&gt;</span><span class="n">getVkFormat</span><span class="p">(</span><span class="n">mrtIndex</span><span class="p">);</span>
 <span class="w">    </span><span class="n">DataView</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">stride</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mrtDecoder</span><span class="o">-&gt;</span><span class="n">getTensorStride</span><span class="p">(</span><span class="n">mrtIndex</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ASSERT_FALSE</span><span class="p">(</span><span class="n">stride</span><span class="p">.</span><span class="n">empty</span><span class="p">());</span>
 <span class="w">    </span><span class="c1">// ...</span>
 </pre></div>
 </div>
@@ -269,9 +271,9 @@ For example, a tensor entry contains its element type, shape and stride. However
 
 <span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">moduleIndex</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numModules</span><span class="p">);</span>
 
-<span class="w">    </span><span class="n">DataView</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">moduleCode</span><span class="p">;</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">moduleDecoder</span><span class="o">-&gt;</span><span class="n">hasSPIRV</span><span class="p">(</span><span class="n">moduleIndex</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">moduleCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">moduleDecoder</span><span class="o">-&gt;</span><span class="n">getModuleCode</span><span class="p">(</span><span class="n">moduleIndex</span><span class="p">);</span>
+<span class="w">        </span><span class="n">DataView</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">moduleCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">moduleDecoder</span><span class="o">-&gt;</span><span class="n">getModuleCode</span><span class="p">(</span><span class="n">moduleIndex</span><span class="p">);</span>
+<span class="w">        </span><span class="n">ASSERT_FALSE</span><span class="p">(</span><span class="n">moduleCode</span><span class="p">.</span><span class="n">empty</span><span class="p">());</span>
 
 <span class="w">        </span><span class="c1">//...</span>
 <span class="w">    </span><span class="p">}</span>
