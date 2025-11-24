@@ -58,3 +58,12 @@ Use the Torch-MLIR TOSA backend to convert the backend MLIR to the TOSA MLIR dia
 To execute the VGF file refer to :ref:`How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®`.
 
 After this executes, the MNIST model output will be stored in :code:`output-0.npy`.
+
+Limitations
+-----------
+
+Currently only a limited number of models have been tested with this flow. Due to current limitations in the tools used,
+the following features are not currently supported:
+
+* dynamic shapes
+* quantized models
