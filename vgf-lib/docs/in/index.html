@@ -126,6 +126,7 @@ includes the following:</p>
 <li><p>C++ decoder API</p></li>
 <li><p>C decoder API</p></li>
 <li><p>VGF dumping tool: <code class="docutils literal notranslate"><span class="pre">vgf_dump</span></code></p></li>
+<li><p>VGF converter tool: <code class="docutils literal notranslate"><span class="pre">vgf_converter</span></code></p></li>
 </ul>
 <p>The encoder provides a simple, high-level API for building up VGF files. It is
 designed for easy integration into offline tooling.</p>
@@ -140,6 +141,9 @@ prints the content of a VGF file into human-readable JSON format. You can also
 use vgf_dump to generate scenario file templates. You can use the scenario file
 templates with the
 <a class="reference external" href="https://github.com/arm/ai-ml-sdk-scenario-runner">Scenario Runner</a> tool.</p>
+<p>The VGF converter rewrites an existing VGF file to the latest VGF format
+version supported by the VGF library. The new version of the VGF file is
+written to the provided output path.</p>
 <p>To see the contents of a VGF file in a visual format, you can use the
 <a class="reference external" href="https://github.com/arm/vgf-adapter-model-explorer">VGF Adapter for Model Explorer</a>,
 which lets you view the inputs, outputs, constants and SPIR-V™ graphs.</p>
