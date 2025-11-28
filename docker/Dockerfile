@@ -48,6 +48,7 @@ RUN apt-get update && \
     python-is-python3 \
     sudo \
     vulkan-tools \
+    wget \
     xmlstarlet
 
 RUN mkdir -p /home/$user/.local/bin
