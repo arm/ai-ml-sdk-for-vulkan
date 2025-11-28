@@ -130,8 +130,7 @@
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/p-ranav/argparse">Argument Parser for Modern C++</a>.</p></li>
 <li><p><a class="reference external" href="https://github.com/llvm/llvm-project">LLVM</a>.</p></li>
-<li><p><a class="reference external" href="https://gitlab.arm.com/tosa/tosa-serialization">TOSA Serialization Library</a>.</p></li>
-<li><p><a class="reference external" href="https://gitlab.arm.com/tosa/tosa-mlir-translator">TOSA MLIR Translator</a>.</p></li>
+<li><p><a class="reference external" href="https://gitlab.arm.com/tosa/tosa-tools">TOSA Tools</a>.</p></li>
 </ul>
 <p>For the preferred dependency versions see the manifest file.</p>
 <section id="providing-flatc">
@@ -170,7 +169,7 @@ python3<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PA
 <span class="w">    </span>--vgf-lib-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/sw/vgf-lib<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--flatbuffers-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/flatbuffers<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--argparse-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/argparse<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--tosa-mlir-translator-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/tosa_mlir_translator<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--tosa-tools-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/tosa_tools<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--external-llvm<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/llvm-project
 </pre></div>
 </div>
@@ -181,13 +180,13 @@ python3<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PA
     <span class="p">-</span><span class="n">-vgf-lib-path</span> <span class="s2">&quot;$env:SDK_PATH\sw\vgf-lib&quot;</span> <span class="p">`</span>
     <span class="p">-</span><span class="n">-flatbuffers-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\flatbuffers&quot;</span> <span class="p">`</span>
     <span class="p">-</span><span class="n">-argparse-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\argparse&quot;</span> <span class="p">`</span>
-    <span class="p">-</span><span class="n">-tosa-mlir-translator-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\tosa_mlir_translator&quot;</span> <span class="p">`</span>
+    <span class="p">-</span><span class="n">-tosa-tools-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\tosa_tools&quot;</span> <span class="p">`</span>
     <span class="p">-</span><span class="n">-external-llvm</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\llvm-project&quot;</span>
 </pre></div>
 </div>
 <p>If the components are in their default locations, it is not necessary to specify
 the <code class="docutils literal notranslate"><span class="pre">--vgf-lib-path</span></code>, <code class="docutils literal notranslate"><span class="pre">--flatbuffers-path</span></code>, <code class="docutils literal notranslate"><span class="pre">--argparse-path</span></code>,
-<code class="docutils literal notranslate"><span class="pre">--tosa-mlir-translator-path</span></code>, and <code class="docutils literal notranslate"><span class="pre">--external-llvm</span></code> options.</p>
+<code class="docutils literal notranslate"><span class="pre">--tosa-tools-path</span></code>, and <code class="docutils literal notranslate"><span class="pre">--external-llvm</span></code> options.</p>
 <p>Tests can be enabled and run with <code class="docutils literal notranslate"><span class="pre">--test</span></code> and linting by <code class="docutils literal notranslate"><span class="pre">--lint</span></code>. The
 documentation can be built with <code class="docutils literal notranslate"><span class="pre">--doc</span></code>. To build the documentation, sphinx and
 doxygen must be installed on the machine.</p>
