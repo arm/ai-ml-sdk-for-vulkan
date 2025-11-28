@@ -70,8 +70,8 @@ RUN git clone --depth 1 https://github.com/KhronosGroup/glslang.git -b 15.4.0 &&
     cp build/StandAlone/glslang /home/$user/.local/bin && \
     cd .. && rm -rf glslang
 
-# Install flatc v23.5.26
-RUN git clone --depth 1 https://github.com/google/flatbuffers.git -b v23.5.26 && \
+# Install flatc v25.2.10
+RUN git clone --depth 1 https://github.com/google/flatbuffers.git -b v25.2.10 && \
     cd flatbuffers && \
     cmake -B build -DCMAKE_BUILD_TYPE=Release && \
     cmake --build build -j $(nproc) && \
