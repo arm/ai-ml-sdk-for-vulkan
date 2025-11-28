@@ -810,7 +810,7 @@
             "licenseConcluded": "Apache-2.0 WITH LLVM-exception",
             "licenseDeclared": "Apache-2.0 WITH LLVM-exception",
             "copyrightText": "NOASSERTION",
-            "versionInfo": "334d438bf8a6",
+            "versionInfo": "147e615a658d",
             "supplier": "Organization: llvm (github.com)",
             "licenseInfoFromFiles": [
                 "NOASSERTION"
@@ -819,7 +819,7 @@
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/llvm-project@334d438bf8a6"
+                    "referenceLocator": "pkg:generic/llvm-project@147e615a658d"
                 }
             ]
         },
