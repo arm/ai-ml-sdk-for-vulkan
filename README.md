@@ -106,9 +106,10 @@ The following dependencies are also needed:
 - [SPIRV-Cross](https://github.com/KhronosGroup/SPIRV-Cross).
 - [Vulkan-Headers](https://github.com/KhronosGroup/Vulkan-Headers).
 
-For building the ML SDK for Vulkan® components, run the following command:
+For building the ML SDK for Vulkan® components, run the following commands:
 
 ```bash
+pip install -r requirements.txt
 ./scripts/build.py
 ```
 
