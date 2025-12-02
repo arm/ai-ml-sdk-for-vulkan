@@ -211,9 +211,9 @@ Kit (APK) or push to the <code class="docutils literal notranslate"><span class=
 discover the ML Emulation Layer for Vulkan®. Applications can enable the layers during Vulkan
 instance creation or you can enable the layers without modifying the application
 by using following commands:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>adb<span class="w"> </span>shell<span class="w"> </span>settings<span class="w"> </span>put<span class="w"> </span>global<span class="w"> </span>enable_gpu_debug_layers<span class="w"> </span><span class="m">1</span>
-$<span class="w"> </span>adb<span class="w"> </span>shell<span class="w"> </span>settings<span class="w"> </span>put<span class="w"> </span>global<span class="w"> </span>gpu_debug_app<span class="w"> </span><span class="si">${</span><span class="nv">package_name</span><span class="si">}</span>
-$<span class="w"> </span>adb<span class="w"> </span>shell<span class="w"> </span>settings<span class="w"> </span>put<span class="w"> </span>global<span class="w"> </span>gpu_debug_layers<span class="w"> </span><span class="se">\</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>adb<span class="w"> </span>shell<span class="w"> </span>settings<span class="w"> </span>put<span class="w"> </span>global<span class="w"> </span>enable_gpu_debug_layers<span class="w"> </span><span class="m">1</span>
+adb<span class="w"> </span>shell<span class="w"> </span>settings<span class="w"> </span>put<span class="w"> </span>global<span class="w"> </span>gpu_debug_app<span class="w"> </span><span class="si">${</span><span class="nv">package_name</span><span class="si">}</span>
+adb<span class="w"> </span>shell<span class="w"> </span>settings<span class="w"> </span>put<span class="w"> </span>global<span class="w"> </span>gpu_debug_layers<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>VK_LAYER_ML_Graph_Emulation:VK_LAYER_ML_Tensor_Emulation
 </pre></div>
 </div>
@@ -223,11 +223,11 @@ $<span class="w"> </span>adb<span class="w"> </span>shell<span class="w"> </span
 device. The MoltenVK version must have Vulkan® API 1.3 support.
 In this example we install into a deploy folder and build using the script.</p>
 <p>To build the ML Emulation Layer for Vulkan®, run:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python3<span class="w"> </span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/sw/emulation-layer/scripts/build.py<span class="w"> </span>--install<span class="w"> </span><span class="nv">$SDK_PATH</span>/deploy
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/sw/emulation-layer/scripts/build.py<span class="w"> </span>--install<span class="w"> </span><span class="nv">$SDK_PATH</span>/deploy
 </pre></div>
 </div>
 <p>Install MoltenVK by following the documentation:
-https://vulkan.lunarg.com/doc/sdk/1.4.321.0/mac/getting_started.html</p>
+<a class="reference external" href="https://vulkan.lunarg.com/doc/sdk/1.4.328.1/mac/getting_started.html">https://vulkan.lunarg.com/doc/sdk/1.4.328.1/mac/getting_started.html</a></p>
 </section>
 <section id="usage-on-darwin-experimental">
 <h3>Usage on Darwin (Experimental)<a class="headerlink" href="#usage-on-darwin-experimental" title="Link to this heading"></a></h3>
@@ -272,16 +272,16 @@ cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"
 <p>After building, the binary will be at
 <code class="docutils literal notranslate"><span class="pre">&lt;repo_root&gt;/dependencies/glslang/build/StandAlone/glslang</span></code>. Then run the
 following under <code class="docutils literal notranslate"><span class="pre">&lt;repo_root&gt;/sw/emulation-layer/</span></code>:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/sw/emulation-layer/cmake/toolchain/linux-aarch64-gcc.cmake<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-DGLSLANG_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/glslang<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-DSPIRV_CROSS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/SPIRV-Cross<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-DSPIRV_HEADERS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/SPIRV-Headers<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-DSPIRV_TOOLS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/SPIRV-Tools<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-DVULKAN_HEADERS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/Vulkan-Headers<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-DGLSLANG_EXECUTABLE<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/glslang/build/StandAlone/glslang
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/sw/emulation-layer/cmake/toolchain/linux-aarch64-gcc.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>-DGLSLANG_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/glslang<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>-DSPIRV_CROSS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/SPIRV-Cross<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>-DSPIRV_HEADERS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/SPIRV-Headers<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>-DSPIRV_TOOLS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/SPIRV-Tools<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>-DVULKAN_HEADERS_PATH<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/Vulkan-Headers<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>-DGLSLANG_EXECUTABLE<span class="o">=</span><span class="si">${</span><span class="nv">REPO</span><span class="si">}</span>/dependencies/glslang/build/StandAlone/glslang
 
-$<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span>build
+cmake<span class="w"> </span>--build<span class="w"> </span>build
 </pre></div>
 </div>
 </section>
