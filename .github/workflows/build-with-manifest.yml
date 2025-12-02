@@ -5,11 +5,11 @@
 name: Build ML SDK
 
 on:
-  workflow_dispatch:
   workflow_call:
     inputs:
-      changed_repo: { type: string, required: true }  # e.g., org/repo-a
-      changed_sha:  { type: string, required: true }  # e.g., 40-char sha
+      changed_repo: { type: string }  # e.g., org/repo-a
+      changed_sha:  { type: string }  # e.g., 40-char sha
+      overrides_json: { type: string }
 
 permissions:
   contents: read
@@ -21,6 +21,7 @@ env:
   INSTALL_DIR:  ${{ github.workspace }}/install
   CHANGED_REPO: ${{ inputs.changed_repo }}
   CHANGED_SHA:  ${{ inputs.changed_sha }}
+  OVERRIDES:    ${{ inputs.overrides_json }}
 
 jobs:
   build-linux:
@@ -42,7 +43,35 @@ jobs:
       options: --user root
 
     steps:
-      - uses: actions/checkout@v4
+      - &validate-inputs
+        name: Validate workflow_call inputs
+        shell: bash
+        run: |
+          repo="${{ inputs.changed_repo }}"
+          sha="${{ inputs.changed_sha }}"
+          overrides="${{ inputs.overrides_json }}"
+          echo "repo=$repo sha=$sha overrides=$overrides"
+
+          if [ -n "$repo" ] || [ -n "$sha" ]; then
+            if [ -n "$repo" ] && [ -n "$sha" ]; then
+              echo "Using changed_repo/changed_sha"
+              exit 0
+            else
+              echo "ERROR: must provide BOTH changed_repo and changed_sha"
+              exit 1
+            fi
+          fi
+
+          if [ -n "$overrides" ]; then
+            echo "Using overrides_json"
+            exit 0
+          fi
+
+          echo "ERROR: must provide changed_repo+changed_sha OR overrides_json"
+          exit 1
+
+      - &checkout
+        uses: actions/checkout@v4
       - name: Clone repositories and build
         run: .github/workflows/scripts/ci_build.sh
 
@@ -50,8 +79,10 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python
+      - *validate-inputs
+      - *checkout
+      - &setup-python
+        name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -86,7 +117,9 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - *validate-inputs
+      - *checkout
+      - *setup-python
 
       - name: Set up MSVC (Developer Command Prompt)
         uses: ilammy/msvc-dev-cmd@v1
@@ -110,11 +143,6 @@ jobs:
               -PropertyType DWord `
               -Value 0 `
               -Force
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
 
       - name: Install Python dependencies
         shell: pwsh

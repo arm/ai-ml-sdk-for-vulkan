@@ -72,6 +72,6 @@ jobs:
   build:
     needs: collect
     if: ${{ needs.collect.outputs.overrides_json != '{}' }}
-    uses: ./.github/workflows/build-with-manifest-overrides.yml
+    uses: ./.github/workflows/build-with-manifest.yml
     with:
       overrides_json: ${{ needs.collect.outputs.overrides_json }}
