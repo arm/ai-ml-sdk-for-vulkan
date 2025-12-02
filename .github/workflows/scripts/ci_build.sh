@@ -47,6 +47,7 @@ if ! command -v nproc >/dev/null 2>&1; then
 fi
 
 mkdir -p $REPO_DIR
+mkdir -p $INSTALL_DIR
 REPO_DIR="$(realpath "$REPO_DIR")"
 INSTALL_DIR="$(realpath "$INSTALL_DIR")"
 pushd $REPO_DIR
