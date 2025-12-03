@@ -31,7 +31,6 @@ Download the ExecuTorch repo, and install the required dependencies using the sc
 .. code-block:: bash
 
     git clone https://github.com/pytorch/executorch.git
-    cd executorch && git checkout origin/release/1.0 && cd ..
     ./executorch/examples/arm/setup.sh --disable-ethos-u-deps
 
 1. Add the ML SDK Model Converter to :code:`PATH`:
