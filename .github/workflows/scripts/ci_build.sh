@@ -51,9 +51,8 @@ REPO_DIR="$(realpath "$REPO_DIR")"
 INSTALL_DIR="$(realpath "$INSTALL_DIR")"
 pushd $REPO_DIR
 
-repo init -u $MANIFEST_URL
-# --force-sync to ensure we get latest even if there are local changes when re-running
-repo sync --no-clone-bundle -j $(nproc) --force-sync
+repo init -u $MANIFEST_URL --depth=1
+repo sync --no-clone-bundle -j $(nproc)
 
 mkdir -p .repo/local_manifests
 
