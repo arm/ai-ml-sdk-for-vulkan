@@ -142,8 +142,10 @@ from their respective repositories.</p>
 <li><p><a class="reference external" href="https://github.com/KhronosGroup/SPIRV-Cross">SPIRV-Cross</a>.</p></li>
 <li><p><a class="reference external" href="https://github.com/KhronosGroup/Vulkan-Headers">Vulkan-Headers</a>.</p></li>
 </ul>
-<p>For building the ML SDK for Vulkan® components, run the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scripts/build.py
+<p>For building the ML SDK for Vulkan® components, run the following commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>tooling_requirements.txt
+./scripts/build.py
 </pre></div>
 </div>
 <p>If the ML SDK for Vulkan® components are installed in custom locations, specify
