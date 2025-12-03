@@ -43,6 +43,33 @@ jobs:
       - name: Clone repositories and build
         run: .github/workflows/scripts/ci_build.sh
 
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ./requirements.txt
+          pip install -r ./tooling-requirements.txt
+
+      - name: Install repo tool
+        run: brew install repo
+
+      - name: Install clang-format
+        run: |
+          pip install clang-format==14.0.6
+          clang-format --version
+
+      - name: Clone repositories and build
+        run: .github/workflows/scripts/ci_build.sh
+
   build-windows:
     runs-on: windows-latest
     steps:
