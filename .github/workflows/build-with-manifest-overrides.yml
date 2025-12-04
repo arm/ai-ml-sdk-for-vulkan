@@ -67,6 +67,16 @@ jobs:
           pip install clang-format==14.0.6
           clang-format --version
 
+      - name: Install xmlstarlet
+        run: brew install xmlstarlet
+
+      - name: Install MoltenVK
+        run: |
+          brew install molten-vk vulkan-tools vulkan-headers vulkan-loader
+          echo "VK_DRIVER_FILES=$(brew --prefix molten-vk)/etc/vulkan/icd.d/MoltenVK_icd.json" >> $GITHUB_ENV
+          sudo mkdir -p /usr/local/lib
+          sudo ln -s /opt/homebrew/lib/libvulkan.dylib /usr/local/lib/libvulkan.dylib
+
       - name: Clone repositories and build
         run: .github/workflows/scripts/ci_build.sh
 
