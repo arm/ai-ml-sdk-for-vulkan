@@ -180,9 +180,14 @@ following command:</p>
 </pre></div>
 </div>
 <p>To enable and run tests, use the <code class="docutils literal notranslate"><span class="pre">--test</span></code> option. To lint the tests, use the
-<code class="docutils literal notranslate"><span class="pre">--lint</span></code> option. To build the documentation, use the <code class="docutils literal notranslate"><span class="pre">--doc</span></code> option. To build
-the documentation, you must have <code class="docutils literal notranslate"><span class="pre">sphinx</span></code> and <code class="docutils literal notranslate"><span class="pre">doxygen</span></code> installed on your
-machine.</p>
+<code class="docutils literal notranslate"><span class="pre">--lint</span></code> option. To enable tests and documentation building python dependencies
+must be installed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>tooling_requirements.txt
+</pre></div>
+</div>
+<p>To build the documentation, use the <code class="docutils literal notranslate"><span class="pre">--doc</span></code> option. To build the documentation,
+you must have <code class="docutils literal notranslate"><span class="pre">sphinx</span></code> and <code class="docutils literal notranslate"><span class="pre">doxygen</span></code> installed on your machine.</p>
 <p>You can install the build artifacts for this project into a specified location.
 To install the build artifacts, pass the <code class="docutils literal notranslate"><span class="pre">--install</span></code> option with the required
 path.</p>
