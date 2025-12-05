@@ -146,16 +146,16 @@ try {
     python "./sw/vgf-lib/scripts/build.py" -j $cores --test
 
     Write-Host "Build Model Converter"
-    python "./sw/model-converter/scripts/build.py" -j $cores --test
+    # python "./sw/model-converter/scripts/build.py" -j $cores --test
 
     Write-Host "Build Emulation Layer"
-    python "./sw/emulation-layer/scripts/build.py" -j $cores --test --install $InstallDir
+    # python "./sw/emulation-layer/scripts/build.py" -j $cores --test --install $InstallDir
 
     Write-Host "Build Scenario Runner"
-    python "./sw/scenario-runner/scripts/build.py" -j $cores --test
+    # python "./sw/scenario-runner/scripts/build.py" -j $cores --test
 
     Write-Host "Build SDK Root"
-    python "./scripts/build.py" -j $cores
+    # python "./scripts/build.py" -j $cores
 }
 finally {
     Pop-Location

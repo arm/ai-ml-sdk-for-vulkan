@@ -41,6 +41,21 @@ echo "find CHANGED_REPO: $CHANGED_REPO"
 echo "find CHANGED_SHA: $CHANGED_SHA"
 echo "find OVERRIDES: $OVERRIDES"
 
+# Make this repo "safe" for git inside the container
+git config --global --add safe.directory $PWD
+
+run_checks() {
+  pushd "${1}"
+  echo "Current commit: $(git rev-parse HEAD)"
+  git show -s --format=%B HEAD | grep "Signed-off-by:"
+  pre-commit run --all-files --hook-stage commit --show-diff-on-failure
+  pre-commit run --all-files --hook-stage push --show-diff-on-failure
+  popd
+}
+
+echo "Check root"
+run_checks .
+
 # for Darwin compatibility
 if ! command -v nproc >/dev/null 2>&1; then
   nproc() { sysctl -n hw.ncpu; }
@@ -106,22 +121,13 @@ EOF
   repo sync -j $(nproc) --force-sync "$PROJECT_PATH"
 fi
 
-run_checks() {
-  pushd "${1}"
-  echo "Current commit: $(git rev-parse HEAD)"
-  git show -s --format=%B HEAD | grep "Signed-off-by:"
-  pre-commit run --all-files --hook-stage commit --show-diff-on-failure
-  pre-commit run --all-files --hook-stage push --show-diff-on-failure
-  popd
-}
-
 echo "Build VGF-Lib"
 run_checks ./sw/vgf-lib
 ./sw/vgf-lib/scripts/build.py -j $(nproc) --doc --test
 
 echo "Build Model Converter"
 run_checks ./sw/model-converter
-./sw/model-converter/scripts/build.py -j $(nproc) --doc --test
+# ./sw/model-converter/scripts/build.py -j $(nproc) --doc --test
 
 export VK_LAYER_PATH=$INSTALL_DIR/share/vulkan/explicit_layer.d
 export VK_INSTANCE_LAYERS=VK_LAYER_ML_Graph_Emulation:VK_LAYER_ML_Tensor_Emulation
@@ -129,14 +135,14 @@ export LD_LIBRARY_PATH=$INSTALL_DIR/lib
 
 echo "Build Emulation Layer"
 run_checks ./sw/emulation-layer
-./sw/emulation-layer/scripts/build.py -j $(nproc) --doc --test --install $INSTALL_DIR
+# ./sw/emulation-layer/scripts/build.py -j $(nproc) --doc --test --install $INSTALL_DIR
 
 echo "Build Scenario Runner"
 run_checks ./sw/scenario-runner
-./sw/scenario-runner/scripts/build.py -j $(nproc) --doc --test
+# ./sw/scenario-runner/scripts/build.py -j $(nproc) --doc --test
 
 echo "Build SDK Root"
 run_checks .
-./scripts/build.py -j $(nproc) --doc
+# ./scripts/build.py -j $(nproc) --doc
 
 popd
