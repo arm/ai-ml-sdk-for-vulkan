@@ -141,10 +141,10 @@ For this example, the scenario runner automatically inserts a memory barrier bet
 
 In general, the innermost dimension of the tensor must match the number of components of the image data type. The size of the tensor data type must also match the size of the image data type component.
 
-Using Emulation and Validation layers
--------------------------------------
+Using ML Emulation and Validation layers for Vulkan®
+----------------------------------------------------
 
-You can use the ML SDK Emulation Layer to enable the Scenario Runner to run on platforms which do not support the Tensor and Graph Vulkan® extensions. However, you must have already built the Emulation layer. To enable the Emulation layer on Linux, set the following environment variables:
+You can use the ML Emulation Layer for Vulkan® to enable the Scenario Runner to run on platforms which do not support the Tensor and Graph Vulkan® extensions. However, you must have already built the ML Emulation Layer for Vulkan®. To enable the ML Emulation Layer for Vulkan® on Linux, set the following environment variables:
  - LD_LIBRARY_PATH=path/to/build/sw/vulkan-ml-emulation-layer/build/graph/:path/to/build/sw/vulkan-ml-emulation-layer/build/tensor/:$LD_LIBRARY_PATH
  - VK_LAYER_PATH=path/to/build/sw/vulkan-ml-emulation-layer/build/graph/:path/to/build/sw/vulkan-ml-emulation-layer/build/tensor/
  - VK_INSTANCE_LAYERS=VK_LAYER_ML_Graph_Emulation:VK_LAYER_ML_Tensor_Emulation

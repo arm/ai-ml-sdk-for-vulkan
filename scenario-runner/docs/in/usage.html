@@ -73,7 +73,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Usage</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#pypi">PyPI</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#resource-memory-aliasing">Resource memory aliasing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#using-emulation-and-validation-layers">Using Emulation and Validation layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-ml-emulation-and-validation-layers-for-vulkan">Using ML Emulation and Validation layers for Vulkan®</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="limitations.html">Known Limitations</a></li>
@@ -290,10 +290,10 @@ Optional arguments:
 <p>For this example, the scenario runner automatically inserts a memory barrier between the shader and graph dispatches. The memory barrier allows the output image data to be correctly shared with the “input_tensor” resource. Only single component data types are allowed in NumPy files, therefore, you can use the VK_FORMAT_R16_UINT type and multiplying the innermost “dims” value by 4 to approximate the VK_FORMAT_R16G16B16A16_SFLOAT type that the images use.</p>
 <p>In general, the innermost dimension of the tensor must match the number of components of the image data type. The size of the tensor data type must also match the size of the image data type component.</p>
 </section>
-<section id="using-emulation-and-validation-layers">
-<h2>Using Emulation and Validation layers<a class="headerlink" href="#using-emulation-and-validation-layers" title="Link to this heading"></a></h2>
+<section id="using-ml-emulation-and-validation-layers-for-vulkan">
+<h2>Using ML Emulation and Validation layers for Vulkan®<a class="headerlink" href="#using-ml-emulation-and-validation-layers-for-vulkan" title="Link to this heading"></a></h2>
 <dl class="simple">
-<dt>You can use the ML SDK Emulation Layer to enable the Scenario Runner to run on platforms which do not support the Tensor and Graph Vulkan® extensions. However, you must have already built the Emulation layer. To enable the Emulation layer on Linux, set the following environment variables:</dt><dd><ul class="simple">
+<dt>You can use the ML Emulation Layer for Vulkan® to enable the Scenario Runner to run on platforms which do not support the Tensor and Graph Vulkan® extensions. However, you must have already built the ML Emulation Layer for Vulkan®. To enable the ML Emulation Layer for Vulkan® on Linux, set the following environment variables:</dt><dd><ul class="simple">
 <li><p>LD_LIBRARY_PATH=path/to/build/sw/vulkan-ml-emulation-layer/build/graph/:path/to/build/sw/vulkan-ml-emulation-layer/build/tensor/:$LD_LIBRARY_PATH</p></li>
 <li><p>VK_LAYER_PATH=path/to/build/sw/vulkan-ml-emulation-layer/build/graph/:path/to/build/sw/vulkan-ml-emulation-layer/build/tensor/</p></li>
 <li><p>VK_INSTANCE_LAYERS=VK_LAYER_ML_Graph_Emulation:VK_LAYER_ML_Tensor_Emulation</p></li>
