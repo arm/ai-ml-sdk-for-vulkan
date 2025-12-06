@@ -18,7 +18,7 @@ ML SDK VGF Library
    logging_api.rst
    logging_c_api.rst
    vgf_dump.rst
-   vgf_converter.rst
+   vgf_updater.rst
    license.rst
    contributing.rst
    security.rst

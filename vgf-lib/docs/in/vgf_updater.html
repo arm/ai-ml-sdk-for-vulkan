@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VGF Converter Tool &mdash; ML SDK for Vulkan®  documentation</title>
+  <title>VGF Updater Tool &mdash; ML SDK for Vulkan®  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=b8c9390b" />
@@ -70,7 +70,7 @@
 <li class="toctree-l2"><a class="reference internal" href="logging_api.html">VGF Logging C++ API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging_c_api.html">VGF Logging C API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vgf_dump.html">VGF Dump Tool</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">VGF Converter Tool</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">VGF Updater Tool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 </li>
@@ -106,9 +106,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">ML SDK VGF Library</a></li>
-      <li class="breadcrumb-item active">VGF Converter Tool</li>
+      <li class="breadcrumb-item active">VGF Updater Tool</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../../_sources/vgf-lib/docs/in/vgf_converter.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/vgf-lib/docs/in/vgf_updater.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -116,19 +116,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="vgf-converter-tool">
-<h1>VGF Converter Tool<a class="headerlink" href="#vgf-converter-tool" title="Link to this heading"></a></h1>
-<p>After you have built the VGF Library, a vgf_converter binary is produced as an artifact. The vgf_converter binary is a tool used to produce an up-to-date version of a given outdated VGF file.</p>
-<p>An example usage of vgf_converter is the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vgf_converter<span class="w"> </span>-i<span class="w"> </span>input.vgf<span class="w"> </span>-o<span class="w"> </span>output.vgf
+  <section id="vgf-updater-tool">
+<h1>VGF Updater Tool<a class="headerlink" href="#vgf-updater-tool" title="Link to this heading"></a></h1>
+<p>After you have built the VGF Library, a vgf_updater binary is produced as an artifact. The vgf_updater binary is a tool used to produce an up-to-date version of a given outdated VGF file.</p>
+<p>An example usage of vgf_updater is the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vgf_updater<span class="w"> </span>-i<span class="w"> </span>input.vgf<span class="w"> </span>-o<span class="w"> </span>output.vgf
 </pre></div>
 </div>
 <p>This writes a new VGF file to output.vgf if the given input.vgf file is valid and outdated. If input.vgf is already at the latest version then the tool prints the current version and exits without writing the output file.</p>
 <p>For more information the help output can be consulted:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vgf_converter<span class="w"> </span>--help
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vgf_updater<span class="w"> </span>--help
 </pre></div>
 </div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: ./vgf_converter [--help] [--version] --input VAR --output VAR
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: ./vgf_updater [--help] [--version] --input VAR --output VAR
 
 Optional arguments:
   -h, --help     shows help message and exits 
