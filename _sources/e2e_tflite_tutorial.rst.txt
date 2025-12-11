@@ -7,14 +7,13 @@ It walks through model conversion to TOSA MLIR, VGF file generation, and executi
 
 1. Install the TOSA converter for TFLite:
 
-The repo is available at: `TOSA converter for TFLite <https://gitlab.arm.com/tosa/tosa-converter-for-tflite>`_,
-please refer to their `README.md <https://gitlab.arm.com/tosa/tosa-converter-for-tflite/-/blob/main/README.md?ref_type=heads>`_ for building the tool.
+The repo is available at: `TOSA converter for TFLite <https://gitlab.arm.com/tosa/tosa-converter-for-tflite>`_.
 
-After installation, run the following command to verify the tool is installed:
+To install the tool, run:
 
 .. code-block:: bash
 
-    which tosa-converter-for-tflite
+    pip install "tosa-converter-for-tflite==2025.11.0"
 
 2. Download the TFLite Model:
 
