@@ -138,7 +138,11 @@ are used:</p>
 <li><p>Use the <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> environment variable to point at the <code class="docutils literal notranslate"><span class="pre">VkLayer_Graph</span></code>
 and <code class="docutils literal notranslate"><span class="pre">VkLayer_Tensor</span></code> libraries.</p></li>
 <li><p>Use the <code class="docutils literal notranslate"><span class="pre">VK_ADD_LAYER_PATH</span></code> environment variable to point at the
-<code class="docutils literal notranslate"><span class="pre">VkLayer_Graph.json</span></code> and <code class="docutils literal notranslate"><span class="pre">VkLayer_Tensor.json</span></code> manifest file.</p></li>
+<code class="docutils literal notranslate"><span class="pre">VkLayer_Graph.json</span></code> and <code class="docutils literal notranslate"><span class="pre">VkLayer_Tensor.json</span></code> manifest file.</p>
+<ul>
+<li><p>If your loader ignores <code class="docutils literal notranslate"><span class="pre">VK_ADD_LAYER_PATH</span></code> (older SDKs before 1.4.328.1), use <code class="docutils literal notranslate"><span class="pre">VK_LAYER_PATH</span></code>.</p></li>
+</ul>
+</li>
 <li><p>You must enable the graph layer before the tensor layer. To do this, use the
 <code class="docutils literal notranslate"><span class="pre">VK_INSTANCE_LAYERS</span></code> environment variable.</p></li>
 </ul>
