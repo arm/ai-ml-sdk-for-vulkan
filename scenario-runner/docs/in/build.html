@@ -69,7 +69,6 @@
 <li class="toctree-l2"><a class="reference internal" href="architecture.html">Architecture Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Building the ML SDK Scenario Runner</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#providing-flatc">Providing Flatc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#building-with-the-script">Building with the script</a></li>
 </ul>
 </li>
@@ -125,7 +124,6 @@
 <li><p>C/C++ 17 compiler: GCC, or optionally Clang on Linux and MSVC on Windows®.</p></li>
 <li><p>Python 3.10 or later. Required python libraries for building are listed in
 <code class="docutils literal notranslate"><span class="pre">tooling-requirements.txt</span></code>.</p></li>
-<li><p>Flatbuffers flatc compiler 25.2.10 or later.</p></li>
 <li><p>Ninja 1.10 or later.</p></li>
 </ul>
 <p>The following dependencies are also needed:</p>
@@ -139,30 +137,6 @@
 <li><p><a class="reference external" href="https://github.com/google/googletest">GoogleTest</a>. Optional, for testing.</p></li>
 </ul>
 <p>For the preferred dependency versions see the manifest file.</p>
-<section id="providing-flatc">
-<h2>Providing Flatc<a class="headerlink" href="#providing-flatc" title="Link to this heading"></a></h2>
-<p>There are 3 options for providing the flatc binary and headers.</p>
-<ol class="arabic simple">
-<li><p>Using the default path. When the repository is initialized using the repo
-manifest, the flatbuffers source is checked out in
-<code class="docutils literal notranslate"><span class="pre">&lt;repo-root&gt;/dependencies/flatbuffers/</span></code>. The VGF Library cmake scripts
-automatically find and build flatc in this location.</p></li>
-<li><p>Providing a custom flatc path. If flatc cannot be found in the default
-<code class="docutils literal notranslate"><span class="pre">&lt;repo-root&gt;/dependencies/flatbuffers</span></code> path, you can provide a custom binary
-file path to the build script using the <code class="docutils literal notranslate"><span class="pre">--flatc-path</span> <span class="pre">&lt;path_to_flatc&gt;</span></code>
-option, see <a class="reference internal" href="#building-with-the-script"><span class="xref myst">Building with the script</span></a>.</p></li>
-<li><p>Installing flatc to the system. If flatc cannot be found in the default path
-and no custom path is provided, it will be searched using <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. To install
-flatc to the system and make it available on the searchable <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, see the
-<a class="reference external" href="https://flatbuffers.dev/">flatbuffers documentation</a>. For example, on Linux
-navigate to the flatbuffers checkout location and run the following
-commands:</p></li>
-</ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>/usr/local
-cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--target<span class="w"> </span>install
-</pre></div>
-</div>
-</section>
 <section id="building-with-the-script">
 <h2>Building with the script<a class="headerlink" href="#building-with-the-script" title="Link to this heading"></a></h2>
 <p>To build on Linux, run the following command:</p>
