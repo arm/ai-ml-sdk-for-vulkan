@@ -113,10 +113,16 @@
              
   <section id="known-limitations">
 <h1>Known Limitations<a class="headerlink" href="#known-limitations" title="Link to this heading"></a></h1>
-<ul class="simple">
+<ul>
 <li><p>Resources created with <code class="docutils literal notranslate"><span class="pre">VK_IMAGE_TILING_OPTIMAL</span></code> and
 <code class="docutils literal notranslate"><span class="pre">VK_TENSOR_TILING_OPTIMAL_ARM</span></code> flags cannot be used with memory aliasing.</p></li>
 <li><p>Data graph pipeline creation without a shader module is not supported.</p></li>
+<li><p>Usage of the ‘shaderFloat64’ feature requires support from the underlying ICD.
+This relates to high-precision types. Support of it can be checked with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vulkaninfo<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;shaderFloat64\|deviceName&#39;</span>
+</pre></div>
+</div>
+</li>
 </ul>
 <p>MoltenVK currently does not have full Vulkan® coverage, some notable issues are:</p>
 <ul class="simple">
