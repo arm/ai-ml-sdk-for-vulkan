@@ -81,7 +81,7 @@ try {
             $name = $prop.Name
             $revision = [string]$prop.Value
 
-            $xpath = "//project[@name='$name']/@path"
+            $xpath = "//project[substring-after(@name,'/') = substring-after('$name','/')]/@path"
             $projectPath = $manifestXml | xml.exe sel -t -v $xpath
 
             if (-not $projectPath) {
@@ -115,7 +115,7 @@ try {
         $manifestText = python @manifestArgs
         $manifestXml = $manifestText -join "`n"
 
-        $xpath = "//project[@name='$ChangedRepo']/@path"
+        $xpath = "//project[substring-after(@name,'/') = substring-after('$ChangedRepo','/')]/@path"
         $projectPath = $manifestXml | xml.exe sel -t -v $xpath
 
         if (-not $projectPath) {

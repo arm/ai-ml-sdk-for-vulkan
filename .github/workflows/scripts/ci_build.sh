@@ -64,7 +64,7 @@ if [ -n "$OVERRIDES" ]; then
   for NAME in $(echo "$OVERRIDES" | jq -r 'keys[]'); do
     REVISION=$(echo "$OVERRIDES" | jq -r --arg name "$NAME" '.[$name]')
 
-    PROJECT_PATH=$(echo "$MANIFEST_XML" | xmlstarlet sel -t -v "//project[@name='${NAME}']/@path")
+    PROJECT_PATH=$(echo "$MANIFEST_XML" | xmlstarlet sel -t -v "//project[substring-after(@name,'/')=substring-after('${NAME}','/')]/@path")
     if [ -z "$PROJECT_PATH" ]; then
       echo "ERROR: project path for $NAME not found in manifest"
       exit 1
@@ -88,7 +88,7 @@ elif [ -n "$CHANGED_REPO" ]; then
   fi
 
   # Find project path for changed repo
-  PROJECT_PATH=$(repo manifest -r | xmlstarlet sel -t -v "//project[@name='${CHANGED_REPO}']/@path")
+  PROJECT_PATH=$(repo manifest -r | xmlstarlet sel -t -v "//project[substring-after(@name,'/')=substring-after('${CHANGED_REPO}','/')]/@path")
   if [ -z "$PROJECT_PATH" ]; then
     echo "Could not find project path for ${CHANGED_REPO} in manifest"
     exit 1
