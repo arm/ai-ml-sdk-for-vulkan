@@ -434,8 +434,7 @@ implicitly marks the start of the next frame.
 .. code-block::
 
   mark_boundary: {
-      resources:[string], // array of named references to the resources to capture
-      frame_id: int, // Id to be assigned to the frame
+      resources:[string] // array of named references to the resources to capture
   }
 
 
@@ -587,8 +586,7 @@ submit all commands in this frame.
                     "resources": [
                       "inBufferA",
                       "inBufferB"
-                    ],
-                    "frame_id" : 0
+                    ]
                 }
             }
         ],

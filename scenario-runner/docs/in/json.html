@@ -509,8 +509,7 @@ JSON commands in the frame. Tools can use this information to identify frames an
 capture targeted resources specified in the command options. The end of a ‘frame’
 implicitly marks the start of the next frame.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mark_boundary</span><span class="p">:</span> <span class="p">{</span>
-    <span class="n">resources</span><span class="p">:[</span><span class="n">string</span><span class="p">],</span> <span class="o">//</span> <span class="n">array</span> <span class="n">of</span> <span class="n">named</span> <span class="n">references</span> <span class="n">to</span> <span class="n">the</span> <span class="n">resources</span> <span class="n">to</span> <span class="n">capture</span>
-    <span class="n">frame_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">//</span> <span class="n">Id</span> <span class="n">to</span> <span class="n">be</span> <span class="n">assigned</span> <span class="n">to</span> <span class="n">the</span> <span class="n">frame</span>
+    <span class="n">resources</span><span class="p">:[</span><span class="n">string</span><span class="p">]</span> <span class="o">//</span> <span class="n">array</span> <span class="n">of</span> <span class="n">named</span> <span class="n">references</span> <span class="n">to</span> <span class="n">the</span> <span class="n">resources</span> <span class="n">to</span> <span class="n">capture</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -652,8 +651,7 @@ submit all commands in this frame.</p>
             <span class="s2">&quot;resources&quot;</span><span class="p">:</span> <span class="p">[</span>
               <span class="s2">&quot;inBufferA&quot;</span><span class="p">,</span>
               <span class="s2">&quot;inBufferB&quot;</span>
-            <span class="p">],</span>
-            <span class="s2">&quot;frame_id&quot;</span> <span class="p">:</span> <span class="mi">0</span>
+            <span class="p">]</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">],</span>
