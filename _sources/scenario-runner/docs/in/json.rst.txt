@@ -164,7 +164,6 @@ The ``tensor`` resources have the following properties:
       shader_access:enum = (readonly|writeonly|readwrite) // type of access required by the shader/graph
       src:path(default=""), // optional path to the NumPy file to initialize the resource from
       dst:path(default=""), // optional path to the NumPy file to write contents to (post execution of commands)
-      alias_target:AliasTarget, // (Deprecated) optional "AliasTarget" of image resource to share memory with
       memory_group, // optional memory group to share memory object between resources
       tiling:enum = (OPTIMAL|LINEAR), // optional "Tiling" arrangement info of the tensor resource
   }
