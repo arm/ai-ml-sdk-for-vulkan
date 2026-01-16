@@ -1,5 +1,5 @@
 #
-# SPDX-FileCopyrightText: Copyright 2022-2025 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2022-2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
 # SPDX-License-Identifier: Apache-2.0
 #
 
@@ -60,7 +60,7 @@ macro(optional_add_subdirectory dir_path binary)
 endmacro()
 
 # SDK components
-set(ML_SDK_MODEL_CONVERTER_PATH      "${ML_SDK_FOR_VULKAN_PATH}/sw/model-coverter" CACHE PATH "Path to the ML SDK Model Converter")
+set(ML_SDK_MODEL_CONVERTER_PATH      "${ML_SDK_FOR_VULKAN_PATH}/sw/model-converter" CACHE PATH "Path to the ML SDK Model Converter")
 set(ML_SDK_EMULATION_LAYER_PATH      "${ML_SDK_FOR_VULKAN_PATH}/sw/emulation-layer" CACHE PATH "Path to the ML SDK Emulation Layer for Vulkan")
 set(ML_SDK_SCENARIO_RUNNER_PATH      "${ML_SDK_FOR_VULKAN_PATH}/sw/scenario-runner" CACHE PATH "Path to the ML SDK Scenario Runner")
 set(ML_SDK_VGF_LIB_PATH              "${ML_SDK_FOR_VULKAN_PATH}/sw/vgf-lib" CACHE PATH "Path to the ML SDK VGF Library")
