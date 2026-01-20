@@ -30,7 +30,7 @@ Changes since `v2025.10.0`.
 - Images include sccache, tosa_tools, wget, and an updated FlatBuffers
     toolchain.
 - Synced tooling versions across components; added
-    tooling_requirements.txt and documented pip requirements.
+    tooling-requirements.txt and documented pip requirements.
 - Refreshed SBOM data and adopted usage of `REUSE.toml`.
 
 ### Documentation & Tutorials
