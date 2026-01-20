@@ -110,7 +110,7 @@ For building the ML SDK for Vulkan® components, run the following commands:
 
 ```bash
 pip install -r requirements.txt
-pip install -r tooling_requirements.txt
+pip install -r tooling-requirements.txt
 ./scripts/build.py
 ```
 
