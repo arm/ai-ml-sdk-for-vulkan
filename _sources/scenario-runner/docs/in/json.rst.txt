@@ -148,7 +148,8 @@ The following formats have no corresponding DDS equivalents.
 They may still be used for intermediate images or via memory aliasing:
 ``VK_FORMAT_R16G16B16A16_UNORM``, ``VK_FORMAT_R16G16B16A16_SNORM``, ``VK_FORMAT_R16G16B16A16_SINT``,
 ``VK_FORMAT_R8_BOOL_ARM``, ``VK_FORMAT_R8_UINT``, ``VK_FORMAT_R8_SINT``, ``VK_FORMAT_R16_UINT``,
-``VK_FORMAT_R16_SINT``, ``VK_FORMAT_R32_SINT``, ``VK_FORMAT_R64_SINT``, ``VK_FORMAT_R16_SFLOAT``
+``VK_FORMAT_R16_SINT``, ``VK_FORMAT_R32_SINT``, ``VK_FORMAT_R64_SINT``, ``VK_FORMAT_R16_SFLOAT``,
+``VK_FORMAT_R8G8B8_UNORM``, ``VK_FORMAT_B8G8R8_UNORM``
 
 tensor
 """"""
@@ -592,7 +593,6 @@ submit all commands in this frame.
         "resources": [
             {
                 "shader": {
-                    "entry": "main",
                     "src": "path/to/add_shader.spv",
                     "type": "SPIR-V",
                     "uid": "add_shader"

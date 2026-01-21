@@ -84,7 +84,6 @@ The following example is a more realistic usage of the memory aliasing feature. 
         "shader": {
           "uid": "image_shader",
           "src": "imageShader.spv",
-          "entry": "main",
           "type": "SPIR-V"
         }
       },
