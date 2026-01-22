@@ -1158,19 +1158,20 @@ If no code is stored in the module the SPIR-V code pointer will be set to null a
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True if the data is a valid section, false otherwise </p>
+<dd class="field-even"><p>True if the data is a valid constant section, false otherwise </p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="c function">
 <dt class="sig sig-object c" id="c.mlsdk_decoder_create_constant_table_decoder">
-<span class="target" id="group__VGFCAPI_1gacc4423334943e8876f657beee64061b3"></span><span class="n"><span class="pre">mlsdk_decoder_constant_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_create_constant_table_decoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">constantTableData</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">constantDecoderMemory</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_create_constant_table_decoder" title="Link to this definition"></a><br /></dt>
+<span class="target" id="group__VGFCAPI_1ga25890dce3f73b0fa50e66823e414047d"></span><span class="n"><span class="pre">mlsdk_decoder_constant_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_create_constant_table_decoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">constantTableData</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n"><span class="pre">size</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">constantDecoderMemory</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_create_constant_table_decoder" title="Link to this definition"></a><br /></dt>
 <dd><p>Create the constant table decoder. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>constantTableData</strong> -- The pointer to the constant table data </p></li>
+<li><p><strong>size</strong> -- The size in bytes of the constant table data </p></li>
 <li><p><strong>constantDecoderMemory</strong> -- Memory allocated to be used to create the decoder </p></li>
 </ul>
 </dd>

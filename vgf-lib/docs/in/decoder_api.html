@@ -445,24 +445,28 @@ For example, a tensor entry contains its element type, shape and stride. However
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv421CreateConstantDecoderPKv">
-<span id="_CPPv321CreateConstantDecoderPKv"></span><span id="_CPPv221CreateConstantDecoderPKv"></span><span id="CreateConstantDecoder__voidCP"></span><span class="target" id="group__VGFDecoderAPI_1ga9ef0bceef7b28b64a1b1124682b8b382"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ConstantDecoder</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CreateConstantDecoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421CreateConstantDecoderPKv" title="Link to this definition"></a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv421CreateConstantDecoderPKv8uint64_t">
+<span id="_CPPv321CreateConstantDecoderPKv8uint64_t"></span><span id="_CPPv221CreateConstantDecoderPKv8uint64_t"></span><span id="CreateConstantDecoder__voidCP.uint64_t"></span><span class="target" id="group__VGFDecoderAPI_1gaa4121c67a5371fb5cc0e51c719eb895a"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ConstantDecoder</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CreateConstantDecoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421CreateConstantDecoderPKv8uint64_t" title="Link to this definition"></a><br /></dt>
 <dd><p>Constructs a Constant section decoder. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> -- Pointer to the Constants section data </p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> -- Pointer to the Constants section data </p></li>
+<li><p><strong>size</strong> -- Size of the Constants section data </p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv428CreateConstantDecoderInPlacePKvPv">
-<span id="_CPPv328CreateConstantDecoderInPlacePKvPv"></span><span id="_CPPv228CreateConstantDecoderInPlacePKvPv"></span><span id="CreateConstantDecoderInPlace__voidCP.voidP"></span><span class="target" id="group__VGFDecoderAPI_1ga221c88233e9c2d9124df3099a65f851f"></span><span class="n"><span class="pre">ConstantDecoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">CreateConstantDecoderInPlace</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">decoderMem</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv428CreateConstantDecoderInPlacePKvPv" title="Link to this definition"></a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv428CreateConstantDecoderInPlacePKv8uint64_tPv">
+<span id="_CPPv328CreateConstantDecoderInPlacePKv8uint64_tPv"></span><span id="_CPPv228CreateConstantDecoderInPlacePKv8uint64_tPv"></span><span id="CreateConstantDecoderInPlace__voidCP.uint64_t.voidP"></span><span class="target" id="group__VGFDecoderAPI_1ga5c501036dece9b4b1b508390922164f7"></span><span class="n"><span class="pre">ConstantDecoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">CreateConstantDecoderInPlace</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">decoderMem</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv428CreateConstantDecoderInPlacePKv8uint64_tPv" title="Link to this definition"></a><br /></dt>
 <dd><p>Constructs a Constant section decoder in-place using preallocated memory. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> -- Pointer to the Constants section data </p></li>
+<li><p><strong>size</strong> -- Size of the Constants section data </p></li>
 <li><p><strong>decoderMem</strong> -- memory in which to create the decoder </p></li>
 </ul>
 </dd>
