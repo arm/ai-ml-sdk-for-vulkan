@@ -22,6 +22,7 @@ endif()
 
 ### Options
 option(ML_SDK_BUILD_DOCS "Build project documentation" OFF)
+option(SCENARIO_RUNNER_ENABLE_HLSL_SUPPORT "HLSL only supported on Windows and Linux" OFF)
 
 # Path to ML SDK for Vulkan® root
 set(ML_SDK_FOR_VULKAN_PATH           "${CMAKE_CURRENT_LIST_DIR}" CACHE PATH "Path to ML SDK for Vulkan®")
@@ -33,6 +34,7 @@ set(FLATBUFFERS_PATH                 "${ML_SDK_FOR_VULKAN_PATH}/dependencies/fla
 set(JSON_PATH                        "${ML_SDK_FOR_VULKAN_PATH}/dependencies/json" CACHE PATH "Path to JSON")
 set(LLVM_PATH                        "${ML_SDK_FOR_VULKAN_PATH}/dependencies/llvm-project" CACHE PATH "Path to LLVM")
 set(TOSA_TOOLS_PATH                  "${ML_SDK_FOR_VULKAN_PATH}/dependencies/tosa-tools" CACHE PATH "Path to TOSA Tools")
+set(DXC_PATH                         "${ML_SDK_FOR_VULKAN_PATH}/dependencies/DirectXShaderCompiler" CACHE PATH "Path to DirectXShaderCompiler")
 
 # Khronos dependencies
 set(GLSLANG_PATH                     "${ML_SDK_FOR_VULKAN_PATH}/dependencies/glslang" CACHE PATH "Path to GLSLang")
