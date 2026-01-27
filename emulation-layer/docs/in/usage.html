@@ -262,9 +262,9 @@ CMake’s <code class="docutils literal notranslate"><span class="pre">find_pack
 <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">glslang-tools</span></code> or from the source code following the
 previously mentioned documentation. Note that we require version &gt; 15.4.0,
 which may not yet be available in Ubuntu’s official package repositories.</p></li>
-<li><p>Disable the shader pre-compilation. This can be done by adding the CMake
-option <code class="docutils literal notranslate"><span class="pre">-DVMEL_DISABLE_PRECOMPILE_SHADERS=ON</span></code> to CMake Command. By doing so,
-the shaders would be compiled at runtime.</p></li>
+<li><p>Disable shader pre-compilation. This can be done by adding the
+flag <code class="docutils literal notranslate"><span class="pre">--disable-precompile-shaders</span></code> to the build script command. By doing so,
+the shaders will be compiled at runtime.</p></li>
 </ol>
 <p>An example build flow using the option 1 would be:</p>
 <p>First, build the glslang standalone under <code class="docutils literal notranslate"><span class="pre">&lt;repo_root&gt;/dependencies/glslang/</span></code>:</p>

@@ -122,6 +122,9 @@ This relates to high-precision types. Support of it can be checked with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vulkaninfo<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;shaderFloat64\|deviceName&#39;</span>
 </pre></div>
 </div>
+<p>If this feature is not available, add the <code class="docutils literal notranslate"><span class="pre">--use-float-as-double</span></code> flag to
+the build script command to use 32-bit <code class="docutils literal notranslate"><span class="pre">float</span></code> instead of <code class="docutils literal notranslate"><span class="pre">double</span></code>.
+This behavior is automatically enabled on Darwin and Android™.</p>
 </li>
 </ul>
 <p>MoltenVK currently does not have full Vulkan® coverage, some notable issues are:</p>
