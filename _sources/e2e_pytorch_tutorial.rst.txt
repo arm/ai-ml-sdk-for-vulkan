@@ -15,7 +15,7 @@ To install ExecuTorch, run:
 
 .. code-block:: bash
 
-    pip install "executorch==1.0.0"
+    pip install "executorch==1.0.1"
 
 Download the ExecuTorch repo, and install the required dependencies using the script.
 
@@ -31,6 +31,7 @@ Download the ExecuTorch repo, and install the required dependencies using the sc
 .. code-block:: bash
 
     git clone https://github.com/pytorch/executorch.git
+    cd executorch && git checkout v1.0.1 && cd ..
     ./executorch/examples/arm/setup.sh --disable-ethos-u-deps
 
 1. Add the ML SDK Model Converter to :code:`PATH`:

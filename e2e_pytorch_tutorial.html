@@ -117,7 +117,7 @@
 In this tutorial, we generate a sample PyTorch file with a single MaxPool2D operation
 to demonstrate each step of the end-to-end workflow.</p>
 <p>To install ExecuTorch, run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;executorch==1.0.0&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;executorch==1.0.1&quot;</span>
 </pre></div>
 </div>
 <p>Download the ExecuTorch repo, and install the required dependencies using the script.</p>
@@ -131,6 +131,7 @@ git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"
 </div>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/pytorch/executorch.git
+<span class="nb">cd</span><span class="w"> </span>executorch<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>v1.0.1<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>..
 ./executorch/examples/arm/setup.sh<span class="w"> </span>--disable-ethos-u-deps
 </pre></div>
 </div>
