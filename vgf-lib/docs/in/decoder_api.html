@@ -144,24 +144,6 @@ The header decoder also uses memory size and offset pairs to provide the locatio
 <span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">decoder</span><span class="o">-&gt;</span><span class="n">CheckVersion</span><span class="p">());</span>
 </pre></div>
 </div>
-<p>To further verify a potentially unsafe vgf file, use the verify functions for each section:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">VerifyModuleTable</span><span class="p">(</span>
-<span class="w">    </span><span class="n">vgf_data</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModuleTableOffset</span><span class="p">(),</span>
-<span class="w">    </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModuleTableSize</span><span class="p">());</span>
-
-<span class="n">VerifyModelResourceTable</span><span class="p">(</span>
-<span class="w">    </span><span class="n">vgf_data</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelResourceTableOffset</span><span class="p">(),</span>
-<span class="w">    </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelResourceTableSize</span><span class="p">());</span>
-
-<span class="n">VerifyModelSequenceTable</span><span class="p">(</span>
-<span class="w">    </span><span class="n">vgf_data</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelSequenceTableOffset</span><span class="p">(),</span>
-<span class="w">    </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelSequenceTableSize</span><span class="p">());</span>
-
-<span class="n">VerifyConstant</span><span class="p">(</span>
-<span class="w">    </span><span class="n">vgf_data</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetConstantsOffset</span><span class="p">(),</span>
-<span class="w">    </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetConstantsSize</span><span class="p">());</span>
-</pre></div>
-</div>
 </section>
 <section id="model-sequence-table-decoding">
 <h2>Model Sequence Table decoding<a class="headerlink" href="#model-sequence-table-decoding" title="Link to this heading"></a></h2>
@@ -171,10 +153,9 @@ The Model sequence table also contains information about any constants that the 
 <p>For each resource, either input, output, or constant, a pointer into the Model Resource table is stored to access detailed information of the resource itself.
 For example, if the resource is a tensor or an image, the Model Resource table holds its shape or dimension.</p>
 <p>With the previously created header decoder, you must create a Model Sequence Table decoder.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">VerifyModelSequenceTable</span><span class="p">(</span><span class="n">vgf_data</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelSequenceTableOffset</span><span class="p">(),</span>
-<span class="w">                                         </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelSequenceTableSize</span><span class="p">()));</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">ModelSequenceTableDecoder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">seqTableDecoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateModelSequenceTableDecoder</span><span class="p">(</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">ModelSequenceTableDecoder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">seqTableDecoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateModelSequenceTableDecoder</span><span class="p">(</span>
 <span class="w">        </span><span class="n">vgf_data</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelSequenceTableOffset</span><span class="p">(),</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelSequenceTableSize</span><span class="p">());</span>
+<span class="w">    </span><span class="n">ASSERT_NE</span><span class="p">(</span><span class="n">seqTableDecoder</span><span class="p">,</span><span class="w"> </span><span class="k">nullptr</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>To extract all the relevant information of any segment, you can address each segment using the respective index. For example, you can create a binding slot decoder to extract the inputs or outputs to the segment.</p>
@@ -240,10 +221,9 @@ For example, a tensor entry contains its element type, shape and stride. However
 </pre></div>
 </div>
 <p>After you create a Model Resource Table decoder, you can use the obtained mrtIndex to extract information for that binding:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">VerifyModelResourceTable</span><span class="p">(</span><span class="n">vgf_data</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelResourceTableOffset</span><span class="p">(),</span>
-<span class="w">                                         </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelResourceTableSize</span><span class="p">()));</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">ModelResourceTableDecoder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mrtDecoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateModelResourceTableDecoder</span><span class="p">(</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">ModelResourceTableDecoder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mrtDecoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateModelResourceTableDecoder</span><span class="p">(</span>
 <span class="w">        </span><span class="n">vgf_data</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelResourceTableOffset</span><span class="p">(),</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelResourceTableSize</span><span class="p">());</span>
+<span class="w">    </span><span class="n">ASSERT_NE</span><span class="p">(</span><span class="n">mrtDecoder</span><span class="p">,</span><span class="w"> </span><span class="k">nullptr</span><span class="p">);</span>
 
 <span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">numEntries</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mrtDecoder</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
 
@@ -264,10 +244,9 @@ For example, a tensor entry contains its element type, shape and stride. However
 <h2>Module Table decoding<a class="headerlink" href="#module-table-decoding" title="Link to this heading"></a></h2>
 <p>The API facilitates the extraction of each module which contains the module type, SPIR-V™ code existence and, if applicable, its corresponding code.</p>
 <p>After you create a Module table decoder, you can extract the respective module of the segment. To extract the module, you can use the moduleIndex:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">VerifyModuleTable</span><span class="p">(</span><span class="n">vgf_data</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModuleTableOffset</span><span class="p">(),</span>
-<span class="w">                                  </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModuleTableSize</span><span class="p">()));</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">ModuleTableDecoder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">moduleDecoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateModuleTableDecoder</span><span class="p">(</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">ModuleTableDecoder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">moduleDecoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateModuleTableDecoder</span><span class="p">(</span>
 <span class="w">        </span><span class="n">vgf_data</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModuleTableOffset</span><span class="p">(),</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModuleTableSize</span><span class="p">());</span>
+<span class="w">    </span><span class="n">ASSERT_NE</span><span class="p">(</span><span class="n">moduleDecoder</span><span class="p">,</span><span class="w"> </span><span class="k">nullptr</span><span class="p">);</span>
 
 <span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">numModules</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">moduleDecoder</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
 
@@ -346,23 +325,9 @@ For example, a tensor entry contains its element type, shape and stride. However
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv417VerifyModuleTablePKv8uint64_t">
-<span id="_CPPv317VerifyModuleTablePKv8uint64_t"></span><span id="_CPPv217VerifyModuleTablePKv8uint64_t"></span><span id="VerifyModuleTable__voidCP.uint64_t"></span><span class="target" id="group__VGFDecoderAPI_1ga061482677c201d7a68e083ea01745c08"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VerifyModuleTable</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417VerifyModuleTablePKv8uint64_t" title="Link to this definition"></a><br /></dt>
-<dd><p>Returns true if input points to a valid Module Table. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> -- </p></li>
-<li><p><strong>size</strong> -- Max count of read bytes </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv424CreateModuleTableDecoderPKv8uint64_t">
 <span id="_CPPv324CreateModuleTableDecoderPKv8uint64_t"></span><span id="_CPPv224CreateModuleTableDecoderPKv8uint64_t"></span><span id="CreateModuleTableDecoder__voidCP.uint64_t"></span><span class="target" id="group__VGFDecoderAPI_1gafc872cfcd160237d96a9762bad091712"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ModuleTableDecoder</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CreateModuleTableDecoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424CreateModuleTableDecoderPKv8uint64_t" title="Link to this definition"></a><br /></dt>
-<dd><p>Constructs a Module Table decoder. </p>
+<dd><p>Constructs a Module Table decoder (returns nullptr if the section is invalid) </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -376,7 +341,7 @@ For example, a tensor entry contains its element type, shape and stride. However
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv431CreateModuleTableDecoderInPlacePKv8uint64_tPv">
 <span id="_CPPv331CreateModuleTableDecoderInPlacePKv8uint64_tPv"></span><span id="_CPPv231CreateModuleTableDecoderInPlacePKv8uint64_tPv"></span><span id="CreateModuleTableDecoderInPlace__voidCP.uint64_t.voidP"></span><span class="target" id="group__VGFDecoderAPI_1gace788da3d9725063b5e2518ca7fdde38"></span><span class="n"><span class="pre">ModuleTableDecoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">CreateModuleTableDecoderInPlace</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">decoderMem</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv431CreateModuleTableDecoderInPlacePKv8uint64_tPv" title="Link to this definition"></a><br /></dt>
-<dd><p>Constructs a Module Table decoder in-place using pre-allocated memory. </p>
+<dd><p>Constructs a Module Table decoder in-place using pre-allocated memory (returns nullptr if the section is invalid) </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -395,23 +360,9 @@ For example, a tensor entry contains its element type, shape and stride. However
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv424VerifyModelResourceTablePKv8uint64_t">
-<span id="_CPPv324VerifyModelResourceTablePKv8uint64_t"></span><span id="_CPPv224VerifyModelResourceTablePKv8uint64_t"></span><span id="VerifyModelResourceTable__voidCP.uint64_t"></span><span class="target" id="group__VGFDecoderAPI_1gab674d14d4bfdff5e0dc49bc6c5eca8ac"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VerifyModelResourceTable</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424VerifyModelResourceTablePKv8uint64_t" title="Link to this definition"></a><br /></dt>
-<dd><p>Returns true if input points to a valid Model Resource Table. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> -- </p></li>
-<li><p><strong>size</strong> -- Max count of read bytes </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv431CreateModelResourceTableDecoderPKv8uint64_t">
 <span id="_CPPv331CreateModelResourceTableDecoderPKv8uint64_t"></span><span id="_CPPv231CreateModelResourceTableDecoderPKv8uint64_t"></span><span id="CreateModelResourceTableDecoder__voidCP.uint64_t"></span><span class="target" id="group__VGFDecoderAPI_1gab8d65e98e6ff0d877ef40309f558590b"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ModelResourceTableDecoder</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CreateModelResourceTableDecoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv431CreateModelResourceTableDecoderPKv8uint64_t" title="Link to this definition"></a><br /></dt>
-<dd><p>Constructs a Model Resource Table decoder. </p>
+<dd><p>Constructs a Model Resource Table decoder (returns nullptr if the section is invalid) </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -425,7 +376,7 @@ For example, a tensor entry contains its element type, shape and stride. However
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv438CreateModelResourceTableDecoderInPlacePKv8uint64_tPv">
 <span id="_CPPv338CreateModelResourceTableDecoderInPlacePKv8uint64_tPv"></span><span id="_CPPv238CreateModelResourceTableDecoderInPlacePKv8uint64_tPv"></span><span id="CreateModelResourceTableDecoderInPlace__voidCP.uint64_t.voidP"></span><span class="target" id="group__VGFDecoderAPI_1ga02e5a1a220c24613cf1a629241da2f5e"></span><span class="n"><span class="pre">ModelResourceTableDecoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">CreateModelResourceTableDecoderInPlace</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">decoderMem</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv438CreateModelResourceTableDecoderInPlacePKv8uint64_tPv" title="Link to this definition"></a><br /></dt>
-<dd><p>Constructs a Model Resource Table decoder in-place using pre-allocated memory. </p>
+<dd><p>Constructs a Model Resource Table decoder in-place using pre-allocated memory (returns nullptr if the section is invalid) </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -444,23 +395,9 @@ For example, a tensor entry contains its element type, shape and stride. However
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv414VerifyConstantPKv8uint64_t">
-<span id="_CPPv314VerifyConstantPKv8uint64_t"></span><span id="_CPPv214VerifyConstantPKv8uint64_t"></span><span id="VerifyConstant__voidCP.uint64_t"></span><span class="target" id="group__VGFDecoderAPI_1ga0f23387a220d1a9b110d006d331843a0"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VerifyConstant</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414VerifyConstantPKv8uint64_t" title="Link to this definition"></a><br /></dt>
-<dd><p>Returns true if input points to a valid Constant section. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> -- Pointer to the Constants section data </p></li>
-<li><p><strong>size</strong> -- Max count of read bytes </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv421CreateConstantDecoderPKv8uint64_t">
 <span id="_CPPv321CreateConstantDecoderPKv8uint64_t"></span><span id="_CPPv221CreateConstantDecoderPKv8uint64_t"></span><span id="CreateConstantDecoder__voidCP.uint64_t"></span><span class="target" id="group__VGFDecoderAPI_1gaa4121c67a5371fb5cc0e51c719eb895a"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ConstantDecoder</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CreateConstantDecoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421CreateConstantDecoderPKv8uint64_t" title="Link to this definition"></a><br /></dt>
-<dd><p>Constructs a Constant section decoder. </p>
+<dd><p>Constructs a Constant section decoder (returns nullptr if the section is invalid) </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -474,7 +411,7 @@ For example, a tensor entry contains its element type, shape and stride. However
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv428CreateConstantDecoderInPlacePKv8uint64_tPv">
 <span id="_CPPv328CreateConstantDecoderInPlacePKv8uint64_tPv"></span><span id="_CPPv228CreateConstantDecoderInPlacePKv8uint64_tPv"></span><span id="CreateConstantDecoderInPlace__voidCP.uint64_t.voidP"></span><span class="target" id="group__VGFDecoderAPI_1ga5c501036dece9b4b1b508390922164f7"></span><span class="n"><span class="pre">ConstantDecoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">CreateConstantDecoderInPlace</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">decoderMem</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv428CreateConstantDecoderInPlacePKv8uint64_tPv" title="Link to this definition"></a><br /></dt>
-<dd><p>Constructs a Constant section decoder in-place using preallocated memory. </p>
+<dd><p>Constructs a Constant section decoder in-place using preallocated memory (returns nullptr if the section is invalid) </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -493,23 +430,9 @@ For example, a tensor entry contains its element type, shape and stride. However
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv424VerifyModelSequenceTablePKv8uint64_t">
-<span id="_CPPv324VerifyModelSequenceTablePKv8uint64_t"></span><span id="_CPPv224VerifyModelSequenceTablePKv8uint64_t"></span><span id="VerifyModelSequenceTable__voidCP.uint64_t"></span><span class="target" id="group__VGFDecoderAPI_1gae31132ffc59e9b2c651474fbfb10199a"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VerifyModelSequenceTable</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424VerifyModelSequenceTablePKv8uint64_t" title="Link to this definition"></a><br /></dt>
-<dd><p>Returns true if input points to a valid Model Sequence Table. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> -- </p></li>
-<li><p><strong>size</strong> -- Max count of read bytes </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv431CreateModelSequenceTableDecoderPKv8uint64_t">
 <span id="_CPPv331CreateModelSequenceTableDecoderPKv8uint64_t"></span><span id="_CPPv231CreateModelSequenceTableDecoderPKv8uint64_t"></span><span id="CreateModelSequenceTableDecoder__voidCP.uint64_t"></span><span class="target" id="group__VGFDecoderAPI_1ga6765e014534bced9fcd6de0f66754686"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ModelSequenceTableDecoder</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CreateModelSequenceTableDecoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv431CreateModelSequenceTableDecoderPKv8uint64_t" title="Link to this definition"></a><br /></dt>
-<dd><p>Constructs a Model Sequence Table decoder. </p>
+<dd><p>Constructs a Model Sequence Table decoder (returns nullptr if the table is invalid) </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -523,7 +446,7 @@ For example, a tensor entry contains its element type, shape and stride. However
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv438CreateModelSequenceTableDecoderInPlacePKv8uint64_tPv">
 <span id="_CPPv338CreateModelSequenceTableDecoderInPlacePKv8uint64_tPv"></span><span id="_CPPv238CreateModelSequenceTableDecoderInPlacePKv8uint64_tPv"></span><span id="CreateModelSequenceTableDecoderInPlace__voidCP.uint64_t.voidP"></span><span class="target" id="group__VGFDecoderAPI_1gabb38d2a6ffe9b96923e76bc92477330a"></span><span class="n"><span class="pre">ModelSequenceTableDecoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">CreateModelSequenceTableDecoderInPlace</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">decoderMem</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv438CreateModelSequenceTableDecoderInPlacePKv8uint64_tPv" title="Link to this definition"></a><br /></dt>
-<dd><p>Constructs a Model Sequence Table decoder in-place using pre-allocated memory. </p>
+<dd><p>Constructs a Model Sequence Table decoder in-place using pre-allocated memory (returns nullptr if the section is invalid) </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

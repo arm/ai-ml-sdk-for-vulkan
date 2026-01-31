@@ -14,8 +14,7 @@ The VGF file has the following sections in the order specified (see enum ``mlsdk
   * :ref:`Model Constants Section`
 
 Each section of the VGF has its own decoder type. The memory requirement for each section decoder is retrieved by the corresponding calls, for example, function ``mlsdk_decoder_module_table_decoder_mem_reqs`` for Module section.
-Each section of the VGF has its corresponding call for creating its decoder, for example, ``mlsdk_decoder_create_module_table_decoder`` function for Module section. Then, the created decoder reads data pertaining to that VGF section.
-If the VGF file is obtained from an external source and potentially unsafe, each section has its own verifier, for example  ``mlsdk_decoder_is_valid_module_table``.
+Each section of the VGF has its corresponding call for creating its decoder, for example, ``mlsdk_decoder_create_module_table_decoder`` function for Module section. These calls return ``nullptr`` on invalid input. Then, the created decoder reads data pertaining to that VGF section.
 
 .. figure:: assets/c_decoder_main.svg
    :align: center

@@ -141,8 +141,7 @@ The VGF file has the following sections in the order specified (see enum <code c
 </ul>
 </div></blockquote>
 <p>Each section of the VGF has its own decoder type. The memory requirement for each section decoder is retrieved by the corresponding calls, for example, function <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_module_table_decoder_mem_reqs</span></code> for Module section.
-Each section of the VGF has its corresponding call for creating its decoder, for example, <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_create_module_table_decoder</span></code> function for Module section. Then, the created decoder reads data pertaining to that VGF section.
-If the VGF file is obtained from an external source and potentially unsafe, each section has its own verifier, for example  <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_is_valid_module_table</span></code>.</p>
+Each section of the VGF has its corresponding call for creating its decoder, for example, <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_create_module_table_decoder</span></code> function for Module section. These calls return <code class="docutils literal notranslate"><span class="pre">nullptr</span></code> on invalid input. Then, the created decoder reads data pertaining to that VGF section.</p>
 <figure class="align-center">
 <a class="reference internal image-reference" href="../../../_images/c_decoder_main.svg"><img alt="../../../_images/c_decoder_main.svg" src="../../../_images/c_decoder_main.svg" style="width: 60%;" />
 </a>
@@ -502,23 +501,6 @@ To retrieve constant information through a module table decoder, you can use the
 </dd></dl>
 
 <dl class="c function">
-<dt class="sig sig-object c" id="c.mlsdk_decoder_is_valid_module_table">
-<span class="target" id="group__VGFCAPI_1gaaf2a879db13cbb46a98c9a57a7cbb246"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_is_valid_module_table</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">moduleTableData</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_is_valid_module_table" title="Link to this definition"></a><br /></dt>
-<dd><p>Checks if pointer points to valid module table data. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>moduleTableData</strong> -- The pointer to the data </p></li>
-<li><p><strong>size</strong> -- The size in bytes of the data </p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True if the data is a valid section, false otherwise </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="c function">
 <dt class="sig sig-object c" id="c.mlsdk_decoder_create_module_table_decoder">
 <span class="target" id="group__VGFCAPI_1ga840bf560710cfa5bb4c1ea69b35d68d3"></span><span class="n"><span class="pre">mlsdk_decoder_module_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_create_module_table_decoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">moduleTableData</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n"><span class="pre">size</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">decoderMemory</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_create_module_table_decoder" title="Link to this definition"></a><br /></dt>
 <dd><p>Creates the module table decoder. </p>
@@ -531,7 +513,7 @@ To retrieve constant information through a module table decoder, you can use the
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The pointer to the newly created decoder </p>
+<dd class="field-even"><p>The pointer to the newly created decoder (nullptr if the section is invalid) </p>
 </dd>
 </dl>
 </dd></dl>
@@ -747,23 +729,6 @@ If no code is stored in the module the SPIR-V code pointer will be set to null a
 </dd></dl>
 
 <dl class="c function">
-<dt class="sig sig-object c" id="c.mlsdk_decoder_is_valid_model_sequence">
-<span class="target" id="group__VGFCAPI_1gafb658b1d3b0e248513c92152e5f2e798"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_is_valid_model_sequence</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">modelSequenceData</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_is_valid_model_sequence" title="Link to this definition"></a><br /></dt>
-<dd><p>Checks if pointer points to valid model sequence data. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>modelSequenceData</strong> -- The pointer to the data </p></li>
-<li><p><strong>size</strong> -- The size in bytes of the data </p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True if the data is a valid section, false otherwise </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="c function">
 <dt class="sig sig-object c" id="c.mlsdk_decoder_create_model_sequence_decoder">
 <span class="target" id="group__VGFCAPI_1ga2b58f9686b68f28e95207279647c5145"></span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_create_model_sequence_decoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceData</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n"><span class="pre">size</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">modelSequenceDecoderMemory</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_create_model_sequence_decoder" title="Link to this definition"></a><br /></dt>
 <dd><p>Create the model sequence decoder. </p>
@@ -776,7 +741,7 @@ If no code is stored in the module the SPIR-V code pointer will be set to null a
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The pointer to the newly created model sequence decoder </p>
+<dd class="field-even"><p>The pointer to the newly created decoder (nullptr if the section is invalid) </p>
 </dd>
 </dl>
 </dd></dl>
@@ -1019,23 +984,6 @@ If no code is stored in the module the SPIR-V code pointer will be set to null a
 </dd></dl>
 
 <dl class="c function">
-<dt class="sig sig-object c" id="c.mlsdk_decoder_is_valid_model_resource_table">
-<span class="target" id="group__VGFCAPI_1ga3550f436ad8c8d4e7d3a6fbe0b68ebe8"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_is_valid_model_resource_table</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">modelResourceTableData</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_is_valid_model_resource_table" title="Link to this definition"></a><br /></dt>
-<dd><p>Checks if pointer points to valid model resource table data. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>modelResourceTableData</strong> -- The pointer to the data </p></li>
-<li><p><strong>size</strong> -- The size in bytes of the data </p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True if the data is a valid section, false otherwise </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="c function">
 <dt class="sig sig-object c" id="c.mlsdk_decoder_create_model_resource_table_decoder">
 <span class="target" id="group__VGFCAPI_1ga6f60687b0c93373e0bf06e02007cad53"></span><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_create_model_resource_table_decoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelResourceTableData</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n"><span class="pre">size</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">decoderMemory</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_create_model_resource_table_decoder" title="Link to this definition"></a><br /></dt>
 <dd><p>Create the model resource table decoder. </p>
@@ -1048,7 +996,7 @@ If no code is stored in the module the SPIR-V code pointer will be set to null a
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The pointer to the newly created decoder </p>
+<dd class="field-even"><p>The pointer to the newly created decoder (nullptr if the section is invalid) </p>
 </dd>
 </dl>
 </dd></dl>
@@ -1151,23 +1099,6 @@ If no code is stored in the module the SPIR-V code pointer will be set to null a
 </dd></dl>
 
 <dl class="c function">
-<dt class="sig sig-object c" id="c.mlsdk_decoder_is_valid_constant_table">
-<span class="target" id="group__VGFCAPI_1gae42184f308c18f0bc1ce3dcf5597db29"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_is_valid_constant_table</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">constantTableData</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_is_valid_constant_table" title="Link to this definition"></a><br /></dt>
-<dd><p>Checks if pointer points to valid constant table data. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>constantTableData</strong> -- The pointer to the data </p></li>
-<li><p><strong>size</strong> -- The size in bytes of the data </p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True if the data is a valid constant section, false otherwise </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="c function">
 <dt class="sig sig-object c" id="c.mlsdk_decoder_create_constant_table_decoder">
 <span class="target" id="group__VGFCAPI_1ga25890dce3f73b0fa50e66823e414047d"></span><span class="n"><span class="pre">mlsdk_decoder_constant_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_create_constant_table_decoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">constantTableData</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n"><span class="pre">size</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">constantDecoderMemory</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_create_constant_table_decoder" title="Link to this definition"></a><br /></dt>
 <dd><p>Create the constant table decoder. </p>
@@ -1180,7 +1111,7 @@ If no code is stored in the module the SPIR-V code pointer will be set to null a
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The pointer to the newly created decoder </p>
+<dd class="field-even"><p>The pointer to the newly created decoder (nullptr if the section is invalid) </p>
 </dd>
 </dl>
 </dd></dl>

@@ -25,26 +25,6 @@ After creating a header decoder, you can verify the validity of the VGF file and
   :start-after: HeaderDecodingSample1 begin
   :end-before: HeaderDecodingSample1 end
 
-To further verify a potentially unsafe vgf file, use the verify functions for each section:
-
-.. code-block:: cpp
-
-  VerifyModuleTable(
-      vgf_data.c_str() + headerDecoder->GetModuleTableOffset(),
-      headerDecoder->GetModuleTableSize());
-
-  VerifyModelResourceTable(
-      vgf_data.c_str() + headerDecoder->GetModelResourceTableOffset(),
-      headerDecoder->GetModelResourceTableSize());
-
-  VerifyModelSequenceTable(
-      vgf_data.c_str() + headerDecoder->GetModelSequenceTableOffset(),
-      headerDecoder->GetModelSequenceTableSize());
-
-  VerifyConstant(
-      vgf_data.c_str() + headerDecoder->GetConstantsOffset(),
-      headerDecoder->GetConstantsSize());
-
 
 Model Sequence Table decoding
 `````````````````````````````
