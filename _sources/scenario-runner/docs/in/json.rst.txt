@@ -119,8 +119,8 @@ The ``image`` resource has the following properties:
       dims:[int], // n-length array of sized for an n-dimension image
       shader_access:enum = (readonly|writeonly|readwrite|image_read) // type of access required by the shader/graph
       mips:int(default=1), // Number of mipmaps. Create an Image with memory allocated for this many level of details. Mipmaps levels are automatically generated.
-      src:path(default=""), // optional path to the DDS file to initialize the resource from
-      dst:path(default=""), // optional path to the DDS file to write contents to (post execution of commands)
+      src:path(default=""), // optional path to the image file to initialize the resource from
+      dst:path(default=""), // optional path to the image file to write contents to (post execution of commands)
       min_filter:enum = (NEAREST|LINEAR) // sampler setting
       mag_filter:enum = (NEAREST|LINEAR) // sampler setting
       mip_filter:enum = (NEAREST|LINEAR) // sampler setting
