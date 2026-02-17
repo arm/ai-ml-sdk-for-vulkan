@@ -1,11 +1,11 @@
 #
-# SPDX-FileCopyrightText: Copyright 2022-2025 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2022-2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
 # SPDX-License-Identifier: Apache-2.0
 #
 
 jsonschema==4.25.1
 numpy==1.26.4
-Pillow==11.3.0
+Pillow==12.1.1
 pytest==8.4.2
 pytest-xdist==3.8.0
 referencing==0.37.0

@@ -209,12 +209,12 @@
             "externalRefs": [
                 {
                     "referenceCategory": "SECURITY",
-                    "referenceLocator": "cpe:2.3:a:python:pillow:11.3.0:*:*:*:*:*:*:*",
+                    "referenceLocator": "cpe:2.3:a:python:pillow:12.1.1:*:*:*:*:*:*:*",
                     "referenceType": "cpe23Type"
                 },
                 {
                     "referenceCategory": "SECURITY",
-                    "referenceLocator": "cpe:2.3:a:pypi_package:pillow:11.3.0:*:*:*:*:*:*:*",
+                    "referenceLocator": "cpe:2.3:a:pypi_package:pillow:12.1.1:*:*:*:*:*:*:*",
                     "referenceType": "cpe23Type"
                 },
                 {
@@ -229,7 +229,7 @@
                 },
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
-                    "referenceLocator": "pkg:pypi/pillow@11.3.0",
+                    "referenceLocator": "pkg:pypi/pillow@12.1.1",
                     "referenceType": "purl"
                 },
                 {
@@ -239,7 +239,7 @@
                 },
                 {
                     "referenceCategory": "SECURITY",
-                    "referenceLocator": "cpe:2.3:a:python_imaging_project:python_imaging:11.3.0:*:*:*:*:*:*:*",
+                    "referenceLocator": "cpe:2.3:a:python_imaging_project:python_imaging:12.1.1:*:*:*:*:*:*:*",
                     "referenceType": "cpe23Type"
                 }
             ],
@@ -248,7 +248,7 @@
             "licenseDeclared": "LicenseRef-6f1ab4e9-b0ed-4b83-b7bd-aff972ed4db3",
             "name": "PillowPython",
             "supplier": "Organization: pypi",
-            "versionInfo": "11.3.0"
+            "versionInfo": "12.1.1"
         },
         {
             "SPDXID": "SPDXRef-package-19c1c0dd-fcb5-4363-ab62-c81727a5da98",
