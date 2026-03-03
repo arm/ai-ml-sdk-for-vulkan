@@ -401,7 +401,7 @@ ML extensions for Vulkan®.
       graph_ref: string, // reference to the graph resource
       push_constants: [class push_constant_map](default=), // mappings between push constants data and the target shader node.
       bindings: [class binding] // array of bindings mapping a resource reference to a descriptor set and id. These bindings describe the inputs and outputs to the graph.
-      implicit_barrier:boolean(defualt=true) // inclusion of implicit memory barrier
+      implicit_barrier:boolean(default=true) // inclusion of implicit memory barrier
   }
 
   push_constant_map: {
