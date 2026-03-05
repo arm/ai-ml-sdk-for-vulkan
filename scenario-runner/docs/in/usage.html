@@ -148,22 +148,22 @@ the SCENARIO_JSON_FILE.</p></li>
 Optional arguments:
   -h, --help                        shows help message and exits 
   -v, --version                     prints version information and exits 
-  --scenario                        file to load the scenario from. File should be in JSON format [nargs=0..1] [default: &quot;&quot;]
-  --output                          output folder [nargs=0..1] [default: &quot;&quot;]
-  --profiling-dump-path             path to save runtime profiling [nargs=0..1] [default: &quot;&quot;]
+  --scenario                        file to load the scenario from. File should be in JSON format [required]
+  --output                          output folder 
+  --profiling-dump-path             path to save runtime profiling 
   --pipeline-caching                enable the pipeline caching 
   --clear-pipeline-cache            clear pipeline cache 
-  --cache-path                      set pipeline cache location [nargs=0..1] [default: &quot;/tmp&quot;]
+  --cache-path                      set pipeline cache location [default: &quot;/tmp&quot;]
   --fail-on-pipeline-cache-miss     ensure an error is generated on a pipeline cache miss 
-  --perf-counters-dump-path         path to save performance counter stats [nargs=0..1] [default: &quot;&quot;]
-  --log-level                       set logging level [nargs=0..1] [default: &quot;debug&quot;]
-  --wait-for-key-stroke-before-run  Wait for a key stroke before run 
-  --dry-run                         Setup pipelines but skip the actual execution 
-  --disable-extension               specify extensions to disable out of the following: VK_EXT_custom_border_color, VK_EXT_frame_boundary, VK_KHR_maintenance5, VK_KHR_deferred_host_operations,  [nargs: 0 or more] [may be repeated]
+  --perf-counters-dump-path         path to save performance counter stats [default: &quot;&quot;]
+  --log-level                       set logging level [default: info] 
+  --wait-for-key-stroke-before-run  wait for a key stroke before run 
+  --dry-run                         setup pipelines but skip the actual execution 
+  --disable-extension               specify extensions to disable out of the following: VK_EXT_custom_border_color, VK_EXT_frame_boundary, VK_KHR_maintenance5, VK_KHR_deferred_host_operations,  [nargs: 1 or more] [may be repeated]
   --enable-gpu-debug-markers        enable GPU debug markers 
   --session-memory-dump-dir         path to dump the contents of the sessions ram after inference completes 
-  --repeat                          Repeat count for scenario execution [nargs=0..1] [default: 1]
-  --capture-frame                   Enable RenderDoc integration for frame capturing 
+  --repeat                          optional repeat count for scenario execution 
+  --capture-frame                   enable RenderDoc integration for frame capturing 
   --pause-on-exit                   pause before exiting
 </pre></div>
 </div>
