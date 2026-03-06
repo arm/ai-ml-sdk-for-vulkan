@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# SPDX-FileCopyrightText: Copyright 2024-2025 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2024-2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
 # SPDX-License-Identifier: Apache-2.0
 #
 import argparse
@@ -121,7 +121,7 @@ class ModelRunner:
         try:
             subprocess.run(cmd, check=True)
             scenario = self.scenario_filename.read_text()
-            for (old, new) in template_replacements:
+            for old, new in template_replacements:
                 scenario = scenario.replace(old, new)
             self.scenario_filename.write_text(scenario)
 
