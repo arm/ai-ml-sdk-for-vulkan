@@ -197,9 +197,10 @@ optional with default=</p></li>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">root</span><span class="p">:</span> <span class="p">{</span>
     <span class="n">resources</span><span class="p">:</span> <span class="p">[</span> <span class="k">class</span><span class="w"> </span><span class="nc">image</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">tensor</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">buffer</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">raw_data</span> <span class="o">|</span>
                  <span class="k">class</span><span class="w"> </span><span class="nc">graph</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">shader</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">memory_barrier</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">buffer_barrier</span> <span class="o">|</span>
-                 <span class="k">class</span><span class="w"> </span><span class="nc">buffer_barrier</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">tensor_barrier</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">image_barrier</span> <span class="p">],</span>
-    <span class="n">commands</span><span class="p">:</span> <span class="p">[</span> <span class="k">class</span><span class="w"> </span><span class="nc">dispatch_compute</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">dispatch_graph</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">dispatch_barrier</span> <span class="o">|</span>
-                <span class="k">class</span><span class="w"> </span><span class="nc">mark_boundary</span> <span class="p">]</span>
+                 <span class="k">class</span><span class="w"> </span><span class="nc">buffer_barrier</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">tensor_barrier</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">image_barrier</span>
+                 <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">graph_constant</span> <span class="p">],</span>
+    <span class="n">commands</span><span class="p">:</span> <span class="p">[</span> <span class="k">class</span><span class="w"> </span><span class="nc">dispatch_compute</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">dispatch_graph</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">dispatch_spirv_graph</span> <span class="o">|</span>
+                <span class="k">class</span><span class="w"> </span><span class="nc">dispatch_barrier</span> <span class="o">|</span> <span class="k">class</span><span class="w"> </span><span class="nc">mark_boundary</span> <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -213,11 +214,13 @@ array can be any of the following types:</p>
 <li><p><a class="reference internal" href="#graph"><span class="std std-ref">graph</span></a></p></li>
 <li><p><a class="reference internal" href="#shader"><span class="std std-ref">shader</span></a></p></li>
 <li><p><a class="reference internal" href="#barriers"><span class="std std-ref">Barriers</span></a></p></li>
+<li><p><a class="reference internal" href="#graph-constant"><span class="std std-ref">graph_constant</span></a></p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">commands</span></code> lists all the commands in order of execution or dispatch:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#dispatch-compute"><span class="std std-ref">dispatch_compute</span></a></p></li>
 <li><p><a class="reference internal" href="#dispatch-graph"><span class="std std-ref">dispatch_graph</span></a></p></li>
+<li><p><a class="reference internal" href="#dispatch-spirv-graph"><span class="std std-ref">dispatch_spirv_graph</span></a></p></li>
 <li><p><a class="reference internal" href="#dispatch-barrier"><span class="std std-ref">dispatch_barrier</span></a></p></li>
 <li><p><a class="reference internal" href="#mark-boundary"><span class="std std-ref">mark_boundary</span></a></p></li>
 </ul>
@@ -443,6 +446,23 @@ the corresponding dispatch command.</p>
 </pre></div>
 </div>
 </section>
+<section id="graph-constant">
+<h4>graph_constant<a class="headerlink" href="#graph-constant" title="Link to this heading"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">graph_constant</span></code> resources have the following properties:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph_constant</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">uid</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">globally</span> <span class="n">unique</span> <span class="n">identifier</span> <span class="k">for</span> <span class="n">the</span> <span class="n">resource</span>
+    <span class="n">dims</span><span class="p">:[</span><span class="nb">int</span><span class="p">],</span> <span class="o">//</span> <span class="n">n</span><span class="o">-</span><span class="n">length</span> <span class="n">array</span> <span class="n">of</span> <span class="n">sizes</span> <span class="k">for</span> <span class="n">an</span> <span class="n">n</span><span class="o">-</span><span class="n">dimension</span> <span class="n">constant</span> <span class="n">tensor</span>
+    <span class="nb">format</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">string</span> <span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">VkFormat</span> <span class="n">enum</span>
+    <span class="n">src</span><span class="p">:</span><span class="n">path</span><span class="p">,</span> <span class="o">//</span> <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">NumPy</span> <span class="n">file</span> <span class="k">with</span> <span class="n">constant</span> <span class="n">data</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dims</span></code> must contain positive integers; up to 6 dimensions are supported.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">format</span></code> should follow the same single-channel constraints described for
+tensors (for example, VK_FORMAT_R8_SINT, VK_FORMAT_R16_SFLOAT, and similar).</p></li>
+</ul>
+</section>
 </section>
 <section id="commands">
 <h3>Commands<a class="headerlink" href="#commands" title="Link to this heading"></a></h3>
@@ -488,6 +508,26 @@ ML extensions for Vulkan®.</p>
     <span class="n">shader_target</span><span class="p">:</span> <span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">shader</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">graph</span> <span class="n">to</span> <span class="n">apply</span> <span class="n">the</span> <span class="n">push</span> <span class="n">constants</span> <span class="n">to</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+</section>
+<section id="dispatch-spirv-graph">
+<h4>dispatch_spirv_graph<a class="headerlink" href="#dispatch-spirv-graph" title="Link to this heading"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">dispatch_spirv_graph</span></code> command dispatches a SPIR-V-only graph using a
+SPIR-V shader module referenced via <code class="docutils literal notranslate"><span class="pre">graph_ref</span></code>. It supports standard
+descriptor <code class="docutils literal notranslate"><span class="pre">bindings</span></code> and optional <code class="docutils literal notranslate"><span class="pre">graph_constants</span></code> that provide constant
+tensor data to the SPIR-V pipeline.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dispatch_spirv_graph</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">graph_ref</span><span class="p">:</span> <span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">reference</span> <span class="n">to</span> <span class="n">the</span> <span class="n">SPIR</span><span class="o">-</span><span class="n">V</span> <span class="n">shader</span> <span class="n">resource</span>
+    <span class="n">entry</span><span class="p">:</span> <span class="n">string</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;main&quot;</span><span class="p">),</span> <span class="o">//</span> <span class="n">entry</span> <span class="n">point</span> <span class="n">into</span> <span class="n">the</span> <span class="n">SPIR</span><span class="o">-</span><span class="n">V</span> <span class="n">module</span>
+    <span class="n">bindings</span><span class="p">:</span> <span class="p">[</span><span class="k">class</span><span class="w"> </span><span class="nc">binding</span><span class="p">],</span> <span class="o">//</span> <span class="n">resource</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">descriptor</span> <span class="nb">set</span><span class="o">/</span><span class="nb">id</span> <span class="n">mappings</span>
+    <span class="n">graph_constants</span><span class="p">:</span> <span class="p">[</span><span class="n">string</span><span class="p">](</span><span class="n">default</span><span class="o">=</span><span class="p">[]),</span> <span class="o">//</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">graph_constant</span> <span class="n">resource</span> <span class="n">UIDs</span>
+    <span class="n">implicit_barrier</span><span class="p">:</span><span class="n">boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">true</span><span class="p">)</span> <span class="o">//</span> <span class="n">inclusion</span> <span class="n">of</span> <span class="n">implicit</span> <span class="n">memory</span> <span class="n">barrier</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">graph_ref</span></code> must reference a <code class="docutils literal notranslate"><span class="pre">shader</span></code> resource with <code class="docutils literal notranslate"><span class="pre">type</span></code> set to <code class="docutils literal notranslate"><span class="pre">SPIR-V</span></code>. GLSL is not supported for this command.</p>
 </div>
 </section>
 <section id="dispatch-barrier">

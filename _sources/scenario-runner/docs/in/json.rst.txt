@@ -79,9 +79,10 @@ The root of the JSON file has two blocks.
   root: {
       resources: [ class image | class tensor | class buffer | class raw_data |
                    class graph | class shader | class memory_barrier | class buffer_barrier |
-                   class buffer_barrier | class tensor_barrier | class image_barrier ],
-      commands: [ class dispatch_compute | class dispatch_graph | class dispatch_barrier |
-                  class mark_boundary ]
+                   class buffer_barrier | class tensor_barrier | class image_barrier
+                   | class graph_constant ],
+      commands: [ class dispatch_compute | class dispatch_graph | class dispatch_spirv_graph |
+                  class dispatch_barrier | class mark_boundary ]
   }
 
 ``resources`` lists all the resources in the test case and each item in the
@@ -94,11 +95,13 @@ array can be any of the following types:
 * :ref:`graph`
 * :ref:`shader`
 * :ref:`Barriers`
+* :ref:`graph_constant`
 
 ``commands`` lists all the commands in order of execution or dispatch:
 
 * :ref:`dispatch_compute`
 * :ref:`dispatch_graph`
+* :ref:`dispatch_spirv_graph`
 * :ref:`dispatch_barrier`
 * :ref:`mark_boundary`
 
@@ -355,6 +358,24 @@ The subresource_range resource maps the image subresources of an image affected 
       dst_stage:[enum(GRAPH|COMPUTE|ALL)], // destination pipeline stages
   }
 
+graph_constant
+""""""""""""""""
+
+The ``graph_constant`` resources have the following properties:
+
+.. code-block::
+
+  graph_constant: {
+      uid:string, // globally unique identifier for the resource
+      dims:[int], // n-length array of sizes for an n-dimension constant tensor
+      format:string, // string name of the VkFormat enum
+      src:path, // path to the NumPy file with constant data
+  }
+
+- ``dims`` must contain positive integers; up to 6 dimensions are supported.
+- ``format`` should follow the same single-channel constraints described for
+  tensors (for example, VK_FORMAT_R8_SINT, VK_FORMAT_R16_SFLOAT, and similar).
+
 Commands
 ^^^^^^^^
 
@@ -408,6 +429,26 @@ ML extensions for Vulkan®.
       push_data_ref: string, // reference to raw_data resource containing the push_constants data
       shader_target: string, // name of the shader node in the graph to apply the push constants to
   }
+
+dispatch_spirv_graph
+"""""""""""""""""""""
+
+The ``dispatch_spirv_graph`` command dispatches a SPIR-V-only graph using a
+SPIR-V shader module referenced via ``graph_ref``. It supports standard
+descriptor ``bindings`` and optional ``graph_constants`` that provide constant
+tensor data to the SPIR-V pipeline.
+
+.. code-block::
+
+  dispatch_spirv_graph: {
+      graph_ref: string, // reference to the SPIR-V shader resource
+      entry: string(default="main"), // entry point into the SPIR-V module
+      bindings: [class binding], // resource-to-descriptor set/id mappings
+      graph_constants: [string](default=[]), // list of graph_constant resource UIDs
+      implicit_barrier:boolean(default=true) // inclusion of implicit memory barrier
+  }
+
+.. note:: ``graph_ref`` must reference a ``shader`` resource with ``type`` set to ``SPIR-V``. GLSL is not supported for this command.
 
 dispatch_barrier
 """"""""""""""""
