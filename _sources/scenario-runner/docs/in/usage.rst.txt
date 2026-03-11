@@ -144,11 +144,17 @@ Using ML Emulation and Validation layers for Vulkan®
 ----------------------------------------------------
 
 You can use the ML Emulation Layer for Vulkan® to enable the Scenario Runner to run on platforms which do not support the Tensor and Graph Vulkan® extensions. However, you must have already built the ML Emulation Layer for Vulkan®. To enable the ML Emulation Layer for Vulkan® on Linux, set the following environment variables:
- - LD_LIBRARY_PATH=path/to/build/sw/vulkan-ml-emulation-layer/build/graph/:path/to/build/sw/vulkan-ml-emulation-layer/build/tensor/:$LD_LIBRARY_PATH
- - VK_LAYER_PATH=path/to/build/sw/vulkan-ml-emulation-layer/build/graph/:path/to/build/sw/vulkan-ml-emulation-layer/build/tensor/
- - VK_INSTANCE_LAYERS=VK_LAYER_ML_Graph_Emulation:VK_LAYER_ML_Tensor_Emulation
+
+.. code-block::
+
+    LD_LIBRARY_PATH=path/to/build/sw/vulkan-ml-emulation-layer/build/graph/:path/to/build/sw/vulkan-ml-emulation-layer/build/tensor/:$LD_LIBRARY_PATH
+    VK_LAYER_PATH=path/to/build/sw/vulkan-ml-emulation-layer/build/graph/:path/to/build/sw/vulkan-ml-emulation-layer/build/tensor/
+    VK_INSTANCE_LAYERS=VK_LAYER_ML_Graph_Emulation:VK_LAYER_ML_Tensor_Emulation
 
 To check for correct usage of the Scenario Runner's Vulkan® API calls, you can use the Vulkan® Validation Layers. To enable the Vulkan® Validation Layers on Linux, set the following environment variables:
- - LD_LIBRARY_PATH={PATH_TO_VALIDATION_LAYERS}/build:$LD_LIBRARY_PATH
- - VK_LAYER_PATH={PATH_TO_VALIDATION_LAYERS}/build/layers
- - VK_INSTANCE_LAYERS=VK_LAYER_KHRONOS_validation
+
+.. code-block::
+
+    LD_LIBRARY_PATH={PATH_TO_VALIDATION_LAYERS}/build:$LD_LIBRARY_PATH
+    VK_LAYER_PATH={PATH_TO_VALIDATION_LAYERS}/build/layers
+    VK_INSTANCE_LAYERS=VK_LAYER_KHRONOS_validation
