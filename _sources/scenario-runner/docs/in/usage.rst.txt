@@ -14,9 +14,9 @@ Resource memory aliasing
 
 It is useful for some resources to share the same underlying memory. Sharing memory allows resources to share inputs or outputs between shaders and VGF workloads.
 
-To enable the resource memory aliasing feature, in the scenario json file, a tensor must have a ``memory_group`` field with the ``id`` contained inside naming the unique memory object that the resources will use. Only one resource in a single ``memory_group`` can have a ``src`` file.
+To enable the resource memory aliasing feature, in the scenario json file, a tensor must have a ``memory_group`` field with the ``id`` contained inside naming the unique memory object that the resources will use. Only one resource in a single ``memory_group`` can have a ``src`` file. There is also an optional ``offset`` field that can be used to specify the byte offset into the memory object used by the resource. If the ``offset`` field is not specified, the offset defaults to 0 bytes.
 
-The following example shows you how to setup a tensor resource that alias an image resource.
+The following example shows you how to set up a tensor resource that aliases an image resource. This example performs no calculations. The input image data is read and saved to the ``output.npy`` file. If the image has padding added to its data, the image padding is discarded when saving to the NumPy file.
 
 .. code-block:: json
 
@@ -50,7 +50,49 @@ The following example shows you how to setup a tensor resource that alias an ima
       ]
   }
 
-This example performs no calculations. However, the example reads in the input image data and saves it to the ``output.npy`` file. If the image has padding added to its data, the image padding is discarded when saving to the NumPy file.
+The following example shows how to have two buffer resources alias the same memory, where one buffer resource contains the first 128 bytes of the memory and the other buffer resource contains the second 128 bytes of the memory.
+
+.. code-block:: json
+
+  {
+      "commands": [],
+      "resources": [
+          {
+              "buffer": {
+                  "shader_access": "readwrite",
+                  "size": 256,
+                  "src": "inBuffer.npy",
+                  "uid": "inBuffer",
+                  "memory_group": {
+                      "id": "memoryGroup0"
+                  }
+              }
+          },
+          {
+              "buffer": {
+                  "shader_access": "readwrite",
+                  "size": 128,
+                  "dst": "outBuffer0.npy",
+                  "uid": "outBuffer0",
+                  "memory_group": {
+                      "id": "memoryGroup0"
+                  }
+              }
+          },
+          {
+              "buffer": {
+                  "shader_access": "readwrite",
+                  "size": 128,
+                  "dst": "outBuffer1.npy",
+                  "uid": "outBuffer1",
+                  "memory_group": {
+                      "id": "memoryGroup0",
+                      "offset": 128
+                  }
+              }
+          }
+      ]
+  }
 
 The following example is a more realistic usage of the memory aliasing feature. The example has a preprocessing shader which has images as its input and output. The example then uses this image output as the input for a VGF dispatch, which has tensors for its input and output. The image outputs of the preprocessing shader stage are then aliased to tensors which are used as input of the VGF dispatch stage.
 
