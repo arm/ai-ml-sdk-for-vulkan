@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# SPDX-FileCopyrightText: Copyright 2024-2025 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2024-2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
 # SPDX-License-Identifier: Apache-2.0
 #
 import argparse
@@ -39,6 +39,7 @@ class Builder:
         self.scenario_runner = args.scenario_runner
         self.vulkan_headers_path = args.vulkan_headers_path
         self.glslang_path = args.glslang_path
+        self.dxc_path = args.dxc_path
         self.spirv_headers_path = args.spirv_headers_path
         self.spirv_tools_path = args.spirv_tools_path
         self.spirv_cross_path = args.spirv_cross_path
@@ -68,6 +69,7 @@ class Builder:
                 cmake_setup_cmd.append(
                     f"-DCMAKE_TOOLCHAIN_FILE={CMAKE_TOOLCHAIN_PATH / 'gcc.cmake'}"
                 )
+                cmake_setup_cmd.append("-DSCENARIO_RUNNER_ENABLE_HLSL_SUPPORT=ON")
                 return True
             if system == "Darwin":
                 cmake_setup_cmd.append(
@@ -79,6 +81,7 @@ class Builder:
                     f"-DCMAKE_TOOLCHAIN_FILE={CMAKE_TOOLCHAIN_PATH / 'windows-msvc.cmake'}"
                 )
                 cmake_setup_cmd.append("-DMSVC=ON")
+                cmake_setup_cmd.append("-DSCENARIO_RUNNER_ENABLE_HLSL_SUPPORT=ON")
                 return True
             print(f"Unsupported host platform {system}", file=sys.stderr)
             return False
@@ -92,6 +95,7 @@ class Builder:
             cmake_setup_cmd.append(
                 f"-DCMAKE_TOOLCHAIN_FILE={CMAKE_TOOLCHAIN_PATH / 'clang.cmake'}"
             )
+            cmake_setup_cmd.append("-DSCENARIO_RUNNER_ENABLE_HLSL_SUPPORT=ON")
             return True
 
     def generate_cmake_package(self, generator):
@@ -122,6 +126,7 @@ class Builder:
             f"-DFLATBUFFERS_PATH={self.flatbuffers}",
             f"-DJSON_PATH={self.json}",
             f"-DGLSLANG_PATH={self.glslang_path}",
+            f"-DDXC_PATH={self.dxc_path}",
             f"-DSPIRV_HEADERS_PATH={self.spirv_headers_path}",
             f"-DSPIRV_TOOLS_PATH={self.spirv_tools_path}",
             f"-DSPIRV_CROSS_PATH={self.spirv_cross_path}",
@@ -241,6 +246,11 @@ def parse_arguments():
         "--glslang-path",
         help="Path to Glslang repo",
         default=f"{DEPENDENCIES_DIR / 'glslang'}",
+    )
+    parser.add_argument(
+        "--dxc-path",
+        help="Path to dxc (DirectXShaderCompiler) repo",
+        default=f"{DEPENDENCIES_DIR / 'DirectXShaderCompiler'}",
     )
     parser.add_argument(
         "--spirv-headers-path",
