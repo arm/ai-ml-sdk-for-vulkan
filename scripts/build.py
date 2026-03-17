@@ -54,6 +54,7 @@ class Builder:
         self.skip_llvm_patch = args.skip_llvm_patch
         self.threads = args.threads
         self.target_platform = args.target_platform
+        self.enable_hlsl_support = args.enable_hlsl_support
 
         self.doc = args.doc
         self.install = args.install
@@ -69,7 +70,8 @@ class Builder:
                 cmake_setup_cmd.append(
                     f"-DCMAKE_TOOLCHAIN_FILE={CMAKE_TOOLCHAIN_PATH / 'gcc.cmake'}"
                 )
-                cmake_setup_cmd.append("-DSCENARIO_RUNNER_ENABLE_HLSL_SUPPORT=ON")
+                if self.enable_hlsl_support:
+                    cmake_setup_cmd.append("-DSCENARIO_RUNNER_ENABLE_HLSL_SUPPORT=ON")
                 return True
             if system == "Darwin":
                 cmake_setup_cmd.append(
@@ -81,7 +83,8 @@ class Builder:
                     f"-DCMAKE_TOOLCHAIN_FILE={CMAKE_TOOLCHAIN_PATH / 'windows-msvc.cmake'}"
                 )
                 cmake_setup_cmd.append("-DMSVC=ON")
-                cmake_setup_cmd.append("-DSCENARIO_RUNNER_ENABLE_HLSL_SUPPORT=ON")
+                if self.enable_hlsl_support:
+                    cmake_setup_cmd.append("-DSCENARIO_RUNNER_ENABLE_HLSL_SUPPORT=ON")
                 return True
             print(f"Unsupported host platform {system}", file=sys.stderr)
             return False
@@ -95,7 +98,8 @@ class Builder:
             cmake_setup_cmd.append(
                 f"-DCMAKE_TOOLCHAIN_FILE={CMAKE_TOOLCHAIN_PATH / 'clang.cmake'}"
             )
-            cmake_setup_cmd.append("-DSCENARIO_RUNNER_ENABLE_HLSL_SUPPORT=ON")
+            if self.enable_hlsl_support:
+                cmake_setup_cmd.append("-DSCENARIO_RUNNER_ENABLE_HLSL_SUPPORT=ON")
             return True
 
     def generate_cmake_package(self, generator):
@@ -335,6 +339,13 @@ def parse_arguments():
         help="Create a package of a certain type",
         default=[],
     )
+    parser.add_argument(
+        "--enable-hlsl-support",
+        help=("Enable HLSL to SPIRV compilation"),
+        action="store_true",
+        default=False,
+    )
+
     if argcomplete:
         argcomplete.autocomplete(parser)
     args = parser.parse_args()
