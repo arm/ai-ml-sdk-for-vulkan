@@ -129,6 +129,7 @@
 <p>The following dependencies are also needed:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/p-ranav/argparse">Argument Parser for Modern C++</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/microsoft/DirectXShaderCompiler">DirectXShaderCompiler</a>.</p></li>
 <li><p><a class="reference external" href="https://github.com/KhronosGroup/glslang">glslang</a>.</p></li>
 <li><p><a class="reference external" href="https://github.com/nlohmann/json">JSON for Modern C++</a>.</p></li>
 <li><p><a class="reference external" href="https://github.com/KhronosGroup/SPIRV-Headers">SPIRV-Headers</a>.</p></li>
@@ -148,6 +149,7 @@ python3<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PA
 <span class="w">    </span>--json-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/json<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--vulkan-headers-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/Vulkan-Headers<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--glslang-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/glslang<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dxc-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/DirectXShaderCompiler<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--spirv-headers-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/SPIRV-Headers<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--spirv-tools-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/SPIRV-Tools<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--vgf-lib-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/sw/vgf-lib<span class="w"> </span><span class="se">\</span>
@@ -163,6 +165,7 @@ python3<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PA
     <span class="p">-</span><span class="n">-json-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\json&quot;</span> <span class="p">`</span>
     <span class="p">-</span><span class="n">-vulkan-headers-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\Vulkan-Headers&quot;</span> <span class="p">`</span>
     <span class="p">-</span><span class="n">-glslang-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\glslang&quot;</span> <span class="p">`</span>
+    <span class="p">-</span><span class="n">-dxc-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\DirectXShaderCompiler&quot;</span> <span class="p">`</span>
     <span class="p">-</span><span class="n">-spirv-headers-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\SPIRV-Headers&quot;</span> <span class="p">`</span>
     <span class="p">-</span><span class="n">-spirv-tools-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\SPIRV-Tools&quot;</span> <span class="p">`</span>
     <span class="p">-</span><span class="n">-vgf-lib-path</span> <span class="s2">&quot;$env:SDK_PATH\sw\vgf-lib&quot;</span> <span class="p">`</span>
@@ -177,6 +180,7 @@ python3<span class="w"> </span><span class="nv">$SDK_PATH</span>/sw/scenario-run
 <span class="w">    </span>--json-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/json<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--vulkan-headers-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/Vulkan-Headers<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--glslang-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/glslang<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dxc-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/DirectXShaderCompiler<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--spirv-headers-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/SPIRV-Headers<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--spirv-tools-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/SPIRV-Tools<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--vgf-lib-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/sw/vgf-lib<span class="w"> </span><span class="se">\</span>
