@@ -71,7 +71,7 @@ jobs:
           exit 1
 
       - &checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Clone repositories and build
         run: .github/workflows/scripts/ci_build.sh
 
@@ -83,7 +83,7 @@ jobs:
       - *checkout
       - &setup-python
         name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11'
 
