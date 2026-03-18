@@ -443,7 +443,6 @@ tensor data to the SPIR-V pipeline.
 
   dispatch_spirv_graph: {
       graph_ref: string, // reference to the SPIR-V shader resource
-      entry: string(default="main"), // entry point into the SPIR-V module
       bindings: [class binding], // resource-to-descriptor set/id mappings
       graph_constants: [string](default=[]), // list of graph_constant resource UIDs
       implicit_barrier:boolean(default=true) // inclusion of implicit memory barrier
