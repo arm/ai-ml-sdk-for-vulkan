@@ -1,5 +1,5 @@
 #
-# SPDX-FileCopyrightText: Copyright 2025 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2025-2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
 # SPDX-License-Identifier: Apache-2.0
 #
 
@@ -22,6 +22,7 @@ RUN apt-get update && \
     bash \
     bash-completion \
     build-essential \
+    ca-certificates \
     clang-format \
     clang \
     cppcheck \
@@ -86,6 +87,11 @@ RUN if [ "$BUILDPLATFORM" = "linux/amd64" ] ; then ARCH="x86_64"; else ARCH="aar
     tar xvf sccache-v0.12.0-${ARCH}-unknown-linux-musl.tar.gz --strip-components=1 && \
     cp sccache /home/$user/.local/bin/ && \
     rm -rf /home/$user/sccache
+
+# Install uv
+RUN curl -sSL -o /tmp/uv-installer.sh https://astral.sh/uv/install.sh && \
+    UV_INSTALL_DIR=/home/$user/.local/bin sh /tmp/uv-installer.sh && \
+    rm /tmp/uv-installer.sh
 
 COPY --chown=$user ../requirements.txt ./
 COPY --chown=$user ../tooling-requirements.txt ./
