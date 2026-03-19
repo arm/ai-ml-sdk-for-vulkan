@@ -398,13 +398,14 @@ To retrieve constant information through a module table decoder, you can use the
 
 <dl class="c function">
 <dt class="sig sig-object c" id="c.mlsdk_decoder_create_header_decoder">
-<span class="target" id="group__VGFCAPI_1ga0ec6890b1a566f33f46aeb45b560a6ff"></span><span class="n"><span class="pre">mlsdk_decoder_header_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_create_header_decoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">headerData</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n"><span class="pre">size</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">decoderMemory</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_create_header_decoder" title="Link to this definition"></a><br /></dt>
+<span class="target" id="group__VGFCAPI_1ga3223c319932c1aeebcabb97f7c7b4ae5"></span><span class="n"><span class="pre">mlsdk_decoder_header_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_create_header_decoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">headerData</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n"><span class="pre">headerSize</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n"><span class="pre">fileSize</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">decoderMemory</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_create_header_decoder" title="Link to this definition"></a><br /></dt>
 <dd><p>Creates the header decoder. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>headerData</strong> -- The pointer to the header data </p></li>
-<li><p><strong>size</strong> -- The size in bytes of the header data </p></li>
+<li><p><strong>headerData</strong> -- The pointer to the start of the VGF data </p></li>
+<li><p><strong>headerSize</strong> -- The size in bytes of the header data </p></li>
+<li><p><strong>fileSize</strong> -- The total size in bytes of the full VGF file </p></li>
 <li><p><strong>decoderMemory</strong> -- Memory allocated to be used to create the decoder </p></li>
 </ul>
 </dd>
