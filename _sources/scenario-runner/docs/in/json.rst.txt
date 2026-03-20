@@ -169,7 +169,7 @@ The ``tensor`` resources have the following properties:
       shader_access:enum = (readonly|writeonly|readwrite) // type of access required by the shader/graph
       src:path(default=""), // optional path to the NumPy file to initialize the resource from
       dst:path(default=""), // optional path to the NumPy file to write contents to (post execution of commands)
-      memory_group, // optional memory group to share memory object between resources
+      memory_group, // optional memory group to share memory object between resources; when used, offset must be aligned to Vulkan® tensor memory alignment
       tiling:enum = (OPTIMAL|LINEAR), // optional "Tiling" arrangement info of the tensor resource
   }
 
@@ -193,8 +193,12 @@ To allow for memory aliasing, the following object is needed in each resource:
 .. code-block::
 
   struct MemoryGroup {
-      uid:string(default=""), // unique string defining the shared memory object
+      id:string, // unique string defining the shared memory object
+      offset:int(default=0), // byte offset within the shared memory group. Must be aligned to the buffer's VkMemoryRequirements::alignment
   }
+
+.. note::
+   When using ``memory_group`` with an non-zero ``offset``, the offset must satisfy Vulkan® memory alignment requirements. The offset must be a multiple of the ``VkMemoryRequirements::alignment`` returned by the Vulkan® driver for each resource bound at that offset. Failure to meet this requirement will result in a runtime error during resource setup.
 
 buffer
 """"""
@@ -209,11 +213,14 @@ The ``buffer`` resources map to Storage Buffers in Vulkan®:
       shader_access:enum = (readonly|writeonly|readwrite) // type of access required by the shader/graph
       src:path(default=""), // optional path to the NumPy file to initialize the resource from
       dst:path(default=""), // optional path to the NumPy file to write contents to (post execution of commands)
-      memory_group, // optional memory group to share memory object between resources
+      memory_group, // optional memory group to share memory object between resources; when used, offset must be aligned to Vulkan® buffer memory alignment
   }
 
 Buffers do not have a format and it is up to the shader to interpret the data
 in the correct manner.
+
+.. important::
+   When aliasing multiple buffers within a ``memory_group``, each buffer's ``offset`` must be aligned to the maximum ``VkMemoryRequirements::alignment`` across all resources in that group. Unaligned buffer memory bindings at non-zero offsets will cause device memory binding failures and runtime errors.
 
 raw_data
 """"""""

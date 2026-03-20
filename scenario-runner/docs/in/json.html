@@ -270,16 +270,16 @@ They may still be used for intermediate images or via memory aliasing:
 <section id="tensor">
 <h4>tensor<a class="headerlink" href="#tensor" title="Link to this heading"></a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">tensor</span></code> resources have the following properties:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tensor</span><span class="p">:</span> <span class="p">{</span>
-    <span class="n">uid</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">globally</span> <span class="n">unique</span> <span class="n">identifier</span> <span class="k">for</span> <span class="n">the</span> <span class="n">resource</span>
-    <span class="n">dims</span><span class="p">:[</span><span class="nb">int</span><span class="p">],</span> <span class="o">//</span> <span class="n">n</span><span class="o">-</span><span class="n">length</span> <span class="n">array</span> <span class="n">of</span> <span class="n">sized</span> <span class="k">for</span> <span class="n">an</span> <span class="n">n</span><span class="o">-</span><span class="n">dimension</span> <span class="n">tensor</span>
-    <span class="nb">format</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">string</span> <span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">VkFormat</span> <span class="n">enum</span><span class="o">.</span>
-    <span class="n">shader_access</span><span class="p">:</span><span class="n">enum</span> <span class="o">=</span> <span class="p">(</span><span class="n">readonly</span><span class="o">|</span><span class="n">writeonly</span><span class="o">|</span><span class="n">readwrite</span><span class="p">)</span> <span class="o">//</span> <span class="nb">type</span> <span class="n">of</span> <span class="n">access</span> <span class="n">required</span> <span class="n">by</span> <span class="n">the</span> <span class="n">shader</span><span class="o">/</span><span class="n">graph</span>
-    <span class="n">src</span><span class="p">:</span><span class="n">path</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="o">//</span> <span class="n">optional</span> <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">NumPy</span> <span class="n">file</span> <span class="n">to</span> <span class="n">initialize</span> <span class="n">the</span> <span class="n">resource</span> <span class="kn">from</span>
-<span class="w">    </span><span class="nn">dst</span><span class="p">:</span><span class="n">path</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="o">//</span> <span class="n">optional</span> <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">NumPy</span> <span class="n">file</span> <span class="n">to</span> <span class="n">write</span> <span class="n">contents</span> <span class="n">to</span> <span class="p">(</span><span class="n">post</span> <span class="n">execution</span> <span class="n">of</span> <span class="n">commands</span><span class="p">)</span>
-    <span class="n">memory_group</span><span class="p">,</span> <span class="o">//</span> <span class="n">optional</span> <span class="n">memory</span> <span class="n">group</span> <span class="n">to</span> <span class="n">share</span> <span class="n">memory</span> <span class="nb">object</span> <span class="n">between</span> <span class="n">resources</span>
-    <span class="n">tiling</span><span class="p">:</span><span class="n">enum</span> <span class="o">=</span> <span class="p">(</span><span class="n">OPTIMAL</span><span class="o">|</span><span class="n">LINEAR</span><span class="p">),</span> <span class="o">//</span> <span class="n">optional</span> <span class="s2">&quot;Tiling&quot;</span> <span class="n">arrangement</span> <span class="n">info</span> <span class="n">of</span> <span class="n">the</span> <span class="n">tensor</span> <span class="n">resource</span>
-<span class="p">}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>tensor: {
+    uid:string, // globally unique identifier for the resource
+    dims:[int], // n-length array of sized for an n-dimension tensor
+    format:string, // string name of the VkFormat enum.
+    shader_access:enum = (readonly|writeonly|readwrite) // type of access required by the shader/graph
+    src:path(default=&quot;&quot;), // optional path to the NumPy file to initialize the resource from
+    dst:path(default=&quot;&quot;), // optional path to the NumPy file to write contents to (post execution of commands)
+    memory_group, // optional memory group to share memory object between resources; when used, offset must be aligned to Vulkan® tensor memory alignment
+    tiling:enum = (OPTIMAL|LINEAR), // optional &quot;Tiling&quot; arrangement info of the tensor resource
+}
 </pre></div>
 </div>
 <p>Supported formats for tensors are limited to a subset of the single channel
@@ -299,26 +299,35 @@ types defined in the VkFormat enum. Currently supported formats are:</p>
 <p>To allow for memory aliasing, the following object is needed in each resource:
 .. code-block:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">MemoryGroup</span> <span class="p">{</span>
-    <span class="n">uid</span><span class="p">:</span><span class="n">string</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="o">//</span> <span class="n">unique</span> <span class="n">string</span> <span class="n">defining</span> <span class="n">the</span> <span class="n">shared</span> <span class="n">memory</span> <span class="nb">object</span>
+    <span class="nb">id</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">unique</span> <span class="n">string</span> <span class="n">defining</span> <span class="n">the</span> <span class="n">shared</span> <span class="n">memory</span> <span class="nb">object</span>
+    <span class="n">offset</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="o">//</span> <span class="n">byte</span> <span class="n">offset</span> <span class="n">within</span> <span class="n">the</span> <span class="n">shared</span> <span class="n">memory</span> <span class="n">group</span><span class="o">.</span> <span class="n">Must</span> <span class="n">be</span> <span class="n">aligned</span> <span class="n">to</span> <span class="n">the</span> <span class="n">buffer</span><span class="s1">&#39;s VkMemoryRequirements::alignment</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When using <code class="docutils literal notranslate"><span class="pre">memory_group</span></code> with an non-zero <code class="docutils literal notranslate"><span class="pre">offset</span></code>, the offset must satisfy Vulkan® memory alignment requirements. The offset must be a multiple of the <code class="docutils literal notranslate"><span class="pre">VkMemoryRequirements::alignment</span></code> returned by the Vulkan® driver for each resource bound at that offset. Failure to meet this requirement will result in a runtime error during resource setup.</p>
 </div>
 </section>
 <section id="buffer">
 <h4>buffer<a class="headerlink" href="#buffer" title="Link to this heading"></a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">buffer</span></code> resources map to Storage Buffers in Vulkan®:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">buffer</span><span class="p">:</span> <span class="p">{</span>
-    <span class="n">uid</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="o">//</span> <span class="n">globally</span> <span class="n">unique</span> <span class="n">identifier</span> <span class="k">for</span> <span class="n">the</span> <span class="n">resource</span>
-    <span class="n">size</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="o">//</span> <span class="n">total</span> <span class="n">size</span> <span class="n">of</span> <span class="n">buffer</span> <span class="ow">in</span> <span class="nb">bytes</span>
-    <span class="n">shader_access</span><span class="p">:</span><span class="n">enum</span> <span class="o">=</span> <span class="p">(</span><span class="n">readonly</span><span class="o">|</span><span class="n">writeonly</span><span class="o">|</span><span class="n">readwrite</span><span class="p">)</span> <span class="o">//</span> <span class="nb">type</span> <span class="n">of</span> <span class="n">access</span> <span class="n">required</span> <span class="n">by</span> <span class="n">the</span> <span class="n">shader</span><span class="o">/</span><span class="n">graph</span>
-    <span class="n">src</span><span class="p">:</span><span class="n">path</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="o">//</span> <span class="n">optional</span> <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">NumPy</span> <span class="n">file</span> <span class="n">to</span> <span class="n">initialize</span> <span class="n">the</span> <span class="n">resource</span> <span class="kn">from</span>
-<span class="w">    </span><span class="nn">dst</span><span class="p">:</span><span class="n">path</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="o">//</span> <span class="n">optional</span> <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">NumPy</span> <span class="n">file</span> <span class="n">to</span> <span class="n">write</span> <span class="n">contents</span> <span class="n">to</span> <span class="p">(</span><span class="n">post</span> <span class="n">execution</span> <span class="n">of</span> <span class="n">commands</span><span class="p">)</span>
-    <span class="n">memory_group</span><span class="p">,</span> <span class="o">//</span> <span class="n">optional</span> <span class="n">memory</span> <span class="n">group</span> <span class="n">to</span> <span class="n">share</span> <span class="n">memory</span> <span class="nb">object</span> <span class="n">between</span> <span class="n">resources</span>
-<span class="p">}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>buffer: {
+    uid:string, // globally unique identifier for the resource
+    size:int, // total size of buffer in bytes
+    shader_access:enum = (readonly|writeonly|readwrite) // type of access required by the shader/graph
+    src:path(default=&quot;&quot;), // optional path to the NumPy file to initialize the resource from
+    dst:path(default=&quot;&quot;), // optional path to the NumPy file to write contents to (post execution of commands)
+    memory_group, // optional memory group to share memory object between resources; when used, offset must be aligned to Vulkan® buffer memory alignment
+}
 </pre></div>
 </div>
 <p>Buffers do not have a format and it is up to the shader to interpret the data
 in the correct manner.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>When aliasing multiple buffers within a <code class="docutils literal notranslate"><span class="pre">memory_group</span></code>, each buffer’s <code class="docutils literal notranslate"><span class="pre">offset</span></code> must be aligned to the maximum <code class="docutils literal notranslate"><span class="pre">VkMemoryRequirements::alignment</span></code> across all resources in that group. Unaligned buffer memory bindings at non-zero offsets will cause device memory binding failures and runtime errors.</p>
+</div>
 </section>
 <section id="raw-data">
 <h4>raw_data<a class="headerlink" href="#raw-data" title="Link to this heading"></a></h4>
