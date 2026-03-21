@@ -5,7 +5,7 @@ Converting and deploying a PyTorch model tutorial
     For details on platform support, installation, and usage of ExecuTorch, please refer to the official documentation:
 
     - `Getting Started with ExecuTorch <https://docs.pytorch.org/executorch/stable/getting-started.html>`_
-    - `Arm® Backend Tutorial <https://github.com/pytorch/executorch/blob/main/docs/source/tutorial-arm.md>`_
+    - `Arm® VGF Backend <https://docs.pytorch.org/executorch/main/backends/arm-vgf/arm-vgf-overview.html>`_
 
 This tutorial describes how to convert and deploy a PyTorch model using the |SDK_project|.
 In this tutorial, we generate a sample PyTorch file with a single MaxPool2D operation
