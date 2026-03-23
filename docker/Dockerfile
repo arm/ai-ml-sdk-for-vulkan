@@ -48,6 +48,7 @@ RUN apt-get update && \
     python3-venv \
     python-is-python3 \
     sudo \
+    unzip \
     vulkan-tools \
     wget \
     xmlstarlet
@@ -98,6 +99,7 @@ COPY --chown=$user ../tooling-requirements.txt ./
 RUN pip install -r requirements.txt
 RUN pip install -r tooling-requirements.txt
 RUN rm -f requirements.txt tooling-requirements.txt
+RUN uv pip install --system twine "dohq-artifactory>=0.10.0,<0.11"
 
 RUN git lfs install
 
