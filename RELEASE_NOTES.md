@@ -2,9 +2,41 @@
 
 ---
 
+## Version 2026.03.0 – *Datatype & Dispatch Expansion*
+
+### Highlights
+
+- Added BF16 and FP8 (`fp8e4m3`, `fp8e5m2`) support across the SDK stack, including Model Converter, Scenario Runner,
+    and Emulation Layer
+- Added SPIR-V™ only data graph dispatch and DXC-based HLSL shader support to
+    Scenario Runner.
+- Updated VGF Library decoder and encoder code with verification, logging, and
+    memory-management changes.
+
+### Build & Github CI
+
+- Updated pre-commit hooks and dependency baselines used by build, lint, and
+    validation workflows.
+- Updated cross-repo CMake helper patterns and packaging flow.
+- Fixed CI override handling for fork repositories.
+
+### Tooling, Docker & Dependencies
+
+- Refined component build toggles and package outputs, including shared-library
+    options where supported.
+- Updated script/CLI behavior and dependency guidance for local setup and CI.
+- Updated Pillow version and corrected SBOM entries for `tosa-tools`
+    dependencies.
+
+### Documentation & Tutorials
+
+- Updated component documentation with new workflow and format-coverage details,
+    including Scenario Runner format notes and dependency guidance.
+- Clarified usage details and corrected path/instruction issues across README
+    and tutorial content.
+
 ## Version 2025.12.0 – *Expanded Platform & CI Coverage*
 
-Changes since `v2025.10.0`.
 
 ### Highlights
 
