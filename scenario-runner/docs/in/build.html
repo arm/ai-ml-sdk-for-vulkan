@@ -188,6 +188,29 @@ python3<span class="w"> </span><span class="nv">$SDK_PATH</span>/sw/scenario-run
 <span class="w">    </span>--target-platform<span class="w"> </span>aarch64
 </pre></div>
 </div>
+<p>(Experimental) To cross compile for Android™, and build an APK package, you must target Android™, provide the Android™
+CMake toolchain, and request the <code class="docutils literal notranslate"><span class="pre">apk</span></code> package type.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SDK_PATH</span><span class="o">=</span><span class="s2">&quot;path/to/sdk&quot;</span>
+<span class="nv">ANDROID_NDK_HOME</span><span class="o">=</span><span class="s2">&quot;path/to/android-ndk&quot;</span>
+python3<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/sw/scenario-runner/scripts/build.py<span class="w"> </span>-j<span class="w"> </span><span class="k">$(</span>nproc<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--target-platform<span class="w"> </span>android<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--cmake-toolchain-for-android<span class="w"> </span><span class="si">${</span><span class="nv">ANDROID_NDK_HOME</span><span class="si">}</span>/build/cmake/android.toolchain.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--flatbuffers-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/flatbuffers<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--argparse-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/argparse<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--json-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--vulkan-headers-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/Vulkan-Headers<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--glslang-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/glslang<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dxc-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/DirectXShaderCompiler<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--spirv-headers-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/SPIRV-Headers<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--spirv-tools-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/SPIRV-Tools<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--vgf-lib-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/sw/vgf-lib<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--package-type<span class="w"> </span>apk
+</pre></div>
+</div>
+<p>The APK build uses the <code class="docutils literal notranslate"><span class="pre">gradle</span></code> command, so Gradle 8.4 or later must be
+available on your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. The Android™ SDK installation pointed to by
+<code class="docutils literal notranslate"><span class="pre">ANDROID_HOME</span></code> should include <code class="docutils literal notranslate"><span class="pre">build-tools;34.0.0</span></code> and
+<code class="docutils literal notranslate"><span class="pre">platforms;android-34</span></code>, or other compatible versions.</p>
 <p>To enable and run tests, use the <code class="docutils literal notranslate"><span class="pre">--test</span></code> flag. To lint the tests, use the
 <code class="docutils literal notranslate"><span class="pre">--lint</span></code> flag. To enable tests and documentation building python dependencies
 must be installed:</p>
@@ -200,7 +223,7 @@ you must have <code class="docutils literal notranslate"><span class="pre">sphin
 <p>You can install the build artifacts for this project into a specified location.
 To install the build artifacts, pass the <code class="docutils literal notranslate"><span class="pre">--install</span></code> option with the required
 path.</p>
-<p>To create an archive with the build artifacts, you must add <code class="docutils literal notranslate"><span class="pre">--package</span></code>. The
+<p>To create an archive with the build artifacts, you must add <code class="docutils literal notranslate"><span class="pre">--package-type</span></code>. The
 archive is stored in the provided location.</p>
 <p>For more command line options, consult the program help:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span><span class="nv">$SDK_PATH</span>/sw/scenario-runner/scripts/build.py<span class="w"> </span>--help

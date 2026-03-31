@@ -76,6 +76,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#usage-on-linux">Usage on Linux</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#usage-on-windows">Usage on Windows®</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#usage-on-android">Usage on Android™</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#apk-packaging">APK Packaging</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#building-for-darwin-experimental">Building for Darwin (Experimental)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#usage-on-darwin-experimental">Usage on Darwin (Experimental)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cross-compilation-for-aarch64-on-x86-64-experimental">Cross compilation for AArch64 on x86-64 (Experimental)</a></li>
@@ -216,11 +217,65 @@ discover the ML Emulation Layer for Vulkan®. Applications can enable the layers
 instance creation or you can enable the layers without modifying the application
 by using following commands:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>adb<span class="w"> </span>shell<span class="w"> </span>settings<span class="w"> </span>put<span class="w"> </span>global<span class="w"> </span>enable_gpu_debug_layers<span class="w"> </span><span class="m">1</span>
-adb<span class="w"> </span>shell<span class="w"> </span>settings<span class="w"> </span>put<span class="w"> </span>global<span class="w"> </span>gpu_debug_app<span class="w"> </span><span class="si">${</span><span class="nv">package_name</span><span class="si">}</span>
+adb<span class="w"> </span>shell<span class="w"> </span>settings<span class="w"> </span>put<span class="w"> </span>global<span class="w"> </span>gpu_debug_app<span class="w"> </span><span class="nv">$TARGET_APP_PKG</span>
 adb<span class="w"> </span>shell<span class="w"> </span>settings<span class="w"> </span>put<span class="w"> </span>global<span class="w"> </span>gpu_debug_layers<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>VK_LAYER_ML_Graph_Emulation:VK_LAYER_ML_Tensor_Emulation
 </pre></div>
 </div>
+<section id="apk-packaging">
+<h3>APK Packaging<a class="headerlink" href="#apk-packaging" title="Link to this heading"></a></h3>
+<p>If you want to package the ML Emulation Layer for Vulkan® as an Android™ APK,
+set the following variables first:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">EMULATION_LAYER_ROOT</span><span class="o">=</span>/path/to/emulation-layer
+<span class="nb">export</span><span class="w"> </span><span class="nv">NDK</span><span class="o">=</span>/path/to/android-ndk
+<span class="nb">export</span><span class="w"> </span><span class="nv">ANDROID_HOME</span><span class="o">=</span>/path/to/android-sdk
+<span class="nb">export</span><span class="w"> </span><span class="nv">TARGET_APP_PKG</span><span class="o">=</span>com.example.targetapp
+</pre></div>
+</div>
+<p>The Android™ packaging flow in <code class="docutils literal notranslate"><span class="pre">scripts/build.py</span></code> requires the Android™ NDK
+toolchain for the native build and Gradle 8.4 or later with <code class="docutils literal notranslate"><span class="pre">ANDROID_HOME</span></code> set
+for APK generation. The Android™ SDK installation pointed to by
+<code class="docutils literal notranslate"><span class="pre">ANDROID_HOME</span></code> should include <code class="docutils literal notranslate"><span class="pre">build-tools;34.0.0</span></code> and
+<code class="docutils literal notranslate"><span class="pre">platforms;android-34</span></code>, or other compatible versions. A typical APK packaging
+command looks like:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span><span class="nv">$EMULATION_LAYER_ROOT</span>/scripts/build.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--build-type<span class="w"> </span>Android<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--target-platform<span class="w"> </span>android<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--cmake-toolchain-for-android<span class="w"> </span><span class="nv">$NDK</span>/build/cmake/android.toolchain.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--install<span class="w"> </span><span class="nv">$EMULATION_LAYER_ROOT</span>/apk_install<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--package-type<span class="w"> </span>apk<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-j<span class="w"> </span><span class="k">$(</span>nproc<span class="k">)</span>
+</pre></div>
+</div>
+<p>This produces an Android™ project in <code class="docutils literal notranslate"><span class="pre">apk_package/</span></code> and Gradle builds the debug
+APK from there. The layer APK package name is currently
+<code class="docutils literal notranslate"><span class="pre">com.arm.ai_ml_emulation_layer_for_vulkan</span></code>.</p>
+<p>To enable the packaged layers for a target application, use Android™ GPU debug
+layer settings:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>adb<span class="w"> </span>shell<span class="w"> </span>settings<span class="w"> </span>put<span class="w"> </span>global<span class="w"> </span>enable_gpu_debug_layers<span class="w"> </span><span class="m">1</span>
+adb<span class="w"> </span>shell<span class="w"> </span>settings<span class="w"> </span>put<span class="w"> </span>global<span class="w"> </span>gpu_debug_app<span class="w"> </span><span class="nv">$TARGET_APP_PKG</span>
+adb<span class="w"> </span>shell<span class="w"> </span>settings<span class="w"> </span>put<span class="w"> </span>global<span class="w"> </span>gpu_debug_layers<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>VK_LAYER_ML_Graph_Emulation:VK_LAYER_ML_Tensor_Emulation
+adb<span class="w"> </span>shell<span class="w"> </span>settings<span class="w"> </span>put<span class="w"> </span>global<span class="w"> </span>gpu_debug_layer_app<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>com.arm.ai_ml_emulation_layer_for_vulkan
+</pre></div>
+</div>
+<p>If you only want to enable a single layer, the command will likely look like:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>adb<span class="w"> </span>shell<span class="w"> </span>settings<span class="w"> </span>put<span class="w"> </span>global<span class="w"> </span>gpu_debug_layers<span class="w"> </span>VK_LAYER_KHRONOS_validation
+</pre></div>
+</div>
+<p>The layer package must also be visible to the debug app. On Android™ 11 and
+later, if the target app does not already query the layer package, add a
+package visibility entry such as:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;queries&gt;</span>
+<span class="w">    </span><span class="nt">&lt;package</span><span class="w"> </span><span class="na">android:name=</span><span class="s">&quot;com.arm.ai_ml_emulation_layer_for_vulkan&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/queries&gt;</span>
+</pre></div>
+</div>
+<p>Refer to the Android™ validation layer guide for background on APK packaging,
+debug layer settings, and package visibility:
+<a class="reference external" href="https://developer.android.com/ndk/guides/graphics/validation-layer">Use Vulkan validation layers on Android</a>.</p>
+</section>
 <section id="building-for-darwin-experimental">
 <h3>Building for Darwin (Experimental)<a class="headerlink" href="#building-for-darwin-experimental" title="Link to this heading"></a></h3>
 <p>MoltenVK is required to build and run the ML Emulation Layer for Vulkan® for a Darwin

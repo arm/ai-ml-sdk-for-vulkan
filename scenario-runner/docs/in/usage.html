@@ -135,6 +135,15 @@ the SCENARIO_JSON_FILE.</p></li>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scenario-runner<span class="w"> </span>--help
 </pre></div>
 </div>
+<p>For the Android APK package, install the generated APK and start the foreground
+service with <code class="docutils literal notranslate"><span class="pre">adb</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>adb<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>build/scenario-runner-debug.apk
+
+adb<span class="w"> </span>shell<span class="w"> </span>am<span class="w"> </span>start-foreground-service<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-n<span class="w"> </span>com.arm.ai_ml_sdk_scenario_runner/.Main<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--esa<span class="w"> </span>args<span class="w"> </span>--scenario,/data/user/0/com.arm.ai_ml_sdk_scenario_runner/scenario.json
+</pre></div>
+</div>
 <section id="pypi">
 <h2>PyPI<a class="headerlink" href="#pypi" title="Link to this heading"></a></h2>
 <p>The ML SDK Scenario Runner is available on PyPI as the <a class="reference external" href="https://pypi.org/project/ai-ml-sdk-scenario-runner">ai-ml-sdk-scenario-runner</a> package.</p>
