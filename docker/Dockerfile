@@ -14,11 +14,11 @@ ARG BUILDPLATFORM
 
 ENV LANG=C.UTF-8
 ENV DEBIAN_FRONTEND=noninteractive
+ENV ANDROID_HOME="/opt/android/sdk"
 ENV PATH="/home/$user/.local/bin:$PATH"
 
 RUN apt-get update && \
     apt-get install -y \
-    android-sdk-platform-tools \
     bash \
     bash-completion \
     build-essential \
@@ -42,6 +42,7 @@ RUN apt-get update && \
     mesa-utils \
     mesa-vulkan-drivers \
     ninja-build \
+    openjdk-17-jdk \
     pkg-config \
     python3 \
     python3-pip \
@@ -94,6 +95,27 @@ RUN curl -sSL -o /tmp/uv-installer.sh https://astral.sh/uv/install.sh && \
     UV_INSTALL_DIR=/home/$user/.local/bin sh /tmp/uv-installer.sh && \
     rm /tmp/uv-installer.sh
 
+# Install Gradle 9.4.1
+RUN wget https://services.gradle.org/distributions/gradle-9.4.1-bin.zip -O /tmp/gradle-9.4.1-bin.zip && \
+    unzip /tmp/gradle-9.4.1-bin.zip -d /opt && \
+    ln -sf /opt/gradle-9.4.1/bin/gradle /home/$user/.local/bin/gradle && \
+    rm /tmp/gradle-9.4.1-bin.zip
+
+# Install adb 1.0.39
+RUN wget https://dl.google.com/android/repository/platform-tools_r26.0.1-linux.zip -O /tmp/platform-tools_r26.0.1-linux.zip && \
+    unzip /tmp/platform-tools_r26.0.1-linux.zip -d /opt && \
+    ln -sf /opt/platform-tools/adb /home/$user/.local/bin/adb && \
+    rm /tmp/platform-tools_r26.0.1-linux.zip
+
+# Install command-line tools
+RUN mkdir -p /opt/android/sdk/cmdline-tools && \
+    wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O /tmp/commandlinetools-linux-11076708_latest.zip && \
+    unzip -qo /tmp/commandlinetools-linux-11076708_latest.zip -d /opt/android/sdk/cmdline-tools && \
+    mv /opt/android/sdk/cmdline-tools/cmdline-tools /opt/android/sdk/cmdline-tools/latest && \
+    ln -sf /opt/android/sdk/cmdline-tools/latest/bin/sdkmanager /home/$user/.local/bin/sdkmanager && \
+    ln -sf /opt/android/sdk/cmdline-tools/latest/bin/avdmanager /home/$user/.local/bin/avdmanager && \
+    rm /tmp/commandlinetools-linux-11076708_latest.zip
+
 COPY --chown=$user ../requirements.txt ./
 COPY --chown=$user ../tooling-requirements.txt ./
 RUN pip install -r requirements.txt
@@ -104,7 +126,8 @@ RUN uv pip install --system twine "dohq-artifactory>=0.10.0,<0.11"
 RUN git lfs install
 
 RUN useradd -m -u $uid -U $user && \
-    echo "$user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+    echo "$user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
+    chown -R $user:$user /opt/android
 
 WORKDIR /home/$user
 RUN chown -R $user:$user .
