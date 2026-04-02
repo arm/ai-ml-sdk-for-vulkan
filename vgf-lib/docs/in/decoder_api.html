@@ -140,7 +140,7 @@ The header decoder also uses memory size and offset pairs to provide the locatio
 </pre></div>
 </div>
 <p>After creating a header decoder, you can verify the validity of the VGF file and its compatibility with the library. To verify the validity of the VGF file, check if their versions match:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">ASSERT_NE</span><span class="p">(</span><span class="n">decoder</span><span class="p">,</span><span class="w"> </span><span class="k">nullptr</span><span class="p">);</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">ASSERT_NE</span><span class="p">(</span><span class="n">decoder</span><span class="p">,</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
@@ -154,7 +154,7 @@ For example, if the resource is a tensor or an image, the Model Resource table h
 <p>With the previously created header decoder, you must create a Model Sequence Table decoder.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">ModelSequenceTableDecoder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">seqTableDecoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateModelSequenceTableDecoder</span><span class="p">(</span>
 <span class="w">        </span><span class="n">vgfData</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelSequenceTableOffset</span><span class="p">(),</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelSequenceTableSize</span><span class="p">());</span>
-<span class="w">    </span><span class="n">ASSERT_NE</span><span class="p">(</span><span class="n">seqTableDecoder</span><span class="p">,</span><span class="w"> </span><span class="k">nullptr</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ASSERT_NE</span><span class="p">(</span><span class="n">seqTableDecoder</span><span class="p">,</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>To extract all the relevant information of any segment, you can address each segment using the respective index. For example, you can create a binding slot decoder to extract the inputs or outputs to the segment.</p>
@@ -222,7 +222,7 @@ For example, a tensor entry contains its element type, shape and stride. However
 <p>After you create a Model Resource Table decoder, you can use the obtained mrtIndex to extract information for that binding:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">ModelResourceTableDecoder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mrtDecoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateModelResourceTableDecoder</span><span class="p">(</span>
 <span class="w">        </span><span class="n">vgfData</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelResourceTableOffset</span><span class="p">(),</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModelResourceTableSize</span><span class="p">());</span>
-<span class="w">    </span><span class="n">ASSERT_NE</span><span class="p">(</span><span class="n">mrtDecoder</span><span class="p">,</span><span class="w"> </span><span class="k">nullptr</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ASSERT_NE</span><span class="p">(</span><span class="n">mrtDecoder</span><span class="p">,</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">);</span>
 
 <span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">numEntries</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mrtDecoder</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
 
@@ -245,7 +245,7 @@ For example, a tensor entry contains its element type, shape and stride. However
 <p>After you create a Module table decoder, you can extract the respective module of the segment. To extract the module, you can use the moduleIndex:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">ModuleTableDecoder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">moduleDecoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateModuleTableDecoder</span><span class="p">(</span>
 <span class="w">        </span><span class="n">vgfData</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModuleTableOffset</span><span class="p">(),</span><span class="w"> </span><span class="n">headerDecoder</span><span class="o">-&gt;</span><span class="n">GetModuleTableSize</span><span class="p">());</span>
-<span class="w">    </span><span class="n">ASSERT_NE</span><span class="p">(</span><span class="n">moduleDecoder</span><span class="p">,</span><span class="w"> </span><span class="k">nullptr</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ASSERT_NE</span><span class="p">(</span><span class="n">moduleDecoder</span><span class="p">,</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">);</span>
 
 <span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">numModules</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">moduleDecoder</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
 
