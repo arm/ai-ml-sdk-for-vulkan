@@ -81,7 +81,8 @@ The root of the JSON file has two blocks.
                    class graph | class shader | class memory_barrier | class buffer_barrier |
                    class buffer_barrier | class tensor_barrier | class image_barrier
                    | class graph_constant ],
-      commands: [ class dispatch_compute | class dispatch_graph | class dispatch_spirv_graph |
+      commands: [ class dispatch_compute | class dispatch_fragment | class dispatch_graph |
+                  class dispatch_spirv_graph |
                   class dispatch_barrier | class mark_boundary ]
   }
 
@@ -100,6 +101,7 @@ array can be any of the following types:
 ``commands`` lists all the commands in order of execution or dispatch:
 
 * :ref:`dispatch_compute`
+* :ref:`dispatch_fragment`
 * :ref:`dispatch_graph`
 * :ref:`dispatch_spirv_graph`
 * :ref:`dispatch_barrier`
@@ -124,6 +126,7 @@ The ``image`` resource has the following properties:
       mips:int(default=1), // Number of mipmaps. Create an Image with memory allocated for this many level of details. Mipmaps levels are automatically generated.
       src:path(default=""), // optional path to the image file to initialize the resource from
       dst:path(default=""), // optional path to the image file to write contents to (post execution of commands)
+      color_attachment:bool(default=false), // expose the image as a render target that can be bound as a color attachment
       min_filter:enum = (NEAREST|LINEAR) // sampler setting
       mag_filter:enum = (NEAREST|LINEAR) // sampler setting
       mip_filter:enum = (NEAREST|LINEAR) // sampler setting
@@ -313,8 +316,8 @@ the corresponding dispatch command.
       uid:string, // globally unique identifier for the resource
       src_access:enum(ACCESS_MEMORY_WRITE|ACCESS_MEMORY_READ|ACCESS_GRAPH_WRITE|ACCESS_GRAPH_READ|ACCESS_COMPUTE_SHADER_WRITE|ACCESS_COMPUTE_SHADER_READ), // memory access type from the source
       dst_access:enum(ACCESS_MEMORY_WRITE|ACCESS_MEMORY_READ|ACCESS_GRAPH_WRITE|ACCESS_GRAPH_READ|ACCESS_COMPUTE_SHADER_WRITE|ACCESS_COMPUTE_SHADER_READ), // memory access type from the destination
-      src_stage:[enum(GRAPH|COMPUTE|ALL)], // source pipeline stages
-      dst_stage:[enum(GRAPH|COMPUTE|ALL)], // destination pipeline stages
+      src_stage:[enum(GRAPH|COMPUTE|GRAPHICS|ALL)], // source pipeline stages
+      dst_stage:[enum(GRAPH|COMPUTE|GRAPHICS|ALL)], // destination pipeline stages
   }
 
 .. code-block::
@@ -325,8 +328,8 @@ the corresponding dispatch command.
       size:int // total size of the buffer affected by this barrier in bytes
       src_access:enum(ACCESS_MEMORY_WRITE|ACCESS_MEMORY_READ|ACCESS_GRAPH_WRITE|ACCESS_GRAPH_READ|ACCESS_COMPUTE_SHADER_WRITE|ACCESS_COMPUTE_SHADER_READ), // memory access type from the source
       dst_access:enum(ACCESS_MEMORY_WRITE|ACCESS_MEMORY_READ|ACCESS_GRAPH_WRITE|ACCESS_GRAPH_READ|ACCESS_COMPUTE_SHADER_WRITE|ACCESS_COMPUTE_SHADER_READ), // memory access type from the destination
-      src_stage:[enum(GRAPH|COMPUTE|ALL)], // source pipeline stages
-      dst_stage:[enum(GRAPH|COMPUTE|ALL)], // destination pipeline stages
+      src_stage:[enum(GRAPH|COMPUTE|GRAPHICS|ALL)], // source pipeline stages
+      dst_stage:[enum(GRAPH|COMPUTE|GRAPHICS|ALL)], // destination pipeline stages
       offset:int(default=0), // the offset in bytes into the backing memory for the buffer affected by this barrier
   }
 
@@ -340,8 +343,8 @@ the corresponding dispatch command.
       new_layout:enum = (IMAGE_LAYOUT_TENSOR_ALIASING|IMAGE_LAYOUT_GENERAL|IMAGE_LAYOUT_UNDEFINED), // the new image layout in an image layout transition
       image_resource:string, // reference to the image resource
       subresource_range: class subresource_range // the subresource range within the image affected by this barrier
-      src_stage:[enum(GRAPH|COMPUTE|ALL)], // source pipeline stages
-      dst_stage:[enum(GRAPH|COMPUTE|ALL)], // destination pipeline stages
+      src_stage:[enum(GRAPH|COMPUTE|GRAPHICS|ALL)], // source pipeline stages
+      dst_stage:[enum(GRAPH|COMPUTE|GRAPHICS|ALL)], // destination pipeline stages
   }
 
 The subresource_range resource maps the image subresources of an image affected by an image barrier:
@@ -362,8 +365,8 @@ The subresource_range resource maps the image subresources of an image affected 
       tensor_resource:string, // reference to the tensor resource
       src_access:enum(ACCESS_MEMORY_WRITE|ACCESS_MEMORY_READ|ACCESS_GRAPH_WRITE|ACCESS_GRAPH_READ|ACCESS_COMPUTE_SHADER_WRITE|ACCESS_COMPUTE_SHADER_READ), // memory access type from the source
       dst_access:enum(ACCESS_MEMORY_WRITE|ACCESS_MEMORY_READ|ACCESS_GRAPH_WRITE|ACCESS_GRAPH_READ|ACCESS_COMPUTE_SHADER_WRITE|ACCESS_COMPUTE_SHADER_READ), // memory access type from the destination
-      src_stage:[enum(GRAPH|COMPUTE|ALL)], // source pipeline stages
-      dst_stage:[enum(GRAPH|COMPUTE|ALL)], // destination pipeline stages
+      src_stage:[enum(GRAPH|COMPUTE|GRAPHICS|ALL)], // source pipeline stages
+      dst_stage:[enum(GRAPH|COMPUTE|GRAPHICS|ALL)], // destination pipeline stages
   }
 
 graph_constant
@@ -417,6 +420,32 @@ a single ``push_constant`` buffer for the compute stage only.
       lod: int(default=0) // Optional. Level of details index. In case of an Image resource with mipmaps could be used to bind specific level of details.
       descriptor_type:enum(default=VK_DESCRIPTOR_TYPE_AUTO) = (VK_DESCRIPTOR_TYPE_AUTO|VK_DESCRIPTOR_TYPE_STORAGE_IMAGE), // descriptor type for the resource in current dispatch. Needed only when descriptor type cannot be correctly inferred
   }
+
+dispatch_fragment
+"""""""""""""""""
+
+The ``dispatch_fragment`` command dispatches a fullscreen fragment pipeline. This command is typically used for blit-like passes that need fragment output compression, or for fragment workloads that read/write storage buffers, storage images, or tensors.
+
+.. code-block::
+
+  dispatch_fragment: {
+      vertex_shader_ref: string, // reference to the vertex shader resource
+      fragment_shader_ref: string, // reference to the fragment shader resource
+      bindings: [class binding], // bindings accessible to the fragment pipeline
+      color_attachment_refs: [string | class fragment_attachment_ref], // optional images bound as color attachments
+      render_extent: [int, int], // optional explicit extent (required when no color attachments are provided)
+      push_data_ref: string(default=""), // reference to raw_data resource containing push constant data
+      implicit_barrier:boolean(default=true) // inclusion of implicit memory barrier
+  }
+
+  fragment_attachment_ref: {
+      resource_ref: string, // reference to the image resource
+      lod: int(default=0) // optional mip level to render to
+  }
+
+At least one of ``color_attachment_refs`` or ``render_extent`` must be present. When ``color_attachment_refs`` is provided, each entry must reference an image resource configured for color-attachment usage; the dimensions of the first attachment determine the render extent. Attachment entries may either be a plain resource reference string or a ``fragment_attachment_ref`` object when a specific mip level must be targeted. If no color attachments are required—for example, when only storage buffers, storage images, or tensors are touched by the fragment shader—you must supply ``render_extent`` to describe the output dimensions of the fullscreen draw.
+
+Bindings use the same structure as compute commands, meaning fragment shaders can consume buffers, tensors, storage images, and sampled images declared elsewhere in the scenario.
 
 dispatch_graph
 """"""""""""""
