@@ -117,7 +117,7 @@
 <h1>Known Limitations<a class="headerlink" href="#known-limitations" title="Link to this heading"></a></h1>
 <ul class="simple">
 <li><p>Resources created with <code class="docutils literal notranslate"><span class="pre">Optimal</span></code> tiling cannot be used with memory aliasing.</p></li>
-<li><p>HLSL support is an experimental feature, DirextXShaderCompiler is linked dynamically. When HLSL support is enabled, Scenario Runner needs to be built from source or <code class="docutils literal notranslate"><span class="pre">libdxcompiler.so</span></code> or <code class="docutils literal notranslate"><span class="pre">dxcompiler.dll</span></code> with spir-v enabled needs to be bundled with the prebuild.</p></li>
+<li><p>HLSL lacks support for VK_ARM_tensor at the moment, so tensor resources cannot be used with HLSL shaders.</p></li>
 </ul>
 </section>
 
