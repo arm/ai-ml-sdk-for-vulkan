@@ -1,0 +1,394 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vulkan® Shader in TOSA Custom Operation Attributes &mdash; ML SDK for Vulkan®  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=b8c9390b" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Known Limitations" href="limitations.html" />
+    <link rel="prev" title="Vulkan® Custom Shader Conversion to VGF" href="vkcustomshader-conversion.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            ML SDK for Vulkan®
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../building.html">Building the ML SDK for Vulkan®</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tensor_aliasing_tutorial.html">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../e2e_pytorch_tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../e2e_tflite_tutorial.html">Converting and deploying a TFLite model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../e2e_onnx_tutorial.html">Converting and deploying an ONNX model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../vgf_run_tutorial.html">How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ML SDK Model Converter</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">Building the ML SDK Model Converter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vkcustomshader-conversion.html">Vulkan® Custom Shader Conversion to VGF</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Vulkan® Shader in TOSA Custom Operation Attributes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#top-level-properties">Top-Level Properties</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#entry-point-required">entry_point (required)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#workgroup-sizes-required">workgroup_sizes (required)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#shader-language-optional">shader_language (optional)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#shader-code-optional">shader_code (optional)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#push-constants-optional">push_constants (optional)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#input-output-resource-attributes">Input / Output Resource Attributes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#naming-convention">Naming Convention</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#resource-properties">Resource Properties</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#vkformat">_vkformat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vkdescriptortype">_vkdescriptortype</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#type">_type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#binding">_binding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#descriptorset">_descriptorset</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#complete-example-glsl">Complete Example — GLSL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#complete-example-spir-v">Complete Example — SPIR-V™</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="limitations.html">Known Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK VGF Library</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../vgf-lib/docs/in/index.html">ML SDK VGF Library</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Scenario Runner</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../scenario-runner/docs/in/index.html">ML SDK Scenario Runner</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML Emulation Layer for Vulkan®</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../emulation-layer/docs/in/index.html">ML Emulation Layer for Vulkan®</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#secure-coding-practices">Secure coding practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#inclusive-language-guidelines">Inclusive language guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/security.html">Security</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ML SDK for Vulkan®</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">ML SDK Model Converter</a></li>
+      <li class="breadcrumb-item active">Vulkan® Shader in TOSA Custom Operation Attributes</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/model-converter/docs/in/vkshader-custom-op-encoding.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vulkan-shader-in-tosa-custom-operation-attributes">
+<h1>Vulkan® Shader in TOSA Custom Operation Attributes<a class="headerlink" href="#vulkan-shader-in-tosa-custom-operation-attributes" title="Link to this heading"></a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>This schema defines the JSON attributes used to embed a <strong>Vulkan® shader</strong>
+inside a <strong>TOSA custom operation</strong>.</p>
+<p>It supports:</p>
+<ul class="simple">
+<li><p>Shader entry point definition</p></li>
+<li><p>Workgroup configuration</p></li>
+<li><p>Textual shader source (GLSL/HLSL)</p></li>
+<li><p>Binary SPIR-V™ (base64 encoded)</p></li>
+<li><p>Vulkan® resource binding metadata for inputs and outputs</p></li>
+</ul>
+<p>The schema is designed to be:</p>
+<ul class="simple">
+<li><p>Strongly validated</p></li>
+<li><p>Vulkan® aligned</p></li>
+<li><p>Deterministic in key naming</p></li>
+<li><p>Forward-compatible</p></li>
+</ul>
+</section>
+<section id="top-level-properties">
+<h2>Top-Level Properties<a class="headerlink" href="#top-level-properties" title="Link to this heading"></a></h2>
+<section id="entry-point-required">
+<h3>entry_point (required)<a class="headerlink" href="#entry-point-required" title="Link to this heading"></a></h3>
+<p><strong>Type:</strong> string</p>
+<p>Name of the shader entry point.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;entry_point&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;main&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="workgroup-sizes-required">
+<h3>workgroup_sizes (required)<a class="headerlink" href="#workgroup-sizes-required" title="Link to this heading"></a></h3>
+<p><strong>Type:</strong> Array of exactly 3 positive integers</p>
+<p>Represents the local workgroup size: [x, y, z]</p>
+<p>Constraints:</p>
+<ul class="simple">
+<li><p>Exactly 3 elements</p></li>
+<li><p>Each value must be &gt;= 1</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;workgroup_sizes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Corresponds to:</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="p">(</span><span class="n">local_size_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">       </span><span class="n">local_size_y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">       </span><span class="n">local_size_z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">in</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="shader-language-optional">
+<h3>shader_language (optional)<a class="headerlink" href="#shader-language-optional" title="Link to this heading"></a></h3>
+<p><strong>Type:</strong> Enum</p>
+<p>Allowed values:</p>
+<ul class="simple">
+<li><p>“” (unspecified)</p></li>
+<li><p>“SPIR-V”</p></li>
+<li><p>“GLSL”</p></li>
+<li><p>“HLSL”</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;shader_language&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GLSL&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="shader-code-optional">
+<h3>shader_code (optional)<a class="headerlink" href="#shader-code-optional" title="Link to this heading"></a></h3>
+<p><strong>Type:</strong> string</p>
+<p>Validation depends on <code class="docutils literal notranslate"><span class="pre">shader_language</span></code>.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">shader_language</span> <span class="pre">==</span> <span class="pre">&quot;SPIR-V&quot;</span></code>:</p>
+<ul class="simple">
+<li><p>Must be base64 encoded</p></li>
+<li><p>Represents raw SPIR-V™ binary</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;shader_language&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SPIR-V&quot;</span><span class="p">,</span>
+<span class="nt">&quot;shader_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AwIjBAAAAAEAAAABAAEAAAA...&quot;</span>
+</pre></div>
+</div>
+<p>Otherwise (GLSL/HLSL):</p>
+<ul class="simple">
+<li><p>Treated as plain text shader source</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;shader_language&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GLSL&quot;</span><span class="p">,</span>
+<span class="nt">&quot;shader_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;void main() { }&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="push-constants-optional">
+<h3>push_constants (optional)<a class="headerlink" href="#push-constants-optional" title="Link to this heading"></a></h3>
+<p><strong>Type:</strong> string</p>
+<p>Comma-separated “name: size” pairs describing push constant layout.</p>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;push_constants&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scale: 4, bias: 4&quot;</span>
+</pre></div>
+</div>
+<p>Future versions may represent this as structured JSON.</p>
+</section>
+</section>
+<section id="input-output-resource-attributes">
+<h2>Input / Output Resource Attributes<a class="headerlink" href="#input-output-resource-attributes" title="Link to this heading"></a></h2>
+<p>Resources are described using indexed attribute names.</p>
+<section id="naming-convention">
+<h3>Naming Convention<a class="headerlink" href="#naming-convention" title="Link to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">input_</span><span class="o">&lt;</span><span class="n">index</span><span class="o">&gt;</span><span class="n">_</span><span class="o">&lt;</span><span class="nb">property</span><span class="o">&gt;</span>
+<span class="n">output_</span><span class="o">&lt;</span><span class="n">index</span><span class="o">&gt;</span><span class="n">_</span><span class="o">&lt;</span><span class="nb">property</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;index&gt;</span></code> is a non-negative integer</p></li>
+<li><p>Leading zeros are not allowed
+- Valid: <code class="docutils literal notranslate"><span class="pre">input_0</span></code>, <code class="docutils literal notranslate"><span class="pre">input_1</span></code>, <code class="docutils literal notranslate"><span class="pre">input_10</span></code>
+- Invalid: <code class="docutils literal notranslate"><span class="pre">input_01</span></code></p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;input_0_vkformat&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VK_FORMAT_R32_SFLOAT&quot;</span><span class="p">,</span>
+<span class="nt">&quot;input_0_vkdescriptortype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VK_DESCRIPTOR_TYPE_STORAGE_BUFFER&quot;</span><span class="p">,</span>
+<span class="nt">&quot;input_0_binding&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="nt">&quot;input_0_descriptorset&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="resource-properties">
+<h2>Resource Properties<a class="headerlink" href="#resource-properties" title="Link to this heading"></a></h2>
+<p>Each indexed input/output may define the following.</p>
+<section id="vkformat">
+<h3>_vkformat<a class="headerlink" href="#vkformat" title="Link to this heading"></a></h3>
+<p><strong>Type:</strong> string</p>
+<p>Vulkan® format (e.g., <code class="docutils literal notranslate"><span class="pre">VK_FORMAT_R32_SFLOAT</span></code>).</p>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;input_0_vkformat&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VK_FORMAT_R32G32B32A32_SFLOAT&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="vkdescriptortype">
+<h3>_vkdescriptortype<a class="headerlink" href="#vkdescriptortype" title="Link to this heading"></a></h3>
+<p><strong>Type:</strong> string</p>
+<p>Must follow Vulkan® naming convention:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">VK_DESCRIPTOR_TYPE_</span><span class="p">[</span><span class="n">A</span><span class="o">-</span><span class="n">Z0</span><span class="o">-</span><span class="mi">9</span><span class="n">_</span><span class="p">]</span><span class="o">+</span>
+</pre></div>
+</div>
+<p>Examples:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">VK_DESCRIPTOR_TYPE_STORAGE_BUFFER</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VK_DESCRIPTOR_TYPE_STORAGE_TENSOR_EXT</span></code></p></li>
+</ul>
+</section>
+<section id="type">
+<h3>_type<a class="headerlink" href="#type" title="Link to this heading"></a></h3>
+<p><strong>Type:</strong> string</p>
+<p>Logical resource type.</p>
+<p>Examples:</p>
+<ul class="simple">
+<li><p>“Tensor”</p></li>
+<li><p>“Image”</p></li>
+<li><p>“Buffer”</p></li>
+</ul>
+</section>
+<section id="binding">
+<h3>_binding<a class="headerlink" href="#binding" title="Link to this heading"></a></h3>
+<p><strong>Type:</strong> Integer &gt;= 0</p>
+<p>Vulkan® binding index.</p>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;input_0_binding&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+</pre></div>
+</div>
+</section>
+<section id="descriptorset">
+<h3>_descriptorset<a class="headerlink" href="#descriptorset" title="Link to this heading"></a></h3>
+<p><strong>Type:</strong> Integer &gt;= 0</p>
+<p>Descriptor set index.</p>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;input_0_descriptorset&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="complete-example-glsl">
+<h2>Complete Example — GLSL<a class="headerlink" href="#complete-example-glsl" title="Link to this heading"></a></h2>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;entry_point&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;main&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;workgroup_sizes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;shader_language&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GLSL&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;shader_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;void main() { }&quot;</span><span class="p">,</span>
+
+<span class="w">  </span><span class="nt">&quot;input_0_vkformat&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VK_FORMAT_R32_SFLOAT&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;input_0_vkdescriptortype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VK_DESCRIPTOR_TYPE_STORAGE_BUFFER&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;input_0_binding&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;input_0_descriptorset&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+
+<span class="w">  </span><span class="nt">&quot;output_0_vkformat&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VK_FORMAT_R32_SFLOAT&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;output_0_vkdescriptortype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VK_DESCRIPTOR_TYPE_STORAGE_BUFFER&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;output_0_binding&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;output_0_descriptorset&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="complete-example-spir-v">
+<h2>Complete Example — SPIR-V™<a class="headerlink" href="#complete-example-spir-v" title="Link to this heading"></a></h2>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;entry_point&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;main&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;workgroup_sizes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;shader_language&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SPIR-V&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;shader_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AwIjBAAAAAEAAAABAAEAAAA...&quot;</span><span class="p">,</span>
+
+<span class="w">  </span><span class="nt">&quot;input_0_vkformat&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VK_FORMAT_R32G32B32A32_SFLOAT&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;input_0_vkdescriptortype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VK_DESCRIPTOR_TYPE_STORAGE_BUFFER&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;input_0_binding&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;input_0_descriptorset&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="vkcustomshader-conversion.html" class="btn btn-neutral float-left" title="Vulkan® Custom Shader Conversion to VGF" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="limitations.html" class="btn btn-neutral float-right" title="Known Limitations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, Arm Limited and/or its affiliates &lt;open-source-office@arm.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -173,7 +173,7 @@
 </pre></div>
 </div>
 <p>Alternatively, you can add a placeholder module. The application provisions the SPIR-V™ binary data when the model is loaded.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">ModuleRef</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">encoder</span><span class="o">-&gt;</span><span class="n">AddPlaceholderModule</span><span class="p">(</span><span class="n">ModuleType</span><span class="o">::</span><span class="n">GRAPH</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;test_module&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;entry_point&quot;</span><span class="p">);</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">ModuleRef</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">encoder</span><span class="o">-&gt;</span><span class="n">AddModule</span><span class="p">(</span><span class="n">ModuleType</span><span class="o">::</span><span class="n">GRAPH</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;test_module&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;entry_point&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>If required, you can specify push constants for the segment:</p>
@@ -292,6 +292,26 @@
 <li><p><strong>name</strong> -- Unique string name of the module </p></li>
 <li><p><strong>entryPoint</strong> -- Entry point into the shader e.g. “main” </p></li>
 <li><p><strong>code</strong> -- Vector of uint32 representing SPIR-V byte code </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmlsdk_1_1vgflib_1_1ModuleRef"><span class="std std-ref">ModuleRef</span></a> Type containing information for the added module </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib7Encoder9AddModuleE10ModuleTypeRKNSt6stringERKNSt6stringE10ShaderTypeRKNSt6stringE">
+<span id="_CPPv3N5mlsdk6vgflib7Encoder9AddModuleE10ModuleTypeRKNSt6stringERKNSt6stringE10ShaderTypeRKNSt6stringE"></span><span id="_CPPv2N5mlsdk6vgflib7Encoder9AddModuleE10ModuleTypeRKNSt6stringERKNSt6stringE10ShaderTypeRKNSt6stringE"></span><span id="mlsdk::vgflib::Encoder::AddModule__ModuleType.ssCR.ssCR.ShaderType.ssCR"></span><span class="target" id="classmlsdk_1_1vgflib_1_1Encoder_1a405afa5318306a49859cba4d137c2347"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N5mlsdk6vgflib9ModuleRefE" title="mlsdk::vgflib::ModuleRef"><span class="n"><span class="pre">ModuleRef</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddModule</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ModuleType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">moduleType</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">entryPoint</span></span>, <span class="n"><span class="pre">ShaderType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shaderType</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">code</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib7Encoder9AddModuleE10ModuleTypeRKNSt6stringERKNSt6stringE10ShaderTypeRKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Adds a module, with code, to the VGF. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>moduleType</strong> -- The type of the module </p></li>
+<li><p><strong>name</strong> -- Unique string name of the module </p></li>
+<li><p><strong>entryPoint</strong> -- Entry point into the shader e.g. “main” </p></li>
+<li><p><strong>shaderType</strong> -- The type of the shader GLSL/HLSL/etc </p></li>
+<li><p><strong>code</strong> -- String representing GLSL/HLSL/etc code </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

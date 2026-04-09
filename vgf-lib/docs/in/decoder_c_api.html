@@ -607,9 +607,26 @@ If no entry_point is stored in the module a null pointer is returned. </p>
 </dd></dl>
 
 <dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_get_spirv_module_code">
+<span class="target" id="group__VGFCAPI_1ga9a795544aee50188d3faf848fc935d00"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_spirv_module_code</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_module_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">decoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">idx</span></span>, <a class="reference internal" href="#c.mlsdk_decoder_spirv_code" title="mlsdk_decoder_spirv_code"><span class="n"><span class="pre">mlsdk_decoder_spirv_code</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">spirvCode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_spirv_module_code" title="Link to this definition"></a><br /></dt>
+<dd><p>Gets the SPIR-V code stored in the module. </p>
+<p>
+If no code is stored in the module the SPIR-V code pointer will be set to null and the words to zero. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decoder</strong> -- The pointer to the module table decoder </p></li>
+<li><p><strong>idx</strong> -- The index for the entry in the module table </p></li>
+<li><p><strong>spirvCode</strong> -- The place where to store the SPIR-V code</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
 <dt class="sig sig-object c" id="c.mlsdk_decoder_get_module_code">
 <span class="target" id="group__VGFCAPI_1ga8ad262fd337125c4ec4cb450225a33d9"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_module_code</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_module_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">decoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">idx</span></span>, <a class="reference internal" href="#c.mlsdk_decoder_spirv_code" title="mlsdk_decoder_spirv_code"><span class="n"><span class="pre">mlsdk_decoder_spirv_code</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">spirvCode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_module_code" title="Link to this definition"></a><br /></dt>
-<dd><p>Gets the SPIR-V code stored in the module. </p>
+<dd><p>Gets the SPIR-V code stored in the module (deprecated alias) </p>
 <p>
 If no code is stored in the module the SPIR-V code pointer will be set to null and the words to zero. </p>
 <dl class="field-list simple">
@@ -626,7 +643,41 @@ If no code is stored in the module the SPIR-V code pointer will be set to null a
 <dl class="c function">
 <dt class="sig sig-object c" id="c.mlsdk_decoder_module_has_spirv">
 <span class="target" id="group__VGFCAPI_1ga65e3b88f60e4076b6314f7d35ad4233d"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_module_has_spirv</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_module_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">decoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">idx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_module_has_spirv" title="Link to this definition"></a><br /></dt>
-<dd><p>Returns true if the module table entry has SPIR-V code. </p>
+<dd><p>Returns true if the module table entry is a SPIR-V module (deprecated alias) </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decoder</strong> -- The pointer to the module table decoder </p></li>
+<li><p><strong>idx</strong> -- The index for the entry in the module table </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the entry stores a SPIR-V module </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_module_is_spirv">
+<span class="target" id="group__VGFCAPI_1ga9ea321860fdb8c4d3bf4d102c914a32a"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_module_is_spirv</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_module_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">decoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">idx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_module_is_spirv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if the module table entry is a SPIR-V module. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decoder</strong> -- The pointer to the module table decoder </p></li>
+<li><p><strong>idx</strong> -- The index for the entry in the module table </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the entry stores a SPIR-V module </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_module_has_spirv_code">
+<span class="target" id="group__VGFCAPI_1gac10b895af1db0c3e663fdade02426beb"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_module_has_spirv_code</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_module_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">decoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">idx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_module_has_spirv_code" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if the module table entry is a SPIR-V module with associated code. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -636,6 +687,108 @@ If no code is stored in the module the SPIR-V code pointer will be set to null a
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True if SPIR-V code is present for the entry </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_module_is_glsl">
+<span class="target" id="group__VGFCAPI_1ga03df60c4d8311f386c652021f66ea8d3"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_module_is_glsl</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_module_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">decoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">idx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_module_is_glsl" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if the module table entry is a GLSL module. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decoder</strong> -- The pointer to the module table decoder </p></li>
+<li><p><strong>idx</strong> -- The index for the entry in the module table </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the entry stores a GLSL module </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_module_has_glsl_code">
+<span class="target" id="group__VGFCAPI_1ga266616706e6f8a29cc8e2f9cde085fa4"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_module_has_glsl_code</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_module_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">decoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">idx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_module_has_glsl_code" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if the module table entry is a GLSL module with associated code. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decoder</strong> -- The pointer to the module table decoder </p></li>
+<li><p><strong>idx</strong> -- The index for the entry in the module table </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if GLSL code is present for the entry </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_module_is_hlsl">
+<span class="target" id="group__VGFCAPI_1ga49696cc9b7c3f1f95c25fcf6cd8e7b87"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_module_is_hlsl</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_module_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">decoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">idx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_module_is_hlsl" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if the module table entry is a HLSL module. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decoder</strong> -- The pointer to the module table decoder </p></li>
+<li><p><strong>idx</strong> -- The index for the entry in the module table </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the entry stores a HLSL module </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_module_has_hlsl_code">
+<span class="target" id="group__VGFCAPI_1gafeeb6961f74d1cd7a95e660dd1bbfdb5"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_module_has_hlsl_code</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_module_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">decoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">idx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_module_has_hlsl_code" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if the module table entry is a HLSL module with associated code. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decoder</strong> -- The pointer to the module table decoder </p></li>
+<li><p><strong>idx</strong> -- The index for the entry in the module table </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if HLSL code is present for the entry </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_get_module_glsl_code">
+<span class="target" id="group__VGFCAPI_1gae02c443d11b76385ae7f28ffa74e40e0"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_module_glsl_code</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_module_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">decoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">idx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_module_glsl_code" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the GLSL source code for the idx-entry. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decoder</strong> -- The pointer to the module table decoder </p></li>
+<li><p><strong>idx</strong> -- The index for the entry in the module table </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Char pointer to GLSL source code or nullptr when unavailable </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_get_module_hlsl_code">
+<span class="target" id="group__VGFCAPI_1gafdae425a63494afd21a2e6f3b0fcc3c4"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_module_hlsl_code</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_module_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">decoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">idx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_module_hlsl_code" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the HLSL source code for the idx-entry. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decoder</strong> -- The pointer to the module table decoder </p></li>
+<li><p><strong>idx</strong> -- The index for the entry in the module table </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Char pointer to HLSL source code or nullptr when unavailable </p>
 </dd>
 </dl>
 </dd></dl>

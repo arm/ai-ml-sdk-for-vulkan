@@ -242,7 +242,7 @@
 </li>
       <li><a href="vgf-lib/docs/in/encoder_api.html#_CPPv4N5mlsdk6vgflib7Encoder29AddModelSequenceInputsOutputsERKNSt6vectorI14BindingSlotRefEERKNSt6vectorINSt6stringEEERKNSt6vectorI14BindingSlotRefEERKNSt6vectorINSt6stringEEE">mlsdk::vgflib::Encoder::AddModelSequenceInputsOutputs (C++ function)</a>
 </li>
-      <li><a href="vgf-lib/docs/in/encoder_api.html#_CPPv4N5mlsdk6vgflib7Encoder9AddModuleE10ModuleTypeRKNSt6stringERKNSt6stringERKNSt6vectorI8uint32_tEE">mlsdk::vgflib::Encoder::AddModule (C++ function)</a>
+      <li><a href="vgf-lib/docs/in/encoder_api.html#_CPPv4N5mlsdk6vgflib7Encoder9AddModuleE10ModuleTypeRKNSt6stringERKNSt6stringE10ShaderTypeRKNSt6stringE">mlsdk::vgflib::Encoder::AddModule (C++ function)</a>, <a href="vgf-lib/docs/in/encoder_api.html#_CPPv4N5mlsdk6vgflib7Encoder9AddModuleE10ModuleTypeRKNSt6stringERKNSt6stringERKNSt6vectorI8uint32_tEE">[1]</a>
 </li>
       <li><a href="vgf-lib/docs/in/encoder_api.html#_CPPv4N5mlsdk6vgflib7Encoder17AddOutputResourceE14DescriptorType10FormatTypeRKNSt6vectorI7int64_tEERKNSt6vectorI7int64_tEE">mlsdk::vgflib::Encoder::AddOutputResource (C++ function)</a>
 </li>
@@ -360,6 +360,10 @@
 </li>
       <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4N5mlsdk6vgflib18ModuleTableDecoderE">mlsdk::vgflib::ModuleTableDecoder (C++ class)</a>
 </li>
+      <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder17getGLSLModuleCodeE8uint32_t">mlsdk::vgflib::ModuleTableDecoder::getGLSLModuleCode (C++ function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder17getHLSLModuleCodeE8uint32_t">mlsdk::vgflib::ModuleTableDecoder::getHLSLModuleCode (C++ function)</a>
+</li>
       <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder13getModuleCodeE8uint32_t">mlsdk::vgflib::ModuleTableDecoder::getModuleCode (C++ function)</a>
 </li>
       <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder19getModuleEntryPointE8uint32_t">mlsdk::vgflib::ModuleTableDecoder::getModuleEntryPoint (C++ function)</a>
@@ -368,7 +372,21 @@
 </li>
       <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder13getModuleTypeE8uint32_t">mlsdk::vgflib::ModuleTableDecoder::getModuleType (C++ function)</a>
 </li>
+      <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder18getSPIRVModuleCodeE8uint32_t">mlsdk::vgflib::ModuleTableDecoder::getSPIRVModuleCode (C++ function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder11hasGLSLCodeE8uint32_t">mlsdk::vgflib::ModuleTableDecoder::hasGLSLCode (C++ function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder11hasHLSLCodeE8uint32_t">mlsdk::vgflib::ModuleTableDecoder::hasHLSLCode (C++ function)</a>
+</li>
       <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder8hasSPIRVE8uint32_t">mlsdk::vgflib::ModuleTableDecoder::hasSPIRV (C++ function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder12hasSPIRVCodeE8uint32_t">mlsdk::vgflib::ModuleTableDecoder::hasSPIRVCode (C++ function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder6isGLSLE8uint32_t">mlsdk::vgflib::ModuleTableDecoder::isGLSL (C++ function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder6isHLSLE8uint32_t">mlsdk::vgflib::ModuleTableDecoder::isHLSL (C++ function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder7isSPIRVE8uint32_t">mlsdk::vgflib::ModuleTableDecoder::isSPIRV (C++ function)</a>
 </li>
       <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder4sizeEv">mlsdk::vgflib::ModuleTableDecoder::size (C++ function)</a>
 </li>
@@ -440,6 +458,10 @@
 </li>
       <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_get_module_entry_point">mlsdk_decoder_get_module_entry_point (C function)</a>
 </li>
+      <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_get_module_glsl_code">mlsdk_decoder_get_module_glsl_code (C function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_get_module_hlsl_code">mlsdk_decoder_get_module_hlsl_code (C function)</a>
+</li>
       <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_get_module_name">mlsdk_decoder_get_module_name (C function)</a>
 </li>
       <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_get_module_table_num_entries">mlsdk_decoder_get_module_table_num_entries (C function)</a>
@@ -453,6 +475,8 @@
       <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_get_push_constant_range_stage_flags">mlsdk_decoder_get_push_constant_range_stage_flags (C function)</a>
 </li>
       <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_get_push_constant_ranges_size">mlsdk_decoder_get_push_constant_ranges_size (C function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_get_spirv_module_code">mlsdk_decoder_get_spirv_module_code (C function)</a>
 </li>
       <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_get_version">mlsdk_decoder_get_version (C function)</a>
 </li>
@@ -512,7 +536,19 @@
 </li>
       <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_model_sequence_get_segment_type">mlsdk_decoder_model_sequence_get_segment_type (C function)</a>
 </li>
+      <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_module_has_glsl_code">mlsdk_decoder_module_has_glsl_code (C function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_module_has_hlsl_code">mlsdk_decoder_module_has_hlsl_code (C function)</a>
+</li>
       <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_module_has_spirv">mlsdk_decoder_module_has_spirv (C function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_module_has_spirv_code">mlsdk_decoder_module_has_spirv_code (C function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_module_is_glsl">mlsdk_decoder_module_is_glsl (C function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_module_is_hlsl">mlsdk_decoder_module_is_hlsl (C function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_module_is_spirv">mlsdk_decoder_module_is_spirv (C function)</a>
 </li>
       <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_module_table_decoder_mem_reqs">mlsdk_decoder_module_table_decoder_mem_reqs (C function)</a>
 </li>

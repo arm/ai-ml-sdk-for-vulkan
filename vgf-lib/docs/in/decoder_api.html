@@ -251,8 +251,8 @@ For example, a tensor entry contains its element type, shape and stride. However
 
 <span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">moduleIndex</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numModules</span><span class="p">);</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">moduleDecoder</span><span class="o">-&gt;</span><span class="n">hasSPIRV</span><span class="p">(</span><span class="n">moduleIndex</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">DataView</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">moduleCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">moduleDecoder</span><span class="o">-&gt;</span><span class="n">getModuleCode</span><span class="p">(</span><span class="n">moduleIndex</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">moduleDecoder</span><span class="o">-&gt;</span><span class="n">hasSPIRVCode</span><span class="p">(</span><span class="n">moduleIndex</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">DataView</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">moduleCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">moduleDecoder</span><span class="o">-&gt;</span><span class="n">getSPIRVModuleCode</span><span class="p">(</span><span class="n">moduleIndex</span><span class="p">);</span>
 <span class="w">        </span><span class="n">ASSERT_FALSE</span><span class="p">(</span><span class="n">moduleCode</span><span class="p">.</span><span class="n">empty</span><span class="p">());</span>
 
 <span class="w">        </span><span class="c1">//...</span>
@@ -581,10 +581,13 @@ For example, a tensor entry contains its element type, shape and stride. However
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder13getModuleTypeE8uint32_t">
 <span id="_CPPv3NK5mlsdk6vgflib18ModuleTableDecoder13getModuleTypeE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib18ModuleTableDecoder13getModuleTypeE8uint32_t"></span><span id="mlsdk::vgflib::ModuleTableDecoder::getModuleType__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleTableDecoder_1a07f02078386c968fbc629771989e2b4f"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">ModuleType</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getModuleType</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder13getModuleTypeE8uint32_t" title="Link to this definition"></a><br /></dt>
-<dd><p>Retrieves the moduleType of module ‘idx’. </p>
+<dd><p>Returns the module type of the idx-entry. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>idx</strong> -- </p>
+<dd class="field-odd"><p><strong>idx</strong> -- The index for the entry in the module table </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The module type of the entry </p>
 </dd>
 </dl>
 </dd></dl>
@@ -592,10 +595,97 @@ For example, a tensor entry contains its element type, shape and stride. However
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder8hasSPIRVE8uint32_t">
 <span id="_CPPv3NK5mlsdk6vgflib18ModuleTableDecoder8hasSPIRVE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib18ModuleTableDecoder8hasSPIRVE8uint32_t"></span><span id="mlsdk::vgflib::ModuleTableDecoder::hasSPIRV__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleTableDecoder_1a2424b3f473a5ac9936b836b3520cc190"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hasSPIRV</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder8hasSPIRVE8uint32_t" title="Link to this definition"></a><br /></dt>
-<dd><p>Checks if the table entry ‘idx’ has SPIR-V code. </p>
+<dd><p>Returns true if the module table entry is a SPIR-V module (deprecated alias) </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>idx</strong> -- </p>
+<dd class="field-odd"><p><strong>idx</strong> -- The index for the entry in the module table </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the entry stores a SPIR-V module </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder7isSPIRVE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib18ModuleTableDecoder7isSPIRVE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib18ModuleTableDecoder7isSPIRVE8uint32_t"></span><span id="mlsdk::vgflib::ModuleTableDecoder::isSPIRV__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleTableDecoder_1abc3bf48a271330f9755a4273d91eb1ea"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isSPIRV</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder7isSPIRVE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if the module table entry is a SPIR-V module. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> -- The index for the entry in the module table </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the entry stores a SPIR-V module </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder12hasSPIRVCodeE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib18ModuleTableDecoder12hasSPIRVCodeE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib18ModuleTableDecoder12hasSPIRVCodeE8uint32_t"></span><span id="mlsdk::vgflib::ModuleTableDecoder::hasSPIRVCode__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleTableDecoder_1a084d063f9a4cbfe55b6d60436be974cd"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hasSPIRVCode</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder12hasSPIRVCodeE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if the module table entry is a SPIR-V module with associated code. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> -- The index for the entry in the module table </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if SPIR-V code is present for the entry </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder6isGLSLE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib18ModuleTableDecoder6isGLSLE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib18ModuleTableDecoder6isGLSLE8uint32_t"></span><span id="mlsdk::vgflib::ModuleTableDecoder::isGLSL__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleTableDecoder_1adcf121c30ab39f9ff13b2bce1bd18747"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isGLSL</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder6isGLSLE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if the module table entry is a GLSL module. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> -- The index for the entry in the module table </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the entry stores a GLSL module </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder11hasGLSLCodeE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib18ModuleTableDecoder11hasGLSLCodeE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib18ModuleTableDecoder11hasGLSLCodeE8uint32_t"></span><span id="mlsdk::vgflib::ModuleTableDecoder::hasGLSLCode__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleTableDecoder_1a018f759fe8df0a332f850abce95770df"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hasGLSLCode</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder11hasGLSLCodeE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if the module table entry is a GLSL module with associated code. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> -- The index for the entry in the module table </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if GLSL code is present for the entry </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder6isHLSLE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib18ModuleTableDecoder6isHLSLE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib18ModuleTableDecoder6isHLSLE8uint32_t"></span><span id="mlsdk::vgflib::ModuleTableDecoder::isHLSL__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleTableDecoder_1adc133f719e21931f7a5d4342d8723fb3"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isHLSL</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder6isHLSLE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if the module table entry is a HLSL module. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> -- The index for the entry in the module table </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the entry stores a HLSL module </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder11hasHLSLCodeE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib18ModuleTableDecoder11hasHLSLCodeE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib18ModuleTableDecoder11hasHLSLCodeE8uint32_t"></span><span id="mlsdk::vgflib::ModuleTableDecoder::hasHLSLCode__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleTableDecoder_1a64509eea5d399df803161b863e495845"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hasHLSLCode</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder11hasHLSLCodeE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if the module table entry is a HLSL module with associated code. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> -- The index for the entry in the module table </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if HLSL code is present for the entry </p>
 </dd>
 </dl>
 </dd></dl>
@@ -603,10 +693,13 @@ For example, a tensor entry contains its element type, shape and stride. However
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder13getModuleNameE8uint32_t">
 <span id="_CPPv3NK5mlsdk6vgflib18ModuleTableDecoder13getModuleNameE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib18ModuleTableDecoder13getModuleNameE8uint32_t"></span><span id="mlsdk::vgflib::ModuleTableDecoder::getModuleName__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleTableDecoder_1a6a4f14637986ab5ed7e40f16dedf2658"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getModuleName</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder13getModuleNameE8uint32_t" title="Link to this definition"></a><br /></dt>
-<dd><p>Retrieves the module name of module ‘idx’. </p>
+<dd><p>Returns the module name of the idx-entry. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>idx</strong> -- </p>
+<dd class="field-odd"><p><strong>idx</strong> -- The index for the entry in the module table </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>String view to the module name </p>
 </dd>
 </dl>
 </dd></dl>
@@ -614,10 +707,15 @@ For example, a tensor entry contains its element type, shape and stride. However
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder19getModuleEntryPointE8uint32_t">
 <span id="_CPPv3NK5mlsdk6vgflib18ModuleTableDecoder19getModuleEntryPointE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib18ModuleTableDecoder19getModuleEntryPointE8uint32_t"></span><span id="mlsdk::vgflib::ModuleTableDecoder::getModuleEntryPoint__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleTableDecoder_1a991dc34ed5a657bd808596659c5245f6"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getModuleEntryPoint</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder19getModuleEntryPointE8uint32_t" title="Link to this definition"></a><br /></dt>
-<dd><p>Returns the entry point of module ‘idx’. </p>
+<dd><p>Returns the SPIR-V entry point name stored in the module. </p>
+<p>
+If no entry point is stored in the module an empty string view is returned. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>idx</strong> -- </p>
+<dd class="field-odd"><p><strong>idx</strong> -- The index for the entry in the module table </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>String view to the entry point name</p>
 </dd>
 </dl>
 </dd></dl>
@@ -625,10 +723,63 @@ For example, a tensor entry contains its element type, shape and stride. However
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder13getModuleCodeE8uint32_t">
 <span id="_CPPv3NK5mlsdk6vgflib18ModuleTableDecoder13getModuleCodeE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib18ModuleTableDecoder13getModuleCodeE8uint32_t"></span><span id="mlsdk::vgflib::ModuleTableDecoder::getModuleCode__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleTableDecoder_1a67c22959afea9519677d9894a65085b3"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">DataView</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">uint32_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getModuleCode</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder13getModuleCodeE8uint32_t" title="Link to this definition"></a><br /></dt>
-<dd><p>Retrieves the SPIR-V code of the module ‘idx’ in the Module Table. </p>
+<dd><p>Gets the SPIR-V code stored in the module (deprecated alias) </p>
+<p>
+If no code is stored in the module the returned view is empty. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>idx</strong> -- </p>
+<dd class="field-odd"><p><strong>idx</strong> -- The index for the entry in the module table </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A view of the SPIR-V code stored in the module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder18getSPIRVModuleCodeE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib18ModuleTableDecoder18getSPIRVModuleCodeE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib18ModuleTableDecoder18getSPIRVModuleCodeE8uint32_t"></span><span id="mlsdk::vgflib::ModuleTableDecoder::getSPIRVModuleCode__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleTableDecoder_1a8ac6189a1379431881026e746cdd5ee1"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">DataView</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">uint32_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getSPIRVModuleCode</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder18getSPIRVModuleCodeE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Gets the SPIR-V code stored in the module. </p>
+<p>
+If no code is stored in the module the returned view is empty. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> -- The index for the entry in the module table </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A view of the SPIR-V code stored in the module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder17getGLSLModuleCodeE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib18ModuleTableDecoder17getGLSLModuleCodeE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib18ModuleTableDecoder17getGLSLModuleCodeE8uint32_t"></span><span id="mlsdk::vgflib::ModuleTableDecoder::getGLSLModuleCode__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleTableDecoder_1ae542a7fd88c81d17c3d51b3cd4c429ce"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getGLSLModuleCode</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder17getGLSLModuleCodeE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the GLSL source code for the idx-entry. </p>
+<p>
+If no GLSL source is stored in the module an empty string view is returned. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> -- The index for the entry in the module table </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>String view to GLSL source code</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder17getHLSLModuleCodeE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib18ModuleTableDecoder17getHLSLModuleCodeE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib18ModuleTableDecoder17getHLSLModuleCodeE8uint32_t"></span><span id="mlsdk::vgflib::ModuleTableDecoder::getHLSLModuleCode__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModuleTableDecoder_1a50c0199ddf835521e9ce41cc11cbad99"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getHLSLModuleCode</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib18ModuleTableDecoder17getHLSLModuleCodeE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the HLSL source code for the idx-entry. </p>
+<p>
+If no HLSL source is stored in the module an empty string view is returned. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> -- The index for the entry in the module table </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>String view to HLSL source code</p>
 </dd>
 </dl>
 </dd></dl>

@@ -1,0 +1,346 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vulkan® Custom Shader Conversion to VGF &mdash; ML SDK for Vulkan®  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=b8c9390b" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Vulkan® Shader in TOSA Custom Operation Attributes" href="vkshader-custom-op-encoding.html" />
+    <link rel="prev" title="Usage" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            ML SDK for Vulkan®
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../building.html">Building the ML SDK for Vulkan®</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tensor_aliasing_tutorial.html">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../e2e_pytorch_tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../e2e_tflite_tutorial.html">Converting and deploying a TFLite model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../e2e_onnx_tutorial.html">Converting and deploying an ONNX model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../vgf_run_tutorial.html">How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ML SDK Model Converter</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">Building the ML SDK Model Converter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Vulkan® Custom Shader Conversion to VGF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#required-tosa-fields">Required TOSA Fields</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#domain-name-domain-name">Domain Name (<code class="docutils literal notranslate"><span class="pre">domain_name</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#operator-name-operator-name">Operator Name (<code class="docutils literal notranslate"><span class="pre">operator_name</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#implementation-attributes-implementation-attrs">Implementation Attributes (<code class="docutils literal notranslate"><span class="pre">implementation_attrs</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#model-partitioning">Model Partitioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#partitioning-strategy">Partitioning Strategy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#execution-correctness">Execution Correctness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#partitioning-algorithm-conceptual">Partitioning Algorithm (Conceptual)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conversion-semantics">Conversion Semantics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#minimal-example">Minimal Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#design-notes">Design Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="vkshader-custom-op-encoding.html">Vulkan® Shader in TOSA Custom Operation Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="limitations.html">Known Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK VGF Library</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../vgf-lib/docs/in/index.html">ML SDK VGF Library</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Scenario Runner</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../scenario-runner/docs/in/index.html">ML SDK Scenario Runner</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML Emulation Layer for Vulkan®</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../emulation-layer/docs/in/index.html">ML Emulation Layer for Vulkan®</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#secure-coding-practices">Secure coding practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#inclusive-language-guidelines">Inclusive language guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/security.html">Security</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ML SDK for Vulkan®</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">ML SDK Model Converter</a></li>
+      <li class="breadcrumb-item active">Vulkan® Custom Shader Conversion to VGF</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/model-converter/docs/in/vkcustomshader-conversion.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vulkan-custom-shader-conversion-to-vgf">
+<h1>Vulkan® Custom Shader Conversion to VGF<a class="headerlink" href="#vulkan-custom-shader-conversion-to-vgf" title="Link to this heading"></a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>A TOSA custom operation is interpreted as a Vulkan® compute shader and
+converted into a VGF representation when all of the following conditions
+are met:</p>
+<ul>
+<li><p>Domain Name (<code class="docutils literal notranslate"><span class="pre">domain_name</span></code>) is set to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;com.arm.VulkanCustomShader&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Operator Name (<code class="docutils literal notranslate"><span class="pre">operator_name</span></code>) encodes the logical name of the shader.</p></li>
+<li><p>Implementation Attributes (<code class="docutils literal notranslate"><span class="pre">implementation_attrs</span></code>) follow the schema defined in:</p>
+<p><a class="reference internal" href="vkshader-custom-op-encoding.html"><span class="doc">Vulkan® Shader in TOSA Custom Operation Attributes</span></a></p>
+</li>
+</ul>
+<p>When these conditions are satisfied, the custom operation is treated as a
+Vulkan® compute shader node during VGF generation.</p>
+<p>This section defines both the semantic contract and the partitioning
+behavior required to correctly lower mixed ML and shader models.</p>
+</section>
+<section id="required-tosa-fields">
+<h2>Required TOSA Fields<a class="headerlink" href="#required-tosa-fields" title="Link to this heading"></a></h2>
+<section id="domain-name-domain-name">
+<h3>Domain Name (<code class="docutils literal notranslate"><span class="pre">domain_name</span></code>)<a class="headerlink" href="#domain-name-domain-name" title="Link to this heading"></a></h3>
+<p><strong>Must be:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">com</span><span class="o">.</span><span class="n">arm</span><span class="o">.</span><span class="n">VulkanCustomShader</span>
+</pre></div>
+</div>
+<p>This value acts as the feature gate that enables Vulkan® shader lowering.</p>
+</section>
+<section id="operator-name-operator-name">
+<h3>Operator Name (<code class="docutils literal notranslate"><span class="pre">operator_name</span></code>)<a class="headerlink" href="#operator-name-operator-name" title="Link to this heading"></a></h3>
+<p><strong>Type:</strong> string</p>
+<p>Encodes the logical name of the shader.</p>
+<p>This name is used to identify the shader during conversion and may be used
+for:</p>
+<ul class="simple">
+<li><p>Debug labeling</p></li>
+<li><p>Pipeline identification</p></li>
+<li><p>Symbol naming in generated artifacts</p></li>
+</ul>
+</section>
+<section id="implementation-attributes-implementation-attrs">
+<h3>Implementation Attributes (<code class="docutils literal notranslate"><span class="pre">implementation_attrs</span></code>)<a class="headerlink" href="#implementation-attributes-implementation-attrs" title="Link to this heading"></a></h3>
+<p><strong>Type:</strong> JSON object</p>
+<p>Must conform to the schema defined in:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docs</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">vkshader</span><span class="o">-</span><span class="n">custom</span><span class="o">-</span><span class="n">op</span><span class="o">-</span><span class="n">encoding</span><span class="o">.</span><span class="n">rst</span>
+</pre></div>
+</div>
+<p>This schema defines:</p>
+<ul class="simple">
+<li><p>Entry point</p></li>
+<li><p>Workgroup sizes</p></li>
+<li><p>Shader source or SPIR-V™ binary</p></li>
+<li><p>Descriptor bindings</p></li>
+<li><p>Resource formats</p></li>
+<li><p>Push constant layout</p></li>
+</ul>
+</section>
+</section>
+<section id="model-partitioning">
+<h2>Model Partitioning<a class="headerlink" href="#model-partitioning" title="Link to this heading"></a></h2>
+<p>ML models are represented as directed acyclic graphs (DAGs),
+where nodes are operations and edges represent data dependencies.</p>
+<p>Models may contain a mix of:</p>
+<ul class="simple">
+<li><p>Regular ML operations</p></li>
+<li><p>Shader custom operations (as defined above)</p></li>
+</ul>
+<p>Vulkan® execution constraints require that:</p>
+<ul class="simple">
+<li><p>ML workloads cannot be dispatched in the same pipeline call
+as shader workloads.</p></li>
+<li><p>Neural Engine accelerators and classical GPU engines must be
+scheduled through separate Vulkan® pipelines.</p></li>
+</ul>
+<p>Therefore, before VGF generation, the model is partitioned into
+sub-models that can be executed independently.</p>
+</section>
+<section id="partitioning-strategy">
+<h2>Partitioning Strategy<a class="headerlink" href="#partitioning-strategy" title="Link to this heading"></a></h2>
+<p>The partitioning follows these principles:</p>
+<ul class="simple">
+<li><p>Each shader custom operation forms its own partition.</p></li>
+<li><p>Regular ML operations occurring:
+- before the first shader custom operation,
+- between two shader custom operations,
+- or after the last shader custom operation,
+are grouped into ML partitions.</p></li>
+<li><p>Connections crossing partition boundaries become explicit
+inputs and outputs of the generated sub-models.</p></li>
+</ul>
+<p>This transforms a single model DAG into a sequence (or DAG)
+of sub-graphs, each mapped to an independent Vulkan® pipeline.</p>
+</section>
+<section id="execution-correctness">
+<h2>Execution Correctness<a class="headerlink" href="#execution-correctness" title="Link to this heading"></a></h2>
+<p>Partitioning preserves the semantics of the original model by:</p>
+<ul class="simple">
+<li><p>Respecting all data dependencies.</p></li>
+<li><p>Ensuring that an operation executes only after its inputs are produced.</p></li>
+<li><p>Introducing synchronization between partitions where required
+(e.g., memory barriers and cache invalidation).</p></li>
+</ul>
+<p>A partition cannot execute until all partitions producing its
+required inputs have completed.</p>
+<p>This guarantees ordering correctness while allowing execution
+on heterogeneous GPU engines.</p>
+</section>
+<section id="partitioning-algorithm-conceptual">
+<h2>Partitioning Algorithm (Conceptual)<a class="headerlink" href="#partitioning-algorithm-conceptual" title="Link to this heading"></a></h2>
+<p>The model is traversed in breadth-first order.
+Each operation is assigned a <code class="docutils literal notranslate"><span class="pre">partition_id</span></code>.</p>
+<ul class="simple">
+<li><p>Shader custom operations always receive a new partition.</p></li>
+<li><p>Regular ML operations inherit or create partitions based on
+the partitions of their parent operations.</p></li>
+</ul>
+<p>All operations sharing the same <code class="docutils literal notranslate"><span class="pre">partition_id</span></code> belong to the same
+sub-model.</p>
+<p>The algorithm ensures:</p>
+<ul class="simple">
+<li><p>Parent operations are processed before their children.</p></li>
+<li><p>Shader and ML operations never coexist in the same partition.</p></li>
+<li><p>Partition identifiers increase monotonically.</p></li>
+</ul>
+</section>
+<section id="conversion-semantics">
+<h2>Conversion Semantics<a class="headerlink" href="#conversion-semantics" title="Link to this heading"></a></h2>
+<p>When a TOSA custom operation satisfies the required constraints:</p>
+<ol class="arabic simple">
+<li><p>The operation is isolated into its own partition.</p></li>
+<li><p>A VGF compute node is generated for that partition.</p></li>
+<li><p>The shader is materialized as:
+- SPIR-V™ binary (decoded from base64 if necessary), or
+- Compiled from textual source if GLSL or HLSL.</p></li>
+<li><p>Descriptor sets and bindings are created according to the indexed
+<code class="docutils literal notranslate"><span class="pre">input_&lt;index&gt;_*</span></code> and <code class="docutils literal notranslate"><span class="pre">output_&lt;index&gt;_*</span></code> attributes.</p></li>
+<li><p>Workgroup sizes are mapped to the compute dispatch configuration.</p></li>
+<li><p>Synchronization is inserted between adjacent partitions as required.</p></li>
+</ol>
+<p>The conversion is deterministic and fully driven by the schema-defined
+attributes.</p>
+</section>
+<section id="minimal-example">
+<h2>Minimal Example<a class="headerlink" href="#minimal-example" title="Link to this heading"></a></h2>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;domain_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;com.arm.VulkanCustomShader&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;operator_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MyComputeKernel&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;implementation_attrs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;entry_point&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;main&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;workgroup_sizes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;shader_language&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GLSL&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;shader_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;void main() { }&quot;</span><span class="p">,</span>
+
+<span class="w">    </span><span class="nt">&quot;input_0_vkformat&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VK_FORMAT_R32_SFLOAT&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;input_0_vkdescriptortype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VK_DESCRIPTOR_TYPE_STORAGE_BUFFER&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;input_0_binding&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;input_0_descriptorset&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="design-notes">
+<h2>Design Notes<a class="headerlink" href="#design-notes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Domain name (<code class="docutils literal notranslate"><span class="pre">domain_name</span></code>) acts as an explicit opt-in mechanism.</p></li>
+<li><p>The schema ensures that only well-formed Vulkan®-compatible shaders
+are converted.</p></li>
+<li><p>The conversion assumes compute shader semantics.</p></li>
+<li><p>Partitioning enables efficient scheduling across GPU engines
+while preserving correctness.</p></li>
+</ul>
+<p>Any custom operation not satisfying these constraints is not interpreted
+as a Vulkan® shader and is handled according to the default custom
+operation path.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="usage.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="vkshader-custom-op-encoding.html" class="btn btn-neutral float-right" title="Vulkan® Shader in TOSA Custom Operation Attributes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, Arm Limited and/or its affiliates &lt;open-source-office@arm.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
