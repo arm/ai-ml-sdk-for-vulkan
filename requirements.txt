@@ -6,6 +6,6 @@
 jsonschema==4.25.1
 numpy==1.26.4
 Pillow==12.1.1
-pytest==8.4.2
+pytest==9.0.3
 pytest-xdist==3.8.0
 referencing==0.37.0

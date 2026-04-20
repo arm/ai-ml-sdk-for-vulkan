@@ -303,7 +303,7 @@
                 },
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
-                    "referenceLocator": "pkg:pypi/pytest@8.4.2",
+                    "referenceLocator": "pkg:pypi/pytest@9.0.3",
                     "referenceType": "purl"
                 },
                 {
@@ -322,7 +322,7 @@
             "licenseDeclared": "MIT",
             "name": "pytest",
             "supplier": "Organization: pypi",
-            "versionInfo": "8.4.2"
+            "versionInfo": "9.0.3"
         },
         {
             "SPDXID": "SPDXRef-package-294e1b93-c201-4680-ae6f-a345ea9e21ee",
