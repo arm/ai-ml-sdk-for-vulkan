@@ -118,8 +118,8 @@ RUN mkdir -p /opt/android/sdk/cmdline-tools && \
 
 COPY --chown=$user ../requirements.txt ./
 COPY --chown=$user ../tooling-requirements.txt ./
-RUN pip install -r requirements.txt
-RUN pip install -r tooling-requirements.txt
+RUN uv pip install --system -r requirements.txt
+RUN uv pip install --system -r tooling-requirements.txt
 RUN rm -f requirements.txt tooling-requirements.txt
 RUN uv pip install --system twine "dohq-artifactory>=0.10.0,<0.11"
 
