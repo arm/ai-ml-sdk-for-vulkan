@@ -82,8 +82,8 @@ The root of the JSON file has two blocks.
                    class buffer_barrier | class tensor_barrier | class image_barrier
                    | class graph_constant ],
       commands: [ class dispatch_compute | class dispatch_fragment | class dispatch_graph |
-                  class dispatch_spirv_graph |
-                  class dispatch_barrier | class mark_boundary ]
+            class dispatch_spirv_graph | class dispatch_optical_flow |
+            class dispatch_barrier | class mark_boundary ]
   }
 
 ``resources`` lists all the resources in the test case and each item in the
@@ -104,6 +104,7 @@ array can be any of the following types:
 * :ref:`dispatch_fragment`
 * :ref:`dispatch_graph`
 * :ref:`dispatch_spirv_graph`
+* :ref:`dispatch_optical_flow`
 * :ref:`dispatch_barrier`
 * :ref:`mark_boundary`
 
@@ -485,6 +486,45 @@ tensor data to the SPIR-V pipeline.
   }
 
 .. note:: ``graph_ref`` must reference a ``shader`` resource with ``type`` set to ``SPIR-V``. GLSL is not supported for this command.
+
+dispatch_optical_flow
+"""""""""""""""""""""
+
+The ``dispatch_optical_flow`` command dispatches the optical-flow pipeline.
+It consumes a search image and a template image, and writes motion vectors to
+an output image. Optional bindings can supply input hints and receive matching
+cost output.
+
+.. code-block::
+
+  dispatch_optical_flow: {
+      width: int, // dispatch width in pixels (must be >= 1)
+      height: int, // dispatch height in pixels (must be >= 1)
+      grid_size: enum = (1x1|2x2|4x4|8x8), // corresponds to VkDataGraphOpticalFlowGridSizeFlagBitsARM
+      performance_level: enum(default=medium) = (unknown|slow|medium|fast), // corresponds to VkDataGraphOpticalFlowPerformanceLevelARM
+      execution_flags: [enum(disable_temporal_hints|input_unchanged|reference_unchanged|input_is_previous_reference|reference_is_previous_input)](default=[]), // optional execution flags
+      mean_flow_l1_norm_hint: int(default=0), // optional mean-flow hint; 0 means no hint
+      implicit_barrier:boolean(default=true), // inclusion of implicit memory barrier
+      bindings: class optical_flow_bindings // image bindings for optical-flow inputs and outputs
+  }
+
+  optical_flow_bindings: {
+      search_image: class image_binding, // required binding for the current/input search image
+      template_image: class image_binding, // required binding for the reference/template image
+      output_image: class image_binding, // required binding for motion-vector output
+      hint_motion_vectors: class image_binding(default=), // optional binding for hint motion vectors
+      output_cost: class image_binding(default=) // optional binding for cost output
+  }
+
+  image_binding: {
+      id: int, // descriptor id in the set
+      set: int, // descriptor set id
+      resource_ref: string // named reference to the image resource to bind
+  }
+
+``width``, ``height``, ``grid_size``, and ``bindings`` are required.
+Within ``bindings``, ``search_image``, ``template_image``, and ``output_image``
+are required. Optional ``execution_flags`` values must be unique.
 
 dispatch_barrier
 """"""""""""""""
