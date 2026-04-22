@@ -980,6 +980,26 @@ If no code is stored in the module the SPIR-V code pointer will be set to null a
 </dd></dl>
 
 <dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_sequence_get_segment_descriptorset_index">
+<span class="target" id="group__VGFCAPI_1gace7f54a341368a7d05c2d46c60291758"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_sequence_get_segment_descriptorset_index</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">segIdx</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">descIdx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_sequence_get_segment_descriptorset_index" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the descriptor set index for the descriptor set info at descIdx. </p>
+<p>
+If an explicit descriptor set index is not encoded, this function falls back to descIdx (legacy positional semantics). </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelSequenceDecoder</strong> -- The pointer to the model sequence decoder </p></li>
+<li><p><strong>segIdx</strong> -- The index for the segment in the model sequence </p></li>
+<li><p><strong>descIdx</strong> -- The index of the descriptor set info in the segment </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Descriptor set index used by that descriptor set info</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
 <dt class="sig sig-object c" id="c.mlsdk_decoder_model_sequence_get_segment_constant_indexes">
 <span class="target" id="group__VGFCAPI_1gab1ba23ca13cc83cf148153ac7ad2e97e"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_sequence_get_segment_constant_indexes</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_sequence_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelSequenceDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">segIdx</span></span>, <a class="reference internal" href="#c.mlsdk_decoder_constant_indexes" title="mlsdk_decoder_constant_indexes"><span class="n"><span class="pre">mlsdk_decoder_constant_indexes</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">constant</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_sequence_get_segment_constant_indexes" title="Link to this definition"></a><br /></dt>
 <dd><p>Gets the constant indexes for the given segment into the constant section. </p>

@@ -964,6 +964,20 @@ If no HLSL source is stored in the module an empty string view is returned. </p>
 </dd></dl>
 
 <dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder28getSegmentDescriptorSetIndexE8uint32_t8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder28getSegmentDescriptorSetIndexE8uint32_t8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder28getSegmentDescriptorSetIndexE8uint32_t8uint32_t"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getSegmentDescriptorSetIndex__uint32_t.uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1a7b3452dad6152ca07e04b5555220e2ce"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getSegmentDescriptorSetIndex</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">segmentIdx</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">descIdx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder28getSegmentDescriptorSetIndexE8uint32_t8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the descriptor set index for descriptor ‘descIdx’ in segment ‘segmentIdx’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>segmentIdx</strong> -- </p></li>
+<li><p><strong>descIdx</strong> -- If the explicit descriptor set index is not encoded in the file, this method falls back to returning descIdx (legacy positional semantics). </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder25getSegmentConstantIndexesE8uint32_t">
 <span id="_CPPv3NK5mlsdk6vgflib25ModelSequenceTableDecoder25getSegmentConstantIndexesE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelSequenceTableDecoder25getSegmentConstantIndexesE8uint32_t"></span><span id="mlsdk::vgflib::ModelSequenceTableDecoder::getSegmentConstantIndexes__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelSequenceTableDecoder_1a8c918e3691a15342acf89b00a430ae67"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">DataView</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">uint32_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getSegmentConstantIndexes</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">segmentIdx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelSequenceTableDecoder25getSegmentConstantIndexesE8uint32_t" title="Link to this definition"></a><br /></dt>
 <dd><p>Returns the constants that are linked to segment ‘segmentIdx’ in the Model Sequence Table. </p>
