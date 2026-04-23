@@ -23,8 +23,9 @@ RUN apt-get update && \
     bash-completion \
     build-essential \
     ca-certificates \
-    clang-format \
     clang \
+    clang-format \
+    clang-tidy \
     cppcheck \
     curl \
     doxygen \
