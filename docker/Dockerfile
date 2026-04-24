@@ -101,12 +101,6 @@ RUN wget https://services.gradle.org/distributions/gradle-9.4.1-bin.zip -O /tmp/
     ln -sf /opt/gradle-9.4.1/bin/gradle /home/$user/.local/bin/gradle && \
     rm /tmp/gradle-9.4.1-bin.zip
 
-# Install adb 1.0.39
-RUN wget https://dl.google.com/android/repository/platform-tools_r26.0.1-linux.zip -O /tmp/platform-tools_r26.0.1-linux.zip && \
-    unzip /tmp/platform-tools_r26.0.1-linux.zip -d /opt && \
-    ln -sf /opt/platform-tools/adb /home/$user/.local/bin/adb && \
-    rm /tmp/platform-tools_r26.0.1-linux.zip
-
 # Install command-line tools
 RUN mkdir -p /opt/android/sdk/cmdline-tools && \
     wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O /tmp/commandlinetools-linux-11076708_latest.zip && \
