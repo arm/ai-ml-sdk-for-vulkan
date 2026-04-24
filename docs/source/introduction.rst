@@ -46,8 +46,11 @@ The following gives a brief introduction to each of the ML SDK for Vulkan® comp
     JSON scenario files.
 
 **Emulation layer**
-    A TOSA compliant, compute-based implementation of the graph and tensor extensions which is exposed
-    using Vulkan® Layers.
+    A TOSA compliant, compute-based implementation exposed using Vulkan® Layers.
+    The Emulation Layer currently exposes `VK_ARM_tensors`,
+    `VK_ARM_data_graph`, `VK_ARM_data_graph_instruction_set_tosa`, and
+    `VK_ARM_data_graph_optical_flow`. The corresponding SPIR-V™ extensions and extended instruction sets currently in
+    use are `SPV_ARM_graph`, `SPV_ARM_tensors`, `TOSA.001000.1` and `Arm.MotionEngine.100`.
 
 In addition to these components, you will find documentation, tutorials, samples, and tests.
 
@@ -93,8 +96,11 @@ working on more complicated feature integrations.
 
 .. tip::
     While the API is relatively new, we recommend you use the ML Emulation Layer for Vulkan® for exploration. The Emulation Layer
-    provides a TOSA conformant software implementation of the Vulkan® graph and tensor extensions. The Emulation
-    Layer is enabled by the Vulkan® Layer mechanism.
+    provides a TOSA conformant software implementation of `VK_ARM_tensors`,
+    `VK_ARM_data_graph`, `VK_ARM_data_graph_instruction_set_tosa`, and
+    `VK_ARM_data_graph_optical_flow`, together with support for the
+    `SPV_ARM_graph` and `SPV_ARM_tensors` SPIR-V™ extensions, and `TOSA.001000.1` and `Arm.MotionEngine.100` extended instruction sets. The
+    Emulation Layer is enabled by the Vulkan® Layer mechanism.
 
     Another useful tool for exploration and debugging is the VGF Dump Tool. The VGF Dump Tool allows a developer
     to extract specific elements of the VGF file or even generate a template scenario description for a VGF file.
