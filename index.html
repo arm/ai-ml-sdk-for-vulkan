@@ -107,12 +107,20 @@
 <p>The ‘ML SDK for Vulkan®’ is a collection of libraries and tools to assist with the
 integration and deployment of ML use cases via the Vulkan® API. The ML SDK for Vulkan® makes use
 of the new ML extensions for Vulkan® which provide a hardware abstraction to enable
-deployment of ML workloads that are both portable and accelerable. The extensions are:</p>
+deployment of ML workloads that are both portable and accelerable. The Vulkan®
+extensions currently exposed are:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_ARM_data_graph">VK_ARM_data_graph</a></p></li>
+<li><p><a class="reference external" href="https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_ARM_data_graph_instruction_set_tosa">VK_ARM_data_graph_instruction_set_tosa</a></p></li>
+<li><p><a class="reference external" href="https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_ARM_data_graph_optical_flow">VK_ARM_data_graph_optical_flow</a></p></li>
 <li><p><a class="reference external" href="https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_ARM_tensors">VK_ARM_tensors</a></p></li>
+</ul>
+<p>The corresponding SPIR-V™ extensions and extended instruction sets currently used are:</p>
+<ul class="simple">
 <li><p><a class="reference external" href="https://github.khronos.org/SPIRV-Registry/extensions/ARM/SPV_ARM_graph.html">SPV_ARM_graph</a></p></li>
 <li><p><a class="reference external" href="https://github.khronos.org/SPIRV-Registry/extensions/ARM/SPV_ARM_tensors.html">SPV_ARM_tensors</a></p></li>
+<li><p><a class="reference external" href="https://github.khronos.org/SPIRV-Registry/extended/TOSA.001000.1.html">TOSA.001000.1</a></p></li>
+<li><p><a class="reference external" href="https://github.com/KhronosGroup/SPIRV-Headers/blob/main/include/spirv/unified1/extinst.arm.motion-engine.100.grammar.json">Arm.MotionEngine.100</a></p></li>
 </ul>
 <p>The tight integration of ML workloads into the rendering pipeline enables graphics
 use cases at improved levels of performance and efficiency and by leveraging the

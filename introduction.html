@@ -147,8 +147,11 @@ potentially large constant data.</p>
 <dt><strong>Scenario Runner</strong></dt><dd><p>A data driven test and validation tool for executing ML workloads described in
 JSON scenario files.</p>
 </dd>
-<dt><strong>Emulation layer</strong></dt><dd><p>A TOSA compliant, compute-based implementation of the graph and tensor extensions which is exposed
-using Vulkan® Layers.</p>
+<dt><strong>Emulation layer</strong></dt><dd><p>A TOSA compliant, compute-based implementation exposed using Vulkan® Layers.
+The Emulation Layer currently exposes <cite>VK_ARM_tensors</cite>,
+<cite>VK_ARM_data_graph</cite>, <cite>VK_ARM_data_graph_instruction_set_tosa</cite>, and
+<cite>VK_ARM_data_graph_optical_flow</cite>. The corresponding SPIR-V™ extensions and extended instruction sets currently in
+use are <cite>SPV_ARM_graph</cite>, <cite>SPV_ARM_tensors</cite>, <cite>TOSA.001000.1</cite> and <cite>Arm.MotionEngine.100</cite>.</p>
 </dd>
 </dl>
 <p>In addition to these components, you will find documentation, tutorials, samples, and tests.</p>
@@ -194,8 +197,11 @@ working on more complicated feature integrations.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>While the API is relatively new, we recommend you use the ML Emulation Layer for Vulkan® for exploration. The Emulation Layer
-provides a TOSA conformant software implementation of the Vulkan® graph and tensor extensions. The Emulation
-Layer is enabled by the Vulkan® Layer mechanism.</p>
+provides a TOSA conformant software implementation of <cite>VK_ARM_tensors</cite>,
+<cite>VK_ARM_data_graph</cite>, <cite>VK_ARM_data_graph_instruction_set_tosa</cite>, and
+<cite>VK_ARM_data_graph_optical_flow</cite>, together with support for the
+<cite>SPV_ARM_graph</cite> and <cite>SPV_ARM_tensors</cite> SPIR-V™ extensions, and <cite>TOSA.001000.1</cite> and <cite>Arm.MotionEngine.100</cite> extended instruction sets. The
+Emulation Layer is enabled by the Vulkan® Layer mechanism.</p>
 <p>Another useful tool for exploration and debugging is the VGF Dump Tool. The VGF Dump Tool allows a developer
 to extract specific elements of the VGF file or even generate a template scenario description for a VGF file.</p>
 </div>

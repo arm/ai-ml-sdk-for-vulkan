@@ -118,8 +118,26 @@ have not been implemented by the Vulkan® Installable Device Drivers (ICD), the
 ML Emulation Layer is required.</p>
 <p>The ML Emulation Layer for Vulkan® provides an implementation of the ML APIs
 enabling ML workloads to be executed on any Vulkan® Compute capable device. The
-ML Emulation Layer for Vulkan® is split into separate graph, VK_ARM_data_graph, and tensor,
-VK_ARM_tensors, layers that are inserted by the Vulkan® Loader.</p>
+ML Emulation Layer for Vulkan® is split into separate graph and tensor layers
+that are inserted by the Vulkan® Loader.</p>
+<p>The graph layer exposes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">VK_ARM_data_graph</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VK_ARM_data_graph_instruction_set_tosa</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VK_ARM_data_graph_optical_flow</span></code></p></li>
+</ul>
+<p>The tensor layer exposes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">VK_ARM_tensors</span></code></p></li>
+</ul>
+<p>The corresponding SPIR-V™ extensions and extended instruction sets currently
+used by the ML Emulation Layer for Vulkan® are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SPV_ARM_graph</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SPV_ARM_tensors</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TOSA.001000.1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Arm.MotionEngine.100</span></code></p></li>
+</ul>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Table of contents</span></p>
 <ul>
