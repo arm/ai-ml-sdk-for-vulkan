@@ -141,3 +141,61 @@ layer for Vulkan®, in the Darwin section.
 \** Initial Experimental support on Android™.
 
 See details of limitations in the "Known Limitations" section of each component.
+
+Tensor Data Types
+-----------------
+
+This table summarizes single-channel tensor element formats that are currently
+handled by the ML SDK Model Converter, ML SDK Scenario Runner, and ML
+Emulation Layer for Vulkan®.
+
+The ML SDK VGF Library is not listed because it stores the encoded tensor
+format metadata without adding data type specific validation rules.
+
+This table represents the status of tensor data type support: supported (|/|)
+and unsupported (|x|).
+
++--------------------+-----------+----------+-----------+
+| Tensor data type   | ML SDK    | ML SDK   | ML SDK    |
+|                    | Model     | Scenario | Emulation |
+|                    | Converter | Runner   | Layer     |
++====================+===========+==========+===========+
+| bool               | |/|       | |/|      | |/|       |
++--------------------+-----------+----------+-----------+
+| uint8              | |/|       | |/|      | |/|       |
++--------------------+-----------+----------+-----------+
+| int8               | |/|       | |/|      | |/|       |
++--------------------+-----------+----------+-----------+
+| uint16             | |/|       | |/|      | |/|       |
++--------------------+-----------+----------+-----------+
+| int16              | |/|       | |/|      | |/|       |
++--------------------+-----------+----------+-----------+
+| uint32             | |/|       | |/|      | |/|       |
++--------------------+-----------+----------+-----------+
+| int32              | |/|       | |/|      | |/|       |
++--------------------+-----------+----------+-----------+
+| int64              | |/|       | |/|      | |/|       |
++--------------------+-----------+----------+-----------+
+| float16            | |/|       | |/|      | |/|       |
++--------------------+-----------+----------+-----------+
+| float32            | |/|       | |/|      | |/|       |
++--------------------+-----------+----------+-----------+
+| BFloat16           | |/|       | |/|      | |/|       |
++--------------------+-----------+----------+-----------+
+| Float8E4M3         | |/|       | |/|      | |/|       |
++--------------------+-----------+----------+-----------+
+| Float8E5M2         | |/|       | |/|      | |/|       |
++--------------------+-----------+----------+-----------+
+
+The Model Converter column reflects the VGF tensor formats it can emit after
+lowering.
+
+The Emulation Layer column reflects the tensor layer and the shared tensor
+format handling used by the graph layer.
+
+The Scenario Runner preserves the payload bytes for BFloat16 and the
+Float8 encodings when reading and writing NumPy files, rather than converting
+them to native NumPy floating-point scalar types.
+
+Refer to :ref:`JSON Test Description Specification` for detailed Scenario
+Runner data type support information.
