@@ -35,6 +35,12 @@
 - Clarified usage details and corrected path/instruction issues across README
     and tutorial content.
 
+### Bug Fixes
+
+- Fixed GitHub override handling for forked repositories in CI.
+- Fixed broken Model Converter and `tooling-requirements` path references in
+    documentation.
+
 ## Version 2025.12.0 – *Expanded Platform & CI Coverage*
 
 
@@ -72,6 +78,10 @@
     limitations.
 - Updated platform support docs, README layout, and diagrams to match
     the expanded device matrix.
+
+### Bug Fixes
+
+- Fixed top-level `build --install` packaging failures in the SDK build flow.
 
 ### Supported Platforms
 
