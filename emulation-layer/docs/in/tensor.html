@@ -1,0 +1,272 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tensors &mdash; ML SDK for Vulkan®  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=b8c9390b" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Known Limitations" href="limitations.html" />
+    <link rel="prev" title="Data Graph" href="data_graph.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            ML SDK for Vulkan®
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../building.html">Building the ML SDK for Vulkan®</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tensor_aliasing_tutorial.html">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../e2e_pytorch_tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../e2e_tflite_tutorial.html">Converting and deploying a TFLite model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../e2e_onnx_tutorial.html">Converting and deploying an ONNX model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../vgf_run_tutorial.html">How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../model-converter/docs/in/index.html">ML SDK Model Converter</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK VGF Library</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../vgf-lib/docs/in/index.html">ML SDK VGF Library</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Scenario Runner</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../scenario-runner/docs/in/index.html">ML SDK Scenario Runner</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML Emulation Layer for Vulkan®</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ML Emulation Layer for Vulkan®</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">Building the ML Emulation Layer for Vulkan®</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="support.html">ML Extension Overview</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="support.html#api-flow">API Flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="support.html#vulkan-extension-map">Vulkan® Extension Map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="support.html#spir-v-map">SPIR-V™ Map</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="support.html#detailed-pages">Detailed Pages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="data_graph.html">Data Graph</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Tensors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="limitations.html">Known Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#secure-coding-practices">Secure coding practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#inclusive-language-guidelines">Inclusive language guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/security.html">Security</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ML SDK for Vulkan®</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">ML Emulation Layer for Vulkan®</a></li>
+          <li class="breadcrumb-item"><a href="support.html">ML Extension Overview</a></li>
+      <li class="breadcrumb-item active">Tensors</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/emulation-layer/docs/in/tensor.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tensors">
+<h1>Tensors<a class="headerlink" href="#tensors" title="Link to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">VK_ARM_tensors</span></code> is the foundation for the Emulation Layer. It provides the
+tensor objects, tensor views, memory requirements, and tensor-aware shader path
+used both by direct tensor compute shaders and by the graph layer.</p>
+<section id="relationship-to-the-graph-layer">
+<h2>Relationship To The Graph Layer<a class="headerlink" href="#relationship-to-the-graph-layer" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>The tensor layer exposes <code class="docutils literal notranslate"><span class="pre">VK_ARM_tensors</span></code> through
+<code class="docutils literal notranslate"><span class="pre">VK_LAYER_ML_Tensor_Emulation</span></code>.</p></li>
+<li><p>The graph layer uses tensor objects and tensor views from this extension.</p></li>
+<li><p>When both layers are enabled, the graph layer must be enabled before the
+tensor layer:</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">VK_INSTANCE_LAYERS</span><span class="o">=</span>VK_LAYER_ML_Graph_Emulation:VK_LAYER_ML_Tensor_Emulation
+</pre></div>
+</div>
+</section>
+<section id="supported-tensor-api-surface">
+<h2>Supported Tensor API Surface<a class="headerlink" href="#supported-tensor-api-surface" title="Link to this heading"></a></h2>
+<p>The tensor layer currently exposes or intercepts the following tensor-related
+entry points.</p>
+<section id="core-tensor-api">
+<h3>Core tensor API<a class="headerlink" href="#core-tensor-api" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vkCreateTensorARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkDestroyTensorARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkCreateTensorViewARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkDestroyTensorViewARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetTensorMemoryRequirementsARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetDeviceTensorMemoryRequirementsARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkBindTensorMemoryARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkCmdCopyTensorARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetTensorOpaqueCaptureDescriptorDataARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetTensorViewOpaqueCaptureDescriptorDataARM</span></code></p></li>
+</ul>
+</section>
+<section id="physical-device-query-paths">
+<h3>Physical-device query paths<a class="headerlink" href="#physical-device-query-paths" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetPhysicalDeviceProperties2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetPhysicalDeviceProperties2KHR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetPhysicalDeviceFormatProperties2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetPhysicalDeviceFeatures2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetPhysicalDeviceFeatures2KHR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetPhysicalDeviceExternalTensorPropertiesARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetPhysicalDeviceToolPropertiesEXT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkCreateDevice</span></code></p></li>
+</ul>
+</section>
+<section id="supporting-vulkan-hooks-used-by-the-tensor-layer">
+<h3>Supporting Vulkan® hooks used by the tensor layer<a class="headerlink" href="#supporting-vulkan-hooks-used-by-the-tensor-layer" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vkCreateShaderModule</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkCreateComputePipelines</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkCreateDescriptorPool</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkCreateDescriptorSetLayout</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkUpdateDescriptorSets</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkCmdPushDescriptorSetKHR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkCmdPipelineBarrier</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkCmdPipelineBarrier2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkCreateImage</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkBindImageMemory</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkBindImageMemory2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkDestroyImage</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkAllocateMemory</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkFreeMemory</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkSetDebugUtilsObjectNameEXT</span></code></p></li>
+</ul>
+</section>
+</section>
+<section id="feature-and-property-model">
+<h2>Feature And Property Model<a class="headerlink" href="#feature-and-property-model" title="Link to this heading"></a></h2>
+<p>The tensor layer currently reports the following behavior through standard query
+paths:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">VkPhysicalDeviceTensorFeaturesARM.tensorNonPacked</span></code> is enabled.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VkPhysicalDeviceTensorFeaturesARM.shaderTensorAccess</span></code> is enabled.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VkPhysicalDeviceTensorFeaturesARM.tensors</span></code> is enabled.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VkPhysicalDeviceTensorFeaturesARM.shaderStorageTensorArrayDynamicIndexing</span></code>
+follows the underlying storage-buffer dynamic-indexing capability.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VkPhysicalDeviceTensorFeaturesARM.shaderStorageTensorArrayNonUniformIndexing</span></code>
+follows the underlying storage-buffer non-uniform-indexing capability.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VkPhysicalDeviceTensorFeaturesARM.descriptorBindingStorageTensorUpdateAfterBind</span></code>
+follows the underlying storage-buffer update-after-bind capability.</p></li>
+</ul>
+<p>The tensor property query currently reports:</p>
+<ul class="simple">
+<li><p>Maximum tensor rank of <code class="docutils literal notranslate"><span class="pre">6</span></code>.</p></li>
+<li><p>Tensor element, stride, and total-size limits derived from the underlying
+<code class="docutils literal notranslate"><span class="pre">maxStorageBufferRange</span></code> limit.</p></li>
+<li><p>Descriptor count limits derived from the underlying uniform-buffer descriptor
+limits.</p></li>
+<li><p>Tensor shader support for the compute stage only.</p></li>
+</ul>
+<p>For tensor format queries, the layer reports transfer source, transfer
+destination, tensor shader, and tensor data-graph usage on both linear and
+optimal tiling.</p>
+</section>
+<section id="shader-and-spir-v-support">
+<h2>Shader And SPIR-V™ Support<a class="headerlink" href="#shader-and-spir-v-support" title="Link to this heading"></a></h2>
+<p>The tensor layer consumes <code class="docutils literal notranslate"><span class="pre">SPV_ARM_tensors</span></code> and rewrites tensor-aware compute
+shaders to a buffer-backed implementation.</p>
+<p>The current tensor shader path is compute-only. If a SPIR-V™ module uses
+<code class="docutils literal notranslate"><span class="pre">OpTypeTensorARM</span></code> outside a compute shader, the tensor layer rejects it.</p>
+<p>The shared tensor and graph format handling also includes reduced-precision
+formats used by the ML extensions, including:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">VK_FORMAT_R16_SFLOAT_FPENCODING_BFLOAT16_ARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VK_FORMAT_R8_SFLOAT_FPENCODING_FLOAT8E5M2_ARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VK_FORMAT_R8_SFLOAT_FPENCODING_FLOAT8E4M3_ARM</span></code></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="data_graph.html" class="btn btn-neutral float-left" title="Data Graph" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="limitations.html" class="btn btn-neutral float-right" title="Known Limitations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, Arm Limited and/or its affiliates &lt;open-source-office@arm.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

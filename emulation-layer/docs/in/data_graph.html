@@ -1,0 +1,327 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Graph &mdash; ML SDK for Vulkan®  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=b8c9390b" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Tensors" href="tensor.html" />
+    <link rel="prev" title="ML Extension Overview" href="support.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            ML SDK for Vulkan®
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../building.html">Building the ML SDK for Vulkan®</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tensor_aliasing_tutorial.html">Tensor aliasing tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../e2e_pytorch_tutorial.html">Converting and deploying a PyTorch model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../e2e_tflite_tutorial.html">Converting and deploying a TFLite model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../e2e_onnx_tutorial.html">Converting and deploying an ONNX model tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../vgf_run_tutorial.html">How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Model Converter</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../model-converter/docs/in/index.html">ML SDK Model Converter</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK VGF Library</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../vgf-lib/docs/in/index.html">ML SDK VGF Library</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML SDK Scenario Runner</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../scenario-runner/docs/in/index.html">ML SDK Scenario Runner</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ML Emulation Layer for Vulkan®</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ML Emulation Layer for Vulkan®</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">Building the ML Emulation Layer for Vulkan®</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="support.html">ML Extension Overview</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="support.html#api-flow">API Flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="support.html#vulkan-extension-map">Vulkan® Extension Map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="support.html#spir-v-map">SPIR-V™ Map</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="support.html#detailed-pages">Detailed Pages</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Data Graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tensor.html">Tensors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="limitations.html">Known Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#secure-coding-practices">Secure coding practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/guidelines.html#inclusive-language-guidelines">Inclusive language guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution/security.html">Security</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ML SDK for Vulkan®</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">ML Emulation Layer for Vulkan®</a></li>
+          <li class="breadcrumb-item"><a href="support.html">ML Extension Overview</a></li>
+      <li class="breadcrumb-item active">Data Graph</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/emulation-layer/docs/in/data_graph.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="data-graph">
+<h1>Data Graph<a class="headerlink" href="#data-graph" title="Link to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">VK_ARM_data_graph</span></code> is the main graph execution path in the Emulation Layer.
+TOSA, optical flow, and Motion Engine workloads are all routed through this
+same graph layer rather than through separate top-level execution APIs.</p>
+<section id="relationship-to-other-ml-extensions">
+<h2>Relationship To Other ML Extensions<a class="headerlink" href="#relationship-to-other-ml-extensions" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>The graph layer requires <code class="docutils literal notranslate"><span class="pre">VK_ARM_tensors</span></code>.</p></li>
+<li><p>The graph layer also requires <code class="docutils literal notranslate"><span class="pre">VK_KHR_synchronization2</span></code>.</p></li>
+<li><p>Tensor objects and tensor views used by graph pipelines come from the tensor
+layer.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VK_ARM_data_graph_instruction_set_tosa</span></code> extends the core graph path for
+<code class="docutils literal notranslate"><span class="pre">TOSA.001000.1</span></code> workloads.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VK_ARM_data_graph_optical_flow</span></code> extends the core graph path for
+optical-flow queries and optical-flow pipeline nodes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Arm.MotionEngine.100</span></code> is handled by the graph SPIR-V™ pass and dispatched
+through the same graph pipeline creation and execution flow.</p></li>
+</ul>
+</section>
+<section id="supported-data-graph-api-surface">
+<h2>Supported Data Graph API Surface<a class="headerlink" href="#supported-data-graph-api-surface" title="Link to this heading"></a></h2>
+<p>The graph layer currently exposes or intercepts the following graph-related
+entry points.</p>
+<section id="discovery-and-capability-query">
+<h3>Discovery and capability query<a class="headerlink" href="#discovery-and-capability-query" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetPhysicalDeviceQueueFamilyProperties</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetPhysicalDeviceQueueFamilyProperties2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetPhysicalDeviceFeatures2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetPhysicalDeviceFeatures2KHR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetPhysicalDeviceToolPropertiesEXT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkCreateDevice</span></code></p></li>
+</ul>
+</section>
+<section id="core-graph-pipeline-and-session-api">
+<h3>Core graph pipeline and session API<a class="headerlink" href="#core-graph-pipeline-and-session-api" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vkCreateDataGraphPipelinesARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkDestroyPipeline</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetDataGraphPipelineAvailablePropertiesARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetDataGraphPipelinePropertiesARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkCreateDataGraphPipelineSessionARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkDestroyDataGraphPipelineSessionARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetDataGraphPipelineSessionBindPointRequirementsARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkGetDataGraphPipelineSessionMemoryRequirementsARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkBindDataGraphPipelineSessionMemoryARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkCmdDispatchDataGraphARM</span></code></p></li>
+</ul>
+</section>
+<section id="supporting-vulkan-hooks-used-by-the-graph-layer">
+<h3>Supporting Vulkan® hooks used by the graph layer<a class="headerlink" href="#supporting-vulkan-hooks-used-by-the-graph-layer" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vkAllocateDescriptorSets</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkFreeDescriptorSets</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkUpdateDescriptorSets</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkCmdBindPipeline</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkCmdBindDescriptorSets</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkCreateTensorViewARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkDestroyTensorViewARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkCreateShaderModule</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkDestroyShaderModule</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkCmdPipelineBarrier2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vkSetDebugUtilsObjectNameEXT</span></code></p></li>
+</ul>
+</section>
+</section>
+<section id="behavior-exposed-by-the-graph-layer">
+<h2>Behavior Exposed By The Graph Layer<a class="headerlink" href="#behavior-exposed-by-the-graph-layer" title="Link to this heading"></a></h2>
+<p>The graph layer currently reports the following behavior through standard query
+paths:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">VkPhysicalDeviceDataGraphFeaturesARM.dataGraph</span></code> is enabled.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VkPhysicalDeviceDataGraphFeaturesARM.dataGraphShaderModule</span></code> is enabled.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VkPhysicalDeviceDataGraphFeaturesARM.dataGraphUpdateAfterBind</span></code> is enabled
+when the underlying device supports uniform-buffer update-after-bind.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VkPhysicalDeviceDataGraphOpticalFlowFeaturesARM.dataGraphOpticalFlow</span></code> is
+enabled.</p></li>
+<li><p>Any queue family that already supports compute is also reported with
+<code class="docutils literal notranslate"><span class="pre">VK_QUEUE_DATA_GRAPH_BIT_ARM</span></code>.</p></li>
+</ul>
+<p>The queue-family data-graph property query currently reports two operation
+types:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TOSA.001000.1</span></code> as a SPIR-V™ extended instruction set operation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OpticalFlow</span></code> as a dedicated optical-flow operation.</p></li>
+</ul>
+<p>For TOSA query paths, the layer reports one profile named <code class="docutils literal notranslate"><span class="pre">Emulation</span> <span class="pre">Layer</span></code>
+with conformant quality at TOSA level <code class="docutils literal notranslate"><span class="pre">8K</span></code>.</p>
+</section>
+<section id="tosa-through-data-graph">
+<h2>TOSA Through Data Graph<a class="headerlink" href="#tosa-through-data-graph" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">VK_ARM_data_graph_instruction_set_tosa</span></code> is not a separate execution API. It
+extends <code class="docutils literal notranslate"><span class="pre">VK_ARM_data_graph</span></code> so that graph pipelines can consume the
+<code class="docutils literal notranslate"><span class="pre">TOSA.001000.1</span></code> SPIR-V™ extended instruction set.</p>
+<p>The graph pass currently implements the following <code class="docutils literal notranslate"><span class="pre">TOSA.001000.1</span></code> operations:</p>
+<ul class="simple">
+<li><p>Elementwise and logical: <code class="docutils literal notranslate"><span class="pre">ABS</span></code>, <code class="docutils literal notranslate"><span class="pre">ADD</span></code>, <code class="docutils literal notranslate"><span class="pre">BITWISE_AND</span></code>,
+<code class="docutils literal notranslate"><span class="pre">BITWISE_NOT</span></code>, <code class="docutils literal notranslate"><span class="pre">BITWISE_OR</span></code>, <code class="docutils literal notranslate"><span class="pre">BITWISE_XOR</span></code>, <code class="docutils literal notranslate"><span class="pre">EQUAL</span></code>, <code class="docutils literal notranslate"><span class="pre">GREATER</span></code>,
+<code class="docutils literal notranslate"><span class="pre">GREATER_EQUAL</span></code>, <code class="docutils literal notranslate"><span class="pre">INTDIV</span></code>, <code class="docutils literal notranslate"><span class="pre">LOGICAL_AND</span></code>, <code class="docutils literal notranslate"><span class="pre">LOGICAL_LEFT_SHIFT</span></code>,
+<code class="docutils literal notranslate"><span class="pre">LOGICAL_NOT</span></code>, <code class="docutils literal notranslate"><span class="pre">LOGICAL_OR</span></code>, <code class="docutils literal notranslate"><span class="pre">LOGICAL_RIGHT_SHIFT</span></code>,
+<code class="docutils literal notranslate"><span class="pre">LOGICAL_XOR</span></code>, <code class="docutils literal notranslate"><span class="pre">MAXIMUM</span></code>, <code class="docutils literal notranslate"><span class="pre">MINIMUM</span></code>, <code class="docutils literal notranslate"><span class="pre">MUL</span></code>, <code class="docutils literal notranslate"><span class="pre">NEGATE</span></code>, <code class="docutils literal notranslate"><span class="pre">POW</span></code>,
+<code class="docutils literal notranslate"><span class="pre">SUB</span></code>.</p></li>
+<li><p>Unary math and activations: <code class="docutils literal notranslate"><span class="pre">CAST</span></code>, <code class="docutils literal notranslate"><span class="pre">CEIL</span></code>, <code class="docutils literal notranslate"><span class="pre">CLAMP</span></code>, <code class="docutils literal notranslate"><span class="pre">CLZ</span></code>, <code class="docutils literal notranslate"><span class="pre">COS</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ERF</span></code>, <code class="docutils literal notranslate"><span class="pre">EXP</span></code>, <code class="docutils literal notranslate"><span class="pre">FLOOR</span></code>, <code class="docutils literal notranslate"><span class="pre">LOG</span></code>, <code class="docutils literal notranslate"><span class="pre">RECIPROCAL</span></code>, <code class="docutils literal notranslate"><span class="pre">RSQRT</span></code>,
+<code class="docutils literal notranslate"><span class="pre">SIGMOID</span></code>, <code class="docutils literal notranslate"><span class="pre">SIN</span></code>, <code class="docutils literal notranslate"><span class="pre">TANH</span></code>.</p></li>
+<li><p>Reductions and selection: <code class="docutils literal notranslate"><span class="pre">ARGMAX</span></code>, <code class="docutils literal notranslate"><span class="pre">REDUCE_ALL</span></code>, <code class="docutils literal notranslate"><span class="pre">REDUCE_ANY</span></code>,
+<code class="docutils literal notranslate"><span class="pre">REDUCE_MAX</span></code>, <code class="docutils literal notranslate"><span class="pre">REDUCE_MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">REDUCE_PRODUCT</span></code>, <code class="docutils literal notranslate"><span class="pre">REDUCE_SUM</span></code>,
+<code class="docutils literal notranslate"><span class="pre">SELECT</span></code>.</p></li>
+<li><p>Convolution, pooling, and matrix-style operations: <code class="docutils literal notranslate"><span class="pre">AVG_POOL2D</span></code>,
+<code class="docutils literal notranslate"><span class="pre">CONV2D</span></code>, <code class="docutils literal notranslate"><span class="pre">CONV3D</span></code>, <code class="docutils literal notranslate"><span class="pre">DEPTHWISE_CONV2D</span></code>, <code class="docutils literal notranslate"><span class="pre">MATMUL</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX_POOL2D</span></code>,
+<code class="docutils literal notranslate"><span class="pre">TRANSPOSE_CONV2D</span></code>.</p></li>
+<li><p>Data movement and layout: <code class="docutils literal notranslate"><span class="pre">ARITHMETIC_RIGHT_SHIFT</span></code>, <code class="docutils literal notranslate"><span class="pre">CONCAT</span></code>, <code class="docutils literal notranslate"><span class="pre">FFT2D</span></code>,
+<code class="docutils literal notranslate"><span class="pre">GATHER</span></code>, <code class="docutils literal notranslate"><span class="pre">PAD</span></code>, <code class="docutils literal notranslate"><span class="pre">RESCALE</span></code>, <code class="docutils literal notranslate"><span class="pre">RESHAPE</span></code>, <code class="docutils literal notranslate"><span class="pre">RESIZE</span></code>, <code class="docutils literal notranslate"><span class="pre">REVERSE</span></code>,
+<code class="docutils literal notranslate"><span class="pre">RFFT2D</span></code>, <code class="docutils literal notranslate"><span class="pre">SCATTER</span></code>, <code class="docutils literal notranslate"><span class="pre">SLICE</span></code>, <code class="docutils literal notranslate"><span class="pre">TABLE</span></code>, <code class="docutils literal notranslate"><span class="pre">TILE</span></code>, <code class="docutils literal notranslate"><span class="pre">TRANSPOSE</span></code>.</p></li>
+</ul>
+</section>
+<section id="motion-engine-through-data-graph">
+<h2>Motion Engine Through Data Graph<a class="headerlink" href="#motion-engine-through-data-graph" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Arm.MotionEngine.100</span></code> is also handled by the graph SPIR-V™ path rather than
+by a separate Vulkan® execution API.</p>
+<p>The graph pass currently implements the following Motion Engine operations:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">MIN_SAD</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MIN_SAD_COST</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RAW_SAD</span></code></p></li>
+</ul>
+</section>
+<section id="optical-flow-through-data-graph">
+<h2>Optical Flow Through Data Graph<a class="headerlink" href="#optical-flow-through-data-graph" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">VK_ARM_data_graph_optical_flow</span></code> extends <code class="docutils literal notranslate"><span class="pre">VK_ARM_data_graph</span></code> rather than
+introducing a separate execution API. Optical-flow pipelines are still
+created, queried, and dispatched through the core data-graph pipeline and
+session API listed above.</p>
+<section id="capability-query">
+<h3>Capability query<a class="headerlink" href="#capability-query" title="Link to this heading"></a></h3>
+<p>The optical-flow path currently reports and accepts:</p>
+<ul class="simple">
+<li><p>Output and hint grid sizes <code class="docutils literal notranslate"><span class="pre">1x1</span></code>, <code class="docutils literal notranslate"><span class="pre">2x2</span></code>, <code class="docutils literal notranslate"><span class="pre">4x4</span></code>, and <code class="docutils literal notranslate"><span class="pre">8x8</span></code>.</p></li>
+<li><p>Hint input support.</p></li>
+<li><p>Cost output support.</p></li>
+<li><p>Image sizes from <code class="docutils literal notranslate"><span class="pre">64x64</span></code> up to <code class="docutils literal notranslate"><span class="pre">8192x8192</span></code>.</p></li>
+<li><p>Input image formats:
+<code class="docutils literal notranslate"><span class="pre">VK_FORMAT_R8G8B8_UNORM</span></code>, <code class="docutils literal notranslate"><span class="pre">VK_FORMAT_B8G8R8_UNORM</span></code>,
+<code class="docutils literal notranslate"><span class="pre">VK_FORMAT_R8G8B8A8_UNORM</span></code>, <code class="docutils literal notranslate"><span class="pre">VK_FORMAT_B8G8R8A8_UNORM</span></code>,
+<code class="docutils literal notranslate"><span class="pre">VK_FORMAT_B10G11R11_UFLOAT_PACK32</span></code>, <code class="docutils literal notranslate"><span class="pre">VK_FORMAT_R8_UNORM</span></code>.</p></li>
+<li><p>Flow-vector output format <code class="docutils literal notranslate"><span class="pre">VK_FORMAT_R16G16_SFLOAT</span></code>.</p></li>
+<li><p>Cost output format <code class="docutils literal notranslate"><span class="pre">VK_FORMAT_R16_UINT</span></code>.</p></li>
+</ul>
+</section>
+<section id="creation-constraints">
+<h3>Creation constraints<a class="headerlink" href="#creation-constraints" title="Link to this heading"></a></h3>
+<p>The current optical-flow implementation accepts:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">VK_DATA_GRAPH_OPTICAL_FLOW_CREATE_ENABLE_HINT_BIT_ARM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VK_DATA_GRAPH_OPTICAL_FLOW_CREATE_ENABLE_COST_BIT_ARM</span></code></p></li>
+<li><p>Performance levels <code class="docutils literal notranslate"><span class="pre">SLOW</span></code>, <code class="docutils literal notranslate"><span class="pre">MEDIUM</span></code>, <code class="docutils literal notranslate"><span class="pre">FAST</span></code>, and <code class="docutils literal notranslate"><span class="pre">UNKNOWN</span></code></p></li>
+<li><p>Session create flag
+<code class="docutils literal notranslate"><span class="pre">VK_DATA_GRAPH_PIPELINE_SESSION_CREATE_OPTICAL_FLOW_CACHE_BIT_ARM</span></code></p></li>
+</ul>
+<p>When hint input is enabled, the hint grid size must match the selected output
+grid size.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="support.html" class="btn btn-neutral float-left" title="ML Extension Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tensor.html" class="btn btn-neutral float-right" title="Tensors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, Arm Limited and/or its affiliates &lt;open-source-office@arm.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
