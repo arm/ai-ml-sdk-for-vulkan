@@ -22,12 +22,12 @@ CMAKE_TOOLCHAIN_PATH = ML_SDK_FOR_VULKAN_DIR / "cmake" / "toolchain"
 
 class Builder:
     """
-    A class that builds all ML SDK for Vulkan® components
+    A class that builds ML SDK for Vulkan® components and documentation.
 
     Parameters
     ----------
     args: 'dict'
-        Dictionary with arguments to build the ML SDK for Vulkan® components
+        Dictionary with arguments to build the ML SDK for Vulkan® components.
     """
 
     def __init__(self, args) -> None:
@@ -56,7 +56,8 @@ class Builder:
         self.target_platform = args.target_platform
         self.enable_hlsl_support = args.enable_hlsl_support
 
-        self.doc = args.doc
+        self.doc_only = args.doc_only
+        self.doc = args.doc or self.doc_only
         self.install = args.install
 
         self.package_dir = args.package_dir or self.build_dir
@@ -150,7 +151,7 @@ class Builder:
         if self.install or self.package_tgz or self.package_zip:
             cmake_setup_cmd.append(f"-DML_SDK_GENERATE_CPACK=ON")
 
-        if self.skip_llvm_patch:
+        if self.skip_llvm_patch or self.doc_only:
             cmake_setup_cmd.append("-DMODEL_CONVERTER_APPLY_LLVM_PATCH=OFF")
 
         if self.prefix_path:
@@ -170,6 +171,9 @@ class Builder:
             "--config",
             self.build_type,
         ]
+        if self.doc_only:
+            # Build the dedicated SDK doc target instead of the default target.
+            cmake_build_cmd.extend(["--target", "sdk_doc"])
 
         try:
             subprocess.run(cmake_setup_cmd, check=True)
@@ -203,7 +207,9 @@ class Builder:
 
 
 def parse_arguments():
-    parser = argparse.ArgumentParser(description="Build ML SDK for Vulkan®")
+    parser = argparse.ArgumentParser(
+        description="Build ML SDK for Vulkan® components and documentation."
+    )
     parser.add_argument(
         "--prefix-path",
         help="Path to prefix directory.",
@@ -317,9 +323,16 @@ def parse_arguments():
         help="Path to gtest repo",
         default=f"{DEPENDENCIES_DIR / 'googletest'}",
     )
-    parser.add_argument(
+    doc_group = parser.add_mutually_exclusive_group()
+    doc_group.add_argument(
         "--doc",
         help="Build documentation. Default: %(default)s",
+        action="store_true",
+        default=False,
+    )
+    doc_group.add_argument(
+        "--doc-only",
+        help="Only build documentation. Default: %(default)s",
         action="store_true",
         default=False,
     )
