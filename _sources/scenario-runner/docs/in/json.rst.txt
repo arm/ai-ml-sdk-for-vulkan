@@ -140,24 +140,59 @@ The ``image`` resource has the following properties:
 
 For a complete list of VkFormat entries, see
 https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkFormat.html
-however, we will only support those which line up with the DDS format
-described here:
-https://docs.microsoft.com/en-us/windows/win32/direct3ddds/dx-graphics-dds-pguide.
+The ``format`` field is parsed from the scenario JSON and is then validated at
+runtime against the requested usage, tiling, and Vulkan® driver capabilities.
+For file-backed images, the supported source and destination formats are more
+restricted.
+
+The Scenario Runner currently supports the following image file types:
+
+- ``.png`` input and output use ``VK_FORMAT_R8G8B8A8_UNORM`` only.
+- ``.npy`` input is supported for images. The NumPy file must contain a
+  4-dimensional NHWC array with shape ``[1, height, width, channels]``, and
+  ``channels`` must match the component count implied by the image ``format``.
+  Image export to ``.npy`` is not supported.
+- ``.dds`` input and output require DX10 headers and 2D textures. Cube maps are
+  not supported.
 
 The following image formats are supported and have corresponding DDS equivalents:
-``VK_FORMAT_R8_SNORM``, ``VK_FORMAT_R8G8_SINT``, ``VK_FORMAT_R8G8_UNORM``, ``VK_FORMAT_R8G8B8_SINT``,
-``VK_FORMAT_R32_SFLOAT``, ``VK_FORMAT_R8G8B8A8_UNORM``, ``VK_FORMAT_R8G8B8A8_SNORM``, ``VK_FORMAT_R8G8B8_SNORM``,
-``VK_FORMAT_R8G8B8A8_SINT``, ``VK_FORMAT_R16G16B16A16_SFLOAT``, ``VK_FORMAT_R16G16B16A16_SINT``,
-``VK_FORMAT_R32G32B32A32_SFLOAT``, ``VK_FORMAT_R16G16_SFLOAT``, ``VK_FORMAT_R16_SFLOAT``,
-``VK_FORMAT_B10G11R11_UFLOAT_PACK32``, ``VK_FORMAT_D32_SFLOAT_S8_UINT``, ``VK_FORMAT_B8G8R8A8_UNORM``,
-``VK_FORMAT_R8_UNORM``, ``VK_FORMAT_R16_UINT``, ``VK_FORMAT_R32_UINT``
 
-The following formats have no corresponding DDS equivalents.
-They may still be used for intermediate images or via memory aliasing:
-``VK_FORMAT_R16G16B16A16_UNORM``, ``VK_FORMAT_R16G16B16A16_SNORM``,
-``VK_FORMAT_R8_BOOL_ARM``, ``VK_FORMAT_R8_UINT``, ``VK_FORMAT_R8_SINT``,
-``VK_FORMAT_R16_SINT``, ``VK_FORMAT_R32_SINT``, ``VK_FORMAT_R64_SINT``,
-``VK_FORMAT_R8G8B8_UNORM``, ``VK_FORMAT_B8G8R8_UNORM``
+``VK_FORMAT_R32G32B32A32_SFLOAT``, ``VK_FORMAT_R16G16B16A16_SFLOAT``,
+``VK_FORMAT_R16G16B16A16_SINT``, ``VK_FORMAT_R16G16_SFLOAT``,
+``VK_FORMAT_B10G11R11_UFLOAT_PACK32``, ``VK_FORMAT_D32_SFLOAT_S8_UINT``,
+``VK_FORMAT_R8G8B8A8_UNORM``, ``VK_FORMAT_R8G8B8A8_SNORM``,
+``VK_FORMAT_R8G8B8_SNORM``, ``VK_FORMAT_R8G8B8A8_SINT``,
+``VK_FORMAT_R8G8B8_SINT``, ``VK_FORMAT_R8G8_UNORM``, ``VK_FORMAT_R8G8_UINT``,
+``VK_FORMAT_R8G8_SINT``, ``VK_FORMAT_R8_UNORM``, ``VK_FORMAT_R8_SNORM``,
+``VK_FORMAT_R32_UINT``, ``VK_FORMAT_R32_SFLOAT``, ``VK_FORMAT_R16_SFLOAT``,
+``VK_FORMAT_R16_UINT``, ``VK_FORMAT_B8G8R8A8_UNORM``.
+
+Additional image formats are available only when the Scenario Runner is built
+with ``SCENARIO_RUNNER_EXPERIMENTAL_IMAGE_FORMAT_SUPPORT`` enabled, for example
+via ``scripts/build.py --enable-experimental-image-format-support``:
+
+``VK_FORMAT_R32G32_SFLOAT``, ``VK_FORMAT_R32G32_UINT``,
+``VK_FORMAT_R32G32_SINT``, ``VK_FORMAT_R32G32B32A32_UINT``,
+``VK_FORMAT_R32G32B32A32_SINT``, ``VK_FORMAT_R16G16B16A16_UNORM``,
+``VK_FORMAT_R16G16B16A16_UINT``, ``VK_FORMAT_R16G16B16A16_SNORM``,
+``VK_FORMAT_R16G16_UNORM``, ``VK_FORMAT_R16G16_UINT``,
+``VK_FORMAT_R16G16_SNORM``, ``VK_FORMAT_R16G16_SINT``,
+``VK_FORMAT_D32_SFLOAT``, ``VK_FORMAT_R8G8B8A8_SRGB``,
+``VK_FORMAT_R8G8B8A8_UINT``, ``VK_FORMAT_R8G8_SNORM``,
+``VK_FORMAT_R32_SINT``, ``VK_FORMAT_R16_UNORM``, ``VK_FORMAT_R16_SNORM``,
+``VK_FORMAT_R16_SINT``, ``VK_FORMAT_R8_UINT``, ``VK_FORMAT_R8_SINT``,
+``VK_FORMAT_D24_UNORM_S8_UINT``, ``VK_FORMAT_B8G8R8A8_SRGB``,
+``VK_FORMAT_B8G8R8_UNORM``, ``VK_FORMAT_B8G8R8_SRGB``,
+``VK_FORMAT_BC1_RGBA_UNORM_BLOCK``, ``VK_FORMAT_BC1_RGBA_SRGB_BLOCK``,
+``VK_FORMAT_BC2_UNORM_BLOCK``, ``VK_FORMAT_BC2_SRGB_BLOCK``,
+``VK_FORMAT_BC3_UNORM_BLOCK``, ``VK_FORMAT_BC3_SRGB_BLOCK``,
+``VK_FORMAT_BC4_UNORM_BLOCK``, ``VK_FORMAT_BC4_SNORM_BLOCK``,
+``VK_FORMAT_BC5_UNORM_BLOCK``, ``VK_FORMAT_BC5_SNORM_BLOCK``,
+``VK_FORMAT_BC6H_UFLOAT_BLOCK``, ``VK_FORMAT_BC6H_SFLOAT_BLOCK``,
+``VK_FORMAT_BC7_UNORM_BLOCK``, ``VK_FORMAT_BC7_SRGB_BLOCK``.
+
+For the DDS container format itself, see the DX10 DDS description here:
+https://docs.microsoft.com/en-us/windows/win32/direct3ddds/dx-graphics-dds-pguide.
 
 tensor
 """"""
@@ -180,18 +215,17 @@ The ``tensor`` resources have the following properties:
 Supported formats for tensors are limited to a subset of the single channel
 types defined in the VkFormat enum. Currently supported formats are:
 
-.. code-block::
+``VK_FORMAT_R8_BOOL_ARM``, ``VK_FORMAT_R8_UINT``, ``VK_FORMAT_R8_SINT``,
+``VK_FORMAT_R16_UINT``, ``VK_FORMAT_R16_SINT``, ``VK_FORMAT_R32_UINT``,
+``VK_FORMAT_R32_SINT``, ``VK_FORMAT_R64_SINT``, ``VK_FORMAT_R16_SFLOAT``,
+``VK_FORMAT_R32_SFLOAT``, ``VK_FORMAT_R16_SFLOAT_FPENCODING_BFLOAT16_ARM``,
+``VK_FORMAT_R8_SFLOAT_FPENCODING_FLOAT8E4M3_ARM``,
+``VK_FORMAT_R8_SFLOAT_FPENCODING_FLOAT8E5M2_ARM``.
 
-  bool: VK_FORMAT_R8_BOOL_ARM
-  uint8: VK_FORMAT_R8_UINT
-  int8: VK_FORMAT_R8_SINT
-  uint16: VK_FORMAT_R16_UINT
-  int16: VK_FORMAT_R16_SINT
-  uint32: VK_FORMAT_R32_UINT
-  int32: VK_FORMAT_R32_SINT
-  int64: VK_FORMAT_R64_SINT
-  float16: VK_FORMAT_R16_SFLOAT
-  float32: VK_FORMAT_R32_SFLOAT
+.. note::
+   For BFloat16 and the Float8 encodings, the Scenario Runner preserves
+   the tensor payload bytes when reading and writing NumPy files instead of
+   converting them to native NumPy floating-point scalar types.
 
 To allow for memory aliasing, the following object is needed in each resource:
 .. code-block::
