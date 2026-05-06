@@ -262,6 +262,11 @@ For example, a tensor entry contains its element type, shape and stride. However
 <section id="decoder-api-reference">
 <h3>Decoder API reference<a class="headerlink" href="#decoder-api-reference" title="Link to this heading"></a></h3>
 <dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv419SamplerConfigHandle">
+<span id="_CPPv319SamplerConfigHandle"></span><span id="_CPPv219SamplerConfigHandle"></span><span class="target" id="group__VGFDecoderAPI_1gae66893a26ba26730b09ac5c4a2f97e02"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SamplerConfigHandle</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">SamplerConfigHandle_s</span></span><span class="p"><span class="pre">*</span></span><a class="headerlink" href="#_CPPv419SamplerConfigHandle" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv422BindingSlotArrayHandle">
 <span id="_CPPv322BindingSlotArrayHandle"></span><span id="_CPPv222BindingSlotArrayHandle"></span><span class="target" id="group__VGFDecoderAPI_1ga76235818831bcb5b643000bcdd962a19"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BindingSlotArrayHandle</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">BindingSlotArrayHandle_s</span></span><span class="p"><span class="pre">*</span></span><a class="headerlink" href="#_CPPv422BindingSlotArrayHandle" title="Link to this definition"></a><br /></dt>
 <dd></dd></dl>
@@ -787,6 +792,13 @@ If no HLSL source is stored in the module an empty string view is returned. </p>
 </div>
 </dd></dl>
 
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib21SamplerConfigHandle_sE">
+<span id="_CPPv3N5mlsdk6vgflib21SamplerConfigHandle_sE"></span><span id="_CPPv2N5mlsdk6vgflib21SamplerConfigHandle_sE"></span><span id="mlsdk::vgflib::SamplerConfigHandle_s"></span><span class="target" id="structmlsdk_1_1vgflib_1_1SamplerConfigHandle__s"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SamplerConfigHandle_s</span></span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib21SamplerConfigHandle_sE" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;decoder.hpp&gt;</em></div>
+</dd></dl>
+
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N5mlsdk6vgflib25ModelResourceTableDecoderE">
 <span id="_CPPv3N5mlsdk6vgflib25ModelResourceTableDecoderE"></span><span id="_CPPv2N5mlsdk6vgflib25ModelResourceTableDecoderE"></span><span id="mlsdk::vgflib::ModelResourceTableDecoder"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelResourceTableDecoder"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ModelResourceTableDecoder</span></span></span><a class="headerlink" href="#_CPPv4N5mlsdk6vgflib25ModelResourceTableDecoderE" title="Link to this definition"></a><br /></dt>
@@ -851,6 +863,75 @@ If no HLSL source is stored in the module an empty string view is returned. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>id</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder22getSamplerConfigHandleE8uint32_t">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelResourceTableDecoder22getSamplerConfigHandleE8uint32_t"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelResourceTableDecoder22getSamplerConfigHandleE8uint32_t"></span><span id="mlsdk::vgflib::ModelResourceTableDecoder::getSamplerConfigHandle__uint32_tC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelResourceTableDecoder_1a67c991a41867c46618c965221ddb0ef6"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv419SamplerConfigHandle" title="SamplerConfigHandle"><span class="n"><span class="pre">SamplerConfigHandle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getSamplerConfigHandle</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder22getSamplerConfigHandleE8uint32_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns a handle to the sampler config for MRT entry ‘id’. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> -- </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>nullptr when no sampler config is present </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder25getSamplerConfigMinFilterE19SamplerConfigHandle">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelResourceTableDecoder25getSamplerConfigMinFilterE19SamplerConfigHandle"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelResourceTableDecoder25getSamplerConfigMinFilterE19SamplerConfigHandle"></span><span id="mlsdk::vgflib::ModelResourceTableDecoder::getSamplerConfigMinFilter__SamplerConfigHandleC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelResourceTableDecoder_1a4d2cea8663e208a0f119b6cf68032e69"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getSamplerConfigMinFilter</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv419SamplerConfigHandle" title="SamplerConfigHandle"><span class="n"><span class="pre">SamplerConfigHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder25getSamplerConfigMinFilterE19SamplerConfigHandle" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns VkFilter min filter value from sampler config handle. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>handle</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder25getSamplerConfigMagFilterE19SamplerConfigHandle">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelResourceTableDecoder25getSamplerConfigMagFilterE19SamplerConfigHandle"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelResourceTableDecoder25getSamplerConfigMagFilterE19SamplerConfigHandle"></span><span id="mlsdk::vgflib::ModelResourceTableDecoder::getSamplerConfigMagFilter__SamplerConfigHandleC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelResourceTableDecoder_1a8121b2969cd24a89e85923ab2b8454bc"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getSamplerConfigMagFilter</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv419SamplerConfigHandle" title="SamplerConfigHandle"><span class="n"><span class="pre">SamplerConfigHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder25getSamplerConfigMagFilterE19SamplerConfigHandle" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns VkFilter mag filter value from sampler config handle. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>handle</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder28getSamplerConfigAddressModeUE19SamplerConfigHandle">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelResourceTableDecoder28getSamplerConfigAddressModeUE19SamplerConfigHandle"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelResourceTableDecoder28getSamplerConfigAddressModeUE19SamplerConfigHandle"></span><span id="mlsdk::vgflib::ModelResourceTableDecoder::getSamplerConfigAddressModeU__SamplerConfigHandleC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelResourceTableDecoder_1add763d68c690a8abf90b378bdcf081c2"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getSamplerConfigAddressModeU</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv419SamplerConfigHandle" title="SamplerConfigHandle"><span class="n"><span class="pre">SamplerConfigHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder28getSamplerConfigAddressModeUE19SamplerConfigHandle" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns VkSamplerAddressMode U value from sampler config handle. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>handle</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder28getSamplerConfigAddressModeVE19SamplerConfigHandle">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelResourceTableDecoder28getSamplerConfigAddressModeVE19SamplerConfigHandle"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelResourceTableDecoder28getSamplerConfigAddressModeVE19SamplerConfigHandle"></span><span id="mlsdk::vgflib::ModelResourceTableDecoder::getSamplerConfigAddressModeV__SamplerConfigHandleC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelResourceTableDecoder_1ac01551fd48998b432f19733e5e0647e1"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getSamplerConfigAddressModeV</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv419SamplerConfigHandle" title="SamplerConfigHandle"><span class="n"><span class="pre">SamplerConfigHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder28getSamplerConfigAddressModeVE19SamplerConfigHandle" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns VkSamplerAddressMode V value from sampler config handle. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>handle</strong> -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder27getSamplerConfigBorderColorE19SamplerConfigHandle">
+<span id="_CPPv3NK5mlsdk6vgflib25ModelResourceTableDecoder27getSamplerConfigBorderColorE19SamplerConfigHandle"></span><span id="_CPPv2NK5mlsdk6vgflib25ModelResourceTableDecoder27getSamplerConfigBorderColorE19SamplerConfigHandle"></span><span id="mlsdk::vgflib::ModelResourceTableDecoder::getSamplerConfigBorderColor__SamplerConfigHandleC"></span><span class="target" id="classmlsdk_1_1vgflib_1_1ModelResourceTableDecoder_1aca088bb5db30d53dbbcf24f1bc93cf01"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getSamplerConfigBorderColor</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv419SamplerConfigHandle" title="SamplerConfigHandle"><span class="n"><span class="pre">SamplerConfigHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder27getSamplerConfigBorderColorE19SamplerConfigHandle" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns VkBorderColor value from sampler config handle. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>handle</strong> -- </p>
 </dd>
 </dl>
 </dd></dl>

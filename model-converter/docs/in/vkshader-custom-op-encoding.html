@@ -82,6 +82,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#type">_type</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#binding">_binding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#descriptorset">_descriptorset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sampler-optional">_sampler (optional)</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#complete-example-glsl">Complete Example — GLSL</a></li>
@@ -151,6 +152,7 @@ inside a <strong>TOSA custom operation</strong>.</p>
 <li><p>Textual shader source (GLSL/HLSL)</p></li>
 <li><p>Binary SPIR-V™ (base64 encoded)</p></li>
 <li><p>Vulkan® resource binding metadata for inputs and outputs</p></li>
+<li><p>Optional sampler configuration for sampled image resources</p></li>
 </ul>
 <p>The schema is designed to be:</p>
 <ul class="simple">
@@ -267,7 +269,9 @@ inside a <strong>TOSA custom operation</strong>.</p>
 </section>
 <section id="resource-properties">
 <h2>Resource Properties<a class="headerlink" href="#resource-properties" title="Link to this heading"></a></h2>
-<p>Each indexed input/output may define the following.</p>
+<p>Each indexed input/output may define the following properties. For sampled
+image resources, sampler parameters are grouped into an optional
+<code class="docutils literal notranslate"><span class="pre">input_&lt;index&gt;_sampler</span></code> or <code class="docutils literal notranslate"><span class="pre">output_&lt;index&gt;_sampler</span></code> object.</p>
 <section id="vkformat">
 <h3>_vkformat<a class="headerlink" href="#vkformat" title="Link to this heading"></a></h3>
 <p><strong>Type:</strong> string</p>
@@ -317,6 +321,30 @@ inside a <strong>TOSA custom operation</strong>.</p>
 <p>Descriptor set index.</p>
 <p>Example:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;input_0_descriptorset&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+</pre></div>
+</div>
+</section>
+<section id="sampler-optional">
+<h3>_sampler (optional)<a class="headerlink" href="#sampler-optional" title="Link to this heading"></a></h3>
+<p><strong>Type:</strong> object</p>
+<p>Optional sampler configuration for sampled image resources. If the
+<code class="docutils literal notranslate"><span class="pre">input_&lt;index&gt;_sampler</span></code> or <code class="docutils literal notranslate"><span class="pre">output_&lt;index&gt;_sampler</span></code> object is present,
+all fields below are required:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">min_filter</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mag_filter</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">address_mode_u</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">address_mode_v</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">border_color</span></code></p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;input_0_sampler&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;min_filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VK_FILTER_LINEAR&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;mag_filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VK_FILTER_LINEAR&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;address_mode_u&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;address_mode_v&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;border_color&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VK_BORDER_COLOR_FLOAT_TRANSPARENT_BLACK&quot;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>

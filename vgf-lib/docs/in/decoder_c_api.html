@@ -1375,6 +1375,108 @@ If an explicit descriptor set index is not encoded, this function falls back to 
 </dd></dl>
 
 <dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_resource_table_get_sampler_config_handle">
+<span class="target" id="group__VGFCAPI_1gaa74bfe62855af53bd489d561feb9f9fd"></span><span class="n"><span class="pre">mlsdk_decoder_sampler_config_handle</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_get_sampler_config_handle</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelResourceTableDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">mrtIdx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_resource_table_get_sampler_config_handle" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns a sampler-config handle for sampled-image resources. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelResourceTableDecoder</strong> -- The pointer to the model resource table decoder </p></li>
+<li><p><strong>mrtIdx</strong> -- The index for the entry in the model resource table </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Handle to sampler config, or nullptr when absent </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_resource_table_sampler_config_get_min_filter">
+<span class="target" id="group__VGFCAPI_1gac528723cb8ee122b705cb526111a25c3"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_sampler_config_get_min_filter</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelResourceTableDecoder</span></span>, <span class="n"><span class="pre">mlsdk_decoder_sampler_config_handle</span></span><span class="w"> </span><span class="n"><span class="pre">handle</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_resource_table_sampler_config_get_min_filter" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns VkFilter min filter value from sampler config handle. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelResourceTableDecoder</strong> -- The pointer to the model resource table decoder </p></li>
+<li><p><strong>handle</strong> -- Handle to sampler config. Must not be nullptr. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>VkFilter min filter value </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_resource_table_sampler_config_get_mag_filter">
+<span class="target" id="group__VGFCAPI_1ga2218f770c299ac06fdfd54ebe1535a39"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_sampler_config_get_mag_filter</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelResourceTableDecoder</span></span>, <span class="n"><span class="pre">mlsdk_decoder_sampler_config_handle</span></span><span class="w"> </span><span class="n"><span class="pre">handle</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_resource_table_sampler_config_get_mag_filter" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns VkFilter mag filter value from sampler config handle. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelResourceTableDecoder</strong> -- The pointer to the model resource table decoder </p></li>
+<li><p><strong>handle</strong> -- Handle to sampler config. Must not be nullptr. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>VkFilter mag filter value </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_resource_table_sampler_config_get_address_mode_u">
+<span class="target" id="group__VGFCAPI_1gadb9e8be9cf1051e6a55b50e66f524e0f"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_sampler_config_get_address_mode_u</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelResourceTableDecoder</span></span>, <span class="n"><span class="pre">mlsdk_decoder_sampler_config_handle</span></span><span class="w"> </span><span class="n"><span class="pre">handle</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_resource_table_sampler_config_get_address_mode_u" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns VkSamplerAddressMode U value from sampler config handle. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelResourceTableDecoder</strong> -- The pointer to the model resource table decoder </p></li>
+<li><p><strong>handle</strong> -- Handle to sampler config. Must not be nullptr. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>VkSamplerAddressMode U value </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_resource_table_sampler_config_get_address_mode_v">
+<span class="target" id="group__VGFCAPI_1ga72a9881f319306794062836f9f74ff79"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_sampler_config_get_address_mode_v</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelResourceTableDecoder</span></span>, <span class="n"><span class="pre">mlsdk_decoder_sampler_config_handle</span></span><span class="w"> </span><span class="n"><span class="pre">handle</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_resource_table_sampler_config_get_address_mode_v" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns VkSamplerAddressMode V value from sampler config handle. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelResourceTableDecoder</strong> -- The pointer to the model resource table decoder </p></li>
+<li><p><strong>handle</strong> -- Handle to sampler config. Must not be nullptr. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>VkSamplerAddressMode V value </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_resource_table_sampler_config_get_border_color">
+<span class="target" id="group__VGFCAPI_1ga895efb4e96f1f3c76734189b97c55d25"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_sampler_config_get_border_color</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelResourceTableDecoder</span></span>, <span class="n"><span class="pre">mlsdk_decoder_sampler_config_handle</span></span><span class="w"> </span><span class="n"><span class="pre">handle</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_resource_table_sampler_config_get_border_color" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns VkBorderColor value from sampler config handle. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelResourceTableDecoder</strong> -- The pointer to the model resource table decoder </p></li>
+<li><p><strong>handle</strong> -- Handle to sampler config. Must not be nullptr. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>VkBorderColor value </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
 <dt class="sig sig-object c" id="c.mlsdk_decoder_create_constant_table_decoder">
 <span class="target" id="group__VGFCAPI_1ga25890dce3f73b0fa50e66823e414047d"></span><span class="n"><span class="pre">mlsdk_decoder_constant_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_create_constant_table_decoder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">constantTableData</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n"><span class="pre">size</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">constantDecoderMemory</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_create_constant_table_decoder" title="Link to this definition"></a><br /></dt>
 <dd><p>Create the constant table decoder. </p>

@@ -74,6 +74,7 @@ This schema defines:
 - Shader source or SPIR-V™ binary
 - Descriptor bindings
 - Resource formats
+- Optional sampler configuration for sampled image resources
 - Push constant layout
 
 
@@ -165,7 +166,8 @@ When a TOSA custom operation satisfies the required constraints:
    - SPIR-V™ binary (decoded from base64 if necessary), or
    - Compiled from textual source if GLSL or HLSL.
 4. Descriptor sets and bindings are created according to the indexed
-   ``input_<index>_*`` and ``output_<index>_*`` attributes.
+   ``input_<index>_*`` and ``output_<index>_*`` attributes, including
+   optional per-resource sampler configuration.
 5. Workgroup sizes are mapped to the compute dispatch configuration.
 6. Synchronization is inserted between adjacent partitions as required.
 

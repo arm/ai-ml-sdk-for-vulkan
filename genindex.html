@@ -113,6 +113,7 @@
  | <a href="#N"><strong>N</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
+ | <a href="#S"><strong>S</strong></a>
  
 </div>
 <h2 id="B">B</h2>
@@ -250,6 +251,8 @@
 </li>
       <li><a href="vgf-lib/docs/in/encoder_api.html#_CPPv4N5mlsdk6vgflib7Encoder17AddPushConstRangeE8uint32_t8uint32_t8uint32_t">mlsdk::vgflib::Encoder::AddPushConstRange (C++ function)</a>
 </li>
+      <li><a href="vgf-lib/docs/in/encoder_api.html#_CPPv4N5mlsdk6vgflib7Encoder16AddSamplerConfigE11ResourceRef8uint32_t8uint32_t8uint32_t8uint32_t8uint32_t">mlsdk::vgflib::Encoder::AddSamplerConfig (C++ function)</a>
+</li>
       <li><a href="vgf-lib/docs/in/encoder_api.html#_CPPv4N5mlsdk6vgflib7Encoder14AddSegmentInfoE9ModuleRefRKNSt6stringERKNSt6vectorI20DescriptorSetInfoRefEERKNSt6vectorI14BindingSlotRefEERKNSt6vectorI14BindingSlotRefEERKNSt6vectorI11ConstantRefEERKNSt5arrayI8uint32_tXL3EEEERKNSt6vectorI17PushConstRangeRefEE">mlsdk::vgflib::Encoder::AddSegmentInfo (C++ function)</a>
 </li>
       <li><a href="vgf-lib/docs/in/encoder_api.html#_CPPv4N5mlsdk6vgflib7Encoder6FinishEv">mlsdk::vgflib::Encoder::Finish (C++ function)</a>
@@ -297,6 +300,18 @@
       <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder11getCategoryE8uint32_t">mlsdk::vgflib::ModelResourceTableDecoder::getCategory (C++ function)</a>
 </li>
       <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder17getDescriptorTypeE8uint32_t">mlsdk::vgflib::ModelResourceTableDecoder::getDescriptorType (C++ function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder28getSamplerConfigAddressModeUE19SamplerConfigHandle">mlsdk::vgflib::ModelResourceTableDecoder::getSamplerConfigAddressModeU (C++ function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder28getSamplerConfigAddressModeVE19SamplerConfigHandle">mlsdk::vgflib::ModelResourceTableDecoder::getSamplerConfigAddressModeV (C++ function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder27getSamplerConfigBorderColorE19SamplerConfigHandle">mlsdk::vgflib::ModelResourceTableDecoder::getSamplerConfigBorderColor (C++ function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder22getSamplerConfigHandleE8uint32_t">mlsdk::vgflib::ModelResourceTableDecoder::getSamplerConfigHandle (C++ function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder25getSamplerConfigMagFilterE19SamplerConfigHandle">mlsdk::vgflib::ModelResourceTableDecoder::getSamplerConfigMagFilter (C++ function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder25getSamplerConfigMinFilterE19SamplerConfigHandle">mlsdk::vgflib::ModelResourceTableDecoder::getSamplerConfigMinFilter (C++ function)</a>
 </li>
       <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4NK5mlsdk6vgflib25ModelResourceTableDecoder14getTensorShapeE8uint32_t">mlsdk::vgflib::ModelResourceTableDecoder::getTensorShape (C++ function)</a>
 </li>
@@ -400,6 +415,8 @@
 </li>
       <li><a href="vgf-lib/docs/in/encoder_api.html#_CPPv4N5mlsdk6vgflib11ResourceRefE">mlsdk::vgflib::ResourceRef (C++ class)</a>
 </li>
+      <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv4N5mlsdk6vgflib21SamplerConfigHandle_sE">mlsdk::vgflib::SamplerConfigHandle_s (C++ struct)</a>
+</li>
       <li><a href="vgf-lib/docs/in/encoder_api.html#_CPPv4N5mlsdk6vgflib14SegmentInfoRefE">mlsdk::vgflib::SegmentInfoRef (C++ class)</a>
 </li>
       <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_binding_slot_binding_id">mlsdk_decoder_binding_slot_binding_id (C function)</a>
@@ -412,10 +429,10 @@
 </li>
       <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_constant_data">mlsdk_decoder_constant_data (C struct)</a>
 </li>
-      <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_constant_indexes">mlsdk_decoder_constant_indexes (C struct)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_constant_indexes">mlsdk_decoder_constant_indexes (C struct)</a>
+</li>
       <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_constant_table_decoder_mem_reqs">mlsdk_decoder_constant_table_decoder_mem_reqs (C function)</a>
 </li>
       <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_constant_table_get_data">mlsdk_decoder_constant_table_get_data (C function)</a>
@@ -500,9 +517,21 @@
 </li>
       <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_model_resource_table_get_category">mlsdk_decoder_model_resource_table_get_category (C function)</a>
 </li>
+      <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_model_resource_table_get_sampler_config_handle">mlsdk_decoder_model_resource_table_get_sampler_config_handle (C function)</a>
+</li>
       <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_model_resource_table_get_tensor_shape">mlsdk_decoder_model_resource_table_get_tensor_shape (C function)</a>
 </li>
       <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_model_resource_table_get_tensor_strides">mlsdk_decoder_model_resource_table_get_tensor_strides (C function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_model_resource_table_sampler_config_get_address_mode_u">mlsdk_decoder_model_resource_table_sampler_config_get_address_mode_u (C function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_model_resource_table_sampler_config_get_address_mode_v">mlsdk_decoder_model_resource_table_sampler_config_get_address_mode_v (C function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_model_resource_table_sampler_config_get_border_color">mlsdk_decoder_model_resource_table_sampler_config_get_border_color (C function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_model_resource_table_sampler_config_get_mag_filter">mlsdk_decoder_model_resource_table_sampler_config_get_mag_filter (C function)</a>
+</li>
+      <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_model_resource_table_sampler_config_get_min_filter">mlsdk_decoder_model_resource_table_sampler_config_get_min_filter (C function)</a>
 </li>
       <li><a href="vgf-lib/docs/in/decoder_c_api.html#c.mlsdk_decoder_model_sequence_decoder_mem_reqs">mlsdk_decoder_model_sequence_decoder_mem_reqs (C function)</a>
 </li>
@@ -647,6 +676,14 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv423PushConstantRangeHandle">PushConstantRangeHandle (C++ type)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="vgf-lib/docs/in/decoder_api.html#_CPPv419SamplerConfigHandle">SamplerConfigHandle (C++ type)</a>
 </li>
   </ul></td>
 </tr></table>

@@ -188,6 +188,7 @@ for:</p>
 <li><p>Shader source or SPIR-V™ binary</p></li>
 <li><p>Descriptor bindings</p></li>
 <li><p>Resource formats</p></li>
+<li><p>Optional sampler configuration for sampled image resources</p></li>
 <li><p>Push constant layout</p></li>
 </ul>
 </section>
@@ -269,7 +270,8 @@ sub-model.</p>
 - SPIR-V™ binary (decoded from base64 if necessary), or
 - Compiled from textual source if GLSL or HLSL.</p></li>
 <li><p>Descriptor sets and bindings are created according to the indexed
-<code class="docutils literal notranslate"><span class="pre">input_&lt;index&gt;_*</span></code> and <code class="docutils literal notranslate"><span class="pre">output_&lt;index&gt;_*</span></code> attributes.</p></li>
+<code class="docutils literal notranslate"><span class="pre">input_&lt;index&gt;_*</span></code> and <code class="docutils literal notranslate"><span class="pre">output_&lt;index&gt;_*</span></code> attributes, including
+optional per-resource sampler configuration.</p></li>
 <li><p>Workgroup sizes are mapped to the compute dispatch configuration.</p></li>
 <li><p>Synchronization is inserted between adjacent partitions as required.</p></li>
 </ol>

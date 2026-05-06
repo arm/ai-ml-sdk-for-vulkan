@@ -14,6 +14,7 @@ It supports:
 - Textual shader source (GLSL/HLSL)
 - Binary SPIR-V™ (base64 encoded)
 - Vulkan® resource binding metadata for inputs and outputs
+- Optional sampler configuration for sampled image resources
 
 The schema is designed to be:
 
@@ -164,7 +165,9 @@ Example:
 Resource Properties
 -------------------
 
-Each indexed input/output may define the following.
+Each indexed input/output may define the following properties. For sampled
+image resources, sampler parameters are grouped into an optional
+``input_<index>_sampler`` or ``output_<index>_sampler`` object.
 
 
 _vkformat
@@ -239,6 +242,34 @@ Example:
 .. code-block:: json
 
    "input_0_descriptorset": 0
+
+
+_sampler (optional)
+~~~~~~~~~~~~~~~~~~~
+
+**Type:** object
+
+Optional sampler configuration for sampled image resources. If the
+``input_<index>_sampler`` or ``output_<index>_sampler`` object is present,
+all fields below are required:
+
+- ``min_filter``
+- ``mag_filter``
+- ``address_mode_u``
+- ``address_mode_v``
+- ``border_color``
+
+Example:
+
+.. code-block:: json
+
+   "input_0_sampler": {
+     "min_filter": "VK_FILTER_LINEAR",
+     "mag_filter": "VK_FILTER_LINEAR",
+     "address_mode_u": "VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER",
+     "address_mode_v": "VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER",
+     "border_color": "VK_BORDER_COLOR_FLOAT_TRANSPARENT_BLACK"
+   }
 
 
 Complete Example — GLSL
