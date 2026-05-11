@@ -327,6 +327,12 @@ To retrieve constant information through a module table decoder, you can use the
 </dd></dl>
 
 <dl class="c type">
+<dt class="sig sig-object c" id="c.mlsdk_alias_group_id">
+<span class="target" id="group__VGFCAPI_1gafd7f28fe48440d70e3d35567aac7e862"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_alias_group_id</span></span></span><a class="headerlink" href="#c.mlsdk_alias_group_id" title="Link to this definition"></a><br /></dt>
+<dd><p>Type for alias group ids. </p>
+</dd></dl>
+
+<dl class="c type">
 <dt class="sig sig-object c" id="c.mlsdk_vk_format">
 <span class="target" id="group__VGFCAPI_1gaf6ef32c2b6245aa426ab03c658ac4b69"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">int32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_vk_format</span></span></span><a class="headerlink" href="#c.mlsdk_vk_format" title="Link to this definition"></a><br /></dt>
 <dd><p>Carrier type for VkFormat. </p>
@@ -1295,17 +1301,36 @@ If an explicit descriptor set index is not encoded, this function falls back to 
 
 <dl class="c function">
 <dt class="sig sig-object c" id="c.mlsdk_decoder_get_vk_descriptor_type">
-<span class="target" id="group__VGFCAPI_1gaa09351a533f15f92e2290ea825b58877"></span><a class="reference internal" href="#c.mlsdk_vk_descriptor_type_optional" title="mlsdk_vk_descriptor_type_optional"><span class="n"><span class="pre">mlsdk_vk_descriptor_type_optional</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_vk_descriptor_type</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelResourceTableDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">idx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_vk_descriptor_type" title="Link to this definition"></a><br /></dt>
-<dd><p>Returns the vk_descriptor_type of the idx-entry in the model resource table or mlsdk_vk_descriptor_type_none for types with no corresponding descriptor type. </p>
+<span class="target" id="group__VGFCAPI_1ga30cf29708bd63c0d8de33ff55e452f08"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_get_vk_descriptor_type</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelResourceTableDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">idx</span></span>, <a class="reference internal" href="#c.mlsdk_vk_descriptor_type" title="mlsdk_vk_descriptor_type"><span class="n"><span class="pre">mlsdk_vk_descriptor_type</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">descriptorType</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_get_vk_descriptor_type" title="Link to this definition"></a><br /></dt>
+<dd><p>Gets the vk_descriptor_type of the idx-entry in the model resource table when present. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>modelResourceTableDecoder</strong> -- The pointer to the model resource table decoder </p></li>
 <li><p><strong>idx</strong> -- The index for the entry in the model resource table </p></li>
+<li><p><strong>descriptorType</strong> -- The pointer to receive the model resource vk_descriptor_type of the entry </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The model resource vk_descriptor_type of the entry </p>
+<dd class="field-even"><p>true when the entry has a corresponding descriptor type, false otherwise </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.mlsdk_decoder_model_resource_table_get_alias_group_id">
+<span class="target" id="group__VGFCAPI_1ga46f08251e636d382a7400c18d3a37e3d"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_get_alias_group_id</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mlsdk_decoder_model_resource_table_decoder</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">modelResourceTableDecoder</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">idx</span></span>, <a class="reference internal" href="#c.mlsdk_alias_group_id" title="mlsdk_alias_group_id"><span class="n"><span class="pre">mlsdk_alias_group_id</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">aliasGroupId</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.mlsdk_decoder_model_resource_table_get_alias_group_id" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the alias group id of the idx-entry in the model resource table when present. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelResourceTableDecoder</strong> -- The pointer to the model resource table decoder </p></li>
+<li><p><strong>idx</strong> -- The index for the entry in the model resource table </p></li>
+<li><p><strong>aliasGroupId</strong> -- The pointer to receive the alias group id when present </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true when the entry shares storage with peer MRT resources, false otherwise </p>
 </dd>
 </dl>
 </dd></dl>
@@ -1587,14 +1612,6 @@ If no code is stored in the module the constantData pointer will be set to null 
 <dd class="field-even"><p>The number of entries in the table </p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="c struct">
-<dt class="sig sig-object c" id="c.mlsdk_vk_descriptor_type_optional">
-<span class="target" id="structmlsdk__vk__descriptor__type__optional"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mlsdk_vk_descriptor_type_optional</span></span></span><a class="headerlink" href="#c.mlsdk_vk_descriptor_type_optional" title="Link to this definition"></a><br /></dt>
-<dd><div class="docutils container">
-<em>#include &lt;/home/svc_ngp/workspace/VulkanGithubPagesNightly/build/vgf-lib/docs/sources/include-c/vgf/decoder.h&gt;</em></div>
-<p>Optional mlsdk_vk_descriptor_type. </p>
 </dd></dl>
 
 <dl class="c struct">
