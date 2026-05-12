@@ -87,7 +87,7 @@ The model constants section is the largest section of a VGF file, which contains
    The data in the constant section is stored in raw bytes, there are no endianness checks. The target host and the host where you create the VGF must use the same endianness.
 
 To retrieve the number of constants in a VGF file, using a constants table decoder, you can use ``mlsdk_decoder_get_constant_table_num_entries``.
-To retrieve constant information through a module table decoder, you can use the following functions:
+To retrieve constant information through a constants table decoder, you can use the following functions:
 
     * **MRT index**: ``mlsdk_decoder_get_constant_table_mrt_index``
     * **Data**: ``mlsdk_decoder_get_constant_table_data``

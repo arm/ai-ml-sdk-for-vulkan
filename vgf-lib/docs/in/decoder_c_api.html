@@ -65,6 +65,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="building.html">Building the ML SDK VGF Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="encoder_api.html">VGF Encoder C++ API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="encoder_c_api.html">VGF Encoder C API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="decoder_api.html">VGF Decoder C++ API</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">VGF Decoder C API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#modules-section">Modules Section</a></li>
@@ -78,6 +79,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="logging_api.html">VGF Logging C++ API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging_c_api.html">VGF Logging C API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_format.html">VGF File Format Notes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vgf_dump.html">VGF Dump Tool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vgf_updater.html">VGF Updater Tool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
@@ -137,7 +139,7 @@ The VGF file has the following sections in the order specified (see enum <code c
 <li><p><a class="reference internal" href="#modules-section"><span class="std std-ref">Modules Section</span></a></p></li>
 <li><p><a class="reference internal" href="#model-sequence-section"><span class="std std-ref">Model Sequence Section</span></a></p></li>
 <li><p><a class="reference internal" href="#model-resource-section"><span class="std std-ref">Model Resource Section</span></a></p></li>
-<li><p><a class="reference internal" href="#model-constants-section"><span class="std std-ref">Model Constants Section</span></a></p></li>
+<li><p><a class="reference internal" href="file_format.html#model-constants-section"><span class="std std-ref">Model Constants Section</span></a></p></li>
 </ul>
 </div></blockquote>
 <p>Each section of the VGF has its own decoder type. The memory requirement for each section decoder is retrieved by the corresponding calls, for example, function <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_module_table_decoder_mem_reqs</span></code> for Module section.
@@ -226,7 +228,7 @@ The following components of a segment have information (including MRT index) of 
 <p>The data in the constant section is stored in raw bytes, there are no endianness checks. The target host and the host where you create the VGF must use the same endianness.</p>
 </div>
 <p>To retrieve the number of constants in a VGF file, using a constants table decoder, you can use <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_get_constant_table_num_entries</span></code>.
-To retrieve constant information through a module table decoder, you can use the following functions:</p>
+To retrieve constant information through a constants table decoder, you can use the following functions:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p><strong>MRT index</strong>: <code class="docutils literal notranslate"><span class="pre">mlsdk_decoder_get_constant_table_mrt_index</span></code></p></li>

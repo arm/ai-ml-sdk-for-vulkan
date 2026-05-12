@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cloning the repository &mdash; ML SDK for Vulkan®  documentation</title>
+  <title>VGF File Format Notes &mdash; ML SDK for Vulkan®  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=b8c9390b" />
@@ -20,8 +20,8 @@
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Building the ML SDK VGF Library" href="building.html" />
-    <link rel="prev" title="ML SDK VGF Library" href="index.html" /> 
+    <link rel="next" title="VGF Dump Tool" href="vgf_dump.html" />
+    <link rel="prev" title="VGF Logging C API" href="logging_c_api.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -62,10 +62,7 @@
 <p class="caption" role="heading"><span class="caption-text">ML SDK VGF Library</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">ML SDK VGF Library</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Cloning the repository</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#cloning-on-windows">Cloning on Windows®</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="building.html">Building the ML SDK VGF Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="encoder_api.html">VGF Encoder C++ API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="encoder_c_api.html">VGF Encoder C API</a></li>
@@ -73,7 +70,10 @@
 <li class="toctree-l2"><a class="reference internal" href="decoder_c_api.html">VGF Decoder C API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging_api.html">VGF Logging C++ API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging_c_api.html">VGF Logging C API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_format.html">VGF File Format Notes</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">VGF File Format Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#model-constants-section">Model Constants Section</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="vgf_dump.html">VGF Dump Tool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vgf_updater.html">VGF Updater Tool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
@@ -111,9 +111,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">ML SDK VGF Library</a></li>
-      <li class="breadcrumb-item active">Cloning the repository</li>
+      <li class="breadcrumb-item active">VGF File Format Notes</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../../_sources/vgf-lib/docs/in/cloning.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/vgf-lib/docs/in/file_format.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -121,53 +121,83 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="cloning-the-repository">
-<h1>Cloning the repository<a class="headerlink" href="#cloning-the-repository" title="Link to this heading"></a></h1>
-<p>To clone the ML SDK VGF Library as a stand-alone repository, you can use regular
-git clone commands. However, for better management of dependencies and to ensure
-everything is placed in the appropriate directories, we recommend using the
-<code class="docutils literal notranslate"><span class="pre">git-repo</span></code> tool to clone the repository as part of the ML SDK for Vulkan®
-suite. <a class="reference external" href="https://gerrit.googlesource.com/git-repo">Repo tool</a>.</p>
-<p>For a minimal build and to initialize only the ML SDK VGF Library and its
-dependencies, run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>repo<span class="w"> </span>init<span class="w"> </span>-u<span class="w"> </span>https://github.com/arm/ai-ml-sdk-manifest<span class="w"> </span>-g<span class="w"> </span>vgf-lib
-</pre></div>
+  <section id="vgf-file-format-notes">
+<h1>VGF File Format Notes<a class="headerlink" href="#vgf-file-format-notes" title="Link to this heading"></a></h1>
+<section id="model-constants-section">
+<h2>Model Constants Section<a class="headerlink" href="#model-constants-section" title="Link to this heading"></a></h2>
+<p>New VGF files store the Model Constants Section as a compact raw byte section. Older files can still contain the
+legacy FlatBuffers <code class="docutils literal notranslate"><span class="pre">ConstantSection</span></code> layout; the decoder keeps support for that legacy representation.</p>
+<p>The current raw constants layout is version <code class="docutils literal notranslate"><span class="pre">CONST00</span></code>:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Offset</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>Field</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>8</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">version</span></code></p></td>
+<td><p>Fixed bytes <code class="docutils literal notranslate"><span class="pre">C</span> <span class="pre">O</span> <span class="pre">N</span> <span class="pre">S</span> <span class="pre">T</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">\0</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>8</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">count</span></code></p></td>
+<td><p>Number of constant metadata records.</p></td>
+</tr>
+<tr class="row-even"><td><p>16</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">count</span> <span class="pre">*</span> <span class="pre">24</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">metadata</span></code></p></td>
+<td><p>Fixed-size <code class="docutils literal notranslate"><span class="pre">ConstantMetaDataV00</span></code> records.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">16</span> <span class="pre">+</span> <span class="pre">count</span> <span class="pre">*</span> <span class="pre">24</span></code></p></td>
+<td><p>remaining bytes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">payload</span></code></p></td>
+<td><p>Raw constant data bytes.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Each <code class="docutils literal notranslate"><span class="pre">ConstantMetaDataV00</span></code> record is 24 bytes:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Offset</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>Field</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mrt_index</span></code></p></td>
+<td><p>Model Resource Table index for the constant resource.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sparsity_dimension</span></code></p></td>
+<td><p>Sparse dimension, or <code class="docutils literal notranslate"><span class="pre">-1</span></code> for a non-sparse constant. Values below <code class="docutils literal notranslate"><span class="pre">-1</span></code> are invalid.</p></td>
+</tr>
+<tr class="row-even"><td><p>8</p></td>
+<td><p>8</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">size</span></code></p></td>
+<td><p>Constant data size in bytes, excluding any padding.</p></td>
+</tr>
+<tr class="row-odd"><td><p>16</p></td>
+<td><p>8</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">offset</span></code></p></td>
+<td><p>Offset in bytes from the start of the payload region.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Constant payload entries are stored as raw bytes. The encoder pads each payload entry to an 8-byte boundary, but
+<code class="docutils literal notranslate"><span class="pre">size</span></code> always describes the unpadded constant data length returned by the decoder.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The raw constants section stores fixed-width integer fields and payload bytes without endian conversion. The target
+host and the host that created the VGF file must use the same endianness.</p>
 </div>
-<p>Alternatively, to initialize the repo structure for the entire ML SDK for
-Vulkan®, including the VGF Library, run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>repo<span class="w"> </span>init<span class="w"> </span>-u<span class="w"> </span>https://github.com/arm/ai-ml-sdk-manifest<span class="w"> </span>-g<span class="w"> </span>all
-</pre></div>
-</div>
-<p>After the repo is initialized, fetch the contents with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>repo<span class="w"> </span>sync<span class="w"> </span>--no-clone-bundle
-</pre></div>
-</div>
-<section id="cloning-on-windows">
-<h2>Cloning on Windows®<a class="headerlink" href="#cloning-on-windows" title="Link to this heading"></a></h2>
-<p>To ensure nested submodules do not exceed the maximum long path length, you must
-enable long paths on Windows®, and you must clone close to the root directory
-or use a symlink. Make sure to use Git for Windows.</p>
-<p>Using <strong>PowerShell</strong>:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-ItemProperty</span> <span class="n">-Path</span> <span class="s2">&quot;HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;LongPathsEnabled&quot;</span> <span class="n">-Value</span> <span class="n">1</span>
-<span class="n">git</span> <span class="n">config</span> <span class="p">-</span><span class="n">-global</span> <span class="n">core</span><span class="p">.</span><span class="n">longpaths</span> <span class="n">true</span>
-<span class="n">git</span> <span class="p">-</span><span class="n">-version</span> <span class="c"># Ensure you are using Git for Windows, for example 2.50.1.windows.1</span>
-<span class="n">git</span> <span class="n">clone</span> <span class="p">&lt;</span><span class="n">git-repo-tool-url</span><span class="p">&gt;</span>
-<span class="n">python</span> <span class="p">&lt;</span><span class="n">path-to-git-repo</span><span class="p">&gt;\</span><span class="n">git-repo</span><span class="p">\</span><span class="n">repo</span> <span class="n">init</span> <span class="n">-u</span> <span class="p">&lt;</span><span class="n">manifest-url</span><span class="p">&gt;</span> <span class="n">-g</span> <span class="n">all</span>
-<span class="n">python</span> <span class="p">&lt;</span><span class="n">path-to-git-repo</span><span class="p">&gt;\</span><span class="n">git-repo</span><span class="p">\</span><span class="n">repo</span> <span class="n">sync</span> <span class="p">-</span><span class="n">-no-clone-bundle</span>
-</pre></div>
-</div>
-<p>Using <strong>Git Bash</strong>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmd.exe<span class="w"> </span><span class="s2">&quot;/c reg.exe add \&quot;HKLM\System\CurrentControlSet\Control\FileSystem&quot;&quot; /v LongPathsEnabled /t REG_DWORD /d 1 /f&quot;</span>
-git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>core.longpaths<span class="w"> </span><span class="nb">true</span>
-git<span class="w"> </span>--version<span class="w"> </span><span class="c1"># Ensure you are using the Git for Windows, for example 2.50.1.windows.1</span>
-git<span class="w"> </span>clone<span class="w"> </span>&lt;git-repo-tool-url&gt;
-python<span class="w"> </span>&lt;path-to-git-repo&gt;/git-repo/repo<span class="w"> </span>init<span class="w"> </span>-u<span class="w"> </span>&lt;manifest-url&gt;<span class="w"> </span>-g<span class="w"> </span>all
-python<span class="w"> </span>&lt;path-to-git-repo&gt;/git-repo/repo<span class="w"> </span>sync<span class="w"> </span>--no-clone-bundle
-</pre></div>
-</div>
-<p>After the sync command completes successfully, you can find the ML SDK VGF
-Library in <code class="docutils literal notranslate"><span class="pre">&lt;repo_root&gt;/sw/vgf-lib/</span></code>. You can also find all the dependencies
-required by the ML SDK VGF Library in <code class="docutils literal notranslate"><span class="pre">&lt;repo_root&gt;/dependencies/</span></code>.</p>
 </section>
 </section>
 
@@ -175,8 +205,8 @@ required by the ML SDK VGF Library in <code class="docutils literal notranslate"
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="ML SDK VGF Library" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="building.html" class="btn btn-neutral float-right" title="Building the ML SDK VGF Library" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="logging_c_api.html" class="btn btn-neutral float-left" title="VGF Logging C API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="vgf_dump.html" class="btn btn-neutral float-right" title="VGF Dump Tool" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

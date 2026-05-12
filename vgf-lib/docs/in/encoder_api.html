@@ -20,7 +20,7 @@
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="VGF Decoder C++ API" href="decoder_api.html" />
+    <link rel="next" title="VGF Encoder C API" href="encoder_c_api.html" />
     <link rel="prev" title="Building the ML SDK VGF Library" href="building.html" /> 
 </head>
 
@@ -80,10 +80,12 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="encoder_c_api.html">VGF Encoder C API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="decoder_api.html">VGF Decoder C++ API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="decoder_c_api.html">VGF Decoder C API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging_api.html">VGF Logging C++ API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging_c_api.html">VGF Logging C API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_format.html">VGF File Format Notes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vgf_dump.html">VGF Dump Tool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vgf_updater.html">VGF Updater Tool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
@@ -177,8 +179,8 @@
 </pre></div>
 </div>
 <p>If required, you can specify push constants for the segment:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">PushConstRangeRef</span><span class="w"> </span><span class="n">pushConstRange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">encoder</span><span class="o">-&gt;</span><span class="n">AddPushConstRange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">PushConstRangeRef</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pushConstRanges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">pushConstRange</span><span class="p">};</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">mlsdk_encoder_push_const_range_ref</span><span class="w"> </span><span class="n">pushConstRange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mlsdk_encoder_add_push_const_range</span><span class="p">(</span><span class="n">encoder</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">mlsdk_encoder_push_const_range_ref</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pushConstRanges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">pushConstRange</span><span class="p">};</span>
 </pre></div>
 </div>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">SegmentInfoRef</span><span class="w"> </span><span class="n">segment</span><span class="w"> </span><span class="o">=</span>
@@ -591,7 +593,7 @@ Reapplying the same alias group is a no-op. Applying a different alias group to 
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="building.html" class="btn btn-neutral float-left" title="Building the ML SDK VGF Library" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="decoder_api.html" class="btn btn-neutral float-right" title="VGF Decoder C++ API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="encoder_c_api.html" class="btn btn-neutral float-right" title="VGF Encoder C API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

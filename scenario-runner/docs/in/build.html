@@ -211,6 +211,9 @@ python3<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PA
 available on your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. The Android™ SDK installation pointed to by
 <code class="docutils literal notranslate"><span class="pre">ANDROID_HOME</span></code> should include <code class="docutils literal notranslate"><span class="pre">build-tools;34.0.0</span></code> and
 <code class="docutils literal notranslate"><span class="pre">platforms;android-34</span></code>, or other compatible versions.</p>
+<p>To build with RenderDoc support, add <code class="docutils literal notranslate"><span class="pre">--enable-rdoc</span></code>. If RenderDoc is
+installed outside the default search locations, also pass
+<code class="docutils literal notranslate"><span class="pre">--renderdoc-path</span> <span class="pre">&lt;renderdoc-install-root&gt;</span></code>.</p>
 <p>To enable and run tests, use the <code class="docutils literal notranslate"><span class="pre">--test</span></code> flag. To lint the tests, use the
 <code class="docutils literal notranslate"><span class="pre">--lint</span></code> flag. To enable tests and documentation building python dependencies
 must be installed:</p>
