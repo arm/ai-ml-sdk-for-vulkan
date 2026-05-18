@@ -1,6 +1,12 @@
 VGF File Format Notes
 =====================
 
+Section Alignment
+-----------------
+
+VGF files written with format version ``0.4.3`` or later align each section offset to an 8-byte boundary. Decoders
+remain compatible with older files whose section offsets were not guaranteed to be 8-byte aligned.
+
 Model Constants Section
 -----------------------
 

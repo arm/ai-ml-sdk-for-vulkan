@@ -71,6 +71,7 @@
 <li class="toctree-l2"><a class="reference internal" href="logging_api.html">VGF Logging C++ API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging_c_api.html">VGF Logging C API</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">VGF File Format Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#section-alignment">Section Alignment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#model-constants-section">Model Constants Section</a></li>
 </ul>
 </li>
@@ -123,6 +124,11 @@
              
   <section id="vgf-file-format-notes">
 <h1>VGF File Format Notes<a class="headerlink" href="#vgf-file-format-notes" title="Link to this heading"></a></h1>
+<section id="section-alignment">
+<h2>Section Alignment<a class="headerlink" href="#section-alignment" title="Link to this heading"></a></h2>
+<p>VGF files written with format version <code class="docutils literal notranslate"><span class="pre">0.4.3</span></code> or later align each section offset to an 8-byte boundary. Decoders
+remain compatible with older files whose section offsets were not guaranteed to be 8-byte aligned.</p>
+</section>
 <section id="model-constants-section">
 <h2>Model Constants Section<a class="headerlink" href="#model-constants-section" title="Link to this heading"></a></h2>
 <p>New VGF files store the Model Constants Section as a compact raw byte section. Older files can still contain the
