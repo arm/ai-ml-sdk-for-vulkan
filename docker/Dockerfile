@@ -5,7 +5,7 @@
 
 # syntax=docker/dockerfile:1.10
 
-ARG ubuntu_version=22.04
+ARG ubuntu_version=24.04
 FROM ubuntu:$ubuntu_version
 ARG user=mlsdkuser
 ARG uid=1000
@@ -19,6 +19,8 @@ ENV PATH="/home/$user/.local/bin:$PATH"
 
 RUN apt-get update && \
     apt-get install -y \
+    abi-compliance-checker \
+    abi-dumper \
     bash \
     bash-completion \
     build-essential \
@@ -26,6 +28,7 @@ RUN apt-get update && \
     clang \
     clang-format \
     clang-tidy \
+    cmake \
     cppcheck \
     curl \
     doxygen \
@@ -37,6 +40,7 @@ RUN apt-get update && \
     jq \
     libc++-dev \
     libc++abi-dev \
+    libgl1-mesa-dri \
     libvulkan-dev \
     lld \
     mesa-common-dev \
@@ -57,16 +61,11 @@ RUN apt-get update && \
 
 RUN mkdir -p /home/$user/.local/bin
 
-RUN if [ "$BUILDPLATFORM" = "linux/amd64" ] ; then ARCH="x86_64"; else ARCH="aarch64"; fi && \
-    curl -sSL -o cmake-3.25.3-linux-${ARCH}.sh https://github.com/Kitware/CMake/releases/download/v3.25.3/cmake-3.25.3-linux-${ARCH}.sh && \
-    bash cmake-3.25.3-linux-${ARCH}.sh --prefix=/home/$user/.local --skip-license && \
-    rm cmake-3.25.3-linux-${ARCH}.sh
-
 RUN curl -sSL -o /home/$user/.local/bin/repo https://storage.googleapis.com/git-repo-downloads/repo && \
     chmod u+x . /home/$user/.local/bin/repo
 
-# Install glslang 15.4.0
-RUN git clone --depth 1 https://github.com/KhronosGroup/glslang.git -b 15.4.0 && \
+# Install glslang vulkan-sdk-1.4.341.0 (16.2.0) -- needed for compiling EL shaders when cross-compiling
+RUN git clone --depth 1 https://github.com/KhronosGroup/glslang.git -b vulkan-sdk-1.4.341.0 && \
     cd glslang && \
     python3 update_glslang_sources.py && \
     cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DENABLE_GLSLANG_BINARIES=ON -DENABLE_OPT=OFF -DBUILD_SHARED_LIBS=OFF && \
@@ -74,15 +73,7 @@ RUN git clone --depth 1 https://github.com/KhronosGroup/glslang.git -b 15.4.0 &&
     cp build/StandAlone/glslang /home/$user/.local/bin && \
     cd .. && rm -rf glslang
 
-# Install flatc v25.2.10
-RUN git clone --depth 1 https://github.com/google/flatbuffers.git -b v25.2.10 && \
-    cd flatbuffers && \
-    cmake -B build -DCMAKE_BUILD_TYPE=Release && \
-    cmake --build build -j $(nproc) && \
-    cp build/flatc /home/$user/.local/bin && \
-    cd .. && rm -rf flatbuffers
-
-# Install sccache v0.12.0
+# Install sccache v0.12.0 -- building cache to speed up builds
 RUN mkdir -p /home/$user/sccache
 WORKDIR /home/$user/sccache
 RUN if [ "$BUILDPLATFORM" = "linux/amd64" ] ; then ARCH="x86_64"; else ARCH="aarch64"; fi && \
@@ -91,18 +82,18 @@ RUN if [ "$BUILDPLATFORM" = "linux/amd64" ] ; then ARCH="x86_64"; else ARCH="aar
     cp sccache /home/$user/.local/bin/ && \
     rm -rf /home/$user/sccache
 
-# Install uv
+# Install uv - python package management and wheel creation
 RUN curl -sSL -o /tmp/uv-installer.sh https://astral.sh/uv/install.sh && \
     UV_INSTALL_DIR=/home/$user/.local/bin sh /tmp/uv-installer.sh && \
     rm /tmp/uv-installer.sh
 
-# Install Gradle 9.4.1
+# Install Gradle 9.4.1 - needed for APK packaging for Android
 RUN wget https://services.gradle.org/distributions/gradle-9.4.1-bin.zip -O /tmp/gradle-9.4.1-bin.zip && \
     unzip /tmp/gradle-9.4.1-bin.zip -d /opt && \
     ln -sf /opt/gradle-9.4.1/bin/gradle /home/$user/.local/bin/gradle && \
     rm /tmp/gradle-9.4.1-bin.zip
 
-# Install command-line tools
+# Install command-line tools -- needed for Android build and testing
 RUN mkdir -p /opt/android/sdk/cmdline-tools && \
     wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O /tmp/commandlinetools-linux-11076708_latest.zip && \
     unzip -qo /tmp/commandlinetools-linux-11076708_latest.zip -d /opt/android/sdk/cmdline-tools && \
@@ -111,14 +102,17 @@ RUN mkdir -p /opt/android/sdk/cmdline-tools && \
     ln -sf /opt/android/sdk/cmdline-tools/latest/bin/avdmanager /home/$user/.local/bin/avdmanager && \
     rm /tmp/commandlinetools-linux-11076708_latest.zip
 
+RUN git lfs install
+
+RUN uv venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+RUN uv pip install twine "dohq-artifactory>=1.0.1,<2"
+
 COPY --chown=$user ../requirements.txt ./
 COPY --chown=$user ../tooling-requirements.txt ./
-RUN uv pip install --system -r requirements.txt
-RUN uv pip install --system -r tooling-requirements.txt
+RUN uv pip install -r requirements.txt
+RUN uv pip install -r tooling-requirements.txt
 RUN rm -f requirements.txt tooling-requirements.txt
-RUN uv pip install --system twine "dohq-artifactory>=0.10.0,<0.11"
-
-RUN git lfs install
 
 RUN useradd -m -u $uid -U $user && \
     echo "$user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
