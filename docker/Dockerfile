@@ -114,7 +114,11 @@ RUN uv pip install -r requirements.txt
 RUN uv pip install -r tooling-requirements.txt
 RUN rm -f requirements.txt tooling-requirements.txt
 
-RUN useradd -m -u $uid -U $user && \
+RUN if getent passwd "$uid" >/dev/null; then \
+        useradd -m -U "$user"; \
+    else \
+        useradd -m -u "$uid" -U "$user"; \
+    fi && \
     echo "$user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
     chown -R $user:$user /opt/android
 
