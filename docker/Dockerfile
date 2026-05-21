@@ -59,6 +59,21 @@ RUN apt-get update && \
     wget \
     xmlstarlet
 
+RUN if getent passwd "$uid" >/dev/null; then \
+        existing_user="$(getent passwd "$uid" | cut -d: -f1)" && \
+        existing_group="$(id -gn "$existing_user")" && \
+        if [ "$existing_group" != "$user" ]; then \
+            groupmod -n "$user" "$existing_group"; \
+        fi && \
+        if [ "$existing_user" != "$user" ]; then \
+            usermod -l "$user" "$existing_user"; \
+        fi && \
+        usermod -c "" -d "/home/$user" -m "$user"; \
+    else \
+        useradd -m -u "$uid" -U "$user"; \
+    fi && \
+    echo "$user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
 RUN mkdir -p /home/$user/.local/bin
 
 RUN curl -sSL -o /home/$user/.local/bin/repo https://storage.googleapis.com/git-repo-downloads/repo && \
@@ -114,9 +129,7 @@ RUN uv pip install -r requirements.txt
 RUN uv pip install -r tooling-requirements.txt
 RUN rm -f requirements.txt tooling-requirements.txt
 
-RUN useradd -m -u $uid -U $user && \
-    echo "$user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
-    chown -R $user:$user /opt/android
+RUN chown -R $user:$user /opt/android
 
 WORKDIR /home/$user
 RUN chown -R $user:$user .
