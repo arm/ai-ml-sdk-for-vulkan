@@ -167,6 +167,20 @@ graph and tensor layer using the following commands:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">VMEL_COMMON_SEVERITY</span><span class="o">=</span>debug
 </pre></div>
 </div>
+<p>You can enable per-pipeline graph profiling with Vulkan® timestamp queries.
+Profiling covers TOSA graph operators, MotionEngine graph operators, and
+optical-flow compute pipelines. Profiling is disabled by default. When enabled,
+graph command-buffer submits remain asynchronous; timestamp results are
+collected when the application waits on fences, waits for a queue or device to
+become idle, or when the profiling property is queried. Profiling results are
+saved only as a queryable data graph pipeline property.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">VMEL_GRAPH_PROFILING</span><span class="o">=</span><span class="m">1</span>
+</pre></div>
+</div>
+<p>The profiling property returns JSON with a <code class="docutils literal notranslate"><span class="pre">samples</span></code> array containing one entry
+per profiled internal compute dispatch, including <code class="docutils literal notranslate"><span class="pre">pipeline_kind</span></code>,
+<code class="docutils literal notranslate"><span class="pre">operator_name</span></code>, raw cycle counts, and <code class="docutils literal notranslate"><span class="pre">time_ms</span></code>, plus a <code class="docutils literal notranslate"><span class="pre">by_operator</span></code> summary
+with total, average, minimum, and maximum time per profiled pipeline.</p>
 </section>
 <section id="usage-on-windows">
 <h2>Usage on Windows®<a class="headerlink" href="#usage-on-windows" title="Link to this heading"></a></h2>
@@ -209,6 +223,16 @@ graph and tensor layer using the following commands:</p>
 <span class="nv">$env:VMEL_TENSOR_SEVERITY</span><span class="p">=</span><span class="s2">&quot;info&quot;</span>
 </pre></div>
 </div>
+<p>You can enable per-pipeline graph profiling with Vulkan® timestamp queries using
+environment variables before starting the application. Timestamp results are
+collected at application synchronization points and when the profiling property
+is queried:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$env:VMEL_GRAPH_PROFILING</span><span class="p">=</span><span class="s2">&quot;1&quot;</span>
+</pre></div>
+</div>
+<p>The profiling property returns JSON with a <code class="docutils literal notranslate"><span class="pre">samples</span></code> array containing one entry
+per profiled internal compute dispatch, including <code class="docutils literal notranslate"><span class="pre">pipeline_kind</span></code>,
+<code class="docutils literal notranslate"><span class="pre">operator_name</span></code>, raw cycle counts, and <code class="docutils literal notranslate"><span class="pre">time_ms</span></code>, plus a <code class="docutils literal notranslate"><span class="pre">by_operator</span></code> summary.</p>
 </section>
 <section id="usage-on-android">
 <h2>Usage on Android™<a class="headerlink" href="#usage-on-android" title="Link to this heading"></a></h2>
