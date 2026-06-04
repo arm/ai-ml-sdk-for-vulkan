@@ -18,6 +18,11 @@ Use ``--neural-debug-database-dump-dir`` to dump the neural accelerator debug da
 
 If neural accelerator dumps are requested and ``VK_ARM_data_graph_neural_accelerator_statistics`` is not supported or enabled, Scenario Runner fails during startup before creating the Vulkan® device.
 
+Graph profiling dumps
+---------------------
+
+Use ``--emulation-layer-profiling-dump-dir`` to request Emulation layer graph profiling payload from data graph pipelines using the custom Emulation layer property token ``0x7ffffffe`` in ``vkGetDataGraphPipelineAvailablePropertiesARM``. This option is Emulation layer specific and best-effort: Scenario Runner warns and continues if the property is unavailable or returns no data. When data is returned, Scenario Runner writes one file per graph pipeline with the name ``Graph_Pipeline_<idx>_EL_Performance.json``. The payload is stored exactly as returned, without JSON validation or pretty-printing.
+
 Resource memory aliasing
 ------------------------
 

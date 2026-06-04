@@ -73,6 +73,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Usage</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#pypi">PyPI</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#neural-accelerator-statistics">Neural accelerator statistics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graph-profiling-dumps">Graph profiling dumps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#resource-memory-aliasing">Resource memory aliasing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#using-ml-emulation-and-validation-layers-for-vulkan">Using ML Emulation and Validation layers for Vulkan®</a></li>
 </ul>
@@ -153,31 +154,32 @@ adb<span class="w"> </span>shell<span class="w"> </span>am<span class="w"> </spa
 </pre></div>
 </div>
 </section>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: ./scenario-runner [--help] [--version] --scenario VAR [--output VAR] [--profiling-dump-path VAR] [--pipeline-caching] [--clear-pipeline-cache] [--cache-path VAR] [--neural-debug-database-dump-dir VAR] [--fail-on-pipeline-cache-miss] [--neural-statistics-dump-dir VAR] [--neural-statistics-mode VAR] [--perf-counters-dump-path VAR] [--log-level VAR] [--wait-for-key-stroke-before-run] [--dry-run] [--disable-extension VAR...]... [--enable-gpu-debug-markers] [--session-memory-dump-dir VAR] [--repeat VAR] [--capture-frame] [--pause-on-exit]
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: ./scenario-runner [--help] [--version] --scenario VAR [--output VAR] [--profiling-dump-path VAR] [--pipeline-caching] [--clear-pipeline-cache] [--cache-path VAR] [--neural-debug-database-dump-dir VAR] [--fail-on-pipeline-cache-miss] [--emulation-layer-profiling-dump-dir VAR] [--neural-statistics-dump-dir VAR] [--neural-statistics-mode VAR] [--perf-counters-dump-path VAR] [--log-level VAR] [--wait-for-key-stroke-before-run] [--dry-run] [--disable-extension VAR...]... [--enable-gpu-debug-markers] [--session-memory-dump-dir VAR] [--repeat VAR] [--capture-frame] [--pause-on-exit]
 
 Optional arguments:
-  -h, --help                        shows help message and exits
-  -v, --version                     prints version information and exits
-  --scenario                        file to load the scenario from. File should be in JSON format [required]
-  --output                          output folder
-  --profiling-dump-path             path to save runtime profiling
-  --pipeline-caching                enable the pipeline caching
-  --clear-pipeline-cache            clear pipeline cache
-  --cache-path                      set pipeline cache location [default: &quot;/tmp&quot;]
-  --neural-debug-database-dump-dir  path to dump Neural Accelerator Debug Database [nargs=0..1] [default: &quot;&quot;]
-  --fail-on-pipeline-cache-miss     ensure an error is generated on a pipeline cache miss
-  --neural-statistics-dump-dir      path to dump Neural Accelerator Statistics [nargs=0..1] [default: &quot;&quot;]
-  --neural-statistics-mode          set neural accelerator statistics mode to 0 or 1 [nargs=0..1] [default: &quot;1&quot;]
-  --perf-counters-dump-path         path to save performance counter stats [default: &quot;&quot;]
-  --log-level                       set logging level [default: info]
-  --wait-for-key-stroke-before-run  wait for a key stroke before run
-  --dry-run                         setup pipelines but skip the actual execution
-  --disable-extension               specify extensions to disable out of the following: VK_EXT_custom_border_color, VK_EXT_frame_boundary, VK_ARM_data_graph_neural_accelerator_statistics, VK_KHR_maintenance5, VK_KHR_deferred_host_operations [nargs: 1 or more] [may be repeated]
-  --enable-gpu-debug-markers        enable GPU debug markers
-  --session-memory-dump-dir         path to dump the contents of the sessions ram after inference completes
-  --repeat                          optional repeat count for scenario execution
-  --capture-frame                   enable RenderDoc integration for frame capturing
-  --pause-on-exit                   pause before exiting
+  -h, --help                            shows help message and exits
+  -v, --version                         prints version information and exits
+  --scenario                            file to load the scenario from. File should be in JSON format [required]
+  --output                              output folder
+  --profiling-dump-path                 path to save runtime profiling
+  --pipeline-caching                    enable the pipeline caching
+  --clear-pipeline-cache                clear pipeline cache
+  --cache-path                          set pipeline cache location [default: &quot;/tmp&quot;]
+  --neural-debug-database-dump-dir      path to dump Neural Accelerator Debug Database [nargs=0..1] [default: &quot;&quot;]
+  --fail-on-pipeline-cache-miss         ensure an error is generated on a pipeline cache miss
+  --emulation-layer-profiling-dump-dir  path to dump Emulation Layer graph profiling data [nargs=0..1] [default: &quot;&quot;]
+  --neural-statistics-dump-dir          path to dump Neural Accelerator Statistics [nargs=0..1] [default: &quot;&quot;]
+  --neural-statistics-mode              set neural accelerator statistics mode to 0 or 1 [nargs=0..1] [default: &quot;1&quot;]
+  --perf-counters-dump-path             path to save performance counter stats [default: &quot;&quot;]
+  --log-level                           set logging level [default: info]
+  --wait-for-key-stroke-before-run      wait for a key stroke before run
+  --dry-run                             setup pipelines but skip the actual execution
+  --disable-extension                   specify extensions to disable out of the following: VK_EXT_custom_border_color, VK_EXT_frame_boundary, VK_ARM_data_graph_neural_accelerator_statistics, VK_KHR_maintenance5, VK_KHR_deferred_host_operations [nargs: 1 or more] [may be repeated]
+  --enable-gpu-debug-markers            enable GPU debug markers
+  --session-memory-dump-dir             path to dump the contents of the sessions ram after inference completes
+  --repeat                              optional repeat count for scenario execution
+  --capture-frame                       enable RenderDoc integration for frame capturing
+  --pause-on-exit                       pause before exiting
 </pre></div>
 </div>
 <section id="neural-accelerator-statistics">
@@ -185,6 +187,10 @@ Optional arguments:
 <p>Scenario Runner supports <code class="docutils literal notranslate"><span class="pre">VK_ARM_data_graph_neural_accelerator_statistics</span></code> for data graph pipelines. When this extension and its <code class="docutils literal notranslate"><span class="pre">dataGraphNeuralAcceleratorStatistics</span></code> feature are available, Scenario Runner can request neural accelerator debug database and statistics output from graph pipelines.</p>
 <p>Use <code class="docutils literal notranslate"><span class="pre">--neural-debug-database-dump-dir</span></code> to dump the neural accelerator debug database for graph pipelines that expose one. Use <code class="docutils literal notranslate"><span class="pre">--neural-statistics-dump-dir</span></code> to enable neural accelerator statistics collection and dump the resulting statistics memory after execution. <code class="docutils literal notranslate"><span class="pre">--neural-statistics-mode</span></code> selects the statistics mode, using <code class="docutils literal notranslate"><span class="pre">0</span></code> for <code class="docutils literal notranslate"><span class="pre">VK_NEURAL_ACCELERATOR_STATISTICS_MODE_STATISTICS_0_ARM</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span></code> for <code class="docutils literal notranslate"><span class="pre">VK_NEURAL_ACCELERATOR_STATISTICS_MODE_STATISTICS_1_ARM</span></code>.</p>
 <p>If neural accelerator dumps are requested and <code class="docutils literal notranslate"><span class="pre">VK_ARM_data_graph_neural_accelerator_statistics</span></code> is not supported or enabled, Scenario Runner fails during startup before creating the Vulkan® device.</p>
+</section>
+<section id="graph-profiling-dumps">
+<h2>Graph profiling dumps<a class="headerlink" href="#graph-profiling-dumps" title="Link to this heading"></a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">--emulation-layer-profiling-dump-dir</span></code> to request Emulation layer graph profiling payload from data graph pipelines using the custom Emulation layer property token <code class="docutils literal notranslate"><span class="pre">0x7ffffffe</span></code> in <code class="docutils literal notranslate"><span class="pre">vkGetDataGraphPipelineAvailablePropertiesARM</span></code>. This option is Emulation layer specific and best-effort: Scenario Runner warns and continues if the property is unavailable or returns no data. When data is returned, Scenario Runner writes one file per graph pipeline with the name <code class="docutils literal notranslate"><span class="pre">Graph_Pipeline_&lt;idx&gt;_EL_Performance.json</span></code>. The payload is stored exactly as returned, without JSON validation or pretty-printing.</p>
 </section>
 <section id="resource-memory-aliasing">
 <h2>Resource memory aliasing<a class="headerlink" href="#resource-memory-aliasing" title="Link to this heading"></a></h2>
