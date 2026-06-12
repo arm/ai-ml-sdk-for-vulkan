@@ -2,6 +2,36 @@
 
 ---
 
+## Version 2026.06.0 – *Optical Flow, Runtime & Release Infrastructure*
+
+### Highlights
+
+- Added Optical Flow Task API support across Scenario Runner and Emulation
+  Layer, including scenario dispatch, data graph image resources, runtime
+  validation, and emulated execution.
+- Added Model Converter support for embedded Bespoke ops backed by Arm®
+  Experimental ML Operations, including TOSA custom-op lowering.
+- Added experimental Scenario Runner VGF runtime support, including session
+  handling, embedded shader dispatch, resource handling, and single-maxpool VGF
+  coverage.
+- Added Emulation Layer per-op profiling with GPU timestamps, serialized
+  Scenario Runner report dumping, and runtime performance improvements.
+- Updated SDK release infrastructure and documentation, including APK/PyPI
+  packaging, release artifacts, tensor data type support docs, and the VGF
+  runtime design note.
+
+### Build & GitHub CI
+
+- Updated the SDK Docker base image to Ubuntu 24.04.
+- Added release, packaging, Artifactory, and PyPI tooling to the SDK Docker
+  image.
+
+### Tooling, Docker & Dependencies
+
+- Updated Python and toolchain dependencies, including tosa-tools 2026.05.0.
+- Improved Model Converter maintenance with i64-to-i32 narrowing, simplified
+  tests, and refreshed LLVM patch integration.
+
 ## Version 2026.03.0 – *Datatype & Dispatch Expansion*
 
 ### Highlights
