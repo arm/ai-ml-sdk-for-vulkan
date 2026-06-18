@@ -167,8 +167,10 @@ you must have <code class="docutils literal notranslate"><span class="pre">sphin
 <p>You can install the build artifacts for this project into a specified location.
 To install the build artifacts, pass the <code class="docutils literal notranslate"><span class="pre">--install</span></code> option with the required
 path.</p>
-<p>To create an archive with the build artifacts option, you must add the
-<code class="docutils literal notranslate"><span class="pre">--package</span></code> option. The archive is stored in the provided location.</p>
+<p>To create an archive containing the build artifacts, pass the <code class="docutils literal notranslate"><span class="pre">--package-type</span></code>
+option with an archive type such as <code class="docutils literal notranslate"><span class="pre">zip</span></code> or <code class="docutils literal notranslate"><span class="pre">tgz</span></code>. Use <code class="docutils literal notranslate"><span class="pre">--package-dir</span></code> to
+choose where the archive is written; by default, packages are written to the
+build directory.</p>
 <p>For more command line options, see the help output:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span><span class="nv">$SDK_PATH</span>/sw/vgf-lib/scripts/build.py<span class="w"> </span>--help
 </pre></div>

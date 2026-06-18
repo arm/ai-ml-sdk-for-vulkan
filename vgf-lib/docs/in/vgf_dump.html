@@ -73,6 +73,8 @@
 <li class="toctree-l2"><a class="reference internal" href="file_format.html">VGF File Format Notes</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">VGF Dump Tool</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#dump-spirv"><cite>--dump-spirv</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dump-glsl"><cite>--dump-glsl</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dump-hlsl"><cite>--dump-hlsl</cite></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dump-constant"><cite>--dump-constant</cite></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scenario-template"><cite>--scenario-template</cite></a></li>
 </ul>
@@ -136,7 +138,7 @@ and output resource bindings which are setup with placeholder filenames. Therefo
 only need to point the resources to the actual file paths.</p></li>
 </ul>
 <p>An example usage of vgf_dump is the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vgf_dump<span class="w"> </span>input.vgf
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vgf_dump<span class="w"> </span>--input<span class="w"> </span>input.vgf
 </pre></div>
 </div>
 <p>Which outputs the human-readable json representation of the VGF file.</p>
@@ -164,17 +166,26 @@ Optional arguments:
 </div>
 <section id="dump-spirv">
 <h2><cite>--dump-spirv</cite><a class="headerlink" href="#dump-spirv" title="Link to this heading"></a></h2>
-<p>This option outputs the raw SPIR-V™ data of the given module index to stdout. <cite>--dump-spirv</cite> is incompatible with <cite>--dump-constant</cite> and <cite>--scenario-template</cite> options.</p>
+<p>This option outputs the raw SPIR-V™ data of the given module index to stdout. <cite>--dump-spirv</cite> is incompatible with <cite>--dump-glsl</cite>, <cite>--dump-hlsl</cite>, <cite>--dump-constant</cite>, and <cite>--scenario-template</cite> options.</p>
+</section>
+<section id="dump-glsl">
+<h2><cite>--dump-glsl</cite><a class="headerlink" href="#dump-glsl" title="Link to this heading"></a></h2>
+<p>This option outputs the GLSL module code at the given module index to stdout. <cite>--dump-glsl</cite> is incompatible with <cite>--dump-spirv</cite>, <cite>--dump-hlsl</cite>, <cite>--dump-constant</cite>, and <cite>--scenario-template</cite> options.</p>
+</section>
+<section id="dump-hlsl">
+<h2><cite>--dump-hlsl</cite><a class="headerlink" href="#dump-hlsl" title="Link to this heading"></a></h2>
+<p>This option outputs the HLSL module code at the given module index to stdout. <cite>--dump-hlsl</cite> is incompatible with <cite>--dump-spirv</cite>, <cite>--dump-glsl</cite>, <cite>--dump-constant</cite>, and <cite>--scenario-template</cite> options.</p>
 </section>
 <section id="dump-constant">
 <h2><cite>--dump-constant</cite><a class="headerlink" href="#dump-constant" title="Link to this heading"></a></h2>
 <p>This option outputs the contents of the constant at the given index to stdout.
 If the <cite>--output &lt;file.npy&gt;</cite> option is provided, the contents will be saved to the specified NumPy file.</p>
-<p><cite>--dump-constant</cite> is incompatible with <cite>--dump-spirv</cite> and <cite>--scenario-template</cite> options.</p>
+<p><cite>--dump-constant</cite> is incompatible with <cite>--dump-spirv</cite>, <cite>--dump-glsl</cite>, <cite>--dump-hlsl</cite>, and <cite>--scenario-template</cite> options.</p>
 </section>
 <section id="scenario-template">
 <h2><cite>--scenario-template</cite><a class="headerlink" href="#scenario-template" title="Link to this heading"></a></h2>
-<p>This option outputs a template scenario file. The ML SDK Scenario Runner uses the template scenario file as an input file. The template scenario file describes what the scenario runner must execute. You must manually edit some file paths in the template scenario file. However, the <cite>--scenario-template</cite> is incompatible with <cite>--dump-spirv</cite> and <cite>--dump-constant</cite> options. For example, after creating a simple VGF file, the <cite>--scenario-template</cite> option produces:</p>
+<p>This option outputs a template scenario file. The ML SDK Scenario Runner uses the template scenario file as an input file. The template scenario file describes what the scenario runner must execute. You must manually edit some file paths in the template scenario file.</p>
+<p><cite>--scenario-template</cite> is incompatible with <cite>--dump-spirv</cite>, <cite>--dump-glsl</cite>, <cite>--dump-hlsl</cite>, and <cite>--dump-constant</cite> options. For example, after creating a simple VGF file, the <cite>--scenario-template</cite> option produces:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;commands&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>

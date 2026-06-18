@@ -145,7 +145,7 @@ python3<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PA
 <span class="w">    </span>--vgf-lib-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/sw/vgf-lib<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--flatbuffers-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/flatbuffers<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--argparse-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/argparse<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--tosa-tools-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/tosa_tools<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--tosa-tools-path<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/tosa-tools<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--external-llvm<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PATH</span><span class="si">}</span>/dependencies/llvm-project
 </pre></div>
 </div>
@@ -156,7 +156,7 @@ python3<span class="w"> </span><span class="si">${</span><span class="nv">SDK_PA
     <span class="p">-</span><span class="n">-vgf-lib-path</span> <span class="s2">&quot;$env:SDK_PATH\sw\vgf-lib&quot;</span> <span class="p">`</span>
     <span class="p">-</span><span class="n">-flatbuffers-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\flatbuffers&quot;</span> <span class="p">`</span>
     <span class="p">-</span><span class="n">-argparse-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\argparse&quot;</span> <span class="p">`</span>
-    <span class="p">-</span><span class="n">-tosa-tools-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\tosa_tools&quot;</span> <span class="p">`</span>
+    <span class="p">-</span><span class="n">-tosa-tools-path</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\tosa-tools&quot;</span> <span class="p">`</span>
     <span class="p">-</span><span class="n">-external-llvm</span> <span class="s2">&quot;$env:SDK_PATH\dependencies\llvm-project&quot;</span>
 </pre></div>
 </div>
@@ -173,8 +173,10 @@ pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </s
 and doxygen must be installed on the machine.</p>
 <p>You can install the project build artifacts into a specified location by passing
 the option <code class="docutils literal notranslate"><span class="pre">--install</span></code> with the required path.</p>
-<p>To create an archive with the build artifacts option, add <code class="docutils literal notranslate"><span class="pre">--package</span></code>. The
-archive will be stored in the provided location.”</p>
+<p>To create an archive containing the build artifacts, pass the <code class="docutils literal notranslate"><span class="pre">--package-type</span></code>
+option with an archive type such as <code class="docutils literal notranslate"><span class="pre">zip</span></code> or <code class="docutils literal notranslate"><span class="pre">tgz</span></code>. Use <code class="docutils literal notranslate"><span class="pre">--package-dir</span></code> to
+choose where the archive is written; by default, packages are written to the
+build directory.</p>
 <p>For more information, see the help output:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>scripts/build.py<span class="w"> </span>--help
 </pre></div>

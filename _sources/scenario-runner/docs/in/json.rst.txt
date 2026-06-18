@@ -277,8 +277,8 @@ example, push constant or specialization constants.
 shader
 """"""
 
-The ``shader`` resource references a SPIR-V™ or GLSL shader file. The runner
-loads the GLSL and compiles it to SPIR-V™ before handing it to the Vulkan®
+The ``shader`` resource references a SPIR-V™, GLSL, or HLSL shader file. The runner
+loads the GLSL or HLSL and compiles it to SPIR-V™ before handing it to the Vulkan®
 Runtime.
 
 .. code-block::
@@ -287,8 +287,8 @@ Runtime.
       uid:string, // globally unique identifier for the resource
       src:path, // path to a shader source file
       entry:string(default="main"), // entry point into the shader
-      type: enum = (GLSL | SPIR-V), // Type of shader source to expect
-      build_options:string(default=""), // Build options to be used when compiling a GLSL shader source
+      type: enum = (GLSL | SPIR-V | HLSL), // Type of shader source to expect
+      build_options:string(default=""), // Build options to be used when compiling a GLSL or HLSL shader source
       include_dirs:[string](default=[]), // Shaders include directories
       push_constants_size:int(default=0), // Size in bytes of the push constants used by the shader. Must be a multiple of 4
       specialization_constants: [class specialization_constant](default=), // n-dimension array
@@ -324,6 +324,8 @@ multiple shaders within a graph.
       specialization_constants:[specialization_constant], // array of specialization constants id-value pair
       shader_target:string // name of the shader node in the graph on which to apply the constants
   }
+
+.. _shader_substitutions:
 
 The ``shader_substitutions`` parameter is an array of shader_substitution objects. Each shader_substitution describes a placeholder shader node in the
 graph that will be substituted with an actual shader implementation. The shader
@@ -495,12 +497,15 @@ ML extensions for Vulkan®.
       push_constants: [class push_constant_map](default=), // mappings between push constants data and the target shader node.
       bindings: [class binding] // array of bindings mapping a resource reference to a descriptor set and id. These bindings describe the inputs and outputs to the graph.
       implicit_barrier:boolean(default=true) // inclusion of implicit memory barrier
+      shader_substitutions: [class shader_substitutions](default=) // array containing all the shaders to substitute within the graph
   }
 
   push_constant_map: {
       push_data_ref: string, // reference to raw_data resource containing the push_constants data
       shader_target: string, // name of the shader node in the graph to apply the push constants to
   }
+
+The ``shader_substitutions`` field uses the same :ref:`shader_substitutions structure <shader_substitutions>` structure as graph resources.
 
 dispatch_spirv_graph
 """""""""""""""""""""

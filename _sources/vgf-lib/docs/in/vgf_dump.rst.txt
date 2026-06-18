@@ -15,7 +15,7 @@ An example usage of vgf_dump is the following:
 
 .. code-block:: bash
 
-  vgf_dump input.vgf
+  vgf_dump --input input.vgf
 
 Which outputs the human-readable json representation of the VGF file.
 
@@ -31,7 +31,19 @@ For more information the help output can be consulted:
 `--dump-spirv`
 --------------
 
-This option outputs the raw SPIR-V™ data of the given module index to stdout. `--dump-spirv` is incompatible with `--dump-constant` and `--scenario-template` options.
+This option outputs the raw SPIR-V™ data of the given module index to stdout. `--dump-spirv` is incompatible with `--dump-glsl`, `--dump-hlsl`, `--dump-constant`, and `--scenario-template` options.
+
+
+`--dump-glsl`
+-------------
+
+This option outputs the GLSL module code at the given module index to stdout. `--dump-glsl` is incompatible with `--dump-spirv`, `--dump-hlsl`, `--dump-constant`, and `--scenario-template` options.
+
+
+`--dump-hlsl`
+-------------
+
+This option outputs the HLSL module code at the given module index to stdout. `--dump-hlsl` is incompatible with `--dump-spirv`, `--dump-glsl`, `--dump-constant`, and `--scenario-template` options.
 
 
 `--dump-constant`
@@ -40,12 +52,15 @@ This option outputs the raw SPIR-V™ data of the given module index to stdout. 
 This option outputs the contents of the constant at the given index to stdout.
 If the `--output <file.npy>` option is provided, the contents will be saved to the specified NumPy file.
 
-`--dump-constant` is incompatible with `--dump-spirv` and `--scenario-template` options.
+`--dump-constant` is incompatible with `--dump-spirv`, `--dump-glsl`, `--dump-hlsl`, and `--scenario-template` options.
+
 
 `--scenario-template`
 ---------------------
 
-This option outputs a template scenario file. The ML SDK Scenario Runner uses the template scenario file as an input file. The template scenario file describes what the scenario runner must execute. You must manually edit some file paths in the template scenario file. However, the `--scenario-template` is incompatible with `--dump-spirv` and `--dump-constant` options. For example, after creating a simple VGF file, the `--scenario-template` option produces:
+This option outputs a template scenario file. The ML SDK Scenario Runner uses the template scenario file as an input file. The template scenario file describes what the scenario runner must execute. You must manually edit some file paths in the template scenario file.
+
+`--scenario-template` is incompatible with `--dump-spirv`, `--dump-glsl`, `--dump-hlsl`, and `--dump-constant` options. For example, after creating a simple VGF file, the `--scenario-template` option produces:
 
 .. code-block:: json
 
