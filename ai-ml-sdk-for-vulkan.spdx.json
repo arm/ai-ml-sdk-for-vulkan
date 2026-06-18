@@ -63,7 +63,7 @@
             "licenseDeclared": "MIT",
             "name": "exceptiongroup",
             "supplier": "Organization: pypi",
-            "versionInfo": "1.3.0"
+            "versionInfo": "1.3.1"
         },
         {
             "SPDXID": "SPDXRef-package-fce6259f-49f5-4d19-b10e-5d1b72b32415",
@@ -95,7 +95,7 @@
             "licenseDeclared": "MIT",
             "name": "execnet",
             "supplier": "Organization: pypi",
-            "versionInfo": "2.1.1"
+            "versionInfo": "2.1.2"
         },
         {
             "SPDXID": "SPDXRef-package-c711bef8-4db1-4a77-8fda-b691e751b6ef",
@@ -187,7 +187,7 @@
                 },
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
-                    "referenceLocator": "pkg:pypi/packaging@25.0",
+                    "referenceLocator": "pkg:pypi/packaging@26.0",
                     "referenceType": "purl"
                 },
                 {
@@ -201,7 +201,7 @@
             "licenseDeclared": "(BSD-3-Clause AND Apache-2.0)",
             "name": "Packaging",
             "supplier": "Organization: pypi",
-            "versionInfo": "25.0"
+            "versionInfo": "26.0"
         },
         {
             "SPDXID": "SPDXRef-package-b765b713-b02a-4946-8149-531520dc4afe",
@@ -372,7 +372,7 @@
                 },
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
-                    "referenceLocator": "pkg:pypi/attrs@25.4.0",
+                    "referenceLocator": "pkg:pypi/attrs@26.1.0",
                     "referenceType": "purl"
                 },
                 {
@@ -386,7 +386,7 @@
             "licenseDeclared": "MIT",
             "name": "python-attrs",
             "supplier": "Organization: pypi",
-            "versionInfo": "25.4.0"
+            "versionInfo": "26.1.0"
         },
         {
             "SPDXID": "SPDXRef-package-4e35f71e-ae74-42bd-88c9-0d41ac1bba41",
@@ -564,7 +564,7 @@
                 },
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
-                    "referenceLocator": "pkg:pypi/rpds-py@0.28.0",
+                    "referenceLocator": "pkg:pypi/rpds-py@0.30.0",
                     "referenceType": "purl"
                 },
                 {
@@ -578,7 +578,7 @@
             "licenseDeclared": "MIT",
             "name": "rpds-py",
             "supplier": "Organization: pypi",
-            "versionInfo": "0.28.0"
+            "versionInfo": "0.30.0"
         },
         {
             "SPDXID": "SPDXRef-package-7244dee8-6675-4803-84f7-457f0340346c",
@@ -596,7 +596,7 @@
                 },
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
-                    "referenceLocator": "pkg:pypi/tomli@2.3.0",
+                    "referenceLocator": "pkg:pypi/tomli@2.4.0",
                     "referenceType": "purl"
                 },
                 {
@@ -611,7 +611,7 @@
             "name": "tomli",
             "originator": "Organization: pypi",
             "supplier": "Organization: pypi",
-            "versionInfo": "2.3.0"
+            "versionInfo": "2.4.0"
         },
         {
             "SPDXID": "SPDXRef-package-47134ef8-3af5-4d2d-b16b-550d5bbd020b",
@@ -642,7 +642,7 @@
             "licenseConcluded": "MIT",
             "licenseDeclared": "MIT",
             "copyrightText": "Copyright (c) The Khronos Group Inc.",
-            "versionInfo": "vulkan-sdk-1.4.341.0",
+            "versionInfo": "8c5559c134abcf432ec59db842404087b9906c1a",
             "supplier": "Organization: Khronos Group",
             "licenseInfoFromFiles": [
                 "NOASSERTION"
@@ -651,7 +651,7 @@
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/SPIRV-Headers@vulkan-sdk-1.4.341.0"
+                    "referenceLocator": "pkg:generic/SPIRV-Headers@8c5559c134abcf432ec59db842404087b9906c1a"
                 }
             ]
         },
@@ -663,7 +663,7 @@
             "licenseConcluded": "Apache-2.0",
             "licenseDeclared": "Apache-2.0",
             "copyrightText": "Copyright (c) The Khronos Group Inc.",
-            "versionInfo": "mlsdk-2026.03",
+            "versionInfo": "605a0154c7743ed4239c0eb7f3c61f17ffde4fd0",
             "supplier": "Organization: Khronos Group",
             "licenseInfoFromFiles": [
                 "NOASSERTION"
@@ -672,7 +672,7 @@
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/SPIRV-Tools@mlsdk-2026.03"
+                    "referenceLocator": "pkg:generic/SPIRV-Tools@605a0154c7743ed4239c0eb7f3c61f17ffde4fd0"
                 }
             ]
         },
@@ -684,7 +684,7 @@
             "licenseConcluded": "Apache-2.0",
             "licenseDeclared": "Apache-2.0",
             "copyrightText": "Copyright (c) The Khronos Group Inc.",
-            "versionInfo": "vulkan-sdk-1.4.341.0",
+            "versionInfo": "vulkan-sdk-1.4.350.0",
             "supplier": "Organization: Khronos Group",
             "licenseInfoFromFiles": [
                 "NOASSERTION"
@@ -693,7 +693,7 @@
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/Vulkan-Headers@vulkan-sdk-1.4.341.0"
+                    "referenceLocator": "pkg:generic/Vulkan-Headers@vulkan-sdk-1.4.350.0"
                 }
             ]
         },
@@ -726,7 +726,7 @@
             "licenseConcluded": "Apache-2.0",
             "licenseDeclared": "Apache-2.0",
             "copyrightText": "NOASSERTION",
-            "versionInfo": "v25.2.10",
+            "versionInfo": "25.2.10",
             "supplier": "Organization: google (github.com)",
             "licenseInfoFromFiles": [
                 "NOASSERTION"
@@ -735,7 +735,7 @@
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/flatbuffers@v25.2.10"
+                    "referenceLocator": "pkg:generic/flatbuffers@25.2.10"
                 }
             ]
         },
@@ -747,7 +747,7 @@
             "licenseConcluded": "3-Clause BSD License/2-Clause BSD License/MIT/Apache License 2.0/GPL 3 with special bison exception",
             "licenseDeclared": "3-Clause BSD License/2-Clause BSD License/MIT/Apache License 2.0/GPL 3 with special bison exception",
             "copyrightText": "Copyright (c) The Khronos Group Inc.",
-            "versionInfo": "vulkan-sdk-1.4.341.0",
+            "versionInfo": "vulkan-sdk-1.4.350.0",
             "supplier": "Organization: Khronos Group",
             "licenseInfoFromFiles": [
                 "NOASSERTION"
@@ -756,7 +756,7 @@
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/glslang@vulkan-sdk-1.4.341.0"
+                    "referenceLocator": "pkg:generic/glslang@vulkan-sdk-1.4.350.0"
                 }
             ]
         },
@@ -789,7 +789,7 @@
             "licenseConcluded": "MIT",
             "licenseDeclared": "MIT",
             "copyrightText": "NOASSERTION",
-            "versionInfo": "v3.11.3",
+            "versionInfo": "3.11.3",
             "supplier": "Organization: nlohmann (github.com)",
             "licenseInfoFromFiles": [
                 "NOASSERTION"
@@ -798,7 +798,7 @@
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/json@v3.11.3"
+                    "referenceLocator": "pkg:generic/json@3.11.3"
                 }
             ]
         },
@@ -831,7 +831,7 @@
             "licenseConcluded": "BSD-3-Clause",
             "licenseDeclared": "BSD-3-Clause",
             "copyrightText": "NOASSERTION",
-            "versionInfo": "v2.13.6",
+            "versionInfo": "2.13.6",
             "supplier": "Organization: pybind (github.com)",
             "licenseInfoFromFiles": [
                 "NOASSERTION"
@@ -840,7 +840,7 @@
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/pybind11@v2.13.6"
+                    "referenceLocator": "pkg:generic/pybind11@2.13.6"
                 }
             ]
         },
