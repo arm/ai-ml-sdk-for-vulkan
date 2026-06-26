@@ -63,6 +63,7 @@ class Builder:
         self.package_dir = args.package_dir or self.build_dir
         self.package_tgz = "tgz" in args.package_type
         self.package_zip = "zip" in args.package_type
+        self.package_version = args.package_version
 
     def setup_platform_build(self, cmake_setup_cmd):
         system = platform.system()
@@ -150,6 +151,9 @@ class Builder:
 
         if self.install or self.package_tgz or self.package_zip:
             cmake_setup_cmd.append(f"-DML_SDK_GENERATE_CPACK=ON")
+
+        if self.package_version:
+            cmake_setup_cmd.append(f"-DML_SDK_PACKAGE_VERSION={self.package_version}")
 
         if self.skip_llvm_patch or self.doc_only:
             cmake_setup_cmd.append("-DMODEL_CONVERTER_APPLY_LLVM_PATCH=OFF")
@@ -351,6 +355,11 @@ def parse_arguments():
         action="append",
         help="Create a package of a certain type",
         default=[],
+    )
+    parser.add_argument(
+        "--package-version",
+        help="Manually specify package version number",
+        default="",
     )
     parser.add_argument(
         "--enable-hlsl-support",
