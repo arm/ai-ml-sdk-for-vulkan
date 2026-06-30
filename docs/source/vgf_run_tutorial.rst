@@ -25,7 +25,10 @@ you must have a scenario specification in the form of a JSON file:
     :ref:`JSON Test Description Specification`.
 
 
-3. Run the ML SDK Scenario Runner on the ML Emulation Layer for Vulkan®:
+3. Set up the ML Emulation Layer for Vulkan® on your system, see: :ref:`ML Emulation Layer for Vulkan® Usage <ml-emulation-layer-vulkan-usage>`
+
+
+4. Run the ML SDK Scenario Runner on the ML Emulation Layer for Vulkan®:
 
 .. code-block:: bash
 
