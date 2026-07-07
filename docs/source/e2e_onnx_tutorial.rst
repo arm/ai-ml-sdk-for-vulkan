@@ -4,11 +4,12 @@ Converting and deploying an ONNX model tutorial
 This tutorial demonstrates how to convert and deploy an ONNX model using Torch-MLIR and the ML SDK for Vulkan®.
 It walks through model conversion to TOSA MLIR, VGF file generation, and execution using the ML SDK Scenario Runner.
 
-1. Install Torch-MLIR
+1. Install Torch-MLIR and ONNX
 
 .. code-block:: bash
 
     pip install --pre torch-mlir -f https://github.com/llvm/torch-mlir-release/releases/expanded_assets/dev-wheels
+    pip install onnx
 
 2. Download the ONNX Model:
 
@@ -21,7 +22,7 @@ It walks through model conversion to TOSA MLIR, VGF file generation, and executi
 .. code-block:: python
 
     import numpy
-    data = numpy.random.rand(28,28).astype(numpy.float32)
+    data = numpy.random.rand(1,1,28,28).astype(numpy.float32)
     numpy.save("input-0.npy", data)
 
 4. Convert the Model to TOSA MLIR Bytecode:
