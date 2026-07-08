@@ -111,9 +111,10 @@
 <p>This tutorial demonstrates how to convert and deploy an ONNX model using Torch-MLIR and the ML SDK for Vulkan®.
 It walks through model conversion to TOSA MLIR, VGF file generation, and execution using the ML SDK Scenario Runner.</p>
 <ol class="arabic simple">
-<li><p>Install Torch-MLIR</p></li>
+<li><p>Install Torch-MLIR and ONNX</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--pre<span class="w"> </span>torch-mlir<span class="w"> </span>-f<span class="w"> </span>https://github.com/llvm/torch-mlir-release/releases/expanded_assets/dev-wheels
+pip<span class="w"> </span>install<span class="w"> </span>onnx
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
@@ -126,7 +127,7 @@ It walks through model conversion to TOSA MLIR, VGF file generation, and executi
 <li><p>Generate input tensor:</p></li>
 </ol>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 <span class="n">numpy</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;input-0.npy&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 </pre></div>
 </div>
