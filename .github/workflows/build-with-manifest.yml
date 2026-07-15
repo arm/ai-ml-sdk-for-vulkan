@@ -73,14 +73,10 @@ jobs:
       - &checkout
         uses: actions/checkout@v6
 
-      - name: Install cchace
-        run: |
-          sudo apt-get ccache
-
-      - name: Cache ccache
+      - name: Cache sccache
         uses: actions/cache@v4
         with:
-          path: ~/.cache/ccache
+          path: /home/$user/.local/bin/sccache
           key: ccache-${{ runner.os }}-${{ runner.arch }}-${{ github.run_id }}
           restore-keys: |
             ccache-${{ runner.os }}-${{ runner.arch }}-
