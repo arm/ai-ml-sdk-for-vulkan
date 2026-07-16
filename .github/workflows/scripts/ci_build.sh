@@ -119,13 +119,22 @@ if [[ "$(uname)" == "Darwin" ]]; then
   export CCACHE_DIR="$HOME/Library/Caches/ccache"
 else
   CACHE_TOOL="sccache"
-  export SCCACHE_DIR="${SCCACHE_DIR:-$HOME/.cache/sccache}"
+  export SCCACHE_DIR="${SCCACHE_DIR:-/root/.cache/sccache}"
 fi
 
-mkdir -p "${CCACHE_DIR:-$SCCACHE_DIR}"
 
-# Ensure locally installed tools are found (e.g. sccache in the Docker image)
-export PATH="$HOME/.local/bin:$PATH"
+if [[ "$(uname)" == "Darwin" ]]; then
+  CACHE_TOOL="ccache"
+  export CCACHE_DIR="$HOME/Library/Caches/ccache"
+  mkdir -p "$CCACHE_DIR"
+else
+  CACHE_TOOL="sccache"
+  export SCCACHE_DIR="${SCCACHE_DIR:-/root/.cache/sccache}"
+  mkdir -p "$SCCACHE_DIR"
+
+  # Ensure locally installed tools are found (e.g. sccache in the Docker image)
+  export PATH="/home/mlsdkuser/.local/bin:$PATH"
+fi
 
 export CMAKE_C_COMPILER_LAUNCHER="$CACHE_TOOL"
 export CMAKE_CXX_COMPILER_LAUNCHER="$CACHE_TOOL"

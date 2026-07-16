@@ -79,10 +79,9 @@ jobs:
         uses: actions/cache@v6
         with:
           path: ${{ env.SCCACHE_DIR }}
-          key: sccache-${{ runner.os }}-${{ matrix.arch_tag }}-${{ github.sha }}-${{ github.run_id }}
+          key: ccache-${{ runner.os }}-${{ runner.arch }}-${{ github.run_id }}
           restore-keys: |
-            sccache-${{ runner.os }}-${{ matrix.arch_tag }}-${{ github.sha }}-
-            sccache-${{ runner.os }}-${{ matrix.arch_tag }}-
+            ccache-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Clone repositories and build
         run: .github/workflows/scripts/ci_build.sh
@@ -128,9 +127,8 @@ jobs:
         uses: actions/cache@v6
         with:
           path: ~/Library/Caches/ccache
-          key: ccache-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}-${{ github.run_id }}
+          key: ccache-${{ runner.os }}-${{ runner.arch }}-${{ github.run_id }}
           restore-keys: |
-            ccache-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}-
             ccache-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Clone repositories and build
@@ -193,9 +191,8 @@ jobs:
         uses: actions/cache@v6
         with:
           path: ~\AppData\Local\Mozilla\sccache
-          key: sccache-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}-${{ github.run_id }}
+          key: sccache-${{ runner.os }}-${{ runner.arch }}-${{ github.run_id }}
           restore-keys: |
-            sccache-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}-
             sccache-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Run CI build script
