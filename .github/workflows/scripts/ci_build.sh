@@ -115,18 +115,22 @@ run_checks() {
 }
 
 if [[ "$(uname)" == "Darwin" ]]; then
-  export SCCACHE_DIR="$HOME/Library/Caches/sccache"
+  CACHE_TOOL="ccache"
+  export CCACHE_DIR="$HOME/Library/Caches/ccache"
 else
+  CACHE_TOOL="sccache"
   export SCCACHE_DIR="$HOME/.cache/sccache"
 fi
 
-mkdir -p "$SCCACHE_DIR"
+mkdir -p "${CCACHE_DIR:-$SCCACHE_DIR}"
 
-export CMAKE_C_COMPILER_LAUNCHER=sccache
-export CMAKE_CXX_COMPILER_LAUNCHER=sccache
+# Ensure locally installed tools are found (e.g. sccache in the Docker image)
+export PATH="$HOME/.local/bin:$PATH"
 
-sccache --zero-stats || true
+export CMAKE_C_COMPILER_LAUNCHER="$CACHE_TOOL"
+export CMAKE_CXX_COMPILER_LAUNCHER="$CACHE_TOOL"
 
+"$CACHE_TOOL" --zero-stats || true
 echo "Build VGF-Lib"
 run_checks ./sw/vgf-lib
 ./sw/vgf-lib/scripts/build.py -j $(nproc) --doc --test
@@ -151,6 +155,6 @@ echo "Build SDK Root"
 run_checks .
 ./scripts/build.py -j $(nproc) --doc
 
-sccache --show-stats || true
+"$CACHE_TOOL" --show-stats || true
 
 popd
