@@ -115,17 +115,17 @@ run_checks() {
 }
 
 if [[ "$(uname)" == "Darwin" ]]; then
-  export CCACHE_DIR="$HOME/Library/Caches/ccache"
+  export SCCACHE_DIR="$HOME/Library/Caches/sccache"
 else
-  export CCACHE_DIR="$HOME/.cache/ccache"
+  export SCCACHE_DIR="$HOME/.cache/sccache"
 fi
 
-mkdir -p "$CCACHE_DIR"
+mkdir -p "$SCCACHE_DIR"
 
-export CMAKE_C_COMPILER_LAUNCHER=ccache
-export CMAKE_CXX_COMPILER_LAUNCHER=ccache
+export CMAKE_C_COMPILER_LAUNCHER=sccache
+export CMAKE_CXX_COMPILER_LAUNCHER=sccache
 
-ccache --zero-stats || true
+sccache --zero-stats || true
 
 echo "Build VGF-Lib"
 run_checks ./sw/vgf-lib
@@ -151,6 +151,6 @@ echo "Build SDK Root"
 run_checks .
 ./scripts/build.py -j $(nproc) --doc
 
-ccache --show-stats || true
+sccache --show-stats || true
 
 popd
