@@ -27,7 +27,7 @@ jobs:
   build-linux:
     runs-on: ${{ matrix.platform }}
     env:
-      SCCACHE_DIR: $HOME/.local/bin/sccache
+      SCCACHE_DIR: /root/.cache/sccache
     strategy:
       matrix:
         include:
