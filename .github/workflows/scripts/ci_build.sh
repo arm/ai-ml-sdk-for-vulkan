@@ -119,7 +119,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
   export CCACHE_DIR="$HOME/Library/Caches/ccache"
 else
   CACHE_TOOL="sccache"
-  export SCCACHE_DIR="$HOME/.cache/sccache"
+  export SCCACHE_DIR="${SCCACHE_DIR:-$HOME/.cache/sccache}"
 fi
 
 mkdir -p "${CCACHE_DIR:-$SCCACHE_DIR}"
@@ -131,6 +131,7 @@ export CMAKE_C_COMPILER_LAUNCHER="$CACHE_TOOL"
 export CMAKE_CXX_COMPILER_LAUNCHER="$CACHE_TOOL"
 
 "$CACHE_TOOL" --zero-stats || true
+
 echo "Build VGF-Lib"
 run_checks ./sw/vgf-lib
 ./sw/vgf-lib/scripts/build.py -j $(nproc) --doc --test

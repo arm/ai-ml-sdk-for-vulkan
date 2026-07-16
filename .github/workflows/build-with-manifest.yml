@@ -26,6 +26,8 @@ env:
 jobs:
   build-linux:
     runs-on: ${{ matrix.platform }}
+    env:
+      SCCACHE_DIR: /root/.cache/sccache
     strategy:
       matrix:
         include:
@@ -76,10 +78,11 @@ jobs:
       - name: Cache sccache
         uses: actions/cache@v6
         with:
-          path: /home/$user/.local/bin/sccache
-          key: ccache-${{ runner.os }}-${{ runner.arch }}-${{ github.run_id }}
+          path: ${{ env.SCCACHE_DIR }}
+          key: sccache-${{ runner.os }}-${{ matrix.arch_tag }}-${{ github.sha }}-${{ github.run_id }}
           restore-keys: |
-            ccache-${{ runner.os }}-${{ runner.arch }}-
+            sccache-${{ runner.os }}-${{ matrix.arch_tag }}-${{ github.sha }}-
+            sccache-${{ runner.os }}-${{ matrix.arch_tag }}-
 
       - name: Clone repositories and build
         run: .github/workflows/scripts/ci_build.sh
@@ -125,8 +128,9 @@ jobs:
         uses: actions/cache@v6
         with:
           path: ~/Library/Caches/ccache
-          key: ccache-${{ runner.os }}-${{ runner.arch }}-${{ github.run_id }}
+          key: ccache-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}-${{ github.run_id }}
           restore-keys: |
+            ccache-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}-
             ccache-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Clone repositories and build
@@ -189,8 +193,9 @@ jobs:
         uses: actions/cache@v6
         with:
           path: ~\AppData\Local\Mozilla\sccache
-          key: sccache-${{ runner.os }}-${{ runner.arch }}-${{ github.run_id }}
+          key: sccache-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}-${{ github.run_id }}
           restore-keys: |
+            sccache-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}-
             sccache-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Run CI build script
