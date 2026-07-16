@@ -119,7 +119,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
   export CCACHE_DIR="$HOME/Library/Caches/ccache"
 else
   CACHE_TOOL="sccache"
-  export SCCACHE_DIR="${SCCACHE_DIR:-$HOME/.cache/sccache}"
+  export SCCACHE_DIR="${SCCACHE_DIR:-$HOME/.local/bin/sccache}"
 fi
 
 mkdir -p "${CCACHE_DIR:-$SCCACHE_DIR}"
