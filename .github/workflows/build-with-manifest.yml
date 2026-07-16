@@ -79,9 +79,9 @@ jobs:
         uses: actions/cache@v6
         with:
           path: ${{ env.SCCACHE_DIR }}
-          key: ccache-${{ runner.os }}-${{ runner.arch }}-${{ github.run_id }}
+          key: sccache-${{ runner.os }}-${{ runner.arch }}-${{ github.run_id }}
           restore-keys: |
-            ccache-${{ runner.os }}-${{ runner.arch }}-
+            sccache-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Clone repositories and build
         run: .github/workflows/scripts/ci_build.sh

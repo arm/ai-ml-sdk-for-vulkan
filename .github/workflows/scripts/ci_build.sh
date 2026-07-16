@@ -117,15 +117,6 @@ run_checks() {
 if [[ "$(uname)" == "Darwin" ]]; then
   CACHE_TOOL="ccache"
   export CCACHE_DIR="$HOME/Library/Caches/ccache"
-else
-  CACHE_TOOL="sccache"
-  export SCCACHE_DIR="${SCCACHE_DIR:-/root/.cache/sccache}"
-fi
-
-
-if [[ "$(uname)" == "Darwin" ]]; then
-  CACHE_TOOL="ccache"
-  export CCACHE_DIR="$HOME/Library/Caches/ccache"
   mkdir -p "$CCACHE_DIR"
 else
   CACHE_TOOL="sccache"
