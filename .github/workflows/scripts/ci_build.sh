@@ -114,6 +114,24 @@ run_checks() {
   popd
 }
 
+if [[ "$(uname)" == "Darwin" ]]; then
+  CACHE_TOOL="ccache"
+  export CCACHE_DIR="$HOME/Library/Caches/ccache"
+  mkdir -p "$CCACHE_DIR"
+else
+  CACHE_TOOL="sccache"
+  export SCCACHE_DIR="${SCCACHE_DIR:-/root/.cache/sccache}"
+  mkdir -p "$SCCACHE_DIR"
+
+  # Ensure locally installed tools are found (e.g. sccache in the Docker image)
+  export PATH="/home/mlsdkuser/.local/bin:$PATH"
+fi
+
+export CMAKE_C_COMPILER_LAUNCHER="$CACHE_TOOL"
+export CMAKE_CXX_COMPILER_LAUNCHER="$CACHE_TOOL"
+
+"$CACHE_TOOL" --zero-stats || true
+
 echo "Build VGF-Lib"
 run_checks ./sw/vgf-lib
 ./sw/vgf-lib/scripts/build.py -j $(nproc) --doc --test
@@ -137,5 +155,7 @@ run_checks ./sw/scenario-runner
 echo "Build SDK Root"
 run_checks .
 ./scripts/build.py -j $(nproc) --doc
+
+"$CACHE_TOOL" --show-stats || true
 
 popd

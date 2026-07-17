@@ -142,6 +142,13 @@ try {
 
     $env:VK_INSTANCE_LAYERS = "VK_LAYER_ML_Graph_Emulation;VK_LAYER_ML_Tensor_Emulation"
 
+    # Set the sccache cache directory (matches the GitHub Actions cache path)
+    $env:SCCACHE_DIR = "$env:LOCALAPPDATA\Mozilla\sccache"
+    $env:CMAKE_C_COMPILER_LAUNCHER = "sccache"
+    $env:CMAKE_CXX_COMPILER_LAUNCHER = "sccache"
+
+    sccache --zero-stats || $true
+
     Write-Host "Build VGF-Lib"
     python "./sw/vgf-lib/scripts/build.py" -j $cores --test
 
@@ -156,6 +163,8 @@ try {
 
     Write-Host "Build SDK Root"
     python "./scripts/build.py" -j $cores
+
+    sccache --show-stats || $true
 }
 finally {
     Pop-Location
