@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VGF File Format Notes &mdash; ML SDK for Vulkan®  documentation</title>
+  <title>VGF File Format &mdash; ML SDK for Vulkan®  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=b8c9390b" />
@@ -70,8 +70,11 @@
 <li class="toctree-l2"><a class="reference internal" href="decoder_c_api.html">VGF Decoder C API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging_api.html">VGF Logging C++ API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging_c_api.html">VGF Logging C API</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">VGF File Format Notes</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">VGF File Format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vgf-file-structure">VGF File Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#header-layout">Header Layout</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#section-alignment">Section Alignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flatbuffers-metadata-sections">FlatBuffers Metadata Sections</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#model-constants-section">Model Constants Section</a></li>
 </ul>
 </li>
@@ -112,7 +115,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">ML SDK VGF Library</a></li>
-      <li class="breadcrumb-item active">VGF File Format Notes</li>
+      <li class="breadcrumb-item active">VGF File Format</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/vgf-lib/docs/in/file_format.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -122,16 +125,147 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="vgf-file-format-notes">
-<h1>VGF File Format Notes<a class="headerlink" href="#vgf-file-format-notes" title="Link to this heading"></a></h1>
+  <section id="vgf-file-format">
+<h1>VGF File Format<a class="headerlink" href="#vgf-file-format" title="Link to this heading"></a></h1>
+<p>This page describes the VGF on-disk layout written by the current encoder and accepted by the current decoder.
+The metadata tables are defined in <code class="docutils literal notranslate"><span class="pre">schema/vgf.fbs</span></code>; the fixed header and raw constants section are defined by
+the C++ layout constants in <code class="docutils literal notranslate"><span class="pre">src/header.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">src/constant.hpp</span></code>.</p>
+<section id="vgf-file-structure">
+<h2>VGF File Structure<a class="headerlink" href="#vgf-file-structure" title="Link to this heading"></a></h2>
+<p>The file starts with a fixed 128-byte header. The header records the file format version, the Vulkan header version
+used by the encoder, and four file-relative section entries. Each section entry contains a <code class="docutils literal notranslate"><span class="pre">uint64</span></code> offset and a
+<code class="docutils literal notranslate"><span class="pre">uint64</span></code> size.</p>
+<p>The current section order is:</p>
+<ol class="arabic simple">
+<li><p>Header</p></li>
+<li><p>Module Table section</p></li>
+<li><p>Model Sequence Table section</p></li>
+<li><p>Model Resource Table section</p></li>
+<li><p>Model Constants section</p></li>
+</ol>
+<figure class="align-center" id="id1">
+<img alt="VGF file structure" src="../../../_images/vgf_file_structure.svg" />
+<figcaption>
+<p><span class="caption-text">Current VGF file layout and cross-references between the header, FlatBuffers metadata tables, resources, segments,
+descriptor bindings, and constants.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="header-layout">
+<h2>Header Layout<a class="headerlink" href="#header-layout" title="Link to this heading"></a></h2>
+<p>New files use format version <code class="docutils literal notranslate"><span class="pre">0.4.3</span></code> and write the <code class="docutils literal notranslate"><span class="pre">VGF1</span></code> FourCC magic. The decoder still accepts the deprecated
+pre-FourCC magic value for backward compatibility.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Offset</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>Field</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">magic</span></code></p></td>
+<td><p>FourCC <code class="docutils literal notranslate"><span class="pre">VGF1</span></code> in new files.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vk_header_version</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VK_HEADER_VERSION</span></code> value used by the encoder. Consumers use this to interpret stored Vulkan enum values.</p></td>
+</tr>
+<tr class="row-even"><td><p>6</p></td>
+<td><p>2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">reserved0</span></code></p></td>
+<td><p>Reserved; written as zero.</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>3</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">version</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">major</span></code>, <code class="docutils literal notranslate"><span class="pre">minor</span></code>, and <code class="docutils literal notranslate"><span class="pre">patch</span></code> bytes. The current writer emits <code class="docutils literal notranslate"><span class="pre">0.4.3</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p>11</p></td>
+<td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">reserved1</span></code></p></td>
+<td><p>Reserved; written as zero.</p></td>
+</tr>
+<tr class="row-odd"><td><p>12</p></td>
+<td><p>4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">reserved2</span></code></p></td>
+<td><p>Reserved; written as zero.</p></td>
+</tr>
+<tr class="row-even"><td><p>16</p></td>
+<td><p>16</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">moduleSection</span></code></p></td>
+<td><p>Offset and size for the Module Table section.</p></td>
+</tr>
+<tr class="row-odd"><td><p>32</p></td>
+<td><p>16</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sequenceSection</span></code></p></td>
+<td><p>Offset and size for the Model Sequence Table section.</p></td>
+</tr>
+<tr class="row-even"><td><p>48</p></td>
+<td><p>16</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">resourceSection</span></code></p></td>
+<td><p>Offset and size for the Model Resource Table section.</p></td>
+</tr>
+<tr class="row-odd"><td><p>64</p></td>
+<td><p>16</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">constantSection</span></code></p></td>
+<td><p>Offset and size for the Model Constants section.</p></td>
+</tr>
+<tr class="row-even"><td><p>80</p></td>
+<td><p>48</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">reserved3</span></code> … <code class="docutils literal notranslate"><span class="pre">reserved8</span></code></p></td>
+<td><p>Reserved; written as zero.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The decoder validates that the magic and major/minor version are supported and that every section range is contained
+inside the file. <code class="docutils literal notranslate"><span class="pre">IsLatestVersion</span></code> additionally checks for an exact <code class="docutils literal notranslate"><span class="pre">0.4.3</span></code> match.</p>
+</section>
 <section id="section-alignment">
 <h2>Section Alignment<a class="headerlink" href="#section-alignment" title="Link to this heading"></a></h2>
-<p>VGF files written with format version <code class="docutils literal notranslate"><span class="pre">0.4.3</span></code> or later align each section offset to an 8-byte boundary. Decoders
-remain compatible with older files whose section offsets were not guaranteed to be 8-byte aligned.</p>
+<p>VGF files written with format version <code class="docutils literal notranslate"><span class="pre">0.4.3</span></code> or later align every section offset to an 8-byte boundary. Padding
+between sections is written as zero bytes and is not included in the preceding section size. Decoders remain compatible
+with older files whose section offsets were not guaranteed to be 8-byte aligned.</p>
+</section>
+<section id="flatbuffers-metadata-sections">
+<h2>FlatBuffers Metadata Sections<a class="headerlink" href="#flatbuffers-metadata-sections" title="Link to this heading"></a></h2>
+<p>The Module Table, Model Sequence Table, and Model Resource Table sections are FlatBuffers buffers. Each section is
+verified independently before decoding.</p>
+<p>The Module Table stores <code class="docutils literal notranslate"><span class="pre">Module</span></code> entries:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code> is <code class="docutils literal notranslate"><span class="pre">COMPUTE</span></code> or <code class="docutils literal notranslate"><span class="pre">GRAPH</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">entry_point</span></code> are strings.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">code</span></code> is a <code class="docutils literal notranslate"><span class="pre">ModuleCode</span></code> union. Current code variants are SPIR-V <code class="docutils literal notranslate"><span class="pre">uint32</span></code> words, GLSL source, and HLSL source.</p></li>
+</ul>
+<p>The Model Sequence Table stores model-level inputs and outputs plus ordered <code class="docutils literal notranslate"><span class="pre">SegmentInfo</span></code> entries. Segment metadata
+links runtime execution state together:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">module_index</span></code> indexes the Module Table.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_infos</span></code> stores descriptor sets. <code class="docutils literal notranslate"><span class="pre">DescriptorSetInfo.set_index</span></code> is explicit when present; <code class="docutils literal notranslate"><span class="pre">UINT32_MAX</span></code> means
+it was omitted and decoders fall back to the descriptor’s array position.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inputs</span></code> and <code class="docutils literal notranslate"><span class="pre">outputs</span></code> are <code class="docutils literal notranslate"><span class="pre">BindingSlot</span></code> arrays. Each binding slot records a descriptor <code class="docutils literal notranslate"><span class="pre">binding</span></code> and an
+<code class="docutils literal notranslate"><span class="pre">mrt_index</span></code> into the Model Resource Table.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">constants</span></code> stores indexes into the Model Constants metadata records.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dispatch_shape</span></code> is expected to contain three elements when present.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">push_constant_ranges</span></code> stores Vulkan stage flags, byte offsets, and byte sizes.</p></li>
+</ul>
+<p>The Model Resource Table stores <code class="docutils literal notranslate"><span class="pre">ModelResourceTableEntry</span></code> records:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vk_descriptor_type</span></code> and <code class="docutils literal notranslate"><span class="pre">vk_format</span></code> are stored as opaque Vulkan enum values. <code class="docutils literal notranslate"><span class="pre">vk_descriptor_type</span></code> uses
+<code class="docutils literal notranslate"><span class="pre">UINT32_MAX</span></code> as the on-disk “not present” sentinel for resources such as constants.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">category</span></code> is <code class="docutils literal notranslate"><span class="pre">INPUT</span></code>, <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code>, <code class="docutils literal notranslate"><span class="pre">INTERMEDIATE</span></code>, or <code class="docutils literal notranslate"><span class="pre">CONSTANT</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code> stores tensor <code class="docutils literal notranslate"><span class="pre">shape</span></code> and <code class="docutils literal notranslate"><span class="pre">strides</span></code> arrays.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">extra_config</span></code> is an extension point. The current supported variant is <code class="docutils literal notranslate"><span class="pre">SamplerConfig</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">alias_group_id</span></code> uses <code class="docutils literal notranslate"><span class="pre">UINT32_MAX</span></code> as the “no alias group” sentinel. Non-constant resources may share a group id
+to indicate shared storage.</p></li>
+</ul>
 </section>
 <section id="model-constants-section">
 <h2>Model Constants Section<a class="headerlink" href="#model-constants-section" title="Link to this heading"></a></h2>
-<p>New VGF files store the Model Constants Section as a compact raw byte section. Older files can still contain the
+<p>New VGF files store the Model Constants section as a compact raw byte section. Older files can still contain the
 legacy FlatBuffers <code class="docutils literal notranslate"><span class="pre">ConstantSection</span></code> layout; the decoder keeps support for that legacy representation.</p>
 <p>The current raw constants layout is version <code class="docutils literal notranslate"><span class="pre">CONST00</span></code>:</p>
 <table class="docutils align-default">
@@ -201,8 +335,8 @@ legacy FlatBuffers <code class="docutils literal notranslate"><span class="pre">
 <code class="docutils literal notranslate"><span class="pre">size</span></code> always describes the unpadded constant data length returned by the decoder.</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
-<p>The raw constants section stores fixed-width integer fields and payload bytes without endian conversion. The target
-host and the host that created the VGF file must use the same endianness.</p>
+<p>The fixed header and raw constants section store fixed-width integer fields without endian conversion. The target
+host and the host that created the VGF file must use the same endianness for these raw portions.</p>
 </div>
 </section>
 </section>
