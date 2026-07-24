@@ -27,6 +27,10 @@ you must have a scenario specification in the form of a JSON file:
 
 3. Set up the ML Emulation Layer for Vulkan® on your system, see: :ref:`ML Emulation Layer for Vulkan® Usage <ml-emulation-layer-vulkan-usage>`
 
+.. note::
+   On Darwin, first follow :ref:`darwin-support` to select a translation
+   driver and enable the graph and tensor layers.
+
 
 4. Run the ML SDK Scenario Runner on the ML Emulation Layer for Vulkan®:
 
