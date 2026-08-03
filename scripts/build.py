@@ -45,6 +45,7 @@ class Builder:
         self.spirv_cross_path = args.spirv_cross_path
         self.vgf_lib = args.vgf_lib
         self.emulation_layer = args.emulation_layer
+        self.workload_lib = args.workload_lib
         self.gtest_path = args.gtest_path
         self.argparse = args.argparse
         self.flatbuffers = args.flatbuffers
@@ -54,6 +55,7 @@ class Builder:
         self.skip_llvm_patch = args.skip_llvm_patch
         self.threads = args.threads
         self.target_platform = args.target_platform
+        self.enable_glsl_support = args.enable_glsl_support
         self.enable_hlsl_support = args.enable_hlsl_support
 
         self.doc_only = args.doc_only
@@ -72,7 +74,10 @@ class Builder:
                 cmake_setup_cmd.append(
                     f"-DCMAKE_TOOLCHAIN_FILE={CMAKE_TOOLCHAIN_PATH / 'gcc.cmake'}"
                 )
+                if self.enable_glsl_support:
+                    cmake_setup_cmd.append("-DML_WORKLOAD_LIB_ENABLE_GLSL_SUPPORT=ON")
                 if self.enable_hlsl_support:
+                    cmake_setup_cmd.append("-DML_WORKLOAD_LIB_ENABLE_HLSL_SUPPORT=ON")
                     cmake_setup_cmd.append("-DSCENARIO_RUNNER_ENABLE_HLSL_SUPPORT=ON")
                 return True
             if system == "Darwin":
@@ -85,7 +90,10 @@ class Builder:
                     f"-DCMAKE_TOOLCHAIN_FILE={CMAKE_TOOLCHAIN_PATH / 'windows-msvc.cmake'}"
                 )
                 cmake_setup_cmd.append("-DMSVC=ON")
+                if self.enable_glsl_support:
+                    cmake_setup_cmd.append("-DML_WORKLOAD_LIB_ENABLE_GLSL_SUPPORT=ON")
                 if self.enable_hlsl_support:
+                    cmake_setup_cmd.append("-DML_WORKLOAD_LIB_ENABLE_HLSL_SUPPORT=ON")
                     cmake_setup_cmd.append("-DSCENARIO_RUNNER_ENABLE_HLSL_SUPPORT=ON")
                 return True
             print(f"Unsupported host platform {system}", file=sys.stderr)
@@ -100,7 +108,10 @@ class Builder:
             cmake_setup_cmd.append(
                 f"-DCMAKE_TOOLCHAIN_FILE={CMAKE_TOOLCHAIN_PATH / 'clang.cmake'}"
             )
+            if self.enable_glsl_support:
+                cmake_setup_cmd.append("-DML_WORKLOAD_LIB_ENABLE_GLSL_SUPPORT=ON")
             if self.enable_hlsl_support:
+                cmake_setup_cmd.append("-DML_WORKLOAD_LIB_ENABLE_HLSL_SUPPORT=ON")
                 cmake_setup_cmd.append("-DSCENARIO_RUNNER_ENABLE_HLSL_SUPPORT=ON")
             return True
 
@@ -143,6 +154,7 @@ class Builder:
             f"-DML_SDK_SCENARIO_RUNNER_PATH={self.scenario_runner}",
             f"-DML_SDK_VGF_LIB_PATH={self.vgf_lib}",
             f"-DML_SDK_EMULATION_LAYER_PATH={self.emulation_layer}",
+            f"-DML_SDK_WORKLOAD_LIB_PATH={self.workload_lib}",
             "-G",
             "Ninja",
         ]
@@ -292,6 +304,11 @@ def parse_arguments():
         default=f"{ML_SDK_FOR_VULKAN_COMPONENTS_DIR / 'emulation-layer'}",
     )
     parser.add_argument(
+        "--workload-lib",
+        help="Path to ML Workload Library for Vulkan repo",
+        default=f"{ML_SDK_FOR_VULKAN_COMPONENTS_DIR / 'workload-lib'}",
+    )
+    parser.add_argument(
         "--argparse",
         help="Path to Argparse",
         default=f"{DEPENDENCIES_DIR / 'argparse'}",
@@ -360,6 +377,12 @@ def parse_arguments():
         "--package-version",
         help="Manually specify package version number",
         default="",
+    )
+    parser.add_argument(
+        "--enable-glsl-support",
+        help=("Enable GLSL to SPIRV compilation"),
+        action="store_true",
+        default=False,
     )
     parser.add_argument(
         "--enable-hlsl-support",

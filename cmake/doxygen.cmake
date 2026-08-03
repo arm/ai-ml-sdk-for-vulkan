@@ -1,5 +1,5 @@
 #
-# SPDX-FileCopyrightText: Copyright 2023-2025 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2023-2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
 # SPDX-License-Identifier: Apache-2.0
 #
 
@@ -26,9 +26,16 @@ if(EXISTS "${ML_SDK_FOR_VULKAN_PATH}/sw/vgf-lib/CMakeLists.txt")
     list(APPEND DOXYGEN_STRIP_PATHS "${DOXYGEN_INPUT_DIR}/include/vgf")
     list(APPEND DOXYGEN_INPUT_PATHS "${DOXYGEN_INPUT_DIR}/include/vgf")
     list(APPEND DOXYGEN_INPUT_PATHS "${DOXYGEN_INPUT_DIR}/include-c/vgf")
-    string(REPLACE ";" " " DOXYGEN_INPUT_PATHS "${DOXYGEN_INPUT_PATHS}")
-    string(REPLACE ";" " " DOXYGEN_STRIP_PATHS "${DOXYGEN_STRIP_PATHS}")
 endif()
+
+if(EXISTS "${ML_SDK_FOR_VULKAN_PATH}/sw/workload-lib/CMakeLists.txt")
+    set(DOXYGEN_INPUT_DIR "${CMAKE_BINARY_DIR}/workload-lib/docs/sources")
+    list(APPEND DOXYGEN_STRIP_PATHS "${DOXYGEN_INPUT_DIR}/include")
+    list(APPEND DOXYGEN_INPUT_PATHS "${DOXYGEN_INPUT_DIR}/include/mlworkloadlib")
+endif()
+
+string(REPLACE ";" " " DOXYGEN_INPUT_PATHS "${DOXYGEN_INPUT_PATHS}")
+string(REPLACE ";" " " DOXYGEN_STRIP_PATHS "${DOXYGEN_STRIP_PATHS}")
 
 configure_file(${DOXYFILE_CONFIG} ${DOXYFILE_GEN} @ONLY)
 

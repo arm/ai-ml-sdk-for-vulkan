@@ -59,10 +59,11 @@ in `<repo_root>/dependencies/`.
 
 You can initialize the repository with only the components that you need. This
 also fetches only the dependencies required by the selected components. The
-`-g all` in the preceding initialization command is equivalent to
-`-g model-converter vgf-lib scenario-runner emulation-layer`. Some components
-may also force other components to be included. For example, `scenario-runner`
-automatically includes `vgf-lib` because `vgf-lib` is required.
+`-g all` in the preceding initialization command is equivalent to selecting the
+`model-converter`, `vgf-lib`, `workload-lib`, `scenario-runner`, and
+`emulation-layer` groups. Some components may also force other components to be
+included. For example, `scenario-runner` and `workload-lib` automatically
+include `vgf-lib` because `vgf-lib` is required.
 
 Although we do not recommend this method, you can check out the components using
 `git clone` commands directly. This requires checking out each component and
@@ -72,12 +73,13 @@ results in a more complicated workflow.
 
 ## Build all the ML SDK for Vulkan® components
 
-The ML SDK for Vulkan® consists of four components:
+The ML SDK for Vulkan® consists of the following components:
 
 - [VGF Library](https://github.com/arm/ai-ml-sdk-vgf-library)
 - [Model Converter](https://github.com/arm/ai-ml-sdk-model-converter)
 - [Scenario Runner](https://github.com/arm/ai-ml-sdk-scenario-runner)
 - [Emulation Layer](https://github.com/arm/ai-ml-emulation-layer-for-vulkan)
+- [Workload Library](https://github.com/arm/ai-ml-workload-library-for-vulkan)
 
 These can be built from the ML SDK for Vulkan® root repository or individually
 from their respective repositories.
@@ -135,6 +137,7 @@ paranthesis, can be:
 - model-converter (sw/model-converter)
 - scenario-runner (sw/scenario-runner)
 - emulation-layer (sw/emulation-layer)
+- workload-lib (sw/workload-lib)
 
 Similarly, dependencies with custom install locations need to be specifed. For
 instance if glslang was installed at `$GLSLANG_REPO_PATH`, use the following:
@@ -145,7 +148,7 @@ instance if glslang was installed at `$GLSLANG_REPO_PATH`, use the following:
 
 Upon a sparse checkout, missing components will be skipped during building. Note
 that some components have strict dependencies on each other, with VGF Library
-being required by Scenario Runner and Model Converter.
+being required by Workload Library, Scenario Runner, and Model Converter.
 
 The build artifacts can be installed into a specified location by passing the
 option `--install` with the required path.

@@ -66,6 +66,12 @@ accross multiple vendor implementations.
    emulation-layer/docs/in/index.rst
 
 .. toctree::
+   :maxdepth: 2
+   :caption: ML Workload Library for Vulkan®
+
+   workload-lib/docs/in/index.rst
+
+.. toctree::
    :maxdepth: 1
    :caption: Contribution
 

@@ -4,6 +4,10 @@
 
 ## Unreleased
 
+### Highlights
+
+- Added new ML Workload Library for Vulkan® sw component.
+
 ### Tooling
 
 - Added output comparison utility which compares reference and actual
