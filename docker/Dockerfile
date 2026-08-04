@@ -25,9 +25,9 @@ RUN apt-get update && \
     bash-completion \
     build-essential \
     ca-certificates \
-    clang \
-    clang-format \
-    clang-tidy \
+    clang-20 \
+    clang-format-20 \
+    clang-tidy-20 \
     cmake \
     cppcheck \
     curl \
@@ -38,11 +38,11 @@ RUN apt-get update && \
     git-lfs \
     graphviz \
     jq \
-    libc++-dev \
-    libc++abi-dev \
+    libc++-20-dev \
+     libc++abi-20-dev \
     libgl1-mesa-dri \
     libvulkan-dev \
-    lld \
+    lld-20 \
     mesa-common-dev \
     mesa-utils \
     mesa-vulkan-drivers \
@@ -58,6 +58,14 @@ RUN apt-get update && \
     vulkan-tools \
     wget \
     xmlstarlet
+
+# Configure alternative for clang tooling and defaulting to version 20
+RUN update-alternatives --install /usr/bin/clang clang $(readlink -f $(which clang-20)) 100 && \
+    update-alternatives --install /usr/bin/clang++ clang++ $(readlink -f $(which clang++-20)) 100 && \
+    update-alternatives --install /usr/bin/clang-format clang-format $(readlink -f $(which clang-format-20)) 100 && \
+    update-alternatives --install /usr/bin/clang-tidy clang-tidy $(readlink -f $(which clang-tidy-20)) 100 && \
+    update-alternatives --install /usr/bin/run-clang-tidy run-clang-tidy $(readlink -f $(which run-clang-tidy-20)) 100 && \
+    update-alternatives --install /usr/bin/lld lld $(readlink -f $(which lld-20)) 100
 
 RUN if getent passwd "$uid" >/dev/null; then \
         existing_user="$(getent passwd "$uid" | cut -d: -f1)" && \
