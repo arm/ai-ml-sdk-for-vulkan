@@ -134,9 +134,9 @@ We will increase support in the upcoming releases.
 +----------+---------+-----------+----------+----------+-----------+
 
 
-\*  Experimental support on Darwin via MoltenVK.
-More information can be found in the documentation of ML Emulation
-layer for Vulkan®, in the Darwin section.
+\*  Experimental |SDK_project| support via MoltenVK or KosmicKrisp.
+See :ref:`darwin-support` for
+prerequisites, driver selection, and current limitations.
 
 \** Initial Experimental support on Android™.
 

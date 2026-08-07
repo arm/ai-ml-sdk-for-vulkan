@@ -31,6 +31,7 @@ accross multiple vendor implementations.
    introduction.rst
    cloning.rst
    building.rst
+   darwin.rst
    tensor_aliasing_tutorial.rst
    e2e_pytorch_tutorial.rst
    e2e_tflite_tutorial.rst

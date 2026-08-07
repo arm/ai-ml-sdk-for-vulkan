@@ -85,12 +85,19 @@ from their respective repositories.
 The build system must have:
 
 - CMake 3.25 or later.
-- C/C++ 17 compiler: GCC, or optionally Clang on Linux and MSVC on Windows®.
+- C/C++ 17 compiler: GCC or Clang on Linux, Clang on Darwin, or MSVC on
+  Windows®.
 - Python 3.10 or later. Required python libraries for building are listed in
   `tooling-requirements.txt`.
 - Flatbuffers flatc compiler.
 - Doxygen 1.9.1 or later. (When building documentation)
 - Ninja 1.10 or later.
+
+Building and running on Darwin also requires the
+[LunarG Vulkan® SDK](https://vulkan.lunarg.com/sdk/home#mac). The ML SDK's current
+Darwin support is experimental. See the
+[Darwin support guide](docs/source/darwin.rst) to select either MoltenVK or
+KosmicKrisp through the Vulkan® Loader.
 
 The following dependencies are also needed:
 
