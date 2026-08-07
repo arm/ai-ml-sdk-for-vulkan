@@ -1,0 +1,101 @@
+#
+# SPDX-FileCopyrightText: Copyright 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-License-Identifier: Apache-2.0
+#
+name: Nightly documentation
+
+on:
+  schedule:
+    - cron: '17 0 * * *'
+      timezone: Europe/London
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: Deploy after a successful build
+        type: boolean
+        default: true
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+env:
+  MANIFEST_URL: https://github.com/arm/ai-ml-sdk-manifest.git
+  SDK_DIR: ${{ github.workspace }}/sdk
+  BUILD_DIR: ${{ github.workspace }}/build
+
+jobs:
+  build:
+    name: Build documentation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+
+    permissions:
+      contents: read
+      packages: read
+
+    container:
+      image: ghcr.io/arm/ml-sdk-linux-amd64:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+      options: --user root
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Clone repositories
+        run: |
+          mkdir -p "$SDK_DIR"
+          cd "$SDK_DIR"
+          repo init -u "$MANIFEST_URL" --depth=1
+          repo sync --no-clone-bundle -j "$(nproc)"
+
+      - name: Record resolved revisions
+        run: |
+          cd "$SDK_DIR"
+          repo manifest -r -o "$GITHUB_WORKSPACE/resolved-manifest.xml"
+
+          {
+            echo '### Resolved source revisions'
+            echo '```text'
+            repo forall -p -c 'git rev-parse HEAD'
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Build documentation
+        run: |
+          cd "$SDK_DIR"
+          python scripts/build.py \
+            --build-dir "$BUILD_DIR" \
+            -j "$(nproc)" \
+            --doc-only
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ env.BUILD_DIR }}/docs/out
+
+  deploy:
+    name: Deploy documentation
+    if: github.event_name == 'schedule' || inputs.deploy
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
