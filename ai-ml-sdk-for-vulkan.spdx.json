@@ -621,7 +621,7 @@
             "licenseConcluded": "Apache-2.0",
             "licenseDeclared": "Apache-2.0",
             "copyrightText": "Copyright (c) The Khronos Group Inc.",
-            "versionInfo": "vulkan-sdk-1.4.341.0",
+            "versionInfo": "vulkan-sdk-1.4.357.0",
             "supplier": "Organization: Khronos Group",
             "licenseInfoFromFiles": [
                 "NOASSERTION"
@@ -630,7 +630,7 @@
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/SPIRV-Cross@vulkan-sdk-1.4.341.0"
+                    "referenceLocator": "pkg:generic/SPIRV-Cross@vulkan-sdk-1.4.357.0"
                 }
             ]
         },
@@ -642,7 +642,7 @@
             "licenseConcluded": "MIT",
             "licenseDeclared": "MIT",
             "copyrightText": "Copyright (c) The Khronos Group Inc.",
-            "versionInfo": "8c5559c134abcf432ec59db842404087b9906c1a",
+            "versionInfo": "vulkan-sdk-1.4.357.0",
             "supplier": "Organization: Khronos Group",
             "licenseInfoFromFiles": [
                 "NOASSERTION"
@@ -651,7 +651,7 @@
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/SPIRV-Headers@8c5559c134abcf432ec59db842404087b9906c1a"
+                    "referenceLocator": "pkg:generic/SPIRV-Headers@vulkan-sdk-1.4.357.0"
                 }
             ]
         },
@@ -663,7 +663,7 @@
             "licenseConcluded": "Apache-2.0",
             "licenseDeclared": "Apache-2.0",
             "copyrightText": "Copyright (c) The Khronos Group Inc.",
-            "versionInfo": "605a0154c7743ed4239c0eb7f3c61f17ffde4fd0",
+            "versionInfo": "vulkan-sdk-1.4.357.0",
             "supplier": "Organization: Khronos Group",
             "licenseInfoFromFiles": [
                 "NOASSERTION"
@@ -672,7 +672,7 @@
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/SPIRV-Tools@605a0154c7743ed4239c0eb7f3c61f17ffde4fd0"
+                    "referenceLocator": "pkg:generic/SPIRV-Tools@vulkan-sdk-1.4.357.0"
                 }
             ]
         },
@@ -684,7 +684,7 @@
             "licenseConcluded": "Apache-2.0",
             "licenseDeclared": "Apache-2.0",
             "copyrightText": "Copyright (c) The Khronos Group Inc.",
-            "versionInfo": "vulkan-sdk-1.4.350.0",
+            "versionInfo": "vulkan-sdk-1.4.357.0",
             "supplier": "Organization: Khronos Group",
             "licenseInfoFromFiles": [
                 "NOASSERTION"
@@ -693,7 +693,7 @@
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/Vulkan-Headers@vulkan-sdk-1.4.350.0"
+                    "referenceLocator": "pkg:generic/Vulkan-Headers@vulkan-sdk-1.4.357.0"
                 }
             ]
         },
@@ -705,7 +705,7 @@
             "licenseConcluded": "MIT",
             "licenseDeclared": "MIT",
             "copyrightText": "Copyright (c) 2018 Pranav Srinivas Kumar",
-            "versionInfo": "v3.1",
+            "versionInfo": "v3.2",
             "supplier": "Organization: p-ranav (github.com)",
             "licenseInfoFromFiles": [
                 "NOASSERTION"
@@ -714,7 +714,7 @@
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/argparse@v3.1"
+                    "referenceLocator": "pkg:generic/argparse@v3.2"
                 }
             ]
         },
@@ -747,7 +747,7 @@
             "licenseConcluded": "3-Clause BSD License/2-Clause BSD License/MIT/Apache License 2.0/GPL 3 with special bison exception",
             "licenseDeclared": "3-Clause BSD License/2-Clause BSD License/MIT/Apache License 2.0/GPL 3 with special bison exception",
             "copyrightText": "Copyright (c) The Khronos Group Inc.",
-            "versionInfo": "vulkan-sdk-1.4.350.0",
+            "versionInfo": "vulkan-sdk-1.4.357.0",
             "supplier": "Organization: Khronos Group",
             "licenseInfoFromFiles": [
                 "NOASSERTION"
@@ -756,7 +756,7 @@
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/glslang@vulkan-sdk-1.4.350.0"
+                    "referenceLocator": "pkg:generic/glslang@vulkan-sdk-1.4.357.0"
                 }
             ]
         },
@@ -789,7 +789,7 @@
             "licenseConcluded": "MIT",
             "licenseDeclared": "MIT",
             "copyrightText": "NOASSERTION",
-            "versionInfo": "3.11.3",
+            "versionInfo": "3.12.0",
             "supplier": "Organization: nlohmann (github.com)",
             "licenseInfoFromFiles": [
                 "NOASSERTION"
@@ -798,7 +798,7 @@
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/json@3.11.3"
+                    "referenceLocator": "pkg:generic/json@3.12.0"
                 }
             ]
         },
@@ -810,7 +810,7 @@
             "licenseConcluded": "Apache-2.0 WITH LLVM-exception",
             "licenseDeclared": "Apache-2.0 WITH LLVM-exception",
             "copyrightText": "NOASSERTION",
-            "versionInfo": "93c93ff199a1",
+            "versionInfo": "d8b5208b88a3",
             "supplier": "Organization: llvm (github.com)",
             "licenseInfoFromFiles": [
                 "NOASSERTION"
@@ -819,7 +819,7 @@
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/llvm-project@93c93ff199a1"
+                    "referenceLocator": "pkg:generic/llvm-project@d8b5208b88a3"
                 }
             ]
         },
@@ -831,7 +831,7 @@
             "licenseConcluded": "BSD-3-Clause",
             "licenseDeclared": "BSD-3-Clause",
             "copyrightText": "NOASSERTION",
-            "versionInfo": "2.13.6",
+            "versionInfo": "3.1.0",
             "supplier": "Organization: pybind (github.com)",
             "licenseInfoFromFiles": [
                 "NOASSERTION"
@@ -840,7 +840,7 @@
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/pybind11@2.13.6"
+                    "referenceLocator": "pkg:generic/pybind11@3.1.0"
                 }
             ]
         },
@@ -852,7 +852,7 @@
             "licenseConcluded": "(Apache-2.0 WITH LLVM-exception AND Apache-2.0)",
             "licenseDeclared": "(Apache-2.0 WITH LLVM-exception AND Apache-2.0)",
             "copyrightText": "Copyright (c) ARM Limited.",
-            "versionInfo": "v2026.02",
+            "versionInfo": "v2026.05.0",
             "supplier": "Organization: tosa (https://gitlab.arm.com/tosa)",
             "licenseInfoFromFiles": [
                 "NOASSERTION"
@@ -861,7 +861,7 @@
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/tosa-tools@v2026.02"
+                    "referenceLocator": "pkg:generic/tosa-tools@v2026.05.0"
                 }
             ]
         },
