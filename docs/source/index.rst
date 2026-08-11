@@ -29,6 +29,7 @@ accross multiple vendor implementations.
    :caption: Overview
 
    introduction.rst
+   faq.rst
    cloning.rst
    building.rst
    darwin.rst
