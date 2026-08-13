@@ -6,7 +6,7 @@ you must have a scenario specification in the form of a JSON file:
 
 .. code-block:: bash
 
-    $vgf_dump --input ${NAME}.vgf --output scenario.json --scenario-template
+    vgf_dump --input ${NAME}.vgf --output scenario.json --scenario-template
 
 .. note::
    For more information about VGF Library and the VGF Dump Tool, see: :ref:`ML SDK VGF Library`
