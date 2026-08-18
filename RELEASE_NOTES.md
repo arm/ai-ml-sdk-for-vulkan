@@ -2,6 +2,14 @@
 
 ---
 
+## Unreleased
+
+### Tooling
+
+- Added output comparison utility which compares reference and actual
+  tensor outputs using validation metrics: rel_l2, cosine, scale_error,
+  wasserstein_rel, and atol_p999
+
 ## Version 2026.06.0 – *Optical Flow, Runtime & Release Infrastructure*
 
 ### Highlights
