@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# SPDX-FileCopyrightText: Copyright 2025 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2025-2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
 # SPDX-License-Identifier: Apache-2.0
 
 
@@ -147,6 +147,10 @@ export LD_LIBRARY_PATH=$INSTALL_DIR/lib
 echo "Build Emulation Layer"
 run_checks ./sw/emulation-layer
 ./sw/emulation-layer/scripts/build.py -j $(nproc) --doc --test --install $INSTALL_DIR
+
+echo "Build Workload Library"
+run_checks ./sw/workload-lib
+./sw/workload-lib/scripts/build.py -j $(nproc) --doc --test
 
 echo "Build Scenario Runner"
 run_checks ./sw/scenario-runner
