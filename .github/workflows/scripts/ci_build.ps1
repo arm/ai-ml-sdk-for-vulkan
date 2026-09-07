@@ -1,6 +1,6 @@
 #!/usr/bin/env pwsh
 
-# SPDX-FileCopyrightText: Copyright 2025 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2025-2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
 # SPDX-License-Identifier: Apache-2.0
 
 $PSNativeCommandUseErrorActionPreference = $true
@@ -157,6 +157,9 @@ try {
 
     Write-Host "Build Emulation Layer"
     python "./sw/emulation-layer/scripts/build.py" -j $cores --test --install $InstallDir
+
+    Write-Host "Build Workload Library"
+    python "./sw/workload-lib/scripts/build.py" -j $cores --test
 
     Write-Host "Build Scenario Runner"
     python "./sw/scenario-runner/scripts/build.py" -j $cores --test
