@@ -1,5 +1,5 @@
 #
-# SPDX-FileCopyrightText: Copyright 2023-2025 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2023-2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
 # SPDX-License-Identifier: Apache-2.0
 #
 include(cmake/doxygen.cmake)
@@ -38,7 +38,7 @@ endforeach()
 # if not building all components allow warnings
 list(LENGTH ML_SDK_COMPONENTS_DIRS ML_SDK_COMPONENTS_NUM)
 set(SPHINX_WARN_ARGS)
-if(ML_SDK_COMPONENTS_NUM GREATER_EQUAL 4)
+if(ML_SDK_COMPONENTS_NUM GREATER_EQUAL 5)
     list(APPEND SPHINX_WARN_ARGS -W)
 else()
     message(STATUS "Sparse checkout detected, allowing doc warnings")
@@ -61,6 +61,7 @@ add_custom_command(
     COMMAND rm -rf ${SPHINX_BLD_DIR}/emulation-layer/docs/generated
     COMMAND rm -rf ${SPHINX_BLD_DIR}/scenario-runner/docs/generated
     COMMAND rm -rf ${SPHINX_BLD_DIR}/vgf-lib/docs/generated
+    COMMAND rm -rf ${SPHINX_BLD_DIR}/workload-lib/docs/generated
     COMMENT "Remove all component/docs/generated folders"
     VERBATIM
 )
@@ -79,6 +80,8 @@ foreach(component IN LISTS ML_SDK_COMPONENTS_DIRS)
         list(APPEND ML_SDK_DOC_DEP_TARGETS mlel_doc)
     elseif(component STREQUAL "model-converter")
         list(APPEND ML_SDK_DOC_DEP_TARGETS model_converter_doc)
+    elseif(component STREQUAL "workload-lib")
+        list(APPEND ML_SDK_DOC_DEP_TARGETS mlworkloadlib_doc)
     endif()
 endforeach()
 add_dependencies(deps_doc ${ML_SDK_DOC_DEP_TARGETS})

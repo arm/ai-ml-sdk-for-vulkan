@@ -7,6 +7,7 @@ The |SDK_project| is a collection of libraries and tools consisting of various c
 • :ref:`ML SDK VGF Library`
 • :ref:`ML SDK Scenario Runner`
 • :ref:`ML Emulation Layer for Vulkan®`
+• :ref:`ML Workload Library for Vulkan®`
 
 The following figure shows how you can use each of the ML SDK for Vulkan® components in a larger system:
 
@@ -51,6 +52,10 @@ The following gives a brief introduction to each of the ML SDK for Vulkan® comp
     `VK_ARM_data_graph`, `VK_ARM_data_graph_instruction_set_tosa`, and
     `VK_ARM_data_graph_optical_flow`. The corresponding SPIR-V™ extensions and extended instruction sets currently in
     use are `SPV_ARM_graph`, `SPV_ARM_tensors`, `TOSA.001000.1` and `Arm.MotionEngine.100`.
+
+**Workload Library**
+    Provides a C++ runtime API for decoding VGF workloads, configuring their resources,
+    and executing their graph segments through Vulkan®.
 
 In addition to these components, you will find documentation, tutorials, samples, and tests.
 
@@ -111,27 +116,27 @@ Platforms
 This table represents the status of platform support: supported (|/|), unsupported (|x|) and not applicable (|-|).
 We will increase support in the upcoming releases.
 
-+--------------------+-----------+----------+----------+-----------+
-| Platforms          | ML SDK    |  ML SDK  | ML SDK   | ML SDK    |
-|                    | Model     |  VGF     | Scenario | Emulation |
-|                    | Converter |  Library | Runner   | Layer     |
-+==========+=========+===========+==========+==========+===========+
-| Linux    | AArch64 | |/|       | |/|      | |/|      | |/|       |
-+          +---------+-----------+----------+----------+-----------+
-|          | X86-64  | |/|       | |/|      | |/|      | |/|       |
-+----------+---------+-----------+----------+----------+-----------+
-| Windows® | AArch64 | |x|       | |x|      | |x|      | |x|       |
-+          +---------+-----------+----------+----------+-----------+
-|          | X86-64  | |/|       | |/|      | |/|      | |/|       |
-+----------+---------+-----------+----------+----------+-----------+
-| Darwin   | AArch64 | |/|       | |/|      | |/| *    | |/| *     |
-+          +---------+-----------+----------+----------+-----------+
-|          | X86-64  | |x|       | |x|      | |x|      | |x|       |
-+----------+---------+-----------+----------+----------+-----------+
-| Android™ | AArch64 | |-|       | |/| **   | |/| **   | |/| **    |
-+          +---------+-----------+----------+----------+-----------+
-|          | X86-64  | |-|       | |x|      | |x|      | |x|       |
-+----------+---------+-----------+----------+----------+-----------+
++--------------------+-----------+----------+----------+-----------+-----------+
+| Platforms          | ML SDK    |  ML SDK  | ML SDK   | ML SDK    | ML SDK    |
+|                    | Model     |  VGF     | Scenario | Emulation | Workload  |
+|                    | Converter |  Library | Runner   | Layer     | Library   |
++==========+=========+===========+==========+==========+===========+===========+
+| Linux    | AArch64 | |/|       | |/|      | |/|      | |/|       | |/|       |
++          +---------+-----------+----------+----------+-----------+-----------+
+|          | X86-64  | |/|       | |/|      | |/|      | |/|       | |/|       |
++----------+---------+-----------+----------+----------+-----------+-----------+
+| Windows® | AArch64 | |x|       | |x|      | |x|      | |x|       | |x|       |
++          +---------+-----------+----------+----------+-----------+-----------+
+|          | X86-64  | |/|       | |/|      | |/|      | |/|       | |/|       |
++----------+---------+-----------+----------+----------+-----------+-----------+
+| Darwin   | AArch64 | |/|       | |/|      | |/| *    | |/| *     | |/| *     |
++          +---------+-----------+----------+----------+-----------+-----------+
+|          | X86-64  | |x|       | |x|      | |x|      | |x|       | |x|       |
++----------+---------+-----------+----------+----------+-----------+-----------+
+| Android™ | AArch64 | |-|       | |/| **   | |/| **   | |/| **    | |/| **    |
++          +---------+-----------+----------+----------+-----------+-----------+
+|          | X86-64  | |-|       | |x|      | |x|      | |x|       | |x|       |
++----------+---------+-----------+----------+----------+-----------+-----------+
 
 
 \*  Experimental |SDK_project| support via MoltenVK or KosmicKrisp.

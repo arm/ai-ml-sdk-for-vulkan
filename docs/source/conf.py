@@ -1,5 +1,5 @@
 #
-# SPDX-FileCopyrightText: Copyright 2022-2025 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2022-2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
 # SPDX-License-Identifier: Apache-2.0
 #
 import os
@@ -13,7 +13,8 @@ MC_project = "ML SDK Model Converter"
 EL_project = "ML Emulation Layer for Vulkan®"
 SR_project = "ML SDK Scenario Runner"
 VGF_project = "ML SDK VGF Library"
-copyright = "2022-2025, Arm Limited and/or its affiliates <open-source-office@arm.com>"
+WL_project = "ML Workload Library for Vulkan®"
+copyright = "2022-2026, Arm Limited and/or its affiliates <open-source-office@arm.com>"
 author = "Arm Limited"
 
 # Set home project name
@@ -31,6 +32,7 @@ rst_epilog = """
 .. |EL_project| replace:: %s
 .. |SR_project| replace:: %s
 .. |VGF_project| replace:: %s
+.. |WL_project| replace:: %s
 .. |/| replace:: %s
 .. |x| replace:: %s
 .. |-| replace:: %s
@@ -41,6 +43,7 @@ rst_epilog = """
     EL_project,
     SR_project,
     VGF_project,
+    WL_project,
     tick_uni,
     cross_uni,
     dash_uni,

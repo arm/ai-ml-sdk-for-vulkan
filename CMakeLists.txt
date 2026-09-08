@@ -66,12 +66,14 @@ set(ML_SDK_MODEL_CONVERTER_PATH      "${ML_SDK_FOR_VULKAN_PATH}/sw/model-convert
 set(ML_SDK_EMULATION_LAYER_PATH      "${ML_SDK_FOR_VULKAN_PATH}/sw/emulation-layer" CACHE PATH "Path to the ML SDK Emulation Layer for Vulkan")
 set(ML_SDK_SCENARIO_RUNNER_PATH      "${ML_SDK_FOR_VULKAN_PATH}/sw/scenario-runner" CACHE PATH "Path to the ML SDK Scenario Runner")
 set(ML_SDK_VGF_LIB_PATH              "${ML_SDK_FOR_VULKAN_PATH}/sw/vgf-lib" CACHE PATH "Path to the ML SDK VGF Library")
+set(ML_SDK_WORKLOAD_LIB_PATH         "${ML_SDK_FOR_VULKAN_PATH}/sw/workload-lib" CACHE PATH "Path to the ML Workload Library for Vulkan")
 set(ML_SDK_COMPONENTS_DIRS "")
 
 optional_add_subdirectory("${ML_SDK_VGF_LIB_PATH}" vgf-lib)
 optional_add_subdirectory("${ML_SDK_MODEL_CONVERTER_PATH}" model-converter)
 optional_add_subdirectory("${ML_SDK_EMULATION_LAYER_PATH}" emulation-layer)
 optional_add_subdirectory("${ML_SDK_SCENARIO_RUNNER_PATH}" scenario-runner)
+optional_add_subdirectory("${ML_SDK_WORKLOAD_LIB_PATH}" workload-lib)
 
 if(ML_SDK_GENERATE_CPACK)
     set(CPACK_PACKAGE_NAME "ai_ml_sdk_for_vulkan")
