@@ -146,7 +146,7 @@ run_checks ./sw/model-converter
 
 export VK_LAYER_PATH=$INSTALL_DIR/share/vulkan/explicit_layer.d
 export VK_INSTANCE_LAYERS=VK_LAYER_ML_Graph_Emulation:VK_LAYER_ML_Tensor_Emulation
-export LD_LIBRARY_PATH="$INSTALL_DIR/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH="$INSTALL_DIR/lib64:$INSTALL_DIR/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 
 echo "Build Emulation Layer"
 run_checks ./sw/emulation-layer
