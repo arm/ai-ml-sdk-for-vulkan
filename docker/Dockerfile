@@ -22,7 +22,7 @@ ENV PATH=/opt/rh/gcc-toolset-14/root/usr/bin:/opt/cppcheck/bin:/opt/venv/bin:/ho
 ENV RH_SW_VULKAN=1
 
 # Base development tools
-# PowerTools supplies Doxygen and Ninja; EPEL supplies the ABI tools.
+# PowerTools supplies Ninja; EPEL supplies the ABI tools.
 ARG CLANG_VERSION=20.1.8-2.module_el8.10.0+4062+b20d4441
 RUN dnf install -y \
       dnf-plugins-core \
@@ -40,7 +40,6 @@ RUN dnf install -y \
       "clang-${CLANG_VERSION}" \
       "clang-tools-extra-${CLANG_VERSION}" \
       curl \
-      doxygen \
       elfutils \
       findutils \
       flex \
@@ -81,6 +80,21 @@ RUN dnf install -y \
       xz && \
     dnf clean all && \
     rm -rf /var/cache/dnf
+
+# AlmaLinux 8's Doxygen 1.8.14 does not support
+# WARN_AS_ERROR=FAIL_ON_WARNINGS. Build a pinned version for both architectures.
+ARG DOXYGEN_VERSION=1.9.8
+RUN git clone --depth 1 --branch "Release_${DOXYGEN_VERSION//./_}" \
+      https://github.com/doxygen/doxygen.git /tmp/doxygen && \
+    cmake \
+      -S /tmp/doxygen \
+      -B /tmp/doxygen/build \
+      -G Ninja \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_INSTALL_PREFIX=/usr/local && \
+    cmake --build /tmp/doxygen/build -j "$(nproc)" && \
+    cmake --install /tmp/doxygen/build && \
+    rm -rf /tmp/doxygen
 
 RUN git lfs install
 
