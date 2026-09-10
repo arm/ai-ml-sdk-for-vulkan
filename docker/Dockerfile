@@ -5,142 +5,258 @@
 
 # syntax=docker/dockerfile:1.10
 
-ARG ubuntu_version=24.04
-FROM ubuntu:$ubuntu_version
+ARG almalinux_version=8.10
+FROM almalinux:${almalinux_version}
+
+SHELL ["/bin/bash", "-o", "errexit", "-o", "pipefail", "-c"]
+
+ARG TARGETARCH
 ARG user=mlsdkuser
 ARG uid=1000
 
-ARG BUILDPLATFORM
-
 ENV LANG=C.UTF-8
-ENV DEBIAN_FRONTEND=noninteractive
-ENV ANDROID_HOME="/opt/android/sdk"
-ENV PATH="/home/$user/.local/bin:$PATH"
+ENV ANDROID_HOME=/opt/android/sdk
+ENV PATH=/opt/rh/gcc-toolset-14/root/usr/bin:/opt/cppcheck/bin:/opt/venv/bin:/home/${user}/.local/bin:${PATH}
 
-RUN apt-get update && \
-    apt-get install -y \
-    abi-compliance-checker \
-    abi-dumper \
-    bash \
-    bash-completion \
-    build-essential \
-    ca-certificates \
-    clang-20 \
-    clang-format-20 \
-    clang-tidy-20 \
-    cmake \
-    cppcheck \
-    curl \
-    doxygen \
-    g++-aarch64-linux-gnu \
-    gcc-aarch64-linux-gnu \
-    git \
-    git-lfs \
-    graphviz \
-    jq \
-    libc++-20-dev \
-     libc++abi-20-dev \
-    libgl1-mesa-dri \
-    libvulkan-dev \
-    lld-20 \
-    mesa-common-dev \
-    mesa-utils \
-    mesa-vulkan-drivers \
-    ninja-build \
-    openjdk-17-jdk \
-    pkg-config \
-    python3 \
-    python3-pip \
-    python3-venv \
-    python-is-python3 \
-    sudo \
-    unzip \
-    vulkan-tools \
-    wget \
-    xmlstarlet
+# RHEL and AlmaLinux disable the Lavapipe software Vulkan driver unless this variable is set.
+ENV RH_SW_VULKAN=1
 
-# Configure alternative for clang tooling and defaulting to version 20
-RUN update-alternatives --install /usr/bin/clang clang $(readlink -f $(which clang-20)) 100 && \
-    update-alternatives --install /usr/bin/clang++ clang++ $(readlink -f $(which clang++-20)) 100 && \
-    update-alternatives --install /usr/bin/clang-format clang-format $(readlink -f $(which clang-format-20)) 100 && \
-    update-alternatives --install /usr/bin/clang-tidy clang-tidy $(readlink -f $(which clang-tidy-20)) 100 && \
-    update-alternatives --install /usr/bin/run-clang-tidy run-clang-tidy $(readlink -f $(which run-clang-tidy-20)) 100 && \
-    update-alternatives --install /usr/bin/lld lld $(readlink -f $(which lld-20)) 100
-
-RUN if getent passwd "$uid" >/dev/null; then \
-        existing_user="$(getent passwd "$uid" | cut -d: -f1)" && \
-        existing_group="$(id -gn "$existing_user")" && \
-        if [ "$existing_group" != "$user" ]; then \
-            groupmod -n "$user" "$existing_group"; \
-        fi && \
-        if [ "$existing_user" != "$user" ]; then \
-            usermod -l "$user" "$existing_user"; \
-        fi && \
-        usermod -c "" -d "/home/$user" -m "$user"; \
-    else \
-        useradd -m -u "$uid" -U "$user"; \
-    fi && \
-    echo "$user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-
-RUN mkdir -p /home/$user/.local/bin
-
-RUN curl -sSL -o /home/$user/.local/bin/repo https://storage.googleapis.com/git-repo-downloads/repo && \
-    chmod u+x . /home/$user/.local/bin/repo
-
-# Install glslang vulkan-sdk-1.4.341.0 (16.2.0) -- needed for compiling EL shaders when cross-compiling
-RUN git clone --depth 1 https://github.com/KhronosGroup/glslang.git -b vulkan-sdk-1.4.341.0 && \
-    cd glslang && \
-    python3 update_glslang_sources.py && \
-    cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DENABLE_GLSLANG_BINARIES=ON -DENABLE_OPT=OFF -DBUILD_SHARED_LIBS=OFF && \
-    cmake --build build --target glslang-standalone -j $(nproc) && \
-    cp build/StandAlone/glslang /home/$user/.local/bin && \
-    cd .. && rm -rf glslang
-
-# Install sccache v0.12.0 -- building cache to speed up builds
-RUN mkdir -p /home/$user/sccache
-WORKDIR /home/$user/sccache
-RUN if [ "$BUILDPLATFORM" = "linux/amd64" ] ; then ARCH="x86_64"; else ARCH="aarch64"; fi && \
-    curl -sSL -o sccache-v0.12.0-${ARCH}-unknown-linux-musl.tar.gz  https://github.com/mozilla/sccache/releases/download/v0.12.0/sccache-v0.12.0-${ARCH}-unknown-linux-musl.tar.gz && \
-    tar xvf sccache-v0.12.0-${ARCH}-unknown-linux-musl.tar.gz --strip-components=1 && \
-    cp sccache /home/$user/.local/bin/ && \
-    rm -rf /home/$user/sccache
-
-# Install uv - python package management and wheel creation
-RUN curl -sSL -o /tmp/uv-installer.sh https://astral.sh/uv/install.sh && \
-    UV_INSTALL_DIR=/home/$user/.local/bin sh /tmp/uv-installer.sh && \
-    rm /tmp/uv-installer.sh
-
-# Install Gradle 9.4.1 - needed for APK packaging for Android
-RUN wget https://services.gradle.org/distributions/gradle-9.4.1-bin.zip -O /tmp/gradle-9.4.1-bin.zip && \
-    unzip /tmp/gradle-9.4.1-bin.zip -d /opt && \
-    ln -sf /opt/gradle-9.4.1/bin/gradle /home/$user/.local/bin/gradle && \
-    rm /tmp/gradle-9.4.1-bin.zip
-
-# Install command-line tools -- needed for Android build and testing
-RUN mkdir -p /opt/android/sdk/cmdline-tools && \
-    wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O /tmp/commandlinetools-linux-11076708_latest.zip && \
-    unzip -qo /tmp/commandlinetools-linux-11076708_latest.zip -d /opt/android/sdk/cmdline-tools && \
-    mv /opt/android/sdk/cmdline-tools/cmdline-tools /opt/android/sdk/cmdline-tools/latest && \
-    ln -sf /opt/android/sdk/cmdline-tools/latest/bin/sdkmanager /home/$user/.local/bin/sdkmanager && \
-    ln -sf /opt/android/sdk/cmdline-tools/latest/bin/avdmanager /home/$user/.local/bin/avdmanager && \
-    rm /tmp/commandlinetools-linux-11076708_latest.zip
+# Base development tools
+# PowerTools supplies Doxygen and Ninja; EPEL supplies the ABI tools.
+ARG CLANG_VERSION=20.1.8-2.module_el8.10.0+4062+b20d4441
+RUN dnf install -y \
+      dnf-plugins-core \
+      epel-release && \
+    dnf config-manager --set-enabled powertools && \
+    dnf install -y \
+      abi-compliance-checker \
+      abi-dumper \
+      bash \
+      bash-completion \
+      binutils \
+      bison \
+      ca-certificates \
+      cmake \
+      "clang-${CLANG_VERSION}" \
+      "clang-tools-extra-${CLANG_VERSION}" \
+      curl \
+      doxygen \
+      elfutils \
+      findutils \
+      flex \
+      gcc-toolset-14-binutils \
+      gcc-toolset-14-gcc \
+      gcc-toolset-14-gcc-c++ \
+      gcc-toolset-14-libasan-devel \
+      gcc-toolset-14-libubsan-devel \
+      git \
+      git-lfs \
+      glx-utils \
+      graphviz \
+      gzip \
+      jq \
+      "lld-${CLANG_VERSION}" \
+      make \
+      mesa-dri-drivers \
+      mesa-libGL-devel \
+      mesa-libGLU-devel \
+      mesa-vulkan-drivers \
+      ninja-build \
+      patch \
+      pkgconf-pkg-config \
+      procps-ng \
+      python3.12 \
+      python3.12-devel \
+      python3.12-pip \
+      shadow-utils \
+      sudo \
+      tar \
+      unzip \
+      vulkan-headers \
+      vulkan-loader-devel \
+      vulkan-tools \
+      wget \
+      which \
+      xmlstarlet \
+      xz && \
+    dnf clean all && \
+    rm -rf /var/cache/dnf
 
 RUN git lfs install
 
-RUN uv venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
-RUN uv pip install twine "dohq-artifactory>=1.0.1,<2"
+# AArch64 GNU cross-toolchain - amd64 only.
+ARG ARM_GNU_TOOLCHAIN_VERSION=14.3.rel1
+ARG ARM_GNU_TOOLCHAIN_SHA256=ddeaff1ea60d4135acba271b0143d9f5add02b68ab9e9be39672d1965c12e82f
+RUN if [ "${TARGETARCH}" = amd64 ]; then \
+      toolchain="arm-gnu-toolchain-${ARM_GNU_TOOLCHAIN_VERSION}-x86_64-aarch64-none-linux-gnu"; \
+      curl -fsSL -o "/tmp/${toolchain}.tar.xz" \
+        "https://developer.arm.com/-/media/Files/downloads/gnu/${ARM_GNU_TOOLCHAIN_VERSION}/binrel/${toolchain}.tar.xz"; \
+      echo "${ARM_GNU_TOOLCHAIN_SHA256}  /tmp/${toolchain}.tar.xz" | sha256sum -c -; \
+      mkdir -p /opt/arm-gnu-toolchain; \
+      tar -xJf "/tmp/${toolchain}.tar.xz" \
+        --strip-components=1 \
+        -C /opt/arm-gnu-toolchain; \
+      for tool_path in /opt/arm-gnu-toolchain/bin/aarch64-none-linux-gnu-*; do \
+        tool="${tool_path##*/aarch64-none-linux-gnu-}"; \
+        ln -s "${tool_path}" "/usr/local/bin/aarch64-linux-gnu-${tool}"; \
+      done; \
+      ln -s /opt/arm-gnu-toolchain/aarch64-none-linux-gnu/libc \
+        /usr/aarch64-linux-gnu; \
+      rm "/tmp/${toolchain}.tar.xz"; \
+    fi
 
-COPY --chown=$user ../requirements.txt ./
-COPY --chown=$user ../tooling-requirements.txt ./
-RUN uv pip install -r requirements.txt
-RUN uv pip install -r tooling-requirements.txt
-RUN rm -f requirements.txt tooling-requirements.txt
+# libc++ and libc++abi are not packaged for AlmaLinux 8.
+ARG LLVM_VERSION=20.1.8
+RUN git clone --depth 1 --branch "llvmorg-${LLVM_VERSION}" \
+      https://github.com/llvm/llvm-project.git /tmp/llvm-project && \
+    cmake \
+      -S /tmp/llvm-project/runtimes \
+      -B /tmp/llvm-project/build \
+      -G Ninja \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_C_COMPILER=clang \
+      -DCMAKE_CXX_COMPILER=clang++ \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_INSTALL_LIBDIR=lib64 \
+      -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi" \
+      -DLIBCXX_INCLUDE_TESTS=OFF \
+      -DLIBCXXABI_INCLUDE_TESTS=OFF \
+      -DLIBCXXABI_USE_LLVM_UNWINDER=OFF \
+      -DPython3_EXECUTABLE=/usr/bin/python3.12 && \
+    cmake --build /tmp/llvm-project/build --target install-cxx install-cxxabi -j "$(nproc)" && \
+    rm -rf /tmp/llvm-project
 
-RUN chown -R $user:$user /opt/android
+# Non-root development user
+RUN if getent passwd "${uid}" >/dev/null; then \
+      old_user="$(getent passwd "${uid}" | cut -d: -f1)"; \
+      old_group="$(id -gn "${old_user}")"; \
+      if [ "${old_group}" != "${user}" ]; then \
+        groupmod -n "${user}" "${old_group}"; \
+      fi; \
+      if [ "${old_user}" != "${user}" ]; then \
+        usermod -l "${user}" "${old_user}"; \
+      fi; \
+      usermod -c "" -d "/home/${user}" -m "${user}"; \
+    else \
+      useradd -m -u "${uid}" -U "${user}"; \
+    fi && \
+    echo "${user} ALL=(ALL) NOPASSWD:ALL" > "/etc/sudoers.d/${user}" && \
+    chmod 0440 "/etc/sudoers.d/${user}" && \
+    install -d -o "${user}" -g "${user}" "/home/${user}/.local/bin"
 
-WORKDIR /home/$user
-RUN chown -R $user:$user .
+# cppcheck - AlmaLinux 8's cppcheck package is too old, compile it from source
+ARG CPPCHECK_VERSION=2.13.0
+RUN git clone --depth 1 --branch "${CPPCHECK_VERSION}" \
+      https://github.com/cppcheck-opensource/cppcheck.git /tmp/cppcheck && \
+    cmake \
+      -S /tmp/cppcheck \
+      -B /tmp/cppcheck/build \
+      -G Ninja \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DBUILD_GUI=OFF \
+      -DCMAKE_INSTALL_PREFIX=/opt/cppcheck && \
+    cmake --build /tmp/cppcheck/build -j "$(nproc)" && \
+    cmake --install /tmp/cppcheck/build && \
+    rm -rf /tmp/cppcheck
 
-USER $user
+# Repo
+RUN curl -fsSL -o "/home/${user}/.local/bin/repo" \
+      https://storage.googleapis.com/git-repo-downloads/repo && \
+    chmod 0755 "/home/${user}/.local/bin/repo"
+
+# glslang from latest sdk
+ARG GLSLANG_VERSION=vulkan-sdk-1.4.357.0
+RUN git clone --depth 1 --branch "${GLSLANG_VERSION}" \
+      https://github.com/KhronosGroup/glslang.git /tmp/glslang && \
+    cd /tmp/glslang && \
+    /usr/bin/python3.12 update_glslang_sources.py && \
+    cmake \
+      -S /tmp/glslang \
+      -B /tmp/glslang/build \
+      -G Ninja \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DENABLE_GLSLANG_BINARIES=ON \
+      -DENABLE_OPT=OFF \
+      -DBUILD_SHARED_LIBS=OFF && \
+    cmake --build /tmp/glslang/build --target glslang-standalone -j "$(nproc)" && \
+    install -m 0755 /tmp/glslang/build/StandAlone/glslang \
+      "/home/${user}/.local/bin/glslang" && \
+    rm -rf /tmp/glslang
+
+# sccache
+ARG SCCACHE_VERSION=0.17.0
+RUN case "${TARGETARCH}" in \
+      amd64) architecture=x86_64 ;; \
+      arm64) architecture=aarch64 ;; \
+      *) \
+        echo "Unsupported TARGETARCH: ${TARGETARCH}" >&2; \
+        exit 1 \
+        ;; \
+    esac && \
+    archive="sccache-v${SCCACHE_VERSION}-${architecture}-unknown-linux-musl.tar.gz" && \
+    curl -fsSLO \
+      "https://github.com/mozilla/sccache/releases/download/v${SCCACHE_VERSION}/${archive}" && \
+    tar -xzf "${archive}" && \
+    install -m 0755 \
+      "sccache-v${SCCACHE_VERSION}-${architecture}-unknown-linux-musl/sccache" \
+      "/home/${user}/.local/bin/sccache" && \
+    rm -rf "${archive}" \
+      "sccache-v${SCCACHE_VERSION}-${architecture}-unknown-linux-musl"
+
+# uv
+ARG UV_VERSION=0.12.9
+RUN curl --proto '=https' --tlsv1.2 -fsSL -o /tmp/uv-installer.sh \
+      "https://releases.astral.sh/github/uv/releases/download/${UV_VERSION}/uv-installer.sh" && \
+    UV_INSTALL_DIR="/home/${user}/.local/bin" sh /tmp/uv-installer.sh && \
+    rm /tmp/uv-installer.sh
+
+# Android development tools - amd64 only.
+ARG GRADLE_VERSION=9.4.1
+ARG ANDROID_COMMAND_LINE_TOOLS_VERSION=11076708
+RUN if [ "${TARGETARCH}" = amd64 ]; then \
+      dnf install -y java-17-openjdk-devel; \
+      dnf clean all; \
+      rm -rf /var/cache/dnf; \
+      gradle_archive="gradle-${GRADLE_VERSION}-bin.zip"; \
+      wget -q -O "/tmp/${gradle_archive}" \
+        "https://services.gradle.org/distributions/${gradle_archive}"; \
+      wget -q -O "/tmp/${gradle_archive}.sha256" \
+        "https://services.gradle.org/distributions/${gradle_archive}.sha256"; \
+      echo "$(< "/tmp/${gradle_archive}.sha256")  /tmp/${gradle_archive}" | sha256sum -c -; \
+      unzip -q "/tmp/${gradle_archive}" -d /opt; \
+      ln -s "/opt/gradle-${GRADLE_VERSION}/bin/gradle" \
+        "/home/${user}/.local/bin/gradle"; \
+      android_archive="commandlinetools-linux-${ANDROID_COMMAND_LINE_TOOLS_VERSION}_latest.zip"; \
+      wget -q -O "/tmp/${android_archive}" \
+        "https://dl.google.com/android/repository/${android_archive}"; \
+      mkdir -p "${ANDROID_HOME}/cmdline-tools"; \
+      unzip -q "/tmp/${android_archive}" -d "${ANDROID_HOME}/cmdline-tools"; \
+      mv "${ANDROID_HOME}/cmdline-tools/cmdline-tools" \
+        "${ANDROID_HOME}/cmdline-tools/latest"; \
+      ln -s "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" \
+        "/home/${user}/.local/bin/sdkmanager"; \
+      ln -s "${ANDROID_HOME}/cmdline-tools/latest/bin/avdmanager" \
+        "/home/${user}/.local/bin/avdmanager"; \
+      rm -f "/tmp/${gradle_archive}" "/tmp/${gradle_archive}.sha256" \
+        "/tmp/${android_archive}"; \
+    fi
+
+# Python development environment
+RUN uv venv --python /usr/bin/python3.12 /opt/venv
+COPY requirements.txt tooling-requirements.txt /tmp/requirements/
+RUN uv pip install \
+      twine "dohq-artifactory>=1.0.1,<2" && \
+    uv pip install -r /tmp/requirements/requirements.txt && \
+    uv pip install -r /tmp/requirements/tooling-requirements.txt && \
+    rm -rf /tmp/requirements
+
+# File ownership
+RUN if [ -d "${ANDROID_HOME}" ]; then \
+      chown -R "${user}:${user}" "${ANDROID_HOME}"; \
+    fi && \
+    chown -R "${user}:${user}" "/home/${user}"
+
+WORKDIR /home/${user}
+USER ${user}
+
 CMD ["/bin/bash"]
