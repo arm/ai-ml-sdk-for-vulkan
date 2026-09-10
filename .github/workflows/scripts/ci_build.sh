@@ -107,6 +107,10 @@ EOF
 fi
 
 run_checks() {
+  # Disable pre-commit checks on Darwin - incompatible version of some tools
+  if [[ "$(uname)" == "Darwin" ]]; then
+    return
+  fi
   pushd "${1}"
   echo "Current commit: $(git rev-parse HEAD)"
   pre-commit run --all-files --hook-stage commit --show-diff-on-failure
