@@ -74,10 +74,7 @@ class Builder:
                 cmake_setup_cmd.append(
                     f"-DCMAKE_TOOLCHAIN_FILE={CMAKE_TOOLCHAIN_PATH / 'gcc.cmake'}"
                 )
-                if self.enable_glsl_support:
-                    cmake_setup_cmd.append("-DML_WORKLOAD_LIB_ENABLE_GLSL_SUPPORT=ON")
                 if self.enable_hlsl_support:
-                    cmake_setup_cmd.append("-DML_WORKLOAD_LIB_ENABLE_HLSL_SUPPORT=ON")
                     cmake_setup_cmd.append("-DSCENARIO_RUNNER_ENABLE_HLSL_SUPPORT=ON")
                 return True
             if system == "Darwin":
@@ -90,10 +87,7 @@ class Builder:
                     f"-DCMAKE_TOOLCHAIN_FILE={CMAKE_TOOLCHAIN_PATH / 'windows-msvc.cmake'}"
                 )
                 cmake_setup_cmd.append("-DMSVC=ON")
-                if self.enable_glsl_support:
-                    cmake_setup_cmd.append("-DML_WORKLOAD_LIB_ENABLE_GLSL_SUPPORT=ON")
                 if self.enable_hlsl_support:
-                    cmake_setup_cmd.append("-DML_WORKLOAD_LIB_ENABLE_HLSL_SUPPORT=ON")
                     cmake_setup_cmd.append("-DSCENARIO_RUNNER_ENABLE_HLSL_SUPPORT=ON")
                 return True
             print(f"Unsupported host platform {system}", file=sys.stderr)
@@ -108,10 +102,7 @@ class Builder:
             cmake_setup_cmd.append(
                 f"-DCMAKE_TOOLCHAIN_FILE={CMAKE_TOOLCHAIN_PATH / 'clang.cmake'}"
             )
-            if self.enable_glsl_support:
-                cmake_setup_cmd.append("-DML_WORKLOAD_LIB_ENABLE_GLSL_SUPPORT=ON")
             if self.enable_hlsl_support:
-                cmake_setup_cmd.append("-DML_WORKLOAD_LIB_ENABLE_HLSL_SUPPORT=ON")
                 cmake_setup_cmd.append("-DSCENARIO_RUNNER_ENABLE_HLSL_SUPPORT=ON")
             return True
 
@@ -160,6 +151,12 @@ class Builder:
         ]
         if not self.setup_platform_build(cmake_setup_cmd):
             return 1
+
+        if self.enable_glsl_support:
+            cmake_setup_cmd.append("-DML_WORKLOAD_LIB_ENABLE_GLSL_SUPPORT=ON")
+
+        if self.enable_hlsl_support:
+            cmake_setup_cmd.append("-DML_WORKLOAD_LIB_ENABLE_HLSL_SUPPORT=ON")
 
         if self.install or self.package_tgz or self.package_zip:
             cmake_setup_cmd.append(f"-DML_SDK_GENERATE_CPACK=ON")
@@ -390,7 +387,6 @@ def parse_arguments():
         action="store_true",
         default=False,
     )
-
     if argcomplete:
         argcomplete.autocomplete(parser)
     args = parser.parse_args()
