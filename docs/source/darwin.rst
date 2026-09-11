@@ -27,7 +27,7 @@ Prerequisites
 The following prerequisites apply when using either MoltenVK or KosmicKrisp:
 
 * Xcode Command Line Tools, including Clang.
-* Python 3.10 or later, CMake 3.25 or later, and Ninja 1.10 or later.
+* Python 3.10 or later, CMake 3.25 or later, and Ninja 1.8.2 or later.
 * The `LunarG Vulkan® SDK for Darwin <https://vulkan.lunarg.com/sdk/home#mac>`_.
 * The normal |SDK_project| source dependencies. Using the Repo tool as described
   in :doc:`cloning` obtains the preferred dependency versions.
