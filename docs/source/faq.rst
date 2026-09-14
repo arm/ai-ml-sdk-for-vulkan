@@ -54,35 +54,9 @@ Where can I find supported prebuilt packages, and how do I get started?
 -----------------------------------------------------------------------
 
 Supported prebuilt ML SDK packages are distributed through PyPI. Install the
-component you need:
-
-.. list-table::
-   :header-rows: 1
-
-   * - Component
-     - Install from PyPI
-     - Start with
-   * - `Model Converter <https://pypi.org/project/ai-ml-sdk-model-converter/>`_
-     - ``pip install ai-ml-sdk-model-converter``
-     - :doc:`Convert a model <model-converter/docs/in/usage>`
-   * - `VGF Library <https://pypi.org/project/ai-ml-sdk-vgf-library/>`_
-     - ``pip install ai-ml-sdk-vgf-library``
-     - :doc:`Build the VGF Library <vgf-lib/docs/in/building>`
-   * - `Workload Library <https://pypi.org/project/ai-ml-workload-library-for-vulkan/>`_
-     - ``pip install ai-ml-workload-library-for-vulkan``
-     - :doc:`Use the Workload Library <workload-lib/docs/in/usage>`
-   * - `Scenario Runner <https://pypi.org/project/ai-ml-sdk-scenario-runner/>`_
-     - ``pip install ai-ml-sdk-scenario-runner``
-     - :doc:`Run a scenario <scenario-runner/docs/in/usage>`
-   * - `Emulation Layer <https://pypi.org/project/ai-ml-emulation-layer-for-vulkan/>`_
-     - ``pip install ai-ml-emulation-layer-for-vulkan``
-     - :doc:`Use the Emulation Layer <emulation-layer/docs/in/usage>`
-
-.. note::
-   Before installing, open each PyPI project's **Download files** page and
-   check that a wheel matches your operating system, architecture, and Python
-   version or ABI. Publishing a package does not guarantee a compatible file
-   for every system.
+component you need. See :doc:`Install prebuilt packages <installing>` for the
+available packages, host requirements, platform guidance, and instructions for
+checking wheel compatibility.
 
 .. _faq-darwin-support:
 
