@@ -270,6 +270,75 @@ RUN if [ -d "${ANDROID_HOME}" ]; then \
     fi && \
     chown -R "${user}:${user}" "/home/${user}"
 
+# Build a headless Lavapipe alongside AlmaLinux's other Mesa drivers and Vulkan loader.
+# Install, build and clean up in one layer, retaining the original SDK packages.
+# System Mesa uses LLVM 17. Link LLVM 20 statically and hide its archive symbols
+# so normal multi-driver discovery cannot mix incompatible LLVM implementations.
+# This makes Lavapipe larger, but avoids forcing CPU-only discovery through ENV.
+ARG MESA_VERSION=25.2.8
+ARG MESA_SHA256=097842f3e49d996868b38688db87b006f7d4541e93ce86d2f341d8b3e7be7c93
+ARG LAVAPIPE_BUILD_JOBS=12
+RUN lavapipe_tmp="$(mktemp -d /tmp/lavapipe-build-XXXXXX)" && \
+    cd "${lavapipe_tmp}" && \
+    rpm -qa | sort > packages-before.txt && \
+    dnf install -y \
+      "llvm-devel-${CLANG_VERSION}" \
+      zlib-devel \
+      libxml2-devel \
+      elfutils-libelf-devel && \
+    python3.12 -m venv build-tools && \
+    build-tools/bin/pip install --no-cache-dir \
+      meson==1.9.1 Mako==1.3.10 packaging==25.0 PyYAML==6.0.3 && \
+    install -m 0755 "/home/${user}/.local/bin/glslang" \
+      build-tools/bin/glslangValidator && \
+    export PATH="${lavapipe_tmp}/build-tools/bin:${PATH}" CC=clang CXX=clang++ && \
+    llvm_archives="$(llvm-config --link-static --libnames | tr ' ' ':')" && \
+    export LDFLAGS="-Wl,--exclude-libs,${llvm_archives}" && \
+    curl --fail --location --retry 3 \
+      "https://archive.mesa3d.org/mesa-${MESA_VERSION}.tar.xz" \
+      --output mesa.tar.xz && \
+    echo "${MESA_SHA256}  mesa.tar.xz" | sha256sum --check - && \
+    tar -xf mesa.tar.xz && \
+    meson setup mesa-build "mesa-${MESA_VERSION}" \
+      --prefix=/opt/mesa-lavapipe --libdir=lib64 --buildtype=release \
+      --wrap-mode=nofallback \
+      -Dvulkan-drivers=swrast -Dgallium-drivers=[] -Dvulkan-layers=[] \
+      -Dplatforms=[] -Dglx=disabled -Degl=disabled -Dgbm=disabled \
+      -Dopengl=false -Dgles1=disabled -Dgles2=disabled \
+      -Dgallium-va=disabled -Dgallium-vdpau=disabled \
+      -Dllvm=enabled -Dshared-llvm=disabled \
+      -Dxmlconfig=disabled -Dexpat=disabled -Dbuild-tests=false && \
+    meson compile -C mesa-build -j "${LAVAPIPE_BUILD_JOBS}" && \
+    meson install -C mesa-build --strip && \
+    mv /opt/mesa-lavapipe/share/vulkan/icd.d/lvp_icd.*.json \
+      /opt/mesa-lavapipe/share/vulkan/icd.d/lvp_icd.json && \
+    install -d /opt/mesa-lavapipe/share/licenses/mesa && \
+    cp -r "mesa-${MESA_VERSION}/licenses/." /opt/mesa-lavapipe/share/licenses/mesa/ && \
+    install -m 0644 "mesa-${MESA_VERSION}/docs/license.rst" \
+      /opt/mesa-lavapipe/share/licenses/mesa/ && \
+    comm -13 packages-before.txt <(rpm -qa | sort) > packages-added.txt && \
+    xargs -r dnf remove -y --noautoremove < packages-added.txt && \
+    # AlmaLinux's LLVM 20 uninstall script leaves this alternative behind.
+    if grep -q '^llvm-devel-' packages-added.txt; then \
+      update-alternatives --remove llvm-config-20 /usr/lib64/llvm20/bin/llvm-config; \
+    fi && \
+    rpm -qa | sort > packages-after.txt && \
+    diff -u packages-before.txt packages-after.txt && \
+    dnf clean all && \
+    cd / && \
+    rm -rf "${lavapipe_tmp}" /var/cache/dnf
+
+# Replace only the existing system Lavapipe ICD registration, not the GPU ICDs.
+# Reusing its filename avoids exposing both old and new CPU drivers to applications.
+# The new manifest points to /opt/mesa-lavapipe; other Mesa libraries stay in place.
+# Do not set VK_DRIVER_FILES or VK_ICD_FILENAMES here: either would restrict normal
+# driver discovery and make GPU CI jobs compensate for an image-wide CPU override.
+# CPU-only hosts discover the new Lavapipe; GPU hosts retain application device selection.
+# A later mesa-vulkan-drivers package update may restore its manifest; reapply this step.
+RUN set -- /usr/share/vulkan/icd.d/lvp_icd.*.json && \
+    test "$#" -eq 1 && test -f "$1" && \
+    install -m 0644 /opt/mesa-lavapipe/share/vulkan/icd.d/lvp_icd.json "$1"
+
 WORKDIR /home/${user}
 USER ${user}
 
