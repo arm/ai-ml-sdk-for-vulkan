@@ -56,8 +56,8 @@ macro(optional_add_subdirectory dir_path binary)
         endif()
     elseif(${binary} STREQUAL "vgf-lib")
         message(WARNING
-            "Component ${dir_path} not found. VGF Library is required by Model Converter, Scenario Runner, "
-            "and Workload Library.")
+            "Component ${dir_path} not found. VGF Library is required by Model Converter and Scenario Runner, "
+            "and for VGF support in Workload Library.")
     else()
         message(WARNING "Optional component ${dir_path} not found. Skipping.")
     endif()
