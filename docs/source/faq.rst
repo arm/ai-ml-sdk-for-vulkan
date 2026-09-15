@@ -225,7 +225,9 @@ Support for ``VK_ARM_data_graph_optical_flow`` starts with ML SDK 2026.06.0.
 That coordinated release uses Scenario Runner 0.10.0 and Emulation Layer
 0.10.0.
 
-See the tagged `ML SDK 2026.06.0 release notes
+See the :doc:`Compatibility matrix <compatibility>` for the complete release and
+component version mapping. See also the tagged `ML SDK
+2026.06.0 release notes
 <https://github.com/arm/ai-ml-sdk-for-vulkan/blob/v2026.06.0/RELEASE_NOTES.md>`_,
 the `2026.06.0 manifest
 <https://github.com/arm/ai-ml-sdk-manifest/blob/v2026.06.0/default.xml>`_, and

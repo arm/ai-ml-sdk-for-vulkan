@@ -31,6 +31,7 @@ accross multiple vendor implementations.
    introduction.rst
    faq.rst
    installing.rst
+   compatibility.rst
    cloning.rst
    building.rst
    darwin.rst
