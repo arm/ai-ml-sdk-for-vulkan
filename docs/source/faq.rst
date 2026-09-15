@@ -68,6 +68,9 @@ component you need:
    * - `VGF Library <https://pypi.org/project/ai-ml-sdk-vgf-library/>`_
      - ``pip install ai-ml-sdk-vgf-library``
      - :doc:`Build the VGF Library <vgf-lib/docs/in/building>`
+   * - `Workload Library <https://pypi.org/project/ai-ml-workload-library-for-vulkan/>`_
+     - ``pip install ai-ml-workload-library-for-vulkan``
+     - :doc:`Use the Workload Library <workload-lib/docs/in/usage>`
    * - `Scenario Runner <https://pypi.org/project/ai-ml-sdk-scenario-runner/>`_
      - ``pip install ai-ml-sdk-scenario-runner``
      - :doc:`Run a scenario <scenario-runner/docs/in/usage>`
