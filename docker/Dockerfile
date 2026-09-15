@@ -31,6 +31,8 @@ RUN dnf install -y \
     dnf install -y \
       abi-compliance-checker \
       abi-dumper \
+      autoconf \
+      automake \
       bash \
       bash-completion \
       binutils \
@@ -80,6 +82,17 @@ RUN dnf install -y \
       xz && \
     dnf clean all && \
     rm -rf /var/cache/dnf
+
+# Build Universal Ctags because AlmaLinux 8 ships only Exuberant Ctags.
+ARG UNIVERSAL_CTAGS_VERSION=6.2.1
+RUN git clone --depth 1 --branch "v${UNIVERSAL_CTAGS_VERSION}" \
+      https://github.com/universal-ctags/ctags.git /tmp/universal-ctags && \
+    cd /tmp/universal-ctags && \
+    ./autogen.sh && \
+    ./configure --prefix=/usr/local && \
+    make -j "$(nproc)" && \
+    make install && \
+    rm -rf /tmp/universal-ctags
 
 # AlmaLinux 8's Doxygen 1.8.14 does not support
 # WARN_AS_ERROR=FAIL_ON_WARNINGS. Build a pinned version for both architectures.
