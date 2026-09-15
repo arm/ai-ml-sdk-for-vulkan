@@ -40,6 +40,7 @@ accross multiple vendor implementations.
    e2e_tflite_tutorial.rst
    e2e_onnx_tutorial.rst
    vgf_run_tutorial.rst
+   performance.rst
    license.rst
 
 
