@@ -44,10 +44,16 @@ else()
     message(STATUS "Sparse checkout detected, allowing doc warnings")
 endif()
 
+set(BREATHE_PROJECT_ARGS -Dbreathe_projects.MLSDK=${DOXYGEN_XML_GEN})
+if(EXISTS "${ML_SDK_SCENARIO_RUNNER_PATH}/CMakeLists.txt")
+    list(APPEND BREATHE_PROJECT_ARGS
+        -Dbreathe_projects.ScenarioRunner=${CMAKE_BINARY_DIR}/scenario-runner/docs/doxygen/xml)
+endif()
+
 add_custom_command(
     OUTPUT ${SPHINX_INDEX_HTML}
     DEPENDS ${DOC_SRC_FILES_FULL_PATHS}
-    COMMAND ${SPHINX_EXECUTABLE} -b html ${SPHINX_WARN_ARGS} -Dbreathe_projects.MLSDK=${DOXYGEN_XML_GEN} ${SPHINX_SRC_DIR} ${SPHINX_BLD_DIR}
+    COMMAND ${SPHINX_EXECUTABLE} -b html ${SPHINX_WARN_ARGS} ${BREATHE_PROJECT_ARGS} ${SPHINX_SRC_DIR} ${SPHINX_BLD_DIR}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "Generating API documentation with Sphinx"
     VERBATIM
