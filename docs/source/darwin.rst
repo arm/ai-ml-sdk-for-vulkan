@@ -3,12 +3,14 @@
 Using the |SDK_project| on Darwin
 =================================
 
-The |SDK_project| supports native builds on Darwin. The Model
-Converter and ML SDK VGF Library run as native tools. Running a workload with
-the ML SDK Scenario Runner and ML Emulation Layer for Vulkan® additionally
-requires a Vulkan® implementation over a translation layer.
+The |SDK_project| supports native builds on Darwin. The Model Converter and VGF
+Library run as native tools. Running a workload with an application that uses
+the Workload Library, or running a scenario with the Scenario Runner and
+Emulation Layer, additionally requires a Vulkan® implementation over a translation
+layer.
 
-Darwin support for the Scenario Runner and Emulation Layer is experimental.
+Darwin support for the Workload Library, Scenario Runner, and Emulation Layer is
+experimental.
 
 Vulkan® driver options
 ----------------------
@@ -139,13 +141,22 @@ Keep the same terminal environment and run the installed Scenario Runner:
    "$ML_SDK/deploy/bin/scenario-runner" \
        --scenario "/absolute/path/to/scenario.json"
 
+Run an application using Workload Library
+------------------------------------------------------------
+
+The Workload Library is linked into an application rather than
+run as an ML SDK executable. Run its samples or your application from the same
+configured terminal. See :doc:`Using the ML Workload Library for Vulkan®
+<workload-lib/docs/in/usage>` for the execution and context-wrapping flows.
+
 Driver limitations
 ------------------
 
 MoltenVK and KosmicKrisp do not support exactly the same optional Vulkan®
 features. Select the driver by setting ``VK_DRIVER_FILES`` as described above
-before starting Scenario Runner. Scenario Runner then uses the selected driver
-through the Vulkan® Loader. Keep these runtime limitations in mind:
+before starting Scenario Runner or an application using the Workload Library.
+The process then uses the selected driver through the Vulkan®
+Loader. Keep these runtime limitations in mind:
 
 * Optical-flow scenarios are not currently supported on Darwin.
 * A scenario can require an optional Vulkan® extension that is absent from the
@@ -191,7 +202,8 @@ Confirm that the installation contains both manifests and both libraries:
    ls "$ML_SDK/deploy/lib/libVkLayer_Tensor.dylib"
 
 Then check ``VK_LAYER_PATH``, ``VK_INSTANCE_LAYERS``, and
-``DYLD_LIBRARY_PATH`` in the terminal that starts Scenario Runner.
+``DYLD_LIBRARY_PATH`` in the terminal that starts Scenario Runner or the
+application using the Workload Library.
 
 Further reading
 ---------------

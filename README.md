@@ -52,6 +52,7 @@ git --version # Ensure you are using the Git for Windows, for example 2.50.1.win
 git clone <git-repo-tool-url>
 python <path-to-git-repo>/git-repo/repo init -u <manifest-url> -g all
 python <path-to-git-repo>/git-repo/repo sync --no-clone-bundle
+```
 
 After the sync command completes successfully, you can find the individual
 components in `<repo_root>/sw/`. You can also find all the required dependencies
@@ -109,6 +110,8 @@ The following dependencies are also needed:
 - [pybind11](https://github.com/pybind/pybind11).
 - [GoogleTest](https://github.com/google/googletest). Optional, for testing.
 - [glslang](https://github.com/KhronosGroup/glslang).
+- [DirectX Shader Compiler](https://github.com/microsoft/DirectXShaderCompiler).
+  Optional, for HLSL source module support.
 - [SPIRV-Headers](https://github.com/KhronosGroup/SPIRV-Headers).
 - [SPIRV-Tools](https://github.com/KhronosGroup/SPIRV-Tools).
 - [SPIRV-Cross](https://github.com/KhronosGroup/SPIRV-Cross).
@@ -121,6 +124,11 @@ pip install -r requirements.txt
 pip install -r tooling-requirements.txt
 ./scripts/build.py
 ```
+
+SPIR-V™ modules are supported by the base ML Workload Library for Vulkan®
+build. Pass `--enable-glsl-support` to enable GLSL source modules, or
+`--enable-hlsl-support` to enable HLSL source modules in the ML Workload
+Library for Vulkan® and in Scenario Runner where supported.
 
 If the ML SDK for Vulkan® components are installed in custom locations, specify
 their paths by adding the following command line option:

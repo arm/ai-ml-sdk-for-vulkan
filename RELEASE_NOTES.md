@@ -6,7 +6,7 @@
 
 ### Highlights
 
-- Added new ML Workload Library for Vulkan® sw component.
+- Added the ML Workload Library for Vulkan® software component.
 
 ### Tooling
 

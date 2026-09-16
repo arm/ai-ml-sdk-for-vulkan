@@ -13,7 +13,7 @@ The following figure shows how you can use each of the ML SDK for Vulkan® compo
 
 .. figure:: assets/ml_sdk_for_vulkan_components.svg
    :align: center
-   :width: 85%
+   :width: 100%
 
 
 The following gives a brief introduction to each of the ML SDK for Vulkan® components:
@@ -54,8 +54,11 @@ The following gives a brief introduction to each of the ML SDK for Vulkan® comp
     use are `SPV_ARM_graph`, `SPV_ARM_tensors`, `TOSA.001000.1` and `Arm.MotionEngine.100`.
 
 **Workload Library**
-    Provides a C++ runtime API for decoding VGF workloads, configuring their resources,
-    and executing their graph segments through Vulkan®.
+    Provides a C++ runtime API for constructing VGF-backed or standalone
+    compute and data-graph workloads. Applications can use an existing Vulkan®
+    context or let the library create one, bind application-owned or
+    library-allocated resources, and run the workload or record it into an
+    application command buffer.
 
 In addition to these components, you will find documentation, tutorials, samples, and tests.
 
@@ -83,14 +86,23 @@ to produce a :code:`.vgf` file. The VGF file contents can then be:
     passing the TOSA intermediate representation to the ML SDK Model Converter for smoother Model Authoring
     workflows when in production.
 
-The application or game component that runs on the device, must integrate the
-:code:`ML SDK VGF Library decoder` library to parse the VGF file contents so that the application or
-game code can set up the required Vulkan® state.
+The application or game running on the device can choose the integration level
+that fits its Vulkan® architecture:
+
+• Integrate the ML Workload Library for Vulkan® for a higher-level execution
+  path. It consumes VGF or programmatic workload descriptions, exposes their
+  resource requirements, configures execution state, and either runs the
+  workload or records it into an application command buffer.
+
+• Integrate the :code:`ML SDK VGF Library decoder` directly when the application
+  needs full control over translating VGF metadata into Vulkan® objects and
+  commands.
 
 .. note::
-    The ML SDK VGF Library does not make any calls into the Vulkan® API. The integration must translate the parsed
-    information directly into Vulkan® API calls, for example, allocating memory and creating resources,
-    pipelines, synchronisation, and session objects.
+    The ML SDK VGF Library does not call the Vulkan® API. In the direct decoder
+    integration path, the application must translate the parsed information
+    into Vulkan® API calls, including memory allocation, resource and pipeline
+    creation, synchronization, and session management.
 
 Exploration
 -----------
@@ -98,6 +110,12 @@ Exploration
 When exploring the viability of a ML use case or API integration, it can be useful to first explore the use
 case for the ML SDK Scenario Runner. The ML SDK Scenario Runner allows running use cases in a declarative manner before
 working on more complicated feature integrations.
+
+The ML Workload Library for Vulkan® samples provide the next step for exploring
+C++ application integration, including VGF inspection and execution,
+standalone compute and data-graph workloads, and application-owned Vulkan®
+contexts. No ML SDK executable currently integrates the library on behalf of
+an application.
 
 .. tip::
     While the API is relatively new, we recommend you use the ML Emulation Layer for Vulkan® for exploration. The Emulation Layer
@@ -117,8 +135,7 @@ This table represents the status of platform support: supported (|/|), unsupport
 We will increase support in the upcoming releases.
 
 +--------------------+-----------+----------+----------+-----------+-----------+
-| Platforms          | ML SDK    |  ML SDK  | ML SDK   | ML SDK    | ML SDK    |
-|                    | Model     |  VGF     | Scenario | Emulation | Workload  |
+| Platforms          | Model     |  VGF     | Scenario | Emulation | Workload  |
 |                    | Converter |  Library | Runner   | Layer     | Library   |
 +==========+=========+===========+==========+==========+===========+===========+
 | Linux    | AArch64 | |/|       | |/|      | |/|      | |/|       | |/|       |
@@ -151,46 +168,46 @@ Tensor Data Types
 -----------------
 
 This table summarizes single-channel tensor element formats that are currently
-handled by the ML SDK Model Converter, ML SDK Scenario Runner, and ML
-Emulation Layer for Vulkan®.
+handled by the ML SDK Model Converter, ML SDK Scenario Runner, ML Emulation
+Layer for Vulkan®, and ML Workload Library for Vulkan®.
 
-The ML SDK VGF Library is not listed because it stores the encoded tensor
-format metadata without adding data type specific validation rules.
+The ML SDK VGF Library is not listed because it stores encoded tensor format
+metadata without adding data type-specific validation rules.
 
 This table represents the status of tensor data type support: supported (|/|)
 and unsupported (|x|).
 
-+--------------------+-----------+----------+-----------+
-| Tensor data type   | ML SDK    | ML SDK   | ML SDK    |
-|                    | Model     | Scenario | Emulation |
-|                    | Converter | Runner   | Layer     |
-+====================+===========+==========+===========+
-| bool               | |/|       | |/|      | |/|       |
-+--------------------+-----------+----------+-----------+
-| uint8              | |/|       | |/|      | |/|       |
-+--------------------+-----------+----------+-----------+
-| int8               | |/|       | |/|      | |/|       |
-+--------------------+-----------+----------+-----------+
-| uint16             | |/|       | |/|      | |/|       |
-+--------------------+-----------+----------+-----------+
-| int16              | |/|       | |/|      | |/|       |
-+--------------------+-----------+----------+-----------+
-| uint32             | |/|       | |/|      | |/|       |
-+--------------------+-----------+----------+-----------+
-| int32              | |/|       | |/|      | |/|       |
-+--------------------+-----------+----------+-----------+
-| int64              | |/|       | |/|      | |/|       |
-+--------------------+-----------+----------+-----------+
-| float16            | |/|       | |/|      | |/|       |
-+--------------------+-----------+----------+-----------+
-| float32            | |/|       | |/|      | |/|       |
-+--------------------+-----------+----------+-----------+
-| BFloat16           | |/|       | |/|      | |/|       |
-+--------------------+-----------+----------+-----------+
-| Float8E4M3         | |/|       | |/|      | |/|       |
-+--------------------+-----------+----------+-----------+
-| Float8E5M2         | |/|       | |/|      | |/|       |
-+--------------------+-----------+----------+-----------+
++--------------------+-----------+----------+-----------+----------+
+| Tensor data type   | ML SDK    | ML SDK   | ML SDK    | Workload |
+|                    | Model     | Scenario | Emulation | Library  |
+|                    | Converter | Runner   | Layer     |          |
++====================+===========+==========+===========+==========+
+| bool               | |/|       | |/|      | |/|       | |/|      |
++--------------------+-----------+----------+-----------+----------+
+| uint8              | |/|       | |/|      | |/|       | |/|      |
++--------------------+-----------+----------+-----------+----------+
+| int8               | |/|       | |/|      | |/|       | |/|      |
++--------------------+-----------+----------+-----------+----------+
+| uint16             | |/|       | |/|      | |/|       | |/|      |
++--------------------+-----------+----------+-----------+----------+
+| int16              | |/|       | |/|      | |/|       | |/|      |
++--------------------+-----------+----------+-----------+----------+
+| uint32             | |/|       | |/|      | |/|       | |/|      |
++--------------------+-----------+----------+-----------+----------+
+| int32              | |/|       | |/|      | |/|       | |/|      |
++--------------------+-----------+----------+-----------+----------+
+| int64              | |/|       | |/|      | |/|       | |/|      |
++--------------------+-----------+----------+-----------+----------+
+| float16            | |/|       | |/|      | |/|       | |/|      |
++--------------------+-----------+----------+-----------+----------+
+| float32            | |/|       | |/|      | |/|       | |/|      |
++--------------------+-----------+----------+-----------+----------+
+| BFloat16           | |/|       | |/|      | |/|       | |/|      |
++--------------------+-----------+----------+-----------+----------+
+| Float8E4M3         | |/|       | |/|      | |/|       | |/|      |
++--------------------+-----------+----------+-----------+----------+
+| Float8E5M2         | |/|       | |/|      | |/|       | |/|      |
++--------------------+-----------+----------+-----------+----------+
 
 The Model Converter column reflects the VGF tensor formats it can emit after
 lowering.
@@ -201,6 +218,11 @@ format handling used by the graph layer.
 The Scenario Runner preserves the payload bytes for BFloat16 and the
 Float8 encodings when reading and writing NumPy files, rather than converting
 them to native NumPy floating-point scalar types.
+
+The Workload Library represents these formats in its resource model and uses
+them when creating Vulkan® tensor descriptions, allocations, and views. Actual
+execution depends on the workload and the formats supported by the target
+Vulkan® implementation.
 
 Refer to :ref:`JSON Test Description Specification` for detailed Scenario
 Runner data type support information.
