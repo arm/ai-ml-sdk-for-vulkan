@@ -83,9 +83,10 @@ RUN dnf install -y \
     dnf clean all && \
     rm -rf /var/cache/dnf
 
-# Build Universal Ctags because AlmaLinux 8 ships only Exuberant Ctags.
-ARG UNIVERSAL_CTAGS_VERSION=6.2.1
-RUN git clone --depth 1 --branch "v${UNIVERSAL_CTAGS_VERSION}" \
+# Build Universal Ctags because AlmaLinux 8 ships only Exuberant Ctags. Pin a
+# release with the legacy OldC++ parser required by ABI Dumper 1.2.
+ARG UNIVERSAL_CTAGS_TAG=p5.9.20210829.0
+RUN git clone --depth 1 --branch "${UNIVERSAL_CTAGS_TAG}" \
       https://github.com/universal-ctags/ctags.git /tmp/universal-ctags && \
     cd /tmp/universal-ctags && \
     ./autogen.sh && \
