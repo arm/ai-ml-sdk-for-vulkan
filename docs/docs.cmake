@@ -51,6 +51,8 @@ set(SPHINX_PYTHONPATH)
 if(EXISTS "${ML_SDK_SCENARIO_RUNNER_PATH}/CMakeLists.txt")
     list(APPEND BREATHE_PROJECT_ARGS
         -Dbreathe_projects.ScenarioRunner=${CMAKE_BINARY_DIR}/scenario-runner/docs/doxygen/xml)
+    list(APPEND SPHINX_PYTHONPATH $<TARGET_FILE_DIR:scenario_runner_py>)
+    list(APPEND SPHINX_DEPENDS scenario_runner_py)
 endif()
 if(TARGET vgfpy)
     list(APPEND SPHINX_PYTHONPATH $<TARGET_FILE_DIR:vgfpy>)
