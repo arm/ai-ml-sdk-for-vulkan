@@ -353,6 +353,14 @@ RUN set -- /usr/share/vulkan/icd.d/lvp_icd.*.json && \
     test "$#" -eq 1 && test -f "$1" && \
     install -m 0644 /opt/mesa-lavapipe/share/vulkan/icd.d/lvp_icd.json "$1"
 
+# Docker CLI for accessing the host daemon through a mounted socket.
+# Add the socket group at runtime to allow non-root access.
+ARG DOCKER_CLI_VERSION=29.8.1-1.el8
+RUN dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo && \
+    dnf install -y --setopt=install_weak_deps=False "docker-ce-cli-${DOCKER_CLI_VERSION}" && \
+    dnf clean all && \
+    rm -rf /var/cache/dnf
+
 WORKDIR /home/${user}
 USER ${user}
 
