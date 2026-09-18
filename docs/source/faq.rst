@@ -213,8 +213,9 @@ creating the Vulkan® device if either dump is requested without both.
    Emulation Layer does not implement this hardware-specific extension, so these
    dumps are unavailable with it.
 
-See the :doc:`Scenario Runner CLI <scenario-runner/docs/in/usage>` and
-:ref:`Neural accelerator statistics` for complete details.
+See :doc:`Performance data and analysis <performance>`, the :doc:`Scenario
+Runner CLI <scenario-runner/docs/in/usage>`, and :ref:`Neural accelerator
+statistics` for complete details.
 
 .. _faq-optical-flow-compatibility:
 
