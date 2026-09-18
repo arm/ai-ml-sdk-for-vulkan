@@ -57,6 +57,7 @@ class Builder:
         self.target_platform = args.target_platform
         self.enable_glsl_support = args.enable_glsl_support
         self.enable_hlsl_support = args.enable_hlsl_support
+        self.disable_workload_lib_vgf_support = args.disable_workload_lib_vgf_support
 
         self.doc_only = args.doc_only
         self.doc = args.doc or self.doc_only
@@ -157,6 +158,9 @@ class Builder:
 
         if self.enable_hlsl_support:
             cmake_setup_cmd.append("-DML_WORKLOAD_LIB_ENABLE_HLSL_SUPPORT=ON")
+
+        if self.disable_workload_lib_vgf_support:
+            cmake_setup_cmd.append("-DML_WORKLOAD_LIB_ENABLE_VGF_SUPPORT=OFF")
 
         if self.install or self.package_tgz or self.package_zip:
             cmake_setup_cmd.append(f"-DML_SDK_GENERATE_CPACK=ON")
@@ -384,6 +388,12 @@ def parse_arguments():
     parser.add_argument(
         "--enable-hlsl-support",
         help=("Enable HLSL to SPIRV compilation"),
+        action="store_true",
+        default=False,
+    )
+    parser.add_argument(
+        "--disable-workload-lib-vgf-support",
+        help="Build ML Workload Library for Vulkan without VGF support",
         action="store_true",
         default=False,
     )

@@ -63,8 +63,9 @@ also fetches only the dependencies required by the selected components. The
 `-g all` in the preceding initialization command is equivalent to selecting the
 `model-converter`, `vgf-lib`, `workload-lib`, `scenario-runner`, and
 `emulation-layer` groups. Some components may also force other components to be
-included. For example, `scenario-runner` and `workload-lib` automatically
-include `vgf-lib` because `vgf-lib` is required.
+included. For example, `scenario-runner` includes `vgf-lib` because it is
+required, while the `workload-lib` group includes it to enable the library's
+default VGF workload support.
 
 Although we do not recommend this method, you can check out the components using
 `git clone` commands directly. This requires checking out each component and
@@ -128,7 +129,9 @@ pip install -r tooling-requirements.txt
 SPIR-V™ modules are supported by the base ML Workload Library for Vulkan®
 build. Pass `--enable-glsl-support` to enable GLSL source modules, or
 `--enable-hlsl-support` to enable HLSL source modules in the ML Workload
-Library for Vulkan® and in Scenario Runner where supported.
+Library for Vulkan® and in Scenario Runner where supported. Pass
+`--disable-workload-lib-vgf-support` to build the library for standalone
+workloads without VGF Library support.
 
 If the ML SDK for Vulkan® components are installed in custom locations, specify
 their paths by adding the following command line option:
@@ -154,8 +157,8 @@ instance if glslang was installed at `$GLSLANG_REPO_PATH`, use the following:
 ```
 
 Upon a sparse checkout, missing components will be skipped during building. Note
-that some components have strict dependencies on each other, with VGF Library
-being required by Workload Library, Scenario Runner, and Model Converter.
+that some components have dependencies on each other. VGF Library is required
+by Scenario Runner and Model Converter, and for VGF support in Workload Library.
 
 The build artifacts can be installed into a specified location by passing the
 option `--install` with the required path.
