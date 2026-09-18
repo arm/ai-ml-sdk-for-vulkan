@@ -3,7 +3,13 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 import os
+import re
 import sys
+from importlib import import_module
+
+from docutils import nodes
+from docutils.parsers.rst import Directive
+from docutils.statemachine import StringList
 
 sys.path.insert(0, os.path.abspath("."))
 
@@ -92,3 +98,57 @@ exclude_patterns = [
     "**/docs/generated/*.md",
     "**/generated/*.md",
 ]
+
+
+class PyEnumTable(Directive):
+    """Generate a compact table of enum members from the Python module."""
+
+    has_content = False
+
+    def run(self):
+        module = import_module("vgfpy")
+        enums = sorted(
+            (name, value)
+            for name, value in vars(module).items()
+            if isinstance(value, type) and hasattr(value, "__members__")
+        )
+        lines = [
+            ".. list-table::",
+            "   :header-rows: 1",
+            "   :widths: 30 70",
+            "",
+            "   * - Enumeration",
+            "     - Members",
+        ]
+        for name, enum in enums:
+            members = ", ".join(f"``{member}``" for member in enum.__members__)
+            lines.extend([f"   * - ``{name}``", f"     - {members}"])
+
+        container = nodes.container()
+        self.state.nested_parse(StringList(lines), self.content_offset, container)
+        return container.children
+
+
+def normalize_pybind11_docstrings(app, what, name, obj, options, lines):
+    """Render pybind11 overload signatures as literals in autodoc output."""
+    if what not in {"function", "method"}:
+        return
+
+    for index, line in enumerate(lines):
+        if re.match(r"^\d+\. [A-Za-z_][A-Za-z0-9_]*\(", line):
+            lines[index] = f"``{line}``"
+
+
+def hide_pybind11_wrapper_signature(
+    app, what, name, obj, options, signature, return_annotation
+):
+    """Prefer pybind11's detailed overload signatures to its *args wrapper."""
+    if signature == "(*args, **kwargs)":
+        return "", return_annotation
+    return signature, return_annotation
+
+
+def setup(app):
+    app.add_directive("py-enum-table", PyEnumTable)
+    app.connect("autodoc-process-docstring", normalize_pybind11_docstrings)
+    app.connect("autodoc-process-signature", hide_pybind11_wrapper_signature)
