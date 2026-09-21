@@ -165,6 +165,9 @@ class Builder:
         if self.install or self.package_tgz or self.package_zip:
             cmake_setup_cmd.append(f"-DML_SDK_GENERATE_CPACK=ON")
 
+        if self.package_tgz or self.package_zip:
+            cmake_setup_cmd.append("-DML_WORKLOAD_LIB_BUILD_SHARED=ON")
+
         if self.package_version:
             cmake_setup_cmd.append(f"-DML_SDK_PACKAGE_VERSION={self.package_version}")
 
