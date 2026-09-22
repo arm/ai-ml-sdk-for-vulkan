@@ -12,6 +12,18 @@
     },
     "name": "ai-ml-sdk-for-vulkan",
     "dataLicense": "CC0-1.0",
+    "hasExtractedLicensingInfos": [
+        {
+            "licenseId": "LicenseRef-57f553be-1865-4577-a5d4-6461aad8472a",
+            "extractedText": "Spencer License 97\n==================\n\nCopyright 1992, 1993, 1994, 1997 Henry Spencer. All rights reserved.\nThis software is not subject to any license of the American Telephone and\nTelegraph Company or of the Regents of the University of California.\n\nPermission is granted to anyone to use this software for any purpose on any\ncomputer system, and to alter it and redistribute it, subject to the following\nrestrictions:\n\n1. The author is not responsible for the consequences of use of this software, no\nmatter how awful, even if they arise from flaws in it.\n\n2. The origin of this software must not be misrepresented, either by explicit\nclaim or by omission. Since few users ever read sources, credits must appear in\nthe documentation.\n\n3. Altered versions must be plainly marked as such, and must not be\nmisrepresented as being the original software. Since few users ever read sources,\ncredits must appear in the documentation.\n\n4. This notice may not be removed or altered.",
+            "name": "Spencer License 97"
+        },
+        {
+            "licenseId": "LicenseRef-6f1ab4e9-b0ed-4b83-b7bd-aff972ed4db3",
+            "extractedText": "Python Imaging Library Software License\n=======================================\n\nThe Python Imaging Library (PIL) is\n\nCopyright © 1997-2011 by Secret Labs AB\nCopyright © 1995-2011 by Fredrik Lundh\n\nPillow is the friendly PIL fork. It is\n\nCopyright © 2010-2018 by Alex Clark and contributors\n\nLike PIL, Pillow is licensed under the open source PIL Software License:\n\nBy obtaining, using, and/or copying this software and/or its associated\ndocumentation, you agree that you have read, understood, and will comply with the\nfollowing terms and conditions:\n\nPermission to use, copy, modify, and distribute this software and its associated\ndocumentation for any purpose and without fee is hereby granted, provided that\nthe above copyright notice appears in all copies, and that both that copyright\nnotice and this permission notice appear in supporting documentation, and that\nthe name of Secret Labs AB or the author not be used in advertising or publicity\npertaining to distribution of the software without specific, written prior\npermission.\n\nSECRET LABS AB AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS\nSOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO\nEVENT SHALL SECRET LABS AB OR THE AUTHOR BE LIABLE FOR ANY SPECIAL, INDIRECT OR\nCONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA\nOR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS\nACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS\nSOFTWARE.",
+            "name": "Python Imaging Library Software License"
+        }
+    ],
     "documentNamespace": "https://blackducksoftware.github.io/spdx/ML%3AMLSDKforVulkan-91d94044-babf-4952-9414-5b86f69239ad",
     "packages": [
         {
@@ -623,9 +635,6 @@
             "copyrightText": "Copyright (c) The Khronos Group Inc.",
             "versionInfo": "vulkan-sdk-1.4.357.0",
             "supplier": "Organization: Khronos Group",
-            "licenseInfoFromFiles": [
-                "NOASSERTION"
-            ],
             "externalRefs": [
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
@@ -644,9 +653,6 @@
             "copyrightText": "Copyright (c) The Khronos Group Inc.",
             "versionInfo": "vulkan-sdk-1.4.357.0",
             "supplier": "Organization: Khronos Group",
-            "licenseInfoFromFiles": [
-                "NOASSERTION"
-            ],
             "externalRefs": [
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
@@ -665,9 +671,6 @@
             "copyrightText": "Copyright (c) The Khronos Group Inc.",
             "versionInfo": "vulkan-sdk-1.4.357.0",
             "supplier": "Organization: Khronos Group",
-            "licenseInfoFromFiles": [
-                "NOASSERTION"
-            ],
             "externalRefs": [
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
@@ -686,9 +689,6 @@
             "copyrightText": "Copyright (c) The Khronos Group Inc.",
             "versionInfo": "vulkan-sdk-1.4.357.0",
             "supplier": "Organization: Khronos Group",
-            "licenseInfoFromFiles": [
-                "NOASSERTION"
-            ],
             "externalRefs": [
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
@@ -707,9 +707,6 @@
             "copyrightText": "Copyright (c) 2018 Pranav Srinivas Kumar",
             "versionInfo": "v3.2",
             "supplier": "Organization: p-ranav (github.com)",
-            "licenseInfoFromFiles": [
-                "NOASSERTION"
-            ],
             "externalRefs": [
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
@@ -728,9 +725,6 @@
             "copyrightText": "NOASSERTION",
             "versionInfo": "25.2.10",
             "supplier": "Organization: google (github.com)",
-            "licenseInfoFromFiles": [
-                "NOASSERTION"
-            ],
             "externalRefs": [
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
@@ -744,14 +738,11 @@
             "name": "glslang",
             "downloadLocation": "NOASSERTION",
             "filesAnalyzed": false,
-            "licenseConcluded": "3-Clause BSD License/2-Clause BSD License/MIT/Apache License 2.0/GPL 3 with special bison exception",
-            "licenseDeclared": "3-Clause BSD License/2-Clause BSD License/MIT/Apache License 2.0/GPL 3 with special bison exception",
+            "licenseConcluded": "BSD-3-Clause AND BSD-2-Clause AND MIT AND Apache-2.0 AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND AML-glslang AND MIT-Khronos-old",
+            "licenseDeclared": "BSD-3-Clause AND BSD-2-Clause AND MIT AND Apache-2.0 AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND AML-glslang AND MIT-Khronos-old",
             "copyrightText": "Copyright (c) The Khronos Group Inc.",
             "versionInfo": "vulkan-sdk-1.4.357.0",
             "supplier": "Organization: Khronos Group",
-            "licenseInfoFromFiles": [
-                "NOASSERTION"
-            ],
             "externalRefs": [
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
@@ -770,9 +761,6 @@
             "copyrightText": "Copyright Google Inc.",
             "versionInfo": "v1.17.0",
             "supplier": "Organization: google (github.com)",
-            "licenseInfoFromFiles": [
-                "NOASSERTION"
-            ],
             "externalRefs": [
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
@@ -791,9 +779,6 @@
             "copyrightText": "NOASSERTION",
             "versionInfo": "3.12.0",
             "supplier": "Organization: nlohmann (github.com)",
-            "licenseInfoFromFiles": [
-                "NOASSERTION"
-            ],
             "externalRefs": [
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
@@ -803,23 +788,20 @@
             ]
         },
         {
-            "SPDXID": "SPDXRef-package-ba671855-d774-4a98-9e56-60d3a6b9d50d",
+            "SPDXID": "SPDXRef-package-e7bd2fb4-8b81-4400-99f1-390dbab23846",
             "name": "llvm-project",
             "downloadLocation": "NOASSERTION",
             "filesAnalyzed": false,
             "licenseConcluded": "Apache-2.0 WITH LLVM-exception",
             "licenseDeclared": "Apache-2.0 WITH LLVM-exception",
             "copyrightText": "NOASSERTION",
-            "versionInfo": "d8b5208b88a3",
+            "versionInfo": "3a8bd232cfa8",
             "supplier": "Organization: llvm (github.com)",
-            "licenseInfoFromFiles": [
-                "NOASSERTION"
-            ],
             "externalRefs": [
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/llvm-project@d8b5208b88a3"
+                    "referenceLocator": "pkg:generic/llvm-project@3a8bd232cfa8"
                 }
             ]
         },
@@ -833,9 +815,6 @@
             "copyrightText": "NOASSERTION",
             "versionInfo": "3.1.0",
             "supplier": "Organization: pybind (github.com)",
-            "licenseInfoFromFiles": [
-                "NOASSERTION"
-            ],
             "externalRefs": [
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
@@ -845,23 +824,20 @@
             ]
         },
         {
-            "SPDXID": "SPDXRef-package-60d6e94a-a048-4455-8e7a-3aaa770db700",
+            "SPDXID": "SPDXRef-package-5c74f3d9-f969-4f70-a58b-c1988e3c164d",
             "name": "tosa-tools",
             "downloadLocation": "NOASSERTION",
             "filesAnalyzed": false,
             "licenseConcluded": "(Apache-2.0 WITH LLVM-exception AND Apache-2.0)",
             "licenseDeclared": "(Apache-2.0 WITH LLVM-exception AND Apache-2.0)",
             "copyrightText": "Copyright (c) ARM Limited.",
-            "versionInfo": "v2026.05.0",
+            "versionInfo": "v2026.08.0",
             "supplier": "Organization: tosa (https://gitlab.arm.com/tosa)",
-            "licenseInfoFromFiles": [
-                "NOASSERTION"
-            ],
             "externalRefs": [
                 {
                     "referenceCategory": "PACKAGE-MANAGER",
                     "referenceType": "purl",
-                    "referenceLocator": "pkg:generic/tosa-tools@v2026.05.0"
+                    "referenceLocator": "pkg:generic/tosa-tools@v2026.08.0"
                 }
             ]
         },
@@ -1079,6 +1055,63 @@
             "copyrightText": "Copyright (c) Arm Limited",
             "supplier": "Organization: Arm",
             "versionInfo": "ai-ml-sdk-model-converter"
+        },
+        {
+            "SPDXID": "SPDXRef-package-4c708758-3e83-4a7d-b53e-107ba1e7e049",
+            "downloadLocation": "NOASSERTION",
+            "externalRefs": [
+                {
+                    "referenceCategory": "OTHER",
+                    "referenceLocator": "04463384-33c6-4d25-920e-30125d55335a",
+                    "referenceType": "BlackDuck-Component"
+                },
+                {
+                    "referenceCategory": "OTHER",
+                    "referenceLocator": "83e652d9-007c-4f4a-bf0e-6eada14f5b0a",
+                    "referenceType": "BlackDuck-ComponentOrigin"
+                },
+                {
+                    "referenceCategory": "OTHER",
+                    "referenceLocator": "4c708758-3e83-4a7d-b53e-107ba1e7e049",
+                    "referenceType": "BlackDuck-ComponentVersion"
+                },
+                {
+                    "referenceCategory": "SECURITY",
+                    "referenceLocator": "cpe:2.3:a:microsoft:directxshadercompiler:v1.9.2607:*:*:*:*:*:*:*",
+                    "referenceType": "cpe23Type"
+                },
+                {
+                    "referenceCategory": "PACKAGE-MANAGER",
+                    "referenceLocator": "pkg:github/microsoft/directxshadercompiler@v1.9.2607",
+                    "referenceType": "purl"
+                }
+            ],
+            "filesAnalyzed": false,
+            "licenseConcluded": "(BSD-3-Clause AND LicenseRef-57f553be-1865-4577-a5d4-6461aad8472a AND MIT AND NCSA)",
+            "licenseDeclared": "(BSD-3-Clause AND LicenseRef-57f553be-1865-4577-a5d4-6461aad8472a AND MIT AND NCSA)",
+            "name": "Microsoft/DirectXShaderCompiler",
+            "originator": "Organization: microsoft",
+            "supplier": "Organization: microsoft",
+            "versionInfo": "v1.9.2607"
+        },
+        {
+            "SPDXID": "SPDXRef-package-b8e7b325-699b-4292-a4ca-1caa37086e03",
+            "downloadLocation": "NOASSERTION",
+            "externalRefs": [
+                {
+                    "referenceCategory": "OTHER",
+                    "referenceLocator": "b8e7b325-699b-4292-a4ca-1caa37086e03",
+                    "referenceType": "BlackDuck-Version"
+                }
+            ],
+            "filesAnalyzed": false,
+            "licenseConcluded": "(Apache-2.0)",
+            "licenseDeclared": "(Apache-2.0)",
+            "name": "ml-workload-lib-for-vulkan",
+            "originator": "Organization: Arm Limited.",
+            "copyrightText": "Copyright (c) Arm Limited",
+            "supplier": "Organization: Arm Limited.",
+            "versionInfo": "ml-workload-lib-for-vulkan"
         }
     ],
     "relationships": [
@@ -1225,7 +1258,7 @@
         {
             "spdxElementId": "SPDXRef-package-6a4881a6-fd3d-40d5-b7ab-0a7e2cfae16e",
             "relationshipType": "DEPENDS_ON",
-            "relatedSpdxElement": "SPDXRef-package-ba671855-d774-4a98-9e56-60d3a6b9d50d"
+            "relatedSpdxElement": "SPDXRef-package-e7bd2fb4-8b81-4400-99f1-390dbab23846"
         },
         {
             "spdxElementId": "SPDXRef-package-6a4881a6-fd3d-40d5-b7ab-0a7e2cfae16e",
@@ -1235,12 +1268,12 @@
         {
             "spdxElementId": "SPDXRef-package-6a4881a6-fd3d-40d5-b7ab-0a7e2cfae16e",
             "relationshipType": "DEPENDS_ON",
-            "relatedSpdxElement": "SPDXRef-package-60d6e94a-a048-4455-8e7a-3aaa770db700"
+            "relatedSpdxElement": "SPDXRef-package-5c74f3d9-f969-4f70-a58b-c1988e3c164d"
         },
         {
             "spdxElementId": "SPDXRef-package-6a4881a6-fd3d-40d5-b7ab-0a7e2cfae16e",
             "relationshipType": "DEPENDS_ON",
-            "relatedSpdxElement": "SPDXRef-package-18e36ba3-5553-495c-afa3-ef67a7b417c"
+            "relatedSpdxElement": "SPDXRef-package-18e36ba3-5553-495c-afa3-ef67a7b417c1"
         },
         {
             "spdxElementId": "SPDXRef-package-6a4881a6-fd3d-40d5-b7ab-0a7e2cfae16e",
@@ -1266,11 +1299,6 @@
             "spdxElementId": "SPDXRef-package-ce2b91e5-996c-4dc7-be9e-146bd1c789c9",
             "relationshipType": "DEPENDS_ON",
             "relatedSpdxElement": "SPDXRef-package-5c74f3d9-f969-4f70-a58b-c1988e3c164d"
-        },
-        {
-            "spdxElementId": "SPDXRef-package-5c74f3d9-f969-4f70-a58b-c1988e3c164d",
-            "relationshipType": "CONTAINS",
-            "relatedSpdxElement": "SPDXRef-package-a741951e-e91a-46cd-a0a9-717a2cd60d3d"
         },
         {
             "spdxElementId": "SPDXRef-package-2ec3faed-97bd-4ac6-9b67-f59c38eea286",
@@ -1375,12 +1403,7 @@
         {
             "spdxElementId": "SPDXRef-package-ce2b91e5-996c-4dc7-be9e-146bd1c789c9",
             "relationshipType": "DEPENDS_ON",
-            "relatedSpdxElement": "SPDXRef-package-60d6e94a-a048-4455-8e7a-3aaa770db700"
-        },
-        {
-            "spdxElementId": "SPDXRef-package-ce2b91e5-996c-4dc7-be9e-146bd1c789c9",
-            "relationshipType": "DEPENDS_ON",
-            "relatedSpdxElement": "SPDXRef-package-ba671855-d774-4a98-9e56-60d3a6b9d50d"
+            "relatedSpdxElement": "SPDXRef-package-e7bd2fb4-8b81-4400-99f1-390dbab23846"
         },
         {
             "spdxElementId": "SPDXRef-package-ce2b91e5-996c-4dc7-be9e-146bd1c789c9",
@@ -1388,19 +1411,109 @@
             "relatedSpdxElement": "SPDXRef-package-984e8155-0022-4109-baea-333b1f21448f"
         },
         {
-            "spdxElementId": "SPDXRef-package-60d6e94a-a048-4455-8e7a-3aaa770db700",
+            "spdxElementId": "SPDXRef-package-5c74f3d9-f969-4f70-a58b-c1988e3c164d",
             "relationshipType": "DEPENDS_ON",
             "relatedSpdxElement": "SPDXRef-package-6c6c020b-60a1-4a7d-9042-a300bf02b6bf"
         },
         {
-            "spdxElementId": "SPDXRef-package-60d6e94a-a048-4455-8e7a-3aaa770db700",
+            "spdxElementId": "SPDXRef-package-5c74f3d9-f969-4f70-a58b-c1988e3c164d",
             "relationshipType": "DEPENDS_ON",
             "relatedSpdxElement": "SPDXRef-package-f43b9468-5687-4e83-b9eb-78fe8a316bed"
         },
         {
-            "spdxElementId": "SPDXRef-package-60d6e94a-a048-4455-8e7a-3aaa770db700",
+            "spdxElementId": "SPDXRef-package-5c74f3d9-f969-4f70-a58b-c1988e3c164d",
             "relationshipType": "DEPENDS_ON",
             "relatedSpdxElement": "SPDXRef-package-eb39c089-c8a3-4d30-8772-786c90af9e78"
+        },
+        {
+            "spdxElementId": "SPDXRef-package-6a4881a6-fd3d-40d5-b7ab-0a7e2cfae16e",
+            "relationshipType": "DEPENDS_ON",
+            "relatedSpdxElement": "SPDXRef-package-4c708758-3e83-4a7d-b53e-107ba1e7e049"
+        },
+        {
+            "spdxElementId": "SPDXRef-package-6a4881a6-fd3d-40d5-b7ab-0a7e2cfae16e",
+            "relationshipType": "DEPENDS_ON",
+            "relatedSpdxElement": "SPDXRef-package-b8e7b325-699b-4292-a4ca-1caa37086e03"
+        },
+        {
+            "spdxElementId": "SPDXRef-package-2ec3faed-97bd-4ac6-9b67-f59c38eea286",
+            "relationshipType": "DEPENDS_ON",
+            "relatedSpdxElement": "SPDXRef-package-4c708758-3e83-4a7d-b53e-107ba1e7e049"
+        },
+        {
+            "spdxElementId": "SPDXRef-package-b8e7b325-699b-4292-a4ca-1caa37086e03",
+            "relationshipType": "DEPENDS_ON",
+            "relatedSpdxElement": "SPDXRef-package-18e36ba3-5553-495c-afa3-ef67a7b417c1"
+        },
+        {
+            "spdxElementId": "SPDXRef-package-b8e7b325-699b-4292-a4ca-1caa37086e03",
+            "relationshipType": "DEPENDS_ON",
+            "relatedSpdxElement": "SPDXRef-package-294e1b93-c201-4680-ae6f-a345ea9e21ee"
+        },
+        {
+            "spdxElementId": "SPDXRef-package-b8e7b325-699b-4292-a4ca-1caa37086e03",
+            "relationshipType": "DEPENDS_ON",
+            "relatedSpdxElement": "SPDXRef-package-3c53bb1a-f1ad-4f37-9f56-e59f0e9ef333"
+        },
+        {
+            "spdxElementId": "SPDXRef-package-b8e7b325-699b-4292-a4ca-1caa37086e03",
+            "relationshipType": "DEPENDS_ON",
+            "relatedSpdxElement": "SPDXRef-package-c670a7f9-e5f4-4710-9a22-fc2027f1667b"
+        },
+        {
+            "spdxElementId": "SPDXRef-package-b8e7b325-699b-4292-a4ca-1caa37086e03",
+            "relationshipType": "DEPENDS_ON",
+            "relatedSpdxElement": "SPDXRef-package-82cca527-05cb-42ed-80a8-3911f26e8c1d"
+        },
+        {
+            "spdxElementId": "SPDXRef-package-b8e7b325-699b-4292-a4ca-1caa37086e03",
+            "relationshipType": "DEPENDS_ON",
+            "relatedSpdxElement": "SPDXRef-package-ded68aa1-9dff-451d-8a4a-49b6b075e09b"
+        },
+        {
+            "spdxElementId": "SPDXRef-package-b8e7b325-699b-4292-a4ca-1caa37086e03",
+            "relationshipType": "DEPENDS_ON",
+            "relatedSpdxElement": "SPDXRef-package-1204f221-848e-4ece-af7a-9317a5359ad0"
+        },
+        {
+            "spdxElementId": "SPDXRef-package-b8e7b325-699b-4292-a4ca-1caa37086e03",
+            "relationshipType": "DEPENDS_ON",
+            "relatedSpdxElement": "SPDXRef-package-1b4f2322-4ddb-421e-91b3-cb4d323c2069"
+        },
+        {
+            "spdxElementId": "SPDXRef-package-b8e7b325-699b-4292-a4ca-1caa37086e03",
+            "relationshipType": "DEPENDS_ON",
+            "relatedSpdxElement": "SPDXRef-package-7d8f1bc8-0786-4f9b-a159-f0038a969acf"
+        },
+        {
+            "spdxElementId": "SPDXRef-package-b8e7b325-699b-4292-a4ca-1caa37086e03",
+            "relationshipType": "DEPENDS_ON",
+            "relatedSpdxElement": "SPDXRef-package-2ea29eaf-940e-4a09-97bd-ba866856e889"
+        },
+        {
+            "spdxElementId": "SPDXRef-package-b8e7b325-699b-4292-a4ca-1caa37086e03",
+            "relationshipType": "DEPENDS_ON",
+            "relatedSpdxElement": "SPDXRef-package-7338ea34-f921-45db-ab46-cf7223ba31e4"
+        },
+        {
+            "spdxElementId": "SPDXRef-package-b8e7b325-699b-4292-a4ca-1caa37086e03",
+            "relationshipType": "DEPENDS_ON",
+            "relatedSpdxElement": "SPDXRef-package-edd58207-4b2b-4095-b0a5-cf41f1d9d6dd"
+        },
+        {
+            "spdxElementId": "SPDXRef-package-b8e7b325-699b-4292-a4ca-1caa37086e03",
+            "relationshipType": "DEPENDS_ON",
+            "relatedSpdxElement": "SPDXRef-package-984e8155-0022-4109-baea-333b1f21448f"
+        },
+        {
+            "spdxElementId": "SPDXRef-package-b8e7b325-699b-4292-a4ca-1caa37086e03",
+            "relationshipType": "DEPENDS_ON",
+            "relatedSpdxElement": "SPDXRef-package-4c708758-3e83-4a7d-b53e-107ba1e7e049"
+        },
+        {
+            "spdxElementId": "SPDXRef-package-b8e7b325-699b-4292-a4ca-1caa37086e03",
+            "relationshipType": "DEPENDS_ON",
+            "relatedSpdxElement": "SPDXRef-package-59559eff-0bfa-4e66-90ba-c8b94ebb9007"
         }
     ]
 }
