@@ -2,11 +2,23 @@
 
 ---
 
-## Unreleased
+## Version 2026.09.0 – *Workload Library, Scenario Runner Public APIs*
 
 ### Highlights
 
 - Added the ML Workload Library for Vulkan® software component.
+- Added Scenario Runner public C++ and Python APIs for constructing scenarios
+  and transferring buffer, image, and tensor data in memory.
+- Replaced Scenario Runner's experimental VGF Runtime with the ML Workload
+  Library for Vulkan®.
+- Updated the VGF file format from 0.4.3 to 0.5.0.
+
+### Build, Packaging & Dependencies
+
+- Raised the minimum supported Python version from 3.8 to 3.10 for the
+  Emulation Layer, Model Converter, Scenario Runner, and VGF Library pip
+  packages.
+- Changed the SDK Docker base image from Ubuntu 24.04 to AlmaLinux 8.10.
 
 ### Tooling
 
