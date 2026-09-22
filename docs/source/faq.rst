@@ -26,6 +26,30 @@ Use the authoritative :ref:`Platforms` table for the component-by-component
 status and :doc:`Building the ML SDK for Vulkan® <building>` for current host
 prerequisites and component build documentation.
 
+.. _faq-vulkan-requirements:
+
+Which Vulkan® extensions and capabilities are required for Scenario Runner and the Emulation Layer?
+---------------------------------------------------------------------------------------------------
+
+See :ref:`Vulkan® runtime requirements` for the minimum Vulkan® version and
+platform-specific runtime setup.
+
+For data graph execution with a native Vulkan® implementation, the device must
+provide ``VK_ARM_tensors``, with the ``tensors``, ``tensorNonPacked``, and
+``shaderTensorAccess`` features, and ``VK_ARM_data_graph``, with the
+``dataGraph`` and ``dataGraphShaderModule`` features.
+
+When the native driver does not provide these extensions, the Emulation Layer
+exposes them through its graph and tensor layers. Data graph workloads require
+both layers, with the graph layer enabled before the tensor layer. Additional
+extensions and capabilities depend on the operations used by the workload.
+
+See the :doc:`Emulation Layer extension overview
+<emulation-layer/docs/in/support>` and the :doc:`Scenario Runner usage guide
+<scenario-runner/docs/in/usage>` for detailed extension coverage. See also
+:ref:`faq-performance-data` and :ref:`faq-optical-flow-compatibility` for the
+requirements of those optional features.
+
 .. _faq-version-compatibility:
 
 How do I choose compatible ML SDK, VGF and component versions?
