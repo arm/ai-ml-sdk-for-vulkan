@@ -140,8 +140,8 @@ their paths by adding the following command line option:
 ./scripts/build.py --$COMPONENT_NAME $PATH_TO_COMPONENT
 ```
 
-COMPONENT_NAME, with the respective default relative locations within
-paranthesis, can be:
+COMPONENT_NAME can be one of the following (with its default relative location
+in parentheses):
 
 - vgf-lib (sw/vgf-lib)
 - model-converter (sw/model-converter)
@@ -149,7 +149,7 @@ paranthesis, can be:
 - emulation-layer (sw/emulation-layer)
 - workload-lib (sw/workload-lib)
 
-Similarly, dependencies with custom install locations need to be specifed. For
+Similarly, dependencies with custom install locations need to be specified. For
 instance if glslang was installed at `$GLSLANG_REPO_PATH`, use the following:
 
 ```bash
@@ -163,8 +163,9 @@ by Scenario Runner and Model Converter, and for VGF support in Workload Library.
 The build artifacts can be installed into a specified location by passing the
 option `--install` with the required path.
 
-To create an archive with the build artifacts, add the option `--package`. The
-archive will be stored in the provided location.
+To create an archive with the build artifacts, add `--package-type zip` or
+`--package-type tgz`. The archive is stored in the build directory by default;
+use `--package-dir` to select another location.
 
 ## Build the documentation
 
@@ -189,8 +190,8 @@ directory.
 
 ## Trademark notice
 
-Arm® is a registered trademarks of Arm Limited (or its subsidiaries) in the US
+Arm® is a registered trademark of Arm Limited (or its subsidiaries) in the US
 and/or elsewhere.
 
-Khronos®, Vulkan® and SPIR-V™ are registered trademarks of the
-[Khronos® Group](https://www.khronos.org/legal/trademarks).
+Khronos® and Vulkan® are registered trademarks, and SPIR-V™ is a trademark of
+[The Khronos Group Inc.](https://www.khronos.org/legal/trademarks/).
