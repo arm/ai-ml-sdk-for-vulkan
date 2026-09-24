@@ -52,6 +52,13 @@ Release compatibility
      - 0.10.0
      - 0.10.0
      - 0.10.0
+   * - 2026.09.0
+     - `v2026.09.0
+       <https://github.com/arm/ai-ml-sdk-manifest/blob/v2026.09.0/default.xml>`_
+     - 0.11.0
+     - 0.11.0
+     - 0.11.0
+     - 0.11.0
 
 VGF compatibility
 -----------------
