@@ -65,6 +65,17 @@ jobs:
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
+      - name: Apply SPIRV-Tools patch
+        run: |
+          patch="$SDK_DIR/sw/scenario-runner/patches/spirv-tools-graph-shape-inference-pass.patch"
+          spirv_tools="$SDK_DIR/dependencies/SPIRV-Tools"
+          if ! git -C "$spirv_tools" apply --reverse --check "$patch" > /dev/null 2>&1; then
+            git -C "$spirv_tools" \
+              -c user.name=svc_sdk \
+              -c user.email=svc_sdk@arm.com \
+              am "$patch"
+          fi
+
       - name: Build documentation
         run: |
           cd "$SDK_DIR"
