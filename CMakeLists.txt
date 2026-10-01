@@ -8,9 +8,14 @@ cmake_minimum_required(VERSION 3.25)
 project(MLSdkForVulkan
     DESCRIPTION "ML SDK for Vulkan®")
 
+include(GNUInstallDirs)
+
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 option(ML_SDK_GENERATE_CPACK "Generate CPack artifacts" OFF)
+if(ML_SDK_GENERATE_CPACK)
+    include(CPackComponent)
+endif()
 
 list(APPEND CMAKE_MODULE_PATH
     ${CMAKE_CURRENT_LIST_DIR}/cmake
@@ -52,6 +57,12 @@ macro(optional_add_subdirectory dir_path binary)
             list(APPEND ML_SDK_COMPONENTS_DIRS ${binary})
         endif()
         if(ML_SDK_GENERATE_CPACK)
+            file(GLOB component_sboms "${dir_path}/*.spdx.json")
+            if(component_sboms)
+                install(FILES ${component_sboms}
+                    DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+                    COMPONENT ${binary})
+            endif()
             cpack_add_component(${binary})
             list(APPEND CPACK_COMPONENTS_ALL ${binary})
         endif()
