@@ -29,7 +29,8 @@ Prerequisites
 The following prerequisites apply when using either MoltenVK or KosmicKrisp:
 
 * Xcode Command Line Tools, including Clang.
-* Python 3.10 or later, CMake 3.25 or later, and Ninja 1.8.2 or later.
+* Python 3.10 through 3.14, ``uv`` 0.9.26, CMake 3.25 or later, and
+  Ninja 1.8.2 or later.
 * The `LunarG Vulkan® SDK for Darwin <https://vulkan.lunarg.com/sdk/home#mac>`_.
 * The normal |SDK_project| source dependencies. Using the Repo tool as described
   in :doc:`cloning` obtains the preferred dependency versions.
@@ -64,9 +65,8 @@ the |SDK_project| into a local deployment directory:
 
    source "$VULKAN_SDK_ROOT/setup-env.sh"
    cd "$ML_SDK"
-   python3 -m pip install -r requirements.txt
-   python3 -m pip install -r tooling-requirements.txt
-   ./scripts/build.py --install "$ML_SDK/deploy"
+   uv sync --locked --only-group sdk
+   uv run --no-sync python scripts/build.py --install "$ML_SDK/deploy"
 
 The setup script sets ``VULKAN_SDK`` to the SDK's platform-specific directory
 and adds the Vulkan® tools and libraries to the current shell.
