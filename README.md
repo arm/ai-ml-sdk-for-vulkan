@@ -92,8 +92,8 @@ The build system must have:
   Windows®.
 - CMake 3.25 or later.
 - Ninja 1.8.2 or later.
-- Python 3.10 or later. Required python libraries for building are listed in
-  `tooling-requirements.txt`.
+- Python 3.10 through 3.14 and `uv` 0.9.26 (the CI version). Python development
+  dependencies are locked in `uv.lock` and declared in `pyproject.toml`.
 - Doxygen 1.9.1 or later. (When building documentation)
 
 Building and running on Darwin also requires the
@@ -121,9 +121,8 @@ The following dependencies are also needed:
 For building the ML SDK for Vulkan® components, run the following commands:
 
 ```bash
-pip install -r requirements.txt
-pip install -r tooling-requirements.txt
-./scripts/build.py
+uv sync --locked --only-group sdk
+uv run --no-sync python scripts/build.py
 ```
 
 SPIR-V™ modules are supported by the base ML Workload Library for Vulkan®

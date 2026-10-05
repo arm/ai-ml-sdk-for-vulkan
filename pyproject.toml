@@ -3,9 +3,41 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
+[project]
+name = "ai-ml-sdk-for-vulkan"
+version = "0.0.0"
+requires-python = ">=3.10,<3.15"
+
+[tool.uv]
+package = false
+
 [tool.black]
 target-version = ['py310']
 
 [tool.isort]
 profile = "black"
 force_single_line = true
+
+[dependency-groups]
+sdk = [
+    "jsonschema==4.25.1",
+    "numpy==2.1.3; python_version < '3.14'",
+    "numpy==2.4.6; python_version >= '3.14'",
+    "Pillow==12.3.0",
+    "pytest==9.0.3",
+    "pytest-xdist==3.8.0",
+    "referencing==0.37.0",
+    "argcomplete==3.6.2",
+    "breathe==4.36.0",
+    "build==1.3.0",
+    "debian-inspector==31.1.0",
+    "myst_parser==4.0.1",
+    "pre-commit==4.5.1",
+    "setuptools==68.0.0",
+    "sphinx==8.1.3",
+    "sphinx_rtd_theme==3.0.2",
+    "sphinxcontrib.plantuml==0.31",
+    "tomli==2.4.1; python_version < '3.11'",
+    "wheel==0.41.2",
+]
+docker = ["twine", "dohq-artifactory>=1.0.1,<2"]

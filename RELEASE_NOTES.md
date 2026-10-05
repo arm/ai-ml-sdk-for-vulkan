@@ -2,6 +2,13 @@
 
 ---
 
+## Unreleased
+
+### Build, Packaging & Dependencies
+
+- Replaced root and component Python requirements files with `uv.lock` files,
+  and updated Docker and CI setup to install the locked dependencies.
+
 ## Version 2026.09.0 – *Workload Library, Scenario Runner Public APIs*
 
 ### Highlights

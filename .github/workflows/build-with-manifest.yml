@@ -1,5 +1,5 @@
 #
-# SPDX-FileCopyrightText: Copyright 2025 Arm Limited and/or its affiliates <open-source-office@arm.com>
+# SPDX-FileCopyrightText: Copyright 2025-2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
 # SPDX-License-Identifier: Apache-2.0
 #
 name: Build ML SDK
@@ -101,8 +101,10 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r ./requirements.txt
-          pip install -r ./tooling-requirements.txt
+          python -m pip install uv==0.9.26
+          set -o pipefail
+          uv export --locked --only-group sdk --no-emit-project --no-hashes |
+            uv pip install --python "$(which python)" -r -
 
       - name: Install repo tool
         run: brew install repo
@@ -168,7 +170,11 @@ jobs:
         shell: pwsh
         run: |
           python -m pip install --upgrade pip
-          pip install -r ./requirements.txt
+          python -m pip install uv==0.9.26
+          $dependencies = uv export --locked --only-group sdk --no-emit-project --no-hashes
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $dependencies | uv pip install --python (Get-Command python).Source -r -
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Install tools with Chocolatey
         shell: pwsh

@@ -271,12 +271,10 @@ RUN if [ "${TARGETARCH}" = amd64 ]; then \
 
 # Python development environment
 RUN uv venv --python /usr/bin/python3.12 /opt/venv
-COPY requirements.txt tooling-requirements.txt /tmp/requirements/
-RUN uv pip install \
-      twine "dohq-artifactory>=1.0.1,<2" && \
-    uv pip install -r /tmp/requirements/requirements.txt && \
-    uv pip install -r /tmp/requirements/tooling-requirements.txt && \
-    rm -rf /tmp/requirements
+COPY docker/requirements.txt /tmp/sdk-python-requirements.txt
+RUN uv pip install --python /opt/venv/bin/python \
+      -r /tmp/sdk-python-requirements.txt && \
+    rm /tmp/sdk-python-requirements.txt
 
 # File ownership
 RUN if [ -d "${ANDROID_HOME}" ]; then \
