@@ -9,8 +9,10 @@ The public Docker build uses only the checked-in output in the SDK root repo.
 import argparse
 import difflib
 import hashlib
+import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 try:
@@ -72,6 +74,11 @@ def main() -> int:
     parser.add_argument(
         "--check", action="store_true", help="resolve and compare the complete output"
     )
+    parser.add_argument(
+        "--upgrade",
+        action="store_true",
+        help="allow upgrades instead of preserving compatible existing pins",
+    )
     args = parser.parse_args()
     if tomllib is None:
         # A direct invocation on clean Python 3.10 needs a TOML parser. Use the
@@ -98,30 +105,44 @@ def main() -> int:
     except ValueError as error:
         parser.error(str(error))
 
-    command = [
-        args.uv,
-        "pip",
-        "compile",
-        "-",
-        "--python-version",
-        "3.12",
-        "--python",
-        args.python,
-        "--python-platform",
-        "linux",
-        "--no-header",
-        "--no-annotate",
-    ]
-    result = subprocess.run(
-        command,
-        input="\n".join(requirements) + "\n",
-        text=True,
-        capture_output=True,
-        check=False,
-    )
-    if result.returncode:
-        print(result.stderr, file=sys.stderr)
-        return result.returncode
+    with tempfile.TemporaryDirectory() as temp_dir:
+        # uv treats pins in an existing output file as preferences, preserving
+        # compatible versions without making them hard constraints. Resolve
+        # from a temporary copy so removed dependencies can disappear and a
+        # failed resolution cannot modify the checked-in requirements file.
+        resolved_output = Path(temp_dir) / "requirements.txt"
+        if output.is_file():
+            shutil.copyfile(output, resolved_output)
+
+        command = [
+            args.uv,
+            "pip",
+            "compile",
+            "-",
+            "--python-version",
+            "3.12",
+            "--python",
+            args.python,
+            "--python-platform",
+            "linux",
+            "--no-header",
+            "--no-annotate",
+            "--output-file",
+            str(resolved_output),
+        ]
+        if args.upgrade:
+            command.append("--upgrade")
+        result = subprocess.run(
+            command,
+            input="\n".join(requirements) + "\n",
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        if result.returncode:
+            print(result.stderr, file=sys.stderr)
+            return result.returncode
+        resolved_requirements = resolved_output.read_text(encoding="utf-8")
 
     header = (
         "# SPDX-FileCopyrightText: Copyright 2026 Arm Limited and/or its affiliates "
@@ -133,7 +154,7 @@ def main() -> int:
         f"# Input-SHA256: {digest}\n"
         "# Regenerate from a complete manifest checkout after dependency changes.\n\n"
     )
-    generated = header + result.stdout
+    generated = header + resolved_requirements
     if args.check:
         existing = output.read_text(encoding="utf-8") if output.is_file() else ""
         if existing != generated:

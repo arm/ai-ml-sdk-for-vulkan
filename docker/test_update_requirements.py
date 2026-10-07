@@ -13,18 +13,33 @@ update_requirements = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(update_requirements)
 
 
-def test_check_compares_resolved_requirements_even_when_inputs_match(tmp_path, capsys):
+def test_existing_output_pins_are_preferences(tmp_path, capsys):
     output = tmp_path / "docker" / "requirements.txt"
     output.parent.mkdir()
-    resolved = SimpleNamespace(returncode=0, stdout="example==1.2.3\n", stderr="")
+    existing_outputs = []
+    compile_inputs = []
+    resolved_versions = iter(["1.2.3", "1.2.3", "2.0.0", "2.1.0"])
+
+    def compile_requirements(command, **_kwargs):
+        output_argument = command.index("--output-file") + 1
+        resolved_output = Path(command[output_argument])
+        compile_inputs.append(_kwargs["input"])
+        existing_outputs.append(
+            resolved_output.read_text() if resolved_output.is_file() else None
+        )
+        resolved_output.write_text(f"example=={next(resolved_versions)}\n")
+        return SimpleNamespace(returncode=0, stderr="")
+
     with (
         mock.patch.object(
             update_requirements,
             "collect_requirements",
             return_value=(["example"], "a" * 64),
-        ),
+        ) as collect_requirements,
         mock.patch.object(
-            update_requirements.subprocess, "run", return_value=resolved
+            update_requirements.subprocess,
+            "run",
+            side_effect=compile_requirements,
         ) as compile_run,
         mock.patch.object(
             update_requirements.sys,
@@ -40,20 +55,77 @@ def test_check_compares_resolved_requirements_even_when_inputs_match(tmp_path, c
             ["update_requirements.py", "--sdk-root", str(tmp_path), "--check"],
         ):
             assert update_requirements.main() == 0
-            output.write_text(
-                output.read_text().replace("example==1.2.3", "example==1.2.2")
-            )
+            collect_requirements.return_value = (["example>=2"], "b" * 64)
             assert update_requirements.main() == 1
+        with mock.patch.object(
+            update_requirements.sys,
+            "argv",
+            [
+                "update_requirements.py",
+                "--sdk-root",
+                str(tmp_path),
+                "--upgrade",
+            ],
+        ):
+            assert update_requirements.main() == 0
     error = capsys.readouterr().err
-    assert "-example==1.2.2" in error
-    assert "+example==1.2.3" in error
-    assert compile_run.call_count == 3
+    assert "-example==1.2.3" in error
+    assert "+example==2.0.0" in error
+    assert compile_run.call_count == 4
+    for call in compile_run.call_args_list:
+        assert "--constraint" not in call.args[0]
+        assert "--output-file" in call.args[0]
+    for call in compile_run.call_args_list[:3]:
+        assert "--upgrade" not in call.args[0]
+    assert "--upgrade" in compile_run.call_args_list[3].args[0]
+    assert existing_outputs[0] is None
+    assert "example==1.2.3" in existing_outputs[1]
+    assert "example==1.2.3" in existing_outputs[2]
+    assert "example==1.2.3" in existing_outputs[3]
+    assert compile_inputs[2] == "example>=2\n"
     assert (
         compile_run.call_args.args[0][
             compile_run.call_args.args[0].index("--python") + 1
         ]
         == "3.12"
     )
+
+
+def test_removed_dependencies_are_dropped_from_output(tmp_path):
+    output = tmp_path / "docker" / "requirements.txt"
+    output.parent.mkdir()
+    output.write_text("removed-direct==1.0\nremoved-transitive==1.0\nretained==2.0\n")
+
+    def compile_requirements(command, **_kwargs):
+        output_argument = command.index("--output-file") + 1
+        resolved_output = Path(command[output_argument])
+        assert resolved_output.read_text() == output.read_text()
+        resolved_output.write_text("retained==2.0\n")
+        return SimpleNamespace(returncode=0, stderr="")
+
+    with (
+        mock.patch.object(
+            update_requirements,
+            "collect_requirements",
+            return_value=(["retained"], "a" * 64),
+        ),
+        mock.patch.object(
+            update_requirements.subprocess,
+            "run",
+            side_effect=compile_requirements,
+        ),
+        mock.patch.object(
+            update_requirements.sys,
+            "argv",
+            ["update_requirements.py", "--sdk-root", str(tmp_path)],
+        ),
+    ):
+        assert update_requirements.main() == 0
+
+    generated = output.read_text()
+    assert "retained==2.0" in generated
+    assert "removed-direct" not in generated
+    assert "removed-transitive" not in generated
 
 
 def test_collect_requirements_includes_all_optional_features(tmp_path):

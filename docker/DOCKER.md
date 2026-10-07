@@ -21,8 +21,9 @@ python docker/update_requirements.py --check
 ```
 
 Both commands resolve against the package index with Python 3.12. `--check`
-compares the complete pinned output. Pass `--python PATH` if Python 3.12 is not
-on your PATH.
+compares the complete pinned output. Existing compatible pins are preserved to
+avoid unrelated dependency updates. Pass `--upgrade` to refresh all packages,
+or `--python PATH` if Python 3.12 is not on your PATH.
 
 Commit the updated `docker/requirements.txt` in the SDK root repository. The
 public image build uses this file because it checks out only the root repository.
