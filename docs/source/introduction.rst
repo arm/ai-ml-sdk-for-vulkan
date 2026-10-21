@@ -34,8 +34,9 @@ The following gives a brief introduction to each of the ML SDK for Vulkan® comp
     and constant data. This component provides:
 
     - A C++ encoder and decoder API for writing and efficiently reading VGF files.
-    - A C decoder wrapper API to provide stable ABI bindings.
-    - A VGF Dump Tool for working with VGF files.
+    - C encoder and decoder wrapper APIs.
+    - Python bindings for encoding and decoding.
+    - VGF Dump and VGF Updater tools for inspecting and migrating VGF files.
 
     The VGF Library is intended for integration into game engines. The library has been designed around
     efficient decoding of the VGF file at runtime by supporting memory mapped file access (optional). The
@@ -43,8 +44,10 @@ The following gives a brief introduction to each of the ML SDK for Vulkan® comp
     potentially large constant data.
 
 **Scenario Runner**
-    A data driven test and validation tool for executing ML workloads described in
-    JSON scenario files.
+    A tool and library for exploring and validating workloads described in JSON
+    scenario files or constructed through C++ and Python APIs. It manages
+    resources and commands, executes scenarios through Vulkan®, and collects
+    outputs and diagnostics.
 
 **Emulation layer**
     A TOSA compliant, compute-based implementation exposed using Vulkan® Layers.
@@ -65,7 +68,7 @@ In addition to these components, you will find documentation, tutorials, samples
 Production
 ----------
 
-The proposed production workflow involves integrating the ML SDK Model Converter into the
+The model-based production workflow involves integrating the ML SDK Model Converter into the
 application or game :code:`asset deployment pipeline`. The pipeline needs a TOSA intermediate
 representation of a framework specific native model file. To obtain a TOSA intermediate
 representation, you should use a specific framework to TOSA converter (not depicted here).
@@ -81,10 +84,10 @@ to produce a :code:`.vgf` file. The VGF file contents can then be:
 • Distributed as a file on disk as part of the normal platform specific application deployment flow.
 
 .. tip::
-    When exploring the API, a tight integration is not necessary because the Model Converter can work directly
-    with the framework files. The ML SDK Scenario Runner can also parse the VGF file directly. We recommend
-    passing the TOSA intermediate representation to the ML SDK Model Converter for smoother Model Authoring
-    workflows when in production.
+    Model Converter accepts TOSA FlatBuffer or MLIR input. Framework-specific
+    export happens before this step. For exploration, Scenario Runner can load
+    the resulting VGF asset through a scenario; VGF Dump can generate a scenario
+    template. See the :doc:`VGF execution tutorial <vgf_run_tutorial>`.
 
 The application or game running on the device can choose the integration level
 that fits its Vulkan® architecture:
@@ -116,6 +119,10 @@ C++ application integration, including VGF inspection and execution,
 standalone compute and data-graph workloads, and application-owned Vulkan®
 contexts. No ML SDK executable currently integrates the library on behalf of
 an application.
+
+Scenario Runner currently implements its own Vulkan® execution path. Standalone
+compute and data-graph workloads can also be constructed through either runtime's
+APIs without exporting a model to VGF.
 
 .. tip::
     While the API is relatively new, we recommend you use the ML Emulation Layer for Vulkan® for exploration. The Emulation Layer

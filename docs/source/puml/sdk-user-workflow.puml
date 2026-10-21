@@ -1,0 +1,23 @@
+' SPDX-FileCopyrightText: Copyright 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
+' SPDX-License-Identifier: Apache-2.0
+@startuml
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam activityBackgroundColor #EFF6FF
+skinparam ArrowColor #334155
+
+start
+:Export model to TOSA using framework tools;
+:Convert TOSA to VGF with Model Converter;
+:Inspect modules and resources\nwith VGF Dump or library APIs;
+:Select compatible SDK versions\nand Vulkan® execution environment;
+note right
+  Use native support or enable the
+  required SDK emulation layers.
+end note
+:Generate a scenario template with VGF Dump\nor construct a scenario through the API;
+:Supply input data and execution configuration;
+:Run with Scenario Runner;
+:Inspect outputs and diagnostics;\ncompare with expected results;
+stop
+@enduml

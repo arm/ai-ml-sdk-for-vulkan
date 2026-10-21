@@ -1,0 +1,31 @@
+' SPDX-FileCopyrightText: Copyright 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
+' SPDX-License-Identifier: Apache-2.0
+@startuml
+top to bottom direction
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam defaultFontName SansSerif
+skinparam ArrowColor #334155
+skinparam componentBackgroundColor #EFF6FF
+skinparam linetype polyline
+skinparam nodesep 45
+skinparam ranksep 65
+
+together {
+  component "Model Converter" as converter
+  component "Scenario Runner" as runner
+  component "Workload Library\n(VGF support enabled)" as workload
+  rectangle "Application\n(direct VGF integration)" as app
+}
+component "VGF Library\n(encoder and decoder APIs)" as vgf
+
+converter ..> vgf : encode
+runner ..> vgf : decode
+workload ..> vgf : decode
+app ..> vgf : decode
+
+' Layout constraints only; these do not represent component dependencies.
+converter -[hidden]right- runner
+runner -[hidden]right- workload
+workload -[hidden]right- app
+@enduml

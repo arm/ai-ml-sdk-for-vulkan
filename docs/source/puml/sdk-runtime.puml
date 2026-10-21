@@ -1,0 +1,23 @@
+' SPDX-FileCopyrightText: Copyright 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
+' SPDX-License-Identifier: Apache-2.0
+@startuml
+top to bottom direction
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam defaultFontName SansSerif
+skinparam ArrowColor #334155
+skinparam rectangleBackgroundColor #EFF6FF
+skinparam nodesep 55
+skinparam ranksep 65
+
+rectangle "Application using\nWorkload Library" as workload
+rectangle "Scenario Runner\n(current runtime)" as runner
+rectangle "Application using\nVGF decoder directly" as direct
+rectangle "Vulkan® loader\n(enabled layer chain)" as loader
+rectangle "Underlying Vulkan® implementation\nproviding the required ML features" as driver
+
+workload --> loader
+runner --> loader
+direct --> loader
+loader --> driver
+@enduml

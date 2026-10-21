@@ -1,0 +1,30 @@
+' SPDX-FileCopyrightText: Copyright 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
+' SPDX-License-Identifier: Apache-2.0
+@startuml
+top to bottom direction
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam defaultFontName SansSerif
+skinparam ArrowColor #334155
+skinparam componentBackgroundColor #EFF6FF
+skinparam linetype polyline
+skinparam nodesep 45
+skinparam ranksep 55
+
+component "Model Converter" as converter
+artifact "VGF asset" as asset
+together {
+  component "Scenario Runner" as runner
+  component "Workload Library" as workload
+  rectangle "Application\n(direct VGF integration)" as app
+}
+
+converter --> asset : writes
+asset --> runner : input
+asset --> workload : input
+asset --> app : input
+
+' Keep the runtime integration choices in a consistent left-to-right order.
+runner -[hidden]right- workload
+workload -[hidden]right- app
+@enduml

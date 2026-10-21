@@ -1,0 +1,35 @@
+' SPDX-FileCopyrightText: Copyright 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
+' SPDX-License-Identifier: Apache-2.0
+@startuml
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam activityBackgroundColor #EFF6FF
+skinparam ArrowColor #334155
+
+partition "Framework tools (outside SDK)" {
+  start
+  :Export the framework model to TOSA;
+}
+partition "Model Converter" {
+  :Read TOSA FlatBuffer or MLIR input;
+  :Normalize and transform TOSA IR;
+  :Partition into graph / custom shader segments;
+  note right
+    LLVM/MLIR provides IR and pass infrastructure,
+    type transformations, and constant folding.
+    SDK passes construct VGF sequences and segments.
+  end note
+  :Lower TOSA to SPIR-V™ graph/TOSA IR;
+  note right
+    Lowering in LLVM/MLIR:
+    TosaToSPIRVTosa lowering
+    Uses SPIR-V™ graph and tensor dialect support.
+  end note
+  :Finalize SPIR-V™ ABI and capabilities;\nplan resources and serialize code / metadata;
+}
+partition "VGF Library" {
+  :Encode modules, sequence, resources,\nand constants into a VGF asset;
+}
+:Package or distribute the VGF asset;
+stop
+@enduml

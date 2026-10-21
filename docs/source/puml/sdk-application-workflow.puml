@@ -1,0 +1,22 @@
+' SPDX-FileCopyrightText: Copyright 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
+' SPDX-License-Identifier: Apache-2.0
+@startuml
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam activityBackgroundColor #EFF6FF
+skinparam ArrowColor #334155
+
+start
+:Select a VGF asset and a compatible\nVulkan® execution environment;
+if (Integration level?) then (Workload Library)
+  :Load VGF and inspect\nresource requirements;
+  :Create or wrap a Vulkan® context;\nconfigure a session and bind resources;
+  :Prepare execution;\nrecord commands or run the workload;
+else (Direct decoder)
+  :Decode VGF with VGF Library;
+  :Create Vulkan® resources,\npipelines, and sessions as needed;
+  :Record and submit\nworkload commands;
+endif
+:Connect resource lifetimes and\nsynchronization to the application;\npackage the asset;
+stop
+@enduml

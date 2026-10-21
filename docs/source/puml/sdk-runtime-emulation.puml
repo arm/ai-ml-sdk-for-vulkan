@@ -1,0 +1,46 @@
+' SPDX-FileCopyrightText: Copyright 2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
+' SPDX-License-Identifier: Apache-2.0
+@startuml
+top to bottom direction
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam ArrowColor #334155
+skinparam rectangleBackgroundColor #EFF6FF
+skinparam linetype ortho
+skinparam nodesep 30
+skinparam ranksep 50
+hide stereotype
+
+' Width-only styles leave room for vertical calls that bypass a layer.
+<style>
+rectangle {
+  HorizontalAlignment center
+}
+.wide {
+  MinimumWidth 440
+}
+.medium {
+  MinimumWidth 280
+}
+.narrow {
+  MinimumWidth 197
+}
+</style>
+
+together {
+  rectangle "Vulkan® Loader" as loader <<wide>>
+  rectangle "Graph layer" as graph <<narrow>>
+  rectangle "Tensor layer" as tensor <<medium>>
+  rectangle "Vulkan® ICD" as driver <<wide>>
+
+  ' Invisible layout spacer keeps direct tensor calls right of the graph path.
+  label " " as tensor_lane
+  graph -[hidden]right- tensor_lane
+
+  loader --> graph
+  graph --> tensor
+  loader --> tensor
+  tensor --> driver
+  loader --> driver
+}
+@enduml
