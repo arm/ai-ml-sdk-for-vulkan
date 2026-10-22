@@ -292,7 +292,8 @@ ARG MESA_SHA256=097842f3e49d996868b38688db87b006f7d4541e93ce86d2f341d8b3e7be7c93
 ARG LAVAPIPE_BUILD_JOBS=12
 RUN lavapipe_tmp="$(mktemp -d /tmp/lavapipe-build-XXXXXX)" && \
     cd "${lavapipe_tmp}" && \
-    rpm -qa | sort > packages-before.txt && \
+    # Track package identities so upgrades are not mistaken for new packages.
+    rpm -qa --qf '%{NAME}.%{ARCH}\n' | sort > packages-before.txt && \
     dnf install -y \
       "llvm-devel-${CLANG_VERSION}" \
       zlib-devel \
@@ -328,13 +329,14 @@ RUN lavapipe_tmp="$(mktemp -d /tmp/lavapipe-build-XXXXXX)" && \
     cp -r "mesa-${MESA_VERSION}/licenses/." /opt/mesa-lavapipe/share/licenses/mesa/ && \
     install -m 0644 "mesa-${MESA_VERSION}/docs/license.rst" \
       /opt/mesa-lavapipe/share/licenses/mesa/ && \
-    comm -13 packages-before.txt <(rpm -qa | sort) > packages-added.txt && \
+    comm -13 packages-before.txt \
+      <(rpm -qa --qf '%{NAME}.%{ARCH}\n' | sort) > packages-added.txt && \
     xargs -r dnf remove -y --noautoremove < packages-added.txt && \
     # AlmaLinux's LLVM 20 uninstall script leaves this alternative behind.
-    if grep -q '^llvm-devel-' packages-added.txt; then \
+    if grep -q '^llvm-devel\.' packages-added.txt; then \
       update-alternatives --remove llvm-config-20 /usr/lib64/llvm20/bin/llvm-config; \
     fi && \
-    rpm -qa | sort > packages-after.txt && \
+    rpm -qa --qf '%{NAME}.%{ARCH}\n' | sort > packages-after.txt && \
     diff -u packages-before.txt packages-after.txt && \
     dnf clean all && \
     cd / && \
