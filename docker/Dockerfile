@@ -55,6 +55,7 @@ RUN dnf install -y \
       glx-utils \
       graphviz \
       gzip \
+      java-17-openjdk-headless \
       jq \
       "lld-${CLANG_VERSION}" \
       make \
@@ -109,6 +110,18 @@ RUN git clone --depth 1 --branch "Release_${DOXYGEN_VERSION//./_}" \
     cmake --build /tmp/doxygen/build -j "$(nproc)" && \
     cmake --install /tmp/doxygen/build && \
     rm -rf /tmp/doxygen
+
+# PlantUML for documentation diagrams on both image architectures.
+ARG PLANTUML_VERSION=1.2026.9
+ARG PLANTUML_SHA256=9e2211a5ed832d772c663318a989dd3a99b4dfa072724ee7ef9129957caca7b1
+RUN mkdir -p /opt/plantuml && \
+    curl -fsSL \
+      "https://github.com/plantuml/plantuml/releases/download/v${PLANTUML_VERSION}/plantuml-asl-${PLANTUML_VERSION}.jar" \
+      -o /opt/plantuml/plantuml.jar && \
+    echo "${PLANTUML_SHA256}  /opt/plantuml/plantuml.jar" | sha256sum -c - && \
+    printf '#!/bin/sh\nexec java -Djava.awt.headless=true -Dfile.encoding=UTF-8 -jar /opt/plantuml/plantuml.jar "$@"\n' \
+      > /usr/local/bin/plantuml && \
+    chmod 0755 /usr/local/bin/plantuml
 
 RUN git lfs install
 

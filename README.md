@@ -95,6 +95,7 @@ The build system must have:
 - Python 3.10 through 3.14 and `uv` 0.9.26 (the CI version). Python development
   dependencies are locked in `uv.lock` and declared in `pyproject.toml`.
 - Doxygen 1.9.1 or later. (When building documentation)
+- PlantUML, a compatible Java runtime, and Graphviz. (When building documentation)
 
 Building and running on Darwin also requires the
 [LunarG Vulkan® SDK](https://vulkan.lunarg.com/sdk/home#mac). The ML SDK's current
