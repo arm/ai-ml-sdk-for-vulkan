@@ -9,7 +9,9 @@ docker build --tag ml-sdk-image --file Dockerfile --build-arg user=$(whoami) --b
 
 The image uses `uv` 0.12.9 and installs the pinned Python dependencies in
 `docker/requirements.txt`.
-This file includes the SDK and the runtime, optional feature, build, test, and tooling dependencies
+It also includes Graphviz, Java, and PlantUML for building documentation.
+
+The requirements file includes the SDK and the runtime, optional feature, build, test, and tooling dependencies
 declared by all five components. It resolves one Python 3.12 Linux environment
 from their declarations; each component's `uv.lock` still governs its own
 development environment. Regenerate the image requirements from a complete
