@@ -13,16 +13,8 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import tomllib
 from pathlib import Path
-
-try:
-    import tomllib
-except ModuleNotFoundError:  # Python 3.10
-    try:
-        import tomli as tomllib
-    except ModuleNotFoundError:
-        tomllib = None
-
 
 COMPONENTS = (
     "emulation-layer",
@@ -80,23 +72,6 @@ def main() -> int:
         help="allow upgrades instead of preserving compatible existing pins",
     )
     args = parser.parse_args()
-    if tomllib is None:
-        # A direct invocation on clean Python 3.10 needs a TOML parser. Use the
-        # same uv executable that will resolve the Docker requirements below.
-        return subprocess.call(
-            [
-                args.uv,
-                "run",
-                "--no-project",
-                "--isolated",
-                "--with",
-                "tomli==2.4.1",
-                "--python",
-                sys.executable,
-                str(Path(__file__).resolve()),
-                *sys.argv[1:],
-            ]
-        )
     sdk_root = args.sdk_root.resolve()
     output = sdk_root / "docker" / "requirements.txt"
 
