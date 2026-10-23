@@ -46,13 +46,14 @@ Use the Torch-MLIR TOSA backend to convert the backend MLIR to the TOSA MLIR dia
 
     torch-mlir-opt mnist-12.torch.backend.mlir \
         --pass-pipeline="builtin.module(torch-backend-to-tosa-backend-pipeline{require-full-tosa-conversion})" \
-        -o mnist-12.tosa.mlir
+        --emit-bytecode \
+        -o mnist-12.tosa.mlirbc
 
 5. Generate the VGF File:
 
 .. code-block:: bash
 
-    model-converter --input mnist-12.tosa.mlir --output mnist-12.vgf
+    model-converter --input mnist-12.tosa.mlirbc --output mnist-12.vgf
 
 6. Run the VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®
 
