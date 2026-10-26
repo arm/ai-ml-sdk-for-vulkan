@@ -29,6 +29,7 @@ accross multiple vendor implementations.
    :caption: Overview
 
    introduction.rst
+   architecture.rst
    faq.rst
    installing.rst
    compatibility.rst

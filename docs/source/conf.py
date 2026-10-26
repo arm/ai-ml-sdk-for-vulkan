@@ -70,6 +70,9 @@ extensions = [
     "sphinxcontrib.plantuml",
 ]
 
+# Keep diagrams sharp when zooming the HTML documentation.
+plantuml_output_format = "svg_img"
+
 # Disable superfluous warnings
 suppress_warnings = [
     "autosectionlabel.*",
