@@ -1,5 +1,5 @@
-Converting and deploying a TFLite model tutorial
-================================================
+Convert and deploy a TFLite model
+=================================
 
 This tutorial demonstrates how to convert and deploy a TFLite model
 using the TOSA converter for TFLite and the ML SDK for Vulkan®.
@@ -37,7 +37,7 @@ Run the following command to convert the SESR model from TFLite to TOSA in the f
 
 4. Generate the VGF File:
 
-Similarly as for deploying the PyTorch files (:ref:`Converting and deploying a PyTorch model tutorial`),
+Similarly as for deploying the PyTorch files (:doc:`e2e_pytorch_tutorial`),
 to generate the VGF file and Scenario Template, use the TOSA MLIR bytecode file:
 
 .. code-block:: bash
@@ -46,7 +46,7 @@ to generate the VGF file and Scenario Template, use the TOSA MLIR bytecode file:
 
 3. Run the VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®
 
-To execute the VGF file refer to :ref:`How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®`.
+To execute the VGF file refer to :doc:`vgf_run_tutorial`.
 
 After the run, the contents of :code:`ML-zoo/models/superresolution/SESR/tflite_int8/testing_output/net_output/0.npy`
 and :code:`output-0.npy` should be identical.

@@ -1,5 +1,5 @@
-Converting and deploying an ONNX model tutorial
-===============================================
+Convert and deploy an ONNX model
+================================
 
 This tutorial demonstrates how to convert and deploy an ONNX model using Torch-MLIR and the ML SDK for Vulkan®.
 It walks through model conversion to TOSA MLIR, VGF file generation, and execution using the ML SDK Scenario Runner.
@@ -57,7 +57,7 @@ Use the Torch-MLIR TOSA backend to convert the backend MLIR to the TOSA MLIR dia
 
 6. Run the VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®
 
-To execute the VGF file refer to :ref:`How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®`.
+To execute the VGF file refer to :doc:`vgf_run_tutorial`.
 
 After this executes, the MNIST model output will be stored in :code:`output-0.npy`.
 
