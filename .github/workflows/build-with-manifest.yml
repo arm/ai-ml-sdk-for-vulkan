@@ -101,7 +101,7 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install uv==0.9.26
+          python -m pip install uv==0.13.4
           set -o pipefail
           uv export --locked --only-group sdk --no-emit-project --no-hashes |
             uv pip install --python "$(which python)" -r -
@@ -170,7 +170,7 @@ jobs:
         shell: pwsh
         run: |
           python -m pip install --upgrade pip
-          python -m pip install uv==0.9.26
+          python -m pip install uv==0.13.4
           $dependencies = uv export --locked --only-group sdk --no-emit-project --no-hashes
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           $dependencies | uv pip install --python (Get-Command python).Source -r -
