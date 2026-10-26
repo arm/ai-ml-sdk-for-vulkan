@@ -36,14 +36,8 @@ accross multiple vendor implementations.
    cloning.rst
    building.rst
    darwin.rst
-   tensor_aliasing_tutorial.rst
-   e2e_pytorch_tutorial.rst
-   e2e_tflite_tutorial.rst
-   e2e_onnx_tutorial.rst
-   vgf_run_tutorial.rst
    performance.rst
    license.rst
-
 
 .. toctree::
    :maxdepth: 2
@@ -74,6 +68,16 @@ accross multiple vendor implementations.
    :caption: ML Workload Library for Vulkan®
 
    workload-lib/docs/in/index.rst
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Tutorials
+
+   e2e_pytorch_tutorial.rst
+   e2e_tflite_tutorial.rst
+   e2e_onnx_tutorial.rst
+   vgf_run_tutorial.rst
+   tensor_aliasing_tutorial.rst
 
 .. toctree::
    :maxdepth: 1

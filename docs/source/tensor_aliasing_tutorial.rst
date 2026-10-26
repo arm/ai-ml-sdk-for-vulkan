@@ -1,7 +1,7 @@
-Tensor aliasing tutorial
-========================
+Tensor aliasing
+===============
 
-This tutorial builds on the previous :ref:`Converting and deploying a PyTorch model tutorial`. The tutorial
+This tutorial builds on :doc:`e2e_pytorch_tutorial`. The tutorial
 describes tensor aliasing by showing you how to implement edge detection with Sobel filtering. This
 tutorial also demonstrates how to implement image filtering using tensor operations.
 
@@ -62,7 +62,7 @@ This generates a VGF file :code:`${NAME}.vgf`, where :code:`${NAME}` is generate
 
 .. note::
     For more information about this command, see
-    :ref:`Converting and deploying a PyTorch model tutorial`.
+    :doc:`e2e_pytorch_tutorial`.
 
 4. Modify the Scenario Template:
 

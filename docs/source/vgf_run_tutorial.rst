@@ -1,5 +1,5 @@
-How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®
-====================================================================================
+Run a VGF file
+==============
 
 1. Use the VGF Dump Tool to generate a Scenario Template. To run a scenario on the ML SDK Scenario Runner,
 you must have a scenario specification in the form of a JSON file:

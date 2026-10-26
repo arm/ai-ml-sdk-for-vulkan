@@ -1,5 +1,5 @@
-Converting and deploying a PyTorch model tutorial
-=================================================
+Convert and deploy a PyTorch model
+==================================
 
 .. note::
     For details on platform support, installation, and usage of ExecuTorch, please refer to the official documentation:
@@ -60,4 +60,4 @@ A matching example input is also generated in the same directory for testing.
 
 3. Run the VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®
 
-To execute the VGF file refer to :ref:`How to run a VGF file with ML SDK Scenario Runner and ML Emulation Layer for Vulkan®`.
+To execute the VGF file refer to :doc:`vgf_run_tutorial`.
