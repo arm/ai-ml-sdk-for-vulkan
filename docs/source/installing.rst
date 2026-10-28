@@ -56,11 +56,11 @@ Requirements for pip installation
 
 Before installing a package with ``pip``, ensure that your system has:
 
-* Python 3.10 or later.
+* Python 3.11 or later.
 * A supported operating system and architecture. See :ref:`Platforms`.
 * A recent version of ``pip``.
 
-Python 3.10 or later is the general Python requirement. However, this does not
+Python 3.11 or later is the general Python requirement. However, this does not
 mean that every package is available for every later Python version or
 platform. A compatible wheel must also have been published for your Python
 version, operating system, and architecture.
@@ -141,7 +141,7 @@ Check that the release contains a wheel compatible with:
 
 Wheel filenames include compatibility tags. For example, ``win_amd64``
 identifies Windows® x86-64, and ``aarch64`` identifies Linux AArch64 in a
-Linux wheel tag. A ``cp310`` interpreter tag identifies CPython 3.10; a
+Linux wheel tag. A ``cp311`` interpreter tag identifies CPython 3.11; a
 ``py3-none`` wheel has no Python-version-specific ABI dependency, but can
 still contain native binaries and require a particular operating system.
 Linux and Darwin platform tags also encode an operating-system compatibility
@@ -274,10 +274,10 @@ layer configuration, which package installation alone does not validate.
 Python versions and testing platforms
 -------------------------------------
 
-The current binary package build configuration targets CPython 3.10, 3.11,
-3.12, 3.13, and 3.14 for VGF Library and Scenario Runner. Model Converter,
-Emulation Layer, and Workload Library use Python 3.10 to produce
-``py3-none`` wheels, with Python 3.10 or later declared as their requirement.
+The current binary package build configuration targets CPython 3.11, 3.12,
+3.13, and 3.14 for VGF Library and Scenario Runner. Model Converter,
+Emulation Layer, and Workload Library use Python 3.11 to produce
+``py3-none`` wheels, with Python 3.11 or later declared as their requirement.
 These are wheel build targets; check the selected release's files for actual
 availability.
 

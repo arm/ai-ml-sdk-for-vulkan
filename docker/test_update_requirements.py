@@ -140,33 +140,3 @@ def test_collect_requirements_includes_all_optional_features(tmp_path):
         path.write_text(project)
     requirements, _ = update_requirements.collect_requirements(tmp_path)
     assert requirements == ["example-extra==1.0"]
-
-
-def test_clean_python_310_bootstraps_tomli_after_argument_parsing():
-    with (
-        mock.patch.object(update_requirements, "tomllib", None),
-        mock.patch.object(
-            update_requirements.subprocess, "call", return_value=7
-        ) as run,
-        mock.patch.object(
-            update_requirements.sys,
-            "argv",
-            ["update_requirements.py", "--check", "--uv", "uv-custom"],
-        ),
-    ):
-        assert update_requirements.main() == 7
-
-    assert run.call_args.args[0] == [
-        "uv-custom",
-        "run",
-        "--no-project",
-        "--isolated",
-        "--with",
-        "tomli==2.4.1",
-        "--python",
-        update_requirements.sys.executable,
-        str(SCRIPT.resolve()),
-        "--check",
-        "--uv",
-        "uv-custom",
-    ]
