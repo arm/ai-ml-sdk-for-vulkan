@@ -275,14 +275,14 @@ Python versions and testing platforms
 -------------------------------------
 
 The current binary package build configuration targets CPython 3.11, 3.12,
-3.13, and 3.14 for VGF Library and Scenario Runner. Model Converter,
+3.13, 3.14, and 3.15 for VGF Library and Scenario Runner. Model Converter,
 Emulation Layer, and Workload Library use Python 3.11 to produce
 ``py3-none`` wheels, with Python 3.11 or later declared as their requirement.
 These are wheel build targets; check the selected release's files for actual
 availability.
 
-We test the pip packages for all five components on all platforms listed
-below, using Python 3.12 only.
+Wheel builds and combined installation checks use each target Python version.
+The full component test suites use Python 3.12 on the platforms listed below.
 
 .. list-table::
    :header-rows: 1

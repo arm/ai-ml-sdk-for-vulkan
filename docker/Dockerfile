@@ -245,7 +245,7 @@ RUN case "${TARGETARCH}" in \
       "sccache-v${SCCACHE_VERSION}-${architecture}-unknown-linux-musl"
 
 # uv
-ARG UV_VERSION=0.12.9
+ARG UV_VERSION=0.13.4
 RUN curl --proto '=https' --tlsv1.2 -fsSL -o /tmp/uv-installer.sh \
       "https://releases.astral.sh/github/uv/releases/download/${UV_VERSION}/uv-installer.sh" && \
     UV_INSTALL_DIR="/home/${user}/.local/bin" sh /tmp/uv-installer.sh && \
