@@ -11,6 +11,17 @@ on:
         description: "Shared branch name across repos (e.g., feature/foo)"
         required: true
         type: string
+  # Allow calling from other repos
+  workflow_call:
+    inputs:
+      topic_branch:
+        required: true
+        type: string
+
+# Multiple PR updates can trigger the same topic while keeping only the latest build
+concurrency:
+  group: topic-ci-${{ inputs.topic_branch }}
+  cancel-in-progress: true
 
 jobs:
   collect:
@@ -20,6 +31,7 @@ jobs:
       pull-requests: read
     outputs:
       overrides_json: ${{ steps.collect.outputs.overrides_json }}
+      repo_count: ${{ steps.collect.outputs.repo_count }}
     steps:
       - name: Collect PRs by branch across org
         id: collect
@@ -28,8 +40,8 @@ jobs:
           TOPIC:     ${{ inputs.topic_branch }}
           GH_TOKEN:  ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Construct the full GitHub search query string
-          QUERY_STRING="org:$ORG is:pr is:open head:$TOPIC"
+          # Find open topic PRs targeting main in repositories owned by the Arm organization.
+          QUERY_STRING="org:$ORG is:pr is:open base:main head:$TOPIC"
 
           # Create GraphQL payload with the query string embedded directly
           QUERY='
@@ -43,6 +55,8 @@ jobs:
               edges {
                 node {
                   ... on PullRequest {
+                    number
+                    url
                     repository {
                       nameWithOwner
                     }
@@ -57,9 +71,21 @@ jobs:
           # Run the query via gh api
           JSON=$(gh api graphql -f query="$QUERY")
 
-          # Build a repo->sha map from results
-          echo "$JSON" | jq -r '
+          # Only topic changes in Vulkan ML SDK repositories
+          ALLOWED_REPOS=$(jq -nc --arg org "$ORG" '[
+            $org + "/ai-ml-sdk-for-vulkan",
+            $org + "/ai-ml-sdk-vgf-library",
+            $org + "/ai-ml-sdk-model-converter",
+            $org + "/ai-ml-sdk-scenario-runner",
+            $org + "/ai-ml-emulation-layer-for-vulkan",
+            $org + "/ai-ml-workload-library-for-vulkan"
+          ]')
+
+          # Build a repo->sha map from allowed results and keep this PR only if its repository is in ALLOWED_REPOS
+          # TODO: Fail if multiple PRs from the same repository use this topic branch, for now pick the last matching
+          echo "$JSON" | jq -r --argjson allowed_repos "$ALLOWED_REPOS" '
             .data.search.edges
+            | map(select(.node.repository.nameWithOwner as $repo | $allowed_repos | index($repo)))
             | map({key: .node.repository.nameWithOwner, value: .node.headRefOid})
             | from_entries
           ' > overrides.json
@@ -67,11 +93,27 @@ jobs:
           # If jq logic above returns null for empty, make an empty object
           if [ ! -s overrides.json ]; then echo "{}" > overrides.json; fi
 
+          # Add the selected pull requests to the workflow summary.
+          {
+            printf '## Selected topic pull requests\n\nBranch: `%s`\n\n' "$TOPIC"
+            printf '| Repository | Pull request | Head SHA |\n| --- | --- | --- |\n'
+            echo "$JSON" | jq -r --argjson allowed_repos "$ALLOWED_REPOS" '
+              .data.search.edges
+              | map(select(.node.repository.nameWithOwner as $repo | $allowed_repos | index($repo)))
+              | sort_by(.node.repository.nameWithOwner)
+              | .[]
+              | "| `\(.node.repository.nameWithOwner)` | [#\(.node.number)](\(.node.url)) | `\(.node.headRefOid)` |"
+            '
+          } >> "$GITHUB_STEP_SUMMARY"
+
           echo "overrides_json=$(cat overrides.json | jq -c .)" >> "$GITHUB_OUTPUT"
+          echo "repo_count=$(jq 'length' overrides.json)" >> "$GITHUB_OUTPUT"
 
   build:
     needs: collect
-    if: ${{ needs.collect.outputs.overrides_json != '{}' }}
-    uses: ./.github/workflows/build-with-manifest.yml
+    # Manual builds still work with one repository
+    if: ${{ needs.collect.outputs.overrides_json != '{}' && (github.event_name == 'workflow_dispatch' || fromJSON(needs.collect.outputs.repo_count) > 1) }}
+    # Replace @ci/topic-build to @main before merging
+    uses: arm/ai-ml-sdk-for-vulkan/.github/workflows/build-with-manifest.yml@ci/topic-builds
     with:
       overrides_json: ${{ needs.collect.outputs.overrides_json }}
