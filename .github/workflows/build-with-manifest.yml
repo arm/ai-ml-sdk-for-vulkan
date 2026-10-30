@@ -72,8 +72,13 @@ jobs:
           echo "ERROR: must provide changed_repo+changed_sha OR overrides_json"
           exit 1
 
+      # Check out ai-ml-sdk-for-vulkan so ci_build.sh is available when a
+      # component repository, such as Scenario Runner, starts the build.
       - &checkout
         uses: actions/checkout@v6
+        with:
+          repository: arm/ai-ml-sdk-for-vulkan
+          ref: ci/topic-builds
 
       - name: Cache sccache
         uses: actions/cache@v6
