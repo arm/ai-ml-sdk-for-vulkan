@@ -72,8 +72,23 @@ jobs:
           echo "ERROR: must provide changed_repo+changed_sha OR overrides_json"
           exit 1
 
-      - &checkout
+      - &checkout-sdk-change
+        name: Check out SDK change
+        if: inputs.changed_repo == 'arm/ai-ml-sdk-for-vulkan'
         uses: actions/checkout@v6
+        with:
+          repository: arm/ai-ml-sdk-for-vulkan
+          ref: ${{ inputs.changed_sha }}
+
+      # Component (e.g. scenario-runner) triggered builds use SDK root to provide ci_build.sh and ci_build.ps1.
+      - &checkout-sdk-main
+        name: Check out SDK root for component build
+        if: inputs.changed_repo != 'arm/ai-ml-sdk-for-vulkan'
+        uses: actions/checkout@v6
+        with:
+          repository: arm/ai-ml-sdk-for-vulkan
+          # Use the SDK root topic SHA when present, otherwise use main.
+          ref: ${{ fromJSON(inputs.overrides_json || '{}')['arm/ai-ml-sdk-for-vulkan'] || 'main' }}
 
       - name: Cache sccache
         uses: actions/cache@v6
@@ -91,7 +106,8 @@ jobs:
 
     steps:
       - *validate-inputs
-      - *checkout
+      - *checkout-sdk-change
+      - *checkout-sdk-main
       - &setup-python
         name: Set up Python
         uses: actions/setup-python@v6
@@ -140,8 +156,14 @@ jobs:
     runs-on: windows-latest
     steps:
       - *validate-inputs
-      - *checkout
+      - *checkout-sdk-change
+      - *checkout-sdk-main
       - *setup-python
+
+      # Allow Git to handle long file paths on Windows
+      - name: Enable long Git paths
+        shell: pwsh # PowerShell
+        run: git config --global core.longpaths true
 
       - name: Set up MSVC (Developer Command Prompt)
         uses: ilammy/msvc-dev-cmd@v1
