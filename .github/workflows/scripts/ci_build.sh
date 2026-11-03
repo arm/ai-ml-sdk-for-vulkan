@@ -73,7 +73,7 @@ if [ -n "$OVERRIDES" ]; then
     rm -f .repo/local_manifests/override.xml
     cat > .repo/local_manifests/override.xml <<EOF
 <manifest>
-  <project name="${NAME}" revision="${REVISION}" remote="github"/>
+  <extend-project name="${NAME}" revision="${REVISION}" remote="github"/>
 </manifest>
 EOF
 
@@ -98,7 +98,7 @@ elif [ -n "$CHANGED_REPO" ]; then
   # Create a local manifest override to pin the changed repo to the exact SHA
   cat > .repo/local_manifests/override.xml <<EOF
 <manifest>
-  <project name="${CHANGED_REPO}" revision="${CHANGED_SHA}" remote="github"/>
+  <extend-project name="${CHANGED_REPO}" revision="${CHANGED_SHA}" remote="github"/>
 </manifest>
 EOF
 
@@ -146,7 +146,11 @@ run_checks ./sw/model-converter
 
 export VK_LAYER_PATH=$INSTALL_DIR/share/vulkan/explicit_layer.d
 export VK_INSTANCE_LAYERS=VK_LAYER_ML_Graph_Emulation:VK_LAYER_ML_Tensor_Emulation
-export LD_LIBRARY_PATH="$INSTALL_DIR/lib64:$INSTALL_DIR/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+if [[ "$(uname)" == "Darwin" ]]; then
+  export DYLD_LIBRARY_PATH="$INSTALL_DIR/lib${DYLD_LIBRARY_PATH:+:$DYLD_LIBRARY_PATH}"
+else
+  export LD_LIBRARY_PATH="$INSTALL_DIR/lib64:$INSTALL_DIR/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+fi
 
 echo "Build Emulation Layer"
 run_checks ./sw/emulation-layer

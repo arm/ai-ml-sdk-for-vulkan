@@ -96,7 +96,7 @@ try {
 
             $overrideContent = @"
 <manifest>
-  <project name="$name" revision="$revision" remote="github"/>
+  <extend-project name="$name" revision="$revision" remote="github"/>
 </manifest>
 "@
             $overrideContent | Set-Content -Path $overrideFile -Encoding UTF8
@@ -127,7 +127,7 @@ try {
         $overrideFile = ".repo/local_manifests/override.xml"
         $overrideContent = @"
 <manifest>
-  <project name="$ChangedRepo" revision="$ChangedSha" remote="github"/>
+  <extend-project name="$ChangedRepo" revision="$ChangedSha" remote="github"/>
 </manifest>
 "@
         $overrideContent | Set-Content -Path $overrideFile -Encoding UTF8
