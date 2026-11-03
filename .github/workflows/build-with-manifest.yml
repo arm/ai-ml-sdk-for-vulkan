@@ -78,7 +78,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           repository: arm/ai-ml-sdk-for-vulkan
-          ref: ci/topic-builds
+          ref: main
 
       - name: Cache sccache
         uses: actions/cache@v6

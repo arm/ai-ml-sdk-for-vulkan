@@ -111,7 +111,6 @@ jobs:
     needs: collect
     # Build topics with one or more matching pull requests.
     if: ${{ needs.collect.outputs.overrides_json != '{}' }}
-    # Replace @ci/topic-build to @main before merging
-    uses: arm/ai-ml-sdk-for-vulkan/.github/workflows/build-with-manifest.yml@ci/topic-builds
+    uses: arm/ai-ml-sdk-for-vulkan/.github/workflows/build-with-manifest.yml@main
     with:
       overrides_json: ${{ needs.collect.outputs.overrides_json }}
