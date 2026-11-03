@@ -169,11 +169,38 @@ use `--package-dir` to select another location.
 
 ## Build the documentation
 
-To build the documentation, run the following command:
+Build the combined SDK documentation independently of native libraries and tools:
+
+```bash
+uv sync --locked --no-install-project --no-default-groups --group sdk
+uv run --no-sync cmake -S docs -B build-docs -G Ninja
+cmake --build build-docs
+```
+
+This requires CMake 3.25 or later, Ninja (or another selected CMake generator),
+Doxygen 1.9.1 or later, and PlantUML with its Java and Graphviz prerequisites.
+The locked SDK Python environment supplies Sphinx and its extensions. With
+these tools already on `PATH`, plain `cmake` can also configure the project.
+The default build generates `build-docs/docs/out/index.html`; `sdk_doc` is
+also available as an explicit target. No C/C++ compiler, native Python bindings,
+or component executables are required. Checked-in API and CLI help snapshots
+are used as documentation inputs.
+
+Each present component must provide its standalone `docs/CMakeLists.txt`.
+Missing components are allowed for partial checkouts, with documentation warnings
+permitted; a complete checkout treats Sphinx warnings as errors. Existing
+`ML_SDK_<COMPONENT>_PATH` CMake overrides can select component repositories
+outside `sw/` (replace hyphens with underscores and use uppercase names).
+
+The existing native build with documentation remains available:
 
 ```bash
 ./scripts/build.py --doc
 ```
+
+Start with a fresh documentation build directory and keep it separate from
+native build directories. The wrapper, including `--doc-only`, still uses
+the native configure path during this transition.
 
 ## More command line options
 
