@@ -148,6 +148,29 @@ Linux and Darwin platform tags also encode an operating-system compatibility
 baseline. Let ``pip`` check these tags; renaming a wheel does not make it
 compatible with another system.
 
+Scenario Runner and VGF Library wheels include compiled Python extensions and
+currently support standard CPython builds only. Free-threaded builds such as
+``cp314t`` require separate wheels, which are not currently published. A
+standard ``cp314-cp314`` wheel cannot be used with a free-threaded interpreter,
+even when its GIL is enabled.
+
+Use a virtual environment created with standard CPython for these packages.
+If you only need the native CLI tools, use the component's binary release
+archive instead. Model Converter, Emulation Layer, and Workload Library use
+``py3-none`` wheels and do not have this Python ABI restriction; their other
+package and runtime requirements still apply.
+
+If the newest release has no compatible wheel, ``pip`` may install an older
+compatible release. Pin the required version to prevent this fallback, for
+example:
+
+.. code-block:: shell
+
+   python -m pip install --only-binary=:all: ai-ml-sdk-scenario-runner==0.11.0
+
+An incompatible interpreter will then produce an installation error instead
+of selecting an older release.
+
 The Python requirement shown on the main PyPI page is not sufficient by
 itself. A compatible wheel must also appear on the **Download files** page.
 
