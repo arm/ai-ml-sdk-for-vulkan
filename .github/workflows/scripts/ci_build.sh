@@ -138,11 +138,11 @@ export CMAKE_CXX_COMPILER_LAUNCHER="$CACHE_TOOL"
 
 echo "Build VGF-Lib"
 run_checks ./sw/vgf-lib
-./sw/vgf-lib/scripts/build.py -j $(nproc) --doc --test
+./sw/vgf-lib/scripts/build.py -j $(nproc) --test
 
 echo "Build Model Converter"
 run_checks ./sw/model-converter
-./sw/model-converter/scripts/build.py -j $(nproc) --doc --test
+./sw/model-converter/scripts/build.py -j $(nproc) --test
 
 export VK_LAYER_PATH=$INSTALL_DIR/share/vulkan/explicit_layer.d
 export VK_INSTANCE_LAYERS=VK_LAYER_ML_Graph_Emulation:VK_LAYER_ML_Tensor_Emulation
@@ -150,19 +150,19 @@ export LD_LIBRARY_PATH="$INSTALL_DIR/lib64:$INSTALL_DIR/lib${LD_LIBRARY_PATH:+:$
 
 echo "Build Emulation Layer"
 run_checks ./sw/emulation-layer
-./sw/emulation-layer/scripts/build.py -j $(nproc) --doc --test --install $INSTALL_DIR
+./sw/emulation-layer/scripts/build.py -j $(nproc) --test --install $INSTALL_DIR
 
 echo "Build Workload Library"
 run_checks ./sw/workload-lib
-./sw/workload-lib/scripts/build.py -j $(nproc) --doc --test
+./sw/workload-lib/scripts/build.py -j $(nproc) --test
 
 echo "Build Scenario Runner"
 run_checks ./sw/scenario-runner
-./sw/scenario-runner/scripts/build.py -j $(nproc) --doc --test
+./sw/scenario-runner/scripts/build.py -j $(nproc) --test
 
 echo "Build SDK Root"
 run_checks .
-./scripts/build.py -j $(nproc) --doc
+./scripts/build.py -j $(nproc)
 
 "$CACHE_TOOL" --show-stats || true
 
