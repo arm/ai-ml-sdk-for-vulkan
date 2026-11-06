@@ -58,6 +58,7 @@ class Builder:
         self.enable_glsl_support = args.enable_glsl_support
         self.enable_hlsl_support = args.enable_hlsl_support
         self.disable_workload_lib_vgf_support = args.disable_workload_lib_vgf_support
+        self.build_pylib = args.build_pylib
 
         self.doc_only = args.doc_only
         self.doc = args.doc or self.doc_only
@@ -161,6 +162,14 @@ class Builder:
 
         if self.disable_workload_lib_vgf_support:
             cmake_setup_cmd.append("-DML_WORKLOAD_LIB_ENABLE_VGF_SUPPORT=OFF")
+
+        if self.build_pylib:
+            cmake_setup_cmd.extend(
+                [
+                    "-DML_SDK_VGF_LIB_BUILD_PYLIB=ON",
+                    "-DSCENARIO_RUNNER_BUILD_PYLIB=ON",
+                ]
+            )
 
         if self.install or self.package_tgz or self.package_zip:
             cmake_setup_cmd.append(f"-DML_SDK_GENERATE_CPACK=ON")
@@ -347,6 +356,12 @@ def parse_arguments():
         "--gtest-path",
         help="Path to gtest repo",
         default=f"{DEPENDENCIES_DIR / 'googletest'}",
+    )
+    parser.add_argument(
+        "--build-pylib",
+        help="Build VGF Library and Scenario Runner Python bindings",
+        action="store_true",
+        default=False,
     )
     doc_group = parser.add_mutually_exclusive_group()
     doc_group.add_argument(
