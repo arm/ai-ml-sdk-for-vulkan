@@ -72,8 +72,13 @@ jobs:
           echo "ERROR: must provide changed_repo+changed_sha OR overrides_json"
           exit 1
 
+      # Check out ai-ml-sdk-for-vulkan so ci_build.sh is available when a
+      # component repository, such as Scenario Runner, starts the build.
       - &checkout
         uses: actions/checkout@v6
+        with:
+          repository: arm/ai-ml-sdk-for-vulkan
+          ref: main
 
       - name: Cache sccache
         uses: actions/cache@v6
@@ -142,6 +147,11 @@ jobs:
       - *validate-inputs
       - *checkout
       - *setup-python
+
+      # Allow Git to handle long file paths on Windows
+      - name: Enable long Git paths
+        shell: pwsh # PowerShell
+        run: git config --global core.longpaths true
 
       - name: Set up MSVC (Developer Command Prompt)
         uses: ilammy/msvc-dev-cmd@v1
