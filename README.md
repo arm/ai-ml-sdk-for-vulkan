@@ -133,6 +133,9 @@ Library for Vulkan® and in Scenario Runner where supported. Pass
 `--disable-workload-lib-vgf-support` to build the library for standalone
 workloads without VGF Library support.
 
+Pass `--build-pylib` to build the VGF Library and Scenario Runner Python
+bindings alongside the native components.
+
 If the ML SDK for Vulkan® components are installed in custom locations, specify
 their paths by adding the following command line option:
 
