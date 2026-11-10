@@ -26,7 +26,6 @@ if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
 endif()
 
 ### Options
-option(ML_SDK_BUILD_DOCS "Build project documentation" OFF)
 option(SCENARIO_RUNNER_ENABLE_HLSL_SUPPORT "HLSL only supported on Windows and Linux" OFF)
 
 # Path to ML SDK for Vulkan® root
@@ -53,9 +52,6 @@ macro(optional_add_subdirectory dir_path binary)
     if(EXISTS "${dir_path}/CMakeLists.txt")
         message(STATUS "Including component: ${dir_path}")
         add_subdirectory("${dir_path}" ${binary})
-        if(ML_SDK_BUILD_DOCS)
-            list(APPEND ML_SDK_COMPONENTS_DIRS ${binary})
-        endif()
         if(ML_SDK_GENERATE_CPACK)
             file(GLOB component_sboms "${dir_path}/*.spdx.json")
             if(component_sboms)
@@ -81,8 +77,6 @@ set(ML_SDK_EMULATION_LAYER_PATH      "${ML_SDK_FOR_VULKAN_PATH}/sw/emulation-lay
 set(ML_SDK_SCENARIO_RUNNER_PATH      "${ML_SDK_FOR_VULKAN_PATH}/sw/scenario-runner" CACHE PATH "Path to the ML SDK Scenario Runner")
 set(ML_SDK_VGF_LIB_PATH              "${ML_SDK_FOR_VULKAN_PATH}/sw/vgf-lib" CACHE PATH "Path to the ML SDK VGF Library")
 set(ML_SDK_WORKLOAD_LIB_PATH         "${ML_SDK_FOR_VULKAN_PATH}/sw/workload-lib" CACHE PATH "Path to the ML Workload Library for Vulkan")
-set(ML_SDK_COMPONENTS_DIRS "")
-
 optional_add_subdirectory("${ML_SDK_VGF_LIB_PATH}" vgf-lib)
 optional_add_subdirectory("${ML_SDK_MODEL_CONVERTER_PATH}" model-converter)
 optional_add_subdirectory("${ML_SDK_EMULATION_LAYER_PATH}" emulation-layer)
@@ -102,11 +96,4 @@ if(ML_SDK_GENERATE_CPACK)
     include(CPack)
 endif()
 
-###############################################################################
-# Generate documentation
-###############################################################################
-if(ML_SDK_BUILD_DOCS)
-    include(docs/docs.cmake)
-endif()
-unset(ML_SDK_BUILD_DOCS CACHE)
 unset(ML_SDK_GENERATE_CPACK CACHE)

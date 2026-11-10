@@ -9,6 +9,4 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
     message(FATAL_ERROR "Documentation requires an out-of-source build. Use -B build-docs.")
 endif()
 
-# TODO(standalone-docs): Remove this mode flag once the native entry point is retired.
-set(ML_SDK_DOCS_STANDALONE ON)
 include("${CMAKE_CURRENT_LIST_DIR}/docs.cmake")

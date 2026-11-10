@@ -195,15 +195,8 @@ permitted; a complete checkout treats Sphinx warnings as errors. Existing
 `ML_SDK_<COMPONENT>_PATH` CMake overrides can select component repositories
 outside `sw/` (replace hyphens with underscores and use uppercase names).
 
-The existing native build with documentation remains available:
-
-```bash
-./scripts/build.py --doc
-```
-
-Start with a fresh documentation build directory and keep it separate from
-native build directories. The wrapper, including `--doc-only`, still uses
-the native configure path during this transition.
+Use a dedicated documentation build directory, separate from native build
+directories. The native build wrapper no longer builds documentation.
 
 ## More command line options
 
