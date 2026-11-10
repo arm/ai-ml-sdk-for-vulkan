@@ -26,8 +26,8 @@ env:
 
 jobs:
   build:
-    name: Build documentation
-    runs-on: ubuntu-24.04
+    name: Build documentation (Linux arm64)
+    runs-on: ubuntu-24.04-arm
     timeout-minutes: 120
 
     permissions:
@@ -35,7 +35,7 @@ jobs:
       packages: read
 
     container:
-      image: ghcr.io/arm/ml-sdk-linux-amd64:latest
+      image: ghcr.io/arm/ml-sdk-linux-arm64:latest
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
@@ -74,6 +74,106 @@ jobs:
         uses: actions/upload-pages-artifact@v4
         with:
           path: ${{ env.DOCS_BUILD_DIR }}/docs/out
+
+  build-darwin:
+    name: Validate documentation (Darwin)
+    runs-on: macos-latest
+    timeout-minutes: 120
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Install documentation tools
+        run: |
+          brew install repo cmake ninja doxygen plantuml
+          python -m pip install uv==0.13.4
+
+      - name: Clone repositories
+        run: |
+          mkdir -p "$SDK_DIR"
+          cd "$SDK_DIR"
+          repo init -u "$MANIFEST_URL" --depth=1
+          repo sync --no-clone-bundle -j "$(sysctl -n hw.ncpu)"
+
+      - name: Record resolved revisions
+        run: |
+          cd "$SDK_DIR"
+          repo manifest -r -o "$GITHUB_WORKSPACE/resolved-manifest.xml"
+          repo forall -p -c 'git rev-parse HEAD'
+
+      - name: Build documentation
+        run: |
+          cd "$SDK_DIR"
+          uv sync --locked --no-install-project --no-default-groups --group sdk
+          uv run --no-sync cmake -S docs -B "$DOCS_BUILD_DIR" -G Ninja
+          cmake --build "$DOCS_BUILD_DIR" --parallel "$(sysctl -n hw.ncpu)"
+
+  build-windows:
+    name: Validate documentation (Windows)
+    runs-on: windows-latest
+    timeout-minutes: 120
+
+    permissions:
+      contents: read
+
+    defaults:
+      run:
+        shell: pwsh
+
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Set up Java for PlantUML
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install documentation tools
+        run: |
+          $PSNativeCommandUseErrorActionPreference = $true
+          choco install -y doxygen.install ninja graphviz plantuml
+          "$env:ProgramFiles/doxygen/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          "$env:ProgramFiles/Graphviz/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          $plantumlCli = (Get-Command plantumlc).Source
+          $plantumlDir = Join-Path $env:RUNNER_TEMP 'docs-tools'
+          New-Item -ItemType Directory -Path $plantumlDir -Force | Out-Null
+          "@echo off`r`n`"$plantumlCli`" %*" | Set-Content -Path (Join-Path $plantumlDir 'plantuml.cmd')
+          $plantumlDir | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          python -m pip install uv==0.13.4
+          git clone https://gerrit.googlesource.com/git-repo "$env:GITHUB_WORKSPACE/git-repo"
+
+      - name: Clone repositories
+        run: |
+          $PSNativeCommandUseErrorActionPreference = $true
+          New-Item -ItemType Directory -Path $env:SDK_DIR -Force | Out-Null
+          Set-Location $env:SDK_DIR
+          python "$env:GITHUB_WORKSPACE/git-repo/repo" init --no-repo-verify -u $env:MANIFEST_URL --depth=1
+          python "$env:GITHUB_WORKSPACE/git-repo/repo" sync --no-repo-verify --no-clone-bundle -j $env:NUMBER_OF_PROCESSORS
+
+      - name: Record resolved revisions
+        run: |
+          $PSNativeCommandUseErrorActionPreference = $true
+          Set-Location $env:SDK_DIR
+          python "$env:GITHUB_WORKSPACE/git-repo/repo" manifest -r -o "$env:GITHUB_WORKSPACE/resolved-manifest.xml"
+          python "$env:GITHUB_WORKSPACE/git-repo/repo" forall -p -c 'git rev-parse HEAD'
+
+      - name: Build documentation
+        run: |
+          $PSNativeCommandUseErrorActionPreference = $true
+          Set-Location $env:SDK_DIR
+          uv sync --locked --no-install-project --no-default-groups --group sdk
+          uv run --no-sync cmake -S docs -B $env:DOCS_BUILD_DIR -G Ninja
+          cmake --build $env:DOCS_BUILD_DIR --parallel $env:NUMBER_OF_PROCESSORS
 
   deploy:
     name: Deploy documentation
