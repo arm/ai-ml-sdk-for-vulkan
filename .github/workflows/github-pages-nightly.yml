@@ -165,7 +165,7 @@ jobs:
           $PSNativeCommandUseErrorActionPreference = $true
           Set-Location $env:SDK_DIR
           python "$env:GITHUB_WORKSPACE/git-repo/repo" manifest -r -o "$env:GITHUB_WORKSPACE/resolved-manifest.xml"
-          python "$env:GITHUB_WORKSPACE/git-repo/repo" forall -p -c 'git rev-parse HEAD'
+          python "$env:GITHUB_WORKSPACE/git-repo/repo" forall -p -c git rev-parse HEAD
 
       - name: Build documentation
         run: |
