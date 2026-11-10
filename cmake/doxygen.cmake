@@ -21,8 +21,7 @@ set(DOXYGEN_FILES)
 foreach(INPUT_DIR IN LISTS DOXYGEN_INPUT_DIRS)
     string(APPEND DOXYGEN_INPUT_PATHS " \"${INPUT_DIR}\"")
     file(GLOB INPUT_FILES CONFIGURE_DEPENDS LIST_DIRECTORIES false
-        "${INPUT_DIR}/*.c" "${INPUT_DIR}/*.cpp" "${INPUT_DIR}/*.h"
-        "${INPUT_DIR}/*.hpp" "${INPUT_DIR}/*.md" "${INPUT_DIR}/*.dox")
+        "${INPUT_DIR}/*.h" "${INPUT_DIR}/*.hpp")
     list(APPEND DOXYGEN_FILES ${INPUT_FILES})
 endforeach()
 foreach(STRIP_DIR IN LISTS DOXYGEN_STRIP_DIRS)

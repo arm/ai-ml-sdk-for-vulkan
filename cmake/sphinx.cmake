@@ -2,11 +2,6 @@
 # SPDX-FileCopyrightText: Copyright 2023-2026 Arm Limited and/or its affiliates <open-source-office@arm.com>
 # SPDX-License-Identifier: Apache-2.0
 #
-# TODO(standalone-docs): Use SPHINX_EXECUTABLE directly once the legacy native
-# PYTHONPATH command in docs/docs.cmake is removed; then remove this fallback.
-if(NOT SPHINX_COMMAND)
-    set(SPHINX_COMMAND "${SPHINX_EXECUTABLE}")
-endif()
 set(BREATHE_PROJECT_ARGS "-Dbreathe_projects.MLSDK=${DOXYGEN_XML_GEN}")
 if("scenario-runner" IN_LIST ML_SDK_COMPONENTS_DIRS)
     set(SCENARIO_XML "${ML_SDK_DOC_COMPONENT_BINARY_ROOT}/scenario-runner/docs/doxygen")
@@ -31,7 +26,7 @@ add_custom_command(OUTPUT "${SPHINX_STAMP}" "${SPHINX_INDEX_HTML}"
     DEPENDS ${SPHINX_DEPENDS} ${DOXYGEN_DEPENDS}
     COMMAND "${CMAKE_COMMAND}" -E rm -f "${SPHINX_STAMP}"
     COMMAND "${CMAKE_COMMAND}" -E rm -rf "${SPHINX_BLD_DIR}"
-    COMMAND ${SPHINX_COMMAND} -b html ${SPHINX_WARN_ARGS} ${BREATHE_PROJECT_ARGS}
+    COMMAND "${SPHINX_EXECUTABLE}" -b html ${SPHINX_WARN_ARGS} ${BREATHE_PROJECT_ARGS}
         "${SPHINX_SRC_DIR}" "${SPHINX_BLD_DIR}"
     COMMAND "${CMAKE_COMMAND}" -E rm -rf ${CLEANUP_DIRS}
     COMMAND "${CMAKE_COMMAND}" -E touch "${SPHINX_STAMP}"

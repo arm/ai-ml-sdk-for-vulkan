@@ -91,12 +91,8 @@ WARN_FORMAT            = "$file:$line: $text"
 WARN_LOGFILE           =
 INPUT                  = @DOXYGEN_INPUT_PATHS@
 INPUT_ENCODING         = UTF-8
-FILE_PATTERNS          = *.c \
-                         *.cpp \
-                         *.h \
-                         *.hpp \
-                         *.md \
-                         *.dox
+FILE_PATTERNS          = *.h \
+                         *.hpp
 RECURSIVE              = NO
 EXCLUDE                =
 EXCLUDE_SYMLINKS       = NO

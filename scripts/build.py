@@ -22,7 +22,7 @@ CMAKE_TOOLCHAIN_PATH = ML_SDK_FOR_VULKAN_DIR / "cmake" / "toolchain"
 
 class Builder:
     """
-    A class that builds ML SDK for Vulkan® components and documentation.
+    A class that builds ML SDK for Vulkan® components.
 
     Parameters
     ----------
@@ -60,8 +60,6 @@ class Builder:
         self.disable_workload_lib_vgf_support = args.disable_workload_lib_vgf_support
         self.build_pylib = args.build_pylib
 
-        self.doc_only = args.doc_only
-        self.doc = args.doc or self.doc_only
         self.install = args.install
 
         self.package_dir = args.package_dir or self.build_dir
@@ -180,14 +178,11 @@ class Builder:
         if self.package_version:
             cmake_setup_cmd.append(f"-DML_SDK_PACKAGE_VERSION={self.package_version}")
 
-        if self.skip_llvm_patch or self.doc_only:
+        if self.skip_llvm_patch:
             cmake_setup_cmd.append("-DMODEL_CONVERTER_APPLY_LLVM_PATCH=OFF")
 
         if self.prefix_path:
             cmake_setup_cmd.append(f"-DCMAKE_PREFIX_PATH={self.prefix_path}")
-
-        if self.doc:
-            cmake_setup_cmd.append("-DML_SDK_BUILD_DOCS=ON")
 
         cmake_setup_cmd.append(f"-DGTEST_PATH={self.gtest_path}")
 
@@ -200,10 +195,6 @@ class Builder:
             "--config",
             self.build_type,
         ]
-        if self.doc_only:
-            # Build the dedicated SDK doc target instead of the default target.
-            cmake_build_cmd.extend(["--target", "sdk_doc"])
-
         try:
             subprocess.run(cmake_setup_cmd, check=True)
             subprocess.run(cmake_build_cmd, check=True)
@@ -227,18 +218,14 @@ class Builder:
                 self.generate_cmake_package("ZIP")
 
         except ValueError as e:
-            print(
-                f"Exception caught in documentation build script: {e}", file=sys.stderr
-            )
+            print(f"Exception caught in build script: {e}", file=sys.stderr)
             return 1
 
         return 0
 
 
 def parse_arguments():
-    parser = argparse.ArgumentParser(
-        description="Build ML SDK for Vulkan® components and documentation."
-    )
+    parser = argparse.ArgumentParser(description="Build ML SDK for Vulkan® components.")
     parser.add_argument(
         "--prefix-path",
         help="Path to prefix directory.",
@@ -360,19 +347,6 @@ def parse_arguments():
     parser.add_argument(
         "--build-pylib",
         help="Build VGF Library and Scenario Runner Python bindings",
-        action="store_true",
-        default=False,
-    )
-    doc_group = parser.add_mutually_exclusive_group()
-    doc_group.add_argument(
-        "--doc",
-        help="Build documentation. Default: %(default)s",
-        action="store_true",
-        default=False,
-    )
-    doc_group.add_argument(
-        "--doc-only",
-        help="Only build documentation. Default: %(default)s",
         action="store_true",
         default=False,
     )
