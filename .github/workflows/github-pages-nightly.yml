@@ -144,10 +144,11 @@ jobs:
           choco install -y doxygen.install ninja graphviz plantuml
           "$env:ProgramFiles/doxygen/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
           "$env:ProgramFiles/Graphviz/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-          $plantumlCli = (Get-Command plantumlc).Source
+          $plantumlJar = Join-Path $env:ChocolateyInstall 'lib/plantuml/tools/plantuml.jar'
           $plantumlDir = Join-Path $env:RUNNER_TEMP 'docs-tools'
           New-Item -ItemType Directory -Path $plantumlDir -Force | Out-Null
-          "@echo off`r`n`"$plantumlCli`" %*" | Set-Content -Path (Join-Path $plantumlDir 'plantuml.cmd')
+          @('@echo off', "java -Dfile.encoding=UTF-8 -jar `"$plantumlJar`" %*") |
+            Set-Content -Path (Join-Path $plantumlDir 'plantuml.bat')
           $plantumlDir | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
           python -m pip install uv==0.13.4
           git clone https://gerrit.googlesource.com/git-repo "$env:GITHUB_WORKSPACE/git-repo"
