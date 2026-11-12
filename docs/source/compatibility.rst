@@ -11,53 +11,53 @@ Release compatibility
 .. list-table::
    :header-rows: 1
    :width: 100%
-   :widths: 15 12 14 12 16 15 16
+   :widths: 15 12 16 14 15 12 16
 
    * - | ML SDK
        | release
      - Manifest
+     - | Emulation
+       | Layer
      - | Model
        | Converter
+     - | Scenario
+       | Runner
      - | VGF
        | Library
      - | Workload
        | Library
-     - | Scenario
-       | Runner
-     - | Emulation
-       | Layer
    * - 2025.10.0
      - `v2025.10.0
        <https://github.com/arm/ai-ml-sdk-manifest/blob/v2025.10.0/default.xml>`_
      - 0.7.0
      - 0.7.0
+     - 0.7.0
+     - 0.7.0
      - N/A
-     - 0.7.0
-     - 0.7.0
    * - 2025.12.0
      - `v2025.12.0
        <https://github.com/arm/ai-ml-sdk-manifest/blob/v2025.12.0/default.xml>`_
      - 0.8.0
      - 0.8.0
+     - 0.8.0
+     - 0.8.0
      - N/A
-     - 0.8.0
-     - 0.8.0
    * - 2026.03.0
      - `v2026.03.0
        <https://github.com/arm/ai-ml-sdk-manifest/blob/v2026.03.0/default.xml>`_
      - 0.9.0
      - 0.9.0
+     - 0.9.0
+     - 0.9.0
      - N/A
-     - 0.9.0
-     - 0.9.0
    * - 2026.06.0
      - `v2026.06.0
        <https://github.com/arm/ai-ml-sdk-manifest/blob/v2026.06.0/default.xml>`_
      - 0.10.0
      - 0.10.0
+     - 0.10.0
+     - 0.10.0
      - N/A
-     - 0.10.0
-     - 0.10.0
    * - 2026.09.0
      - `v2026.09.0
        <https://github.com/arm/ai-ml-sdk-manifest/blob/v2026.09.0/default.xml>`_

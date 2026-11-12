@@ -19,8 +19,8 @@ and the :doc:`compatibility guide </compatibility>`.
 System boundaries
 -----------------
 
-The SDK contains five components: Model Converter, VGF Library, Emulation Layer,
-Scenario Runner, and Workload Library.
+The SDK contains five components: Emulation Layer, Model Converter, Scenario Runner,
+VGF Library, and Workload Library.
 
 There are three principal boundaries:
 
@@ -61,23 +61,23 @@ calls and Emulation Layer integration are covered under
    * - Component
      - Responsibility
      - Main interfaces and artifacts
-   * - Model Converter
-     - Transforms supported TOSA input into SPIR-V™ graphs and VGF execution
-       metadata, including compute-shader segments for supported custom shaders.
-     - Command-line tool; TOSA FlatBuffer or MLIR input; VGF output.
-   * - VGF Library
-     - Encodes and decodes deployment assets. Exposes modules, sequences,
-       resources, bindings, and constants without creating Vulkan® objects.
-     - C/C++ encoder and decoder APIs, Python bindings, VGF Dump and Updater tools.
-   * - Emulation Layer
+   * - :doc:`Emulation Layer </emulation-layer/docs/in/architecture>`
      - Implements graph and tensor extension behavior through Vulkan® layers,
        translating supported workloads into compute operations.
      - Vulkan® entry points; graph and tensor layer manifests.
-   * - Scenario Runner
+   * - :doc:`Model Converter </model-converter/docs/in/architecture>`
+     - Transforms supported TOSA input into SPIR-V™ graphs and VGF execution
+       metadata, including compute-shader segments for supported custom shaders.
+     - Command-line tool; TOSA FlatBuffer or MLIR input; VGF output.
+   * - :doc:`Scenario Runner </scenario-runner/docs/in/architecture>`
      - Constructs and executes scenarios, manages resources and commands, and
        collects results and diagnostics.
      - JSON/CLI workflow, C++ and Python APIs; VGF, shaders, graph inputs, and data.
-   * - Workload Library
+   * - :doc:`VGF Library </vgf-lib/docs/in/architecture>`
+     - Encodes and decodes deployment assets. Exposes modules, sequences,
+       resources, bindings, and constants without creating Vulkan® objects.
+     - C/C++ encoder and decoder APIs, Python bindings, VGF Dump and Updater tools.
+   * - :doc:`Workload Library </workload-lib/docs/in/architecture>`
      - Provides application integration for VGF and standalone compute or
        data-graph workloads, with resource inspection and execution management.
      - C++ API; application-owned or library-owned Vulkan® context and resources.
@@ -199,8 +199,8 @@ features using graph and tensor layers:
   with session memory planning for intermediate data. TOSA and Motion Engine
   instruction sets and optical-flow workloads use this graph infrastructure.
 * ``VK_LAYER_ML_Tensor_Emulation`` implements tensor objects, views, descriptor
-  handling, and related operations. Tensor-using compute shaders are translated
-  through SPIRV-Cross to GLSL and compiled back to SPIR-V™ using glslang.
+  handling, and related operations. By default, tensor-using compute shaders are
+  translated through SPIRV-Cross to GLSL and compiled back to SPIR-V™ using glslang.
 
 In the current SDK, **graph emulation requires the tensor emulation layer**.
 Enable the graph layer before the tensor layer in the Vulkan® layer chain.

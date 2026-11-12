@@ -25,21 +25,21 @@ files:
    * - Component
      - Python wheels
      - Binary archives
+   * - Emulation Layer
+     - `PyPI <https://pypi.org/project/ai-ml-emulation-layer-for-vulkan/>`__
+     - `GitHub releases <https://github.com/arm/ai-ml-emulation-layer-for-vulkan/releases>`__
    * - Model Converter
      - `PyPI <https://pypi.org/project/ai-ml-sdk-model-converter/>`__
      - `GitHub releases <https://github.com/arm/ai-ml-sdk-model-converter/releases>`__
+   * - Scenario Runner
+     - `PyPI <https://pypi.org/project/ai-ml-sdk-scenario-runner/>`__
+     - `GitHub releases <https://github.com/arm/ai-ml-sdk-scenario-runner/releases>`__
    * - VGF Library
      - `PyPI <https://pypi.org/project/ai-ml-sdk-vgf-library/>`__
      - `GitHub releases <https://github.com/arm/ai-ml-sdk-vgf-library/releases>`__
    * - Workload Library
      - `PyPI <https://pypi.org/project/ai-ml-workload-library-for-vulkan/>`__
      - `GitHub releases <https://github.com/arm/ai-ml-workload-library-for-vulkan/releases>`__
-   * - Scenario Runner
-     - `PyPI <https://pypi.org/project/ai-ml-sdk-scenario-runner/>`__
-     - `GitHub releases <https://github.com/arm/ai-ml-sdk-scenario-runner/releases>`__
-   * - Emulation Layer
-     - `PyPI <https://pypi.org/project/ai-ml-emulation-layer-for-vulkan/>`__
-     - `GitHub releases <https://github.com/arm/ai-ml-emulation-layer-for-vulkan/releases>`__
 
 Select the binary archive for your operating system and architecture from
 the release assets, then extract it and follow the component's usage
@@ -187,13 +187,13 @@ Available packages
 
 Install the components needed for your workflow:
 
+* **Emulation Layer** provides the Vulkan® ML emulation layers used when
+  running workloads through emulation.
 * **Model Converter** converts TOSA models into VGF artifacts.
+* **Scenario Runner** executes workloads described by scenario files.
 * **VGF Library** provides VGF file handling and the ``vgf_dump`` tool.
 * **Workload Library** provides a native library for applications that execute
   Vulkan® workloads.
-* **Scenario Runner** executes workloads described by scenario files.
-* **Emulation Layer** provides the Vulkan® ML emulation layers used when
-  running workloads through emulation.
 
 The commands below require binary wheels for the package and its dependencies.
 This avoids falling back to a source build when a compatible wheel is missing.
@@ -207,10 +207,18 @@ See the `pip installation options
    * - Component
      - Install command
      - Package description
+   * - Emulation Layer
+     - ``python -m pip install --only-binary=:all: ai-ml-emulation-layer-for-vulkan``
+     - `Emulation Layer on PyPI
+       <https://pypi.org/project/ai-ml-emulation-layer-for-vulkan/>`_
    * - Model Converter
      - ``python -m pip install --only-binary=:all: ai-ml-sdk-model-converter``
      - `Model Converter on PyPI
        <https://pypi.org/project/ai-ml-sdk-model-converter/>`_
+   * - Scenario Runner
+     - ``python -m pip install --only-binary=:all: ai-ml-sdk-scenario-runner``
+     - `Scenario Runner on PyPI
+       <https://pypi.org/project/ai-ml-sdk-scenario-runner/>`_
    * - VGF Library
      - ``python -m pip install --only-binary=:all: ai-ml-sdk-vgf-library``
      - `VGF Library on PyPI
@@ -219,14 +227,6 @@ See the `pip installation options
      - ``python -m pip install --only-binary=:all: ai-ml-workload-library-for-vulkan``
      - `Workload Library on PyPI
        <https://pypi.org/project/ai-ml-workload-library-for-vulkan/>`_
-   * - Scenario Runner
-     - ``python -m pip install --only-binary=:all: ai-ml-sdk-scenario-runner``
-     - `Scenario Runner on PyPI
-       <https://pypi.org/project/ai-ml-sdk-scenario-runner/>`_
-   * - Emulation Layer
-     - ``python -m pip install --only-binary=:all: ai-ml-emulation-layer-for-vulkan``
-     - `Emulation Layer on PyPI
-       <https://pypi.org/project/ai-ml-emulation-layer-for-vulkan/>`_
 
 If ``pip`` reports that no matching distribution is available, check the
 package's **Download files** page. A wheel might not yet be available for your
