@@ -208,7 +208,7 @@ application using the Workload Library.
 Further reading
 ---------------
 
-* `LunarG Vulkan SDK: Getting Started on Darwin <https://vulkan.lunarg.com/doc/view/1.4.350.1/mac/getting_started.html>`_
-* `Vulkan Loader driver interface <https://github.com/KhronosGroup/Vulkan-Loader/blob/main/docs/LoaderDriverInterface.md>`_
-* `Vulkan Loader layer interface <https://github.com/KhronosGroup/Vulkan-Loader/blob/main/docs/LoaderLayerInterface.md>`_
+* `LunarG Vulkan® SDK: Getting Started on Darwin <https://vulkan.lunarg.com/doc/view/1.4.350.1/mac/getting_started.html>`_
+* `Vulkan® Loader driver interface <https://github.com/KhronosGroup/Vulkan-Loader/blob/main/docs/LoaderDriverInterface.md>`_
+* `Vulkan® Loader layer interface <https://github.com/KhronosGroup/Vulkan-Loader/blob/main/docs/LoaderLayerInterface.md>`_
 * `MoltenVK runtime user guide <https://github.com/KhronosGroup/MoltenVK/blob/main/Docs/MoltenVK_Runtime_UserGuide.md>`_

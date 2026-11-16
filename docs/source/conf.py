@@ -89,3 +89,21 @@ exclude_patterns = [
     "**/docs/generated/*.md",
     "**/generated/*.md",
 ]
+
+
+def resolve_readme_documents(app, doctree):
+    """Resolve repository-relative README links inside the generated docs."""
+    from sphinx.addnodes import pending_xref
+
+    for node in doctree.findall(pending_xref):
+        target = node.get("reftarget", "")
+        if target.startswith("docs/source/") and "#" not in target:
+            node["refdomain"] = "std"
+            node["reftype"] = "doc"
+            node["reftarget"] = "/" + target.removeprefix("docs/source/").removesuffix(
+                ".rst"
+            ).removesuffix(".md")
+
+
+def setup(app):
+    app.connect("doctree-read", resolve_readme_documents)

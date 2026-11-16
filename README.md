@@ -30,7 +30,7 @@ repo sync --no-clone-bundle
 
 To ensure nested submodules do not exceed the maximum long path length, you must
 enable long paths on Windows®, and you must clone close to the root directory
-or use a symlink. Make sure to use Git for Windows.
+or use a symlink. Make sure to use Git for Windows®.
 
 Using **PowerShell**:
 
@@ -61,8 +61,8 @@ in `<repo_root>/dependencies/`.
 You can initialize the repository with only the components that you need. This
 also fetches only the dependencies required by the selected components. The
 `-g all` in the preceding initialization command is equivalent to selecting the
-`model-converter`, `vgf-lib`, `workload-lib`, `scenario-runner`, and
-`emulation-layer` groups. Some components may also force other components to be
+`emulation-layer`, `model-converter`, `scenario-runner`, `vgf-lib`, and
+`workload-lib` groups. Some components may also force other components to be
 included. For example, `scenario-runner` includes `vgf-lib` because it is
 required, while the `workload-lib` group includes it to enable the library's
 default VGF workload support.
@@ -77,10 +77,10 @@ results in a more complicated workflow.
 
 The ML SDK for Vulkan® consists of the following components:
 
-- [VGF Library](https://github.com/arm/ai-ml-sdk-vgf-library)
+- [Emulation Layer](https://github.com/arm/ai-ml-emulation-layer-for-vulkan)
 - [Model Converter](https://github.com/arm/ai-ml-sdk-model-converter)
 - [Scenario Runner](https://github.com/arm/ai-ml-sdk-scenario-runner)
-- [Emulation Layer](https://github.com/arm/ai-ml-emulation-layer-for-vulkan)
+- [VGF Library](https://github.com/arm/ai-ml-sdk-vgf-library)
 - [Workload Library](https://github.com/arm/ai-ml-workload-library-for-vulkan)
 
 These can be built from the ML SDK for Vulkan® root repository or individually
@@ -133,7 +133,7 @@ Library for Vulkan® and in Scenario Runner where supported. Pass
 `--disable-workload-lib-vgf-support` to build the library for standalone
 workloads without VGF Library support.
 
-Pass `--build-pylib` to build the VGF Library and Scenario Runner Python
+Pass `--build-pylib` to build the Scenario Runner and VGF Library Python
 bindings alongside the native components.
 
 If the ML SDK for Vulkan® components are installed in custom locations, specify
@@ -146,10 +146,10 @@ their paths by adding the following command line option:
 COMPONENT_NAME can be one of the following (with its default relative location
 in parentheses):
 
-- vgf-lib (sw/vgf-lib)
+- emulation-layer (sw/emulation-layer)
 - model-converter (sw/model-converter)
 - scenario-runner (sw/scenario-runner)
-- emulation-layer (sw/emulation-layer)
+- vgf-lib (sw/vgf-lib)
 - workload-lib (sw/workload-lib)
 
 Similarly, dependencies with custom install locations need to be specified. For
