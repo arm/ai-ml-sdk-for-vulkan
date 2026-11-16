@@ -41,15 +41,15 @@ accross multiple vendor implementations.
 
 .. toctree::
    :maxdepth: 2
-   :caption: ML SDK Model Converter
+   :caption: ML Emulation Layer for Vulkan®
 
-   model-converter/docs/in/index.rst
+   emulation-layer/docs/in/index.rst
 
 .. toctree::
    :maxdepth: 2
-   :caption: ML SDK VGF Library
+   :caption: ML SDK Model Converter
 
-   vgf-lib/docs/in/index.rst
+   model-converter/docs/in/index.rst
 
 .. toctree::
    :maxdepth: 2
@@ -59,9 +59,9 @@ accross multiple vendor implementations.
 
 .. toctree::
    :maxdepth: 2
-   :caption: ML Emulation Layer for Vulkan®
+   :caption: ML SDK VGF Library
 
-   emulation-layer/docs/in/index.rst
+   vgf-lib/docs/in/index.rst
 
 .. toctree::
    :maxdepth: 2

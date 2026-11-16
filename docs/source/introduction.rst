@@ -3,10 +3,10 @@ Introduction
 
 The |SDK_project| is a collection of libraries and tools consisting of various components:
 
-• :ref:`ML SDK Model Converter`
-• :ref:`ML SDK VGF Library`
-• :ref:`ML SDK Scenario Runner`
 • :ref:`ML Emulation Layer for Vulkan®`
+• :ref:`ML SDK Model Converter`
+• :ref:`ML SDK Scenario Runner`
+• :ref:`ML SDK VGF Library`
 • :ref:`ML Workload Library for Vulkan®`
 
 The following figure shows how you can use each of the ML SDK for Vulkan® components in a larger system:
@@ -18,6 +18,13 @@ The following figure shows how you can use each of the ML SDK for Vulkan® compo
 
 The following gives a brief introduction to each of the ML SDK for Vulkan® components:
 
+**Emulation layer**
+    A TOSA compliant, compute-based implementation exposed using Vulkan® Layers.
+    The Emulation Layer currently exposes `VK_ARM_tensors`,
+    `VK_ARM_data_graph`, `VK_ARM_data_graph_instruction_set_tosa`, and
+    `VK_ARM_data_graph_optical_flow`. The corresponding SPIR-V™ extensions and extended instruction sets currently in
+    use are `SPV_ARM_graph`, `SPV_ARM_tensors`, `TOSA.001000.1` and `Arm.MotionEngine.100`.
+
 **Model Converter**
     Converts TOSA models into SPIR-V™ graphs and packages the whole use case into a
     VGF file. The Model Converter must be used as part of an asset pipeline
@@ -28,6 +35,12 @@ The following gives a brief introduction to each of the ML SDK for Vulkan® comp
 
     2. The Model Converter applies additional transforms and optimizations before lowering to SPIR-V™ graph
     intermediate representation (IR) and then packaging the use case into a :code:`.vgf` file.
+
+**Scenario Runner**
+    A tool and library for exploring and validating workloads described in JSON
+    scenario files or constructed through C++ and Python APIs. It manages
+    resources and commands, executes scenarios through Vulkan®, and collects
+    outputs and diagnostics.
 
 **VGF Library**
     A simple, efficient container format for ML use cases consisting of SPIR-V™ graphs, custom shaders,
@@ -42,19 +55,6 @@ The following gives a brief introduction to each of the ML SDK for Vulkan® comp
     efficient decoding of the VGF file at runtime by supporting memory mapped file access (optional). The
     library requires user managed memory allocation to minimise copying and in-memory duplication of
     potentially large constant data.
-
-**Scenario Runner**
-    A tool and library for exploring and validating workloads described in JSON
-    scenario files or constructed through C++ and Python APIs. It manages
-    resources and commands, executes scenarios through Vulkan®, and collects
-    outputs and diagnostics.
-
-**Emulation layer**
-    A TOSA compliant, compute-based implementation exposed using Vulkan® Layers.
-    The Emulation Layer currently exposes `VK_ARM_tensors`,
-    `VK_ARM_data_graph`, `VK_ARM_data_graph_instruction_set_tosa`, and
-    `VK_ARM_data_graph_optical_flow`. The corresponding SPIR-V™ extensions and extended instruction sets currently in
-    use are `SPV_ARM_graph`, `SPV_ARM_tensors`, `TOSA.001000.1` and `Arm.MotionEngine.100`.
 
 **Workload Library**
     Provides a C++ runtime API for constructing VGF-backed or standalone
@@ -141,26 +141,26 @@ Platforms
 This table represents the status of platform support: supported (|/|), unsupported (|x|) and not applicable (|-|).
 We will increase support in the upcoming releases.
 
-+--------------------+-----------+----------+----------+-----------+-----------+
-| Platforms          | Model     |  VGF     | Scenario | Emulation | Workload  |
-|                    | Converter |  Library | Runner   | Layer     | Library   |
-+==========+=========+===========+==========+==========+===========+===========+
-| Linux    | AArch64 | |/|       | |/|      | |/|      | |/|       | |/|       |
-+          +---------+-----------+----------+----------+-----------+-----------+
-|          | X86-64  | |/|       | |/|      | |/|      | |/|       | |/|       |
-+----------+---------+-----------+----------+----------+-----------+-----------+
-| Windows® | AArch64 | |x|       | |x|      | |x|      | |x|       | |x|       |
-+          +---------+-----------+----------+----------+-----------+-----------+
-|          | X86-64  | |/|       | |/|      | |/|      | |/|       | |/|       |
-+----------+---------+-----------+----------+----------+-----------+-----------+
-| Darwin   | AArch64 | |/|       | |/|      | |/| *    | |/| *     | |/| *     |
-+          +---------+-----------+----------+----------+-----------+-----------+
-|          | X86-64  | |x|       | |x|      | |x|      | |x|       | |x|       |
-+----------+---------+-----------+----------+----------+-----------+-----------+
-| Android™ | AArch64 | |-|       | |/| **   | |/| **   | |/| **    | |/| **    |
-+          +---------+-----------+----------+----------+-----------+-----------+
-|          | X86-64  | |-|       | |x|      | |x|      | |x|       | |x|       |
-+----------+---------+-----------+----------+----------+-----------+-----------+
++--------------------+-----------+-----------+----------+----------+-----------+
+| Platforms          | Emulation | Model     | Scenario |  VGF     | Workload  |
+|                    | Layer     | Converter | Runner   |  Library | Library   |
++==========+=========+===========+===========+==========+==========+===========+
+| Linux    | AArch64 | |/|       | |/|       | |/|      | |/|      | |/|       |
++          +---------+-----------+-----------+----------+----------+-----------+
+|          | X86-64  | |/|       | |/|       | |/|      | |/|      | |/|       |
++----------+---------+-----------+-----------+----------+----------+-----------+
+| Windows® | AArch64 | |x|       | |x|       | |x|      | |x|      | |x|       |
++          +---------+-----------+-----------+----------+----------+-----------+
+|          | X86-64  | |/|       | |/|       | |/|      | |/|      | |/|       |
++----------+---------+-----------+-----------+----------+----------+-----------+
+| Darwin   | AArch64 | |/| *     | |/|       | |/| *    | |/|      | |/| *     |
++          +---------+-----------+-----------+----------+----------+-----------+
+|          | X86-64  | |x|       | |x|       | |x|      | |x|      | |x|       |
++----------+---------+-----------+-----------+----------+----------+-----------+
+| Android™ | AArch64 | |/| **    | |-|       | |/| **   | |/| **   | |/| **    |
++          +---------+-----------+-----------+----------+----------+-----------+
+|          | X86-64  | |x|       | |-|       | |x|      | |x|      | |x|       |
++----------+---------+-----------+-----------+----------+----------+-----------+
 
 
 \*  Experimental |SDK_project| support via MoltenVK or KosmicKrisp.
@@ -175,8 +175,8 @@ Tensor Data Types
 -----------------
 
 This table summarizes single-channel tensor element formats that are currently
-handled by the ML SDK Model Converter, ML SDK Scenario Runner, ML Emulation
-Layer for Vulkan®, and ML Workload Library for Vulkan®.
+handled by the ML Emulation Layer for Vulkan®, ML SDK Model Converter,
+ML SDK Scenario Runner, and ML Workload Library for Vulkan®.
 
 The ML SDK VGF Library is not listed because it stores encoded tensor format
 metadata without adding data type-specific validation rules.
@@ -184,37 +184,37 @@ metadata without adding data type-specific validation rules.
 This table represents the status of tensor data type support: supported (|/|)
 and unsupported (|x|).
 
-+--------------------+-----------+----------+-----------+----------+
-| Tensor data type   | ML SDK    | ML SDK   | ML SDK    | Workload |
-|                    | Model     | Scenario | Emulation | Library  |
-|                    | Converter | Runner   | Layer     |          |
-+====================+===========+==========+===========+==========+
-| bool               | |/|       | |/|      | |/|       | |/|      |
-+--------------------+-----------+----------+-----------+----------+
-| uint8              | |/|       | |/|      | |/|       | |/|      |
-+--------------------+-----------+----------+-----------+----------+
-| int8               | |/|       | |/|      | |/|       | |/|      |
-+--------------------+-----------+----------+-----------+----------+
-| uint16             | |/|       | |/|      | |/|       | |/|      |
-+--------------------+-----------+----------+-----------+----------+
-| int16              | |/|       | |/|      | |/|       | |/|      |
-+--------------------+-----------+----------+-----------+----------+
-| uint32             | |/|       | |/|      | |/|       | |/|      |
-+--------------------+-----------+----------+-----------+----------+
-| int32              | |/|       | |/|      | |/|       | |/|      |
-+--------------------+-----------+----------+-----------+----------+
-| int64              | |/|       | |/|      | |/|       | |/|      |
-+--------------------+-----------+----------+-----------+----------+
-| float16            | |/|       | |/|      | |/|       | |/|      |
-+--------------------+-----------+----------+-----------+----------+
-| float32            | |/|       | |/|      | |/|       | |/|      |
-+--------------------+-----------+----------+-----------+----------+
-| BFloat16           | |/|       | |/|      | |/|       | |/|      |
-+--------------------+-----------+----------+-----------+----------+
-| Float8E4M3         | |/|       | |/|      | |/|       | |/|      |
-+--------------------+-----------+----------+-----------+----------+
-| Float8E5M2         | |/|       | |/|      | |/|       | |/|      |
-+--------------------+-----------+----------+-----------+----------+
++--------------------+-----------+-----------+----------+----------+
+| Tensor data type   | ML SDK    | ML SDK    | ML SDK   | Workload |
+|                    | Emulation | Model     | Scenario | Library  |
+|                    | Layer     | Converter | Runner   |          |
++====================+===========+===========+==========+==========+
+| bool               | |/|       | |/|       | |/|      | |/|      |
++--------------------+-----------+-----------+----------+----------+
+| uint8              | |/|       | |/|       | |/|      | |/|      |
++--------------------+-----------+-----------+----------+----------+
+| int8               | |/|       | |/|       | |/|      | |/|      |
++--------------------+-----------+-----------+----------+----------+
+| uint16             | |/|       | |/|       | |/|      | |/|      |
++--------------------+-----------+-----------+----------+----------+
+| int16              | |/|       | |/|       | |/|      | |/|      |
++--------------------+-----------+-----------+----------+----------+
+| uint32             | |/|       | |/|       | |/|      | |/|      |
++--------------------+-----------+-----------+----------+----------+
+| int32              | |/|       | |/|       | |/|      | |/|      |
++--------------------+-----------+-----------+----------+----------+
+| int64              | |/|       | |/|       | |/|      | |/|      |
++--------------------+-----------+-----------+----------+----------+
+| float16            | |/|       | |/|       | |/|      | |/|      |
++--------------------+-----------+-----------+----------+----------+
+| float32            | |/|       | |/|       | |/|      | |/|      |
++--------------------+-----------+-----------+----------+----------+
+| BFloat16           | |/|       | |/|       | |/|      | |/|      |
++--------------------+-----------+-----------+----------+----------+
+| Float8E4M3         | |/|       | |/|       | |/|      | |/|      |
++--------------------+-----------+-----------+----------+----------+
+| Float8E5M2         | |/|       | |/|       | |/|      | |/|      |
++--------------------+-----------+-----------+----------+----------+
 
 The Model Converter column reflects the VGF tensor formats it can emit after
 lowering.
