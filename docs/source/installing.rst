@@ -89,8 +89,8 @@ component or Python version.
      - All five components are supported. Windows® on AArch64 is unsupported.
    * - Darwin
      - Arm64
-     - Model Converter and VGF Library are supported. Workload Library,
-       Scenario Runner, and Emulation Layer support is experimental.
+     - Model Converter and VGF Library are supported. Emulation Layer,
+       Scenario Runner, and Workload Library support is experimental.
        Darwin on x86-64 is unsupported.
 
 The current Linux binary packages are built and tested on AlmaLinux 8.
@@ -156,7 +156,7 @@ even when its GIL is enabled.
 
 Use a virtual environment created with standard CPython for these packages.
 If you only need the native CLI tools, use the component's binary release
-archive instead. Model Converter, Emulation Layer, and Workload Library use
+archive instead. Emulation Layer, Model Converter, and Workload Library use
 ``py3-none`` wheels and do not have this Python ABI restriction; their other
 package and runtime requirements still apply.
 
@@ -261,7 +261,7 @@ LunarG Vulkan® SDK is not required when using prebuilt packages.
 Darwin
 ~~~~~~
 
-Workload Library, Scenario Runner, and Emulation Layer support on Darwin is
+Emulation Layer, Scenario Runner, and Workload Library support on Darwin is
 experimental.
 
 Install the latest available LunarG Vulkan® SDK for Darwin. The SDK provides
@@ -283,11 +283,11 @@ You can also inspect an installed package:
 
 .. code-block:: shell
 
+   python -m pip show ai-ml-emulation-layer-for-vulkan
    python -m pip show ai-ml-sdk-model-converter
+   python -m pip show ai-ml-sdk-scenario-runner
    python -m pip show ai-ml-sdk-vgf-library
    python -m pip show ai-ml-workload-library-for-vulkan
-   python -m pip show ai-ml-sdk-scenario-runner
-   python -m pip show ai-ml-emulation-layer-for-vulkan
 
 These checks confirm installed package metadata and dependency consistency.
 To check execution, follow the component usage instructions below and run a
@@ -298,8 +298,8 @@ Python versions and testing platforms
 -------------------------------------
 
 The current binary package build configuration targets CPython 3.11, 3.12,
-3.13, 3.14, and 3.15 for VGF Library and Scenario Runner. Model Converter,
-Emulation Layer, and Workload Library use Python 3.11 to produce
+3.13, 3.14, and 3.15 for Scenario Runner and VGF Library. Emulation Layer,
+Model Converter, and Workload Library use Python 3.11 to produce
 ``py3-none`` wheels, with Python 3.11 or later declared as their requirement.
 These are wheel build targets; check the selected release's files for actual
 availability.
@@ -334,8 +334,8 @@ documented limitations for your intended workload.
 Next steps
 ----------
 
+* :doc:`Use the Emulation Layer <emulation-layer/docs/in/usage>`
 * :doc:`Convert a model <model-converter/docs/in/usage>`
+* :doc:`Run a scenario <scenario-runner/docs/in/usage>`
 * :doc:`Use the VGF Library <vgf-lib/docs/in/index>`
 * :doc:`Use the Workload Library <workload-lib/docs/in/usage>`
-* :doc:`Run a scenario <scenario-runner/docs/in/usage>`
-* :doc:`Use the Emulation Layer <emulation-layer/docs/in/usage>`

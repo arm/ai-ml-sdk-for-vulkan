@@ -5,11 +5,17 @@ This tutorial builds on :doc:`e2e_pytorch_tutorial`. The tutorial
 describes tensor aliasing by showing you how to implement edge detection with Sobel filtering. This
 tutorial also demonstrates how to implement image filtering using tensor operations.
 
-.. image:: assets/PoolTable.jpg
+.. figure:: assets/PoolTable.jpg
    :width: 400
+   :alt: Color photograph of a blue pool table with balls and cues.
 
-.. image:: assets/PoolTableOutput.jpg
+   Input photograph for the Sobel edge-detection example.
+
+.. figure:: assets/PoolTableOutput.jpg
    :width: 400
+   :alt: Bright outlines of the pool table, balls, cues and surrounding furniture against a dark background.
+
+   Sobel-filtered output highlighting edges in the input photograph.
 
 
 1. The ML SDK Scenario Runner accepts an image in DDS format. It does not accept images in common formats,

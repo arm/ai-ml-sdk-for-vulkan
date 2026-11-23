@@ -14,54 +14,36 @@ The following figure shows how you can use each of the ML SDK for Vulkan® compo
 .. figure:: assets/ml_sdk_for_vulkan_components.svg
    :align: center
    :width: 100%
+   :alt: Offline framework and asset-pipeline stages feed Model Converter, which contains a VGF encoder and feeds the VGF Dump Tool. On-device paths show an application with Workload Library, an application with a VGF decoder, and Scenario Runner with a VGF decoder and emulation. A key identifies framework, application, SDK and Vulkan API boxes.
 
+   Offline model preparation and on-device integration. Nested boxes show library
+   use. Emulation is shown on the exploratory path; an application may also enable
+   it through the Vulkan® layer mechanism. Click the diagram to inspect it at full size.
 
-The following gives a brief introduction to each of the ML SDK for Vulkan® components:
+Each component has a distinct role:
 
 **Emulation layer**
-    A TOSA compliant, compute-based implementation exposed using Vulkan® Layers.
-    The Emulation Layer currently exposes `VK_ARM_tensors`,
-    `VK_ARM_data_graph`, `VK_ARM_data_graph_instruction_set_tosa`, and
-    `VK_ARM_data_graph_optical_flow`. The corresponding SPIR-V™ extensions and extended instruction sets currently in
-    use are `SPV_ARM_graph`, `SPV_ARM_tensors`, `TOSA.001000.1` and `Arm.MotionEngine.100`.
+    Implements supported ML graph and tensor features using Vulkan® compute,
+    exposed through the Vulkan® layer mechanism.
 
 **Model Converter**
-    Converts TOSA models into SPIR-V™ graphs and packages the whole use case into a
-    VGF file. The Model Converter must be used as part of an asset pipeline
-    deployment flow and is separated into two stages:
-
-    1. The framework specific conversion mechanism lowers the framework model to a TOSA intermediate representation
-    (not part of the |SDK_project|).
-
-    2. The Model Converter applies additional transforms and optimizations before lowering to SPIR-V™ graph
-    intermediate representation (IR) and then packaging the use case into a :code:`.vgf` file.
+    Converts exported TOSA models into graph modules and optional custom compute
+    modules, packaged with resource metadata and constants in a VGF asset.
 
 **Scenario Runner**
-    A tool and library for exploring and validating workloads described in JSON
-    scenario files or constructed through C++ and Python APIs. It manages
-    resources and commands, executes scenarios through Vulkan®, and collects
-    outputs and diagnostics.
+    Explores and validates workloads described in JSON scenarios or constructed
+    through C++ and Python APIs, collecting outputs and diagnostics.
 
 **VGF Library**
-    A simple, efficient container format for ML use cases consisting of SPIR-V™ graphs, custom shaders,
-    and constant data. This component provides:
-
-    - A C++ encoder and decoder API for writing and efficiently reading VGF files.
-    - C encoder and decoder wrapper APIs.
-    - Python bindings for encoding and decoding.
-    - VGF Dump and VGF Updater tools for inspecting and migrating VGF files.
-
-    The VGF Library is intended for integration into game engines. The library has been designed around
-    efficient decoding of the VGF file at runtime by supporting memory mapped file access (optional). The
-    library requires user managed memory allocation to minimise copying and in-memory duplication of
-    potentially large constant data.
+    Encodes, decodes, inspects, and migrates VGF containers. It provides C++, C,
+    and Python APIs without executing Vulkan® work.
 
 **Workload Library**
-    Provides a C++ runtime API for constructing VGF-backed or standalone
-    compute and data-graph workloads. Applications can use an existing Vulkan®
-    context or let the library create one, bind application-owned or
-    library-allocated resources, and run the workload or record it into an
-    application command buffer.
+    Provides a C++ runtime API for VGF-backed or standalone compute and
+    data-graph workloads, with helpers for Vulkan® context, resources, and execution.
+
+See :ref:`sdk-architecture` for component boundaries, resource ownership,
+optional dependencies, and native or emulated execution paths.
 
 In addition to these components, you will find documentation, tutorials, samples, and tests.
 
@@ -71,7 +53,8 @@ Production
 The model-based production workflow involves integrating the ML SDK Model Converter into the
 application or game :code:`asset deployment pipeline`. The pipeline needs a TOSA intermediate
 representation of a framework specific native model file. To obtain a TOSA intermediate
-representation, you should use a specific framework to TOSA converter (not depicted here).
+representation, use a framework-specific exporter or converter (the external
+export step in the figure).
 For example:
 
 - `TOSA converter for TFLite <https://gitlab.arm.com/tosa/tosa-converter-for-tflite>`_
@@ -92,54 +75,43 @@ to produce a :code:`.vgf` file. The VGF file contents can then be:
 The application or game running on the device can choose the integration level
 that fits its Vulkan® architecture:
 
-• Integrate the ML Workload Library for Vulkan® for a higher-level execution
-  path. It consumes VGF or programmatic workload descriptions, exposes their
-  resource requirements, configures execution state, and either runs the
-  workload or records it into an application command buffer.
+• Integrate the ML Workload Library for Vulkan® for workload execution support.
+• Integrate the ML SDK VGF Library decoder directly for application control over
+  translating VGF metadata into Vulkan® resources, pipelines, and commands.
 
-• Integrate the :code:`ML SDK VGF Library decoder` directly when the application
-  needs full control over translating VGF metadata into Vulkan® objects and
-  commands.
+In the direct decoder path, the application owns Vulkan® allocation,
+synchronization, and session management; VGF Library only reads the container.
 
-.. note::
-    The ML SDK VGF Library does not call the Vulkan® API. In the direct decoder
-    integration path, the application must translate the parsed information
-    into Vulkan® API calls, including memory allocation, resource and pipeline
-    creation, synchronization, and session management.
 
 Exploration
 -----------
 
-When exploring the viability of a ML use case or API integration, it can be useful to first explore the use
-case for the ML SDK Scenario Runner. The ML SDK Scenario Runner allows running use cases in a declarative manner before
-working on more complicated feature integrations.
+Use Scenario Runner to explore a use case declaratively before integrating it
+into an application. VGF Dump can extract container contents and generate a
+scenario template, as shown in the :doc:`VGF execution tutorial <vgf_run_tutorial>`.
+Workload Library samples then demonstrate C++ integration with VGF or standalone
+workloads and application-owned Vulkan® contexts.
 
-The ML Workload Library for Vulkan® samples provide the next step for exploring
-C++ application integration, including VGF inspection and execution,
-standalone compute and data-graph workloads, and application-owned Vulkan®
-contexts. No ML SDK executable currently integrates the library on behalf of
-an application.
-
-Scenario Runner currently implements its own Vulkan® execution path. Standalone
-compute and data-graph workloads can also be constructed through either runtime's
-APIs without exporting a model to VGF.
+Scenario Runner uses Workload Library for direct compute dispatches. Its current
+VGF dispatch constructor follows a separate legacy execution path. Scenario
+Runner retains resource ownership, outer command recording and submission.
 
 .. tip::
-    While the API is relatively new, we recommend you use the ML Emulation Layer for Vulkan® for exploration. The Emulation Layer
-    provides a TOSA conformant software implementation of `VK_ARM_tensors`,
-    `VK_ARM_data_graph`, `VK_ARM_data_graph_instruction_set_tosa`, and
-    `VK_ARM_data_graph_optical_flow`, together with support for the
-    `SPV_ARM_graph` and `SPV_ARM_tensors` SPIR-V™ extensions, and `TOSA.001000.1` and `Arm.MotionEngine.100` extended instruction sets. The
-    Emulation Layer is enabled by the Vulkan® Layer mechanism.
+    The ML Emulation Layer for Vulkan® supports functional exploration when
+    enabled through the Vulkan® layer mechanism. Native and emulated paths
+    depend on the features supported by the selected Vulkan® implementation;
+    emulation still requires an underlying Vulkan® implementation. See
+    :ref:`Vulkan® implementation and emulation` for layer scope and capability
+    requirements.
 
-    Another useful tool for exploration and debugging is the VGF Dump Tool. The VGF Dump Tool allows a developer
-    to extract specific elements of the VGF file or even generate a template scenario description for a VGF file.
 
 Platforms
 ---------
 
 This table represents the status of platform support: supported (|/|), unsupported (|x|) and not applicable (|-|).
 We will increase support in the upcoming releases.
+
+.. rst-class:: support-matrix
 
 +--------------------+-----------+-----------+----------+----------+-----------+
 | Platforms          | Emulation | Model     | Scenario |  VGF     | Workload  |
@@ -184,10 +156,11 @@ metadata without adding data type-specific validation rules.
 This table represents the status of tensor data type support: supported (|/|)
 and unsupported (|x|).
 
+.. rst-class:: support-matrix
+
 +--------------------+-----------+-----------+----------+----------+
-| Tensor data type   | ML SDK    | ML SDK    | ML SDK   | Workload |
-|                    | Emulation | Model     | Scenario | Library  |
-|                    | Layer     | Converter | Runner   |          |
+| Tensor data type   | Emulation | Model     | Scenario | Workload |
+|                    | Layer     | Converter | Runner   | Library  |
 +====================+===========+===========+==========+==========+
 | bool               | |/|       | |/|       | |/|      | |/|      |
 +--------------------+-----------+-----------+----------+----------+
@@ -216,11 +189,11 @@ and unsupported (|x|).
 | Float8E5M2         | |/|       | |/|       | |/|      | |/|      |
 +--------------------+-----------+-----------+----------+----------+
 
-The Model Converter column reflects the VGF tensor formats it can emit after
-lowering.
-
 The Emulation Layer column reflects the tensor layer and the shared tensor
 format handling used by the graph layer.
+
+The Model Converter column reflects the VGF tensor formats it can emit after
+lowering.
 
 The Scenario Runner preserves the payload bytes for BFloat16 and the
 Float8 encodings when reading and writing NumPy files, rather than converting

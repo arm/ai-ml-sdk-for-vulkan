@@ -14,7 +14,7 @@ current requirements, and version-specific details.
 Which host and target platforms are supported?
 ----------------------------------------------
 
-Linux AArch64 and x86-64, and Windows x86-64, are supported. Windows AArch64
+Linux AArch64 and x86-64, and Windows® x86-64, are supported. Windows® AArch64
 and Darwin x86-64 are unsupported. Darwin AArch64 supports Model Converter and
 VGF Library, with experimental Workload Library, Scenario
 Runner, and Emulation Layer support. Android™ AArch64 support is experimental
@@ -141,7 +141,7 @@ See the complete documented :doc:`Scenario Runner Android™ build
 <scenario-runner/docs/in/build>` and :doc:`execution
 <scenario-runner/docs/in/usage>` flows, and the Emulation Layer sections for
 :ref:`Building for Android™`, :ref:`Usage on Android™`, and
-:ref:`APK Packaging`. The `Android™ Vulkan layer deployment guide
+:ref:`APK Packaging`. The `Android™ Vulkan® layer deployment guide
 <https://developer.android.com/ndk/guides/graphics/validation-layer>`_ covers
 the platform's layer file-transfer and enablement procedures.
 

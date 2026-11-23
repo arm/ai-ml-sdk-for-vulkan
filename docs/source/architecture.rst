@@ -200,7 +200,9 @@ features using graph and tensor layers:
   instruction sets and optical-flow workloads use this graph infrastructure.
 * ``VK_LAYER_ML_Tensor_Emulation`` implements tensor objects, views, descriptor
   handling, and related operations. By default, tensor-using compute shaders are
-  translated through SPIRV-Cross to GLSL and compiled back to SPIR-V™ using glslang.
+  translated through SPIRV-Cross to GLSL and compiled back to SPIR-V™ using
+  glslang. An experimental direct SPIR-V™ lowering path is also available; see
+  :doc:`emulation-layer/docs/in/architecture` for its selection and scope.
 
 In the current SDK, **graph emulation requires the tensor emulation layer**.
 Enable the graph layer before the tensor layer in the Vulkan® layer chain.
